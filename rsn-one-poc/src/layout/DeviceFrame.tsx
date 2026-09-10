@@ -28,19 +28,21 @@ export function DeviceFrame() {
   }, []);
   useEffect(() => { window.scrollTo({ top: 0 }); }, [pathname]);
 
+  // dev controls (screen jump, zoom, reset) only on the local dev server or with ?dev in the URL
+  const showDev = import.meta.env.DEV || new URLSearchParams(window.location.search).has('dev');
   const fit = Math.min(1, (vw - 8) / ART_W);
   const zoom = vw < 900 ? fit : Math.min(zoomPref, fit);
   const current = SCREENS.find(s => s.match(pathname));
 
   return (
-    <div className="frame-backdrop">
+    <div className={"frame-backdrop" + (showDev ? ' frame-backdrop--dev' : '')}>
       <div className="frame" style={{ zoom }}>
         <Outlet />
       </div>
 
       {toast && <div className="toast" role="status">{toast}</div>}
 
-      <div className="devbar" aria-label="POC controls">
+      {showDev && <div className="devbar" aria-label="POC controls">
         <select className="devbar__jump" value={current?.path ?? ''} onChange={e => e.target.value && navigate(e.target.value)} aria-label="Jump to screen">
           <option value="">Jump to screen…</option>
           {SCREENS.map(s => <option key={s.id} value={s.path}>{s.id} · {s.name}</option>)}
@@ -53,7 +55,7 @@ export function DeviceFrame() {
           </span>
         )}
         <button className="devbar__reset" onClick={() => { if (confirm('Reset all demo state (bag, orders, membership, sign-in)?')) { resetDemo(); navigate('/'); } }}>Reset demo</button>
-      </div>
+      </div>}
     </div>
   );
 }

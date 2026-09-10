@@ -1,7 +1,8 @@
 /* Backdrop + artboard. These rules are at viewport scale (outside `zoom`). */
-.frame-backdrop{min-height:100vh; background:#171010; display:flex; flex-direction:column; align-items:center; padding:24px 0 96px}
+.frame-backdrop{min-height:100vh; background:#171010; display:flex; flex-direction:column; align-items:center; padding:24px 0 24px}
+.frame-backdrop--dev{padding-bottom:96px}
 .frame{width:853px; flex:0 0 auto; box-shadow:0 30px 80px rgba(0,0,0,.55); border-radius:0}
-@media (max-width:899px){ .frame-backdrop{padding:0 0 72px} .frame{box-shadow:none} }
+@media (max-width:899px){ .frame-backdrop{padding:0} .frame-backdrop--dev{padding-bottom:72px} .frame{box-shadow:none} }
 
 /* the artboard itself — .screen comes from base.css; keep min-height so short screens
    still show the full phone */
