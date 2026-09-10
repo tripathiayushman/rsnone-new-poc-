@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — Screen Index</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#291C19;--surface:#33241F;--line:rgba(250,247,245,.14);--rose:#C97C79;
+--rose-light:#E4A49D;--cream:#FAF7F5;--muted:#A99E99;
+--serif:'Playfair Display',Georgia,serif;--sans:'Inter',-apple-system,sans-serif}
+*{box-sizing:border-box}
+body{margin:0;background:#171010;color:var(--cream);font-family:var(--sans);font-weight:300}
+.wrap{max-width:1360px;margin:0 auto;padding:56px 40px 100px}
+h1{font-family:var(--serif);font-size:52px;font-weight:400;margin:0}
+h1 em{font-style:italic;color:var(--rose-light)}
+.lede{margin:14px 0 0;max-width:760px;line-height:1.6;color:var(--muted)}
+.lede a{color:var(--rose-light)}
+.meta{display:flex;gap:34px;margin:34px 0 0;padding:22px 0;border-top:1px solid var(--line);
+border-bottom:1px solid var(--line);flex-wrap:wrap}
+.meta div{font-size:14px;color:var(--muted)}
+.meta b{display:block;font-family:var(--serif);font-size:30px;color:var(--cream);font-weight:400;margin-bottom:2px}
+.group{margin-top:54px}
+.group h2{font-family:var(--serif);font-size:28px;font-weight:400;margin:0 0 20px;
+display:flex;align-items:baseline;gap:12px}
+.group h2 span{font-family:var(--sans);font-size:13px;color:var(--muted)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:22px}
+.card{display:block;text-decoration:none;color:inherit;background:var(--surface);
+border:1px solid var(--line);border-radius:10px;overflow:hidden;transition:border-color .15s}
+.card:hover{border-color:var(--rose)}
+.card img{display:block;width:100%;height:auto;border-bottom:1px solid var(--line)}
+.card__foot{padding:12px 14px 14px;display:flex;flex-wrap:wrap;align-items:baseline;gap:8px}
+.card__id{font-size:12px;letter-spacing:.1em;color:var(--rose-light)}
+.card__name{font-family:var(--serif);font-size:17px;flex:1}
+.card__imgs{font-size:11px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>RSN <em>one</em> — screen index</h1>
+  <p class="lede">Thirty-four design mocks converted to structural HTML. Each screen is one
+  self-contained file at 853 × 1844, 1:1 with its mock. Read
+  <a href="RSN-HANDOFF-SPEC.md">RSN-HANDOFF-SPEC.md</a> first, then
+  <a href="IMAGE-MANIFEST.md">IMAGE-MANIFEST.md</a> for every image slot.
+  Photography is not supplied — images render as labelled dashed boxes until the real files
+  are dropped into <code>rsn-one-images/</code> under the names in the manifest.</p>
+
+  <div class="meta">
+    <div><b>34</b>screens</div>
+    <div><b>60</b>image slots</div>
+    <div><b>853×1844</b>artboard, 1:1</div>
+    <div><b>1</b>real asset (the logo)</div>
+  </div>
+
+    <section class="group">
+      <h2>Entry <span>4</span></h2>
+      <div class="grid">
+      <a class="card" href="C01-Splash.html">
+        <img src="_thumbs/C01-Splash.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C01</span>
+        <span class="card__name">Splash</span>
+        <span class="card__imgs">1 img</span></div>
+      </a>
+      <a class="card" href="C02-Welcome.html">
+        <img src="_thumbs/C02-Welcome.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C02</span>
+        <span class="card__name">Welcome</span>
+        <span class="card__imgs">2 img</span></div>
+      </a>
+      <a class="card" href="C19-StoreSelection.html">
+        <img src="_thumbs/C19-StoreSelection.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C19</span>
+        <span class="card__name">Store Selection</span>
+        <span class="card__imgs">4 img</span></div>
+      </a>
+      <a class="card" href="C20-LoginSignup.html">
+        <img src="_thumbs/C20-LoginSignup.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C20</span>
+        <span class="card__name">Login Signup</span>
+        <span class="card__imgs">2 img</span></div>
+      </a>
+      </div>
+    </section>
+    <section class="group">
+      <h2>Browse <span>6</span></h2>
+      <div class="grid">
+      <a class="card" href="C03-Home.html">
+        <img src="_thumbs/C03-Home.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C03</span>
+        <span class="card__name">Home</span>
+        <span class="card__imgs">20 img</span></div>
+      </a>
+      <a class="card" href="C04-Shop.html">
+        <img src="_thumbs/C04-Shop.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C04</span>
+        <span class="card__name">Shop</span>
+        <span class="card__imgs">17 img</span></div>
+      </a>
+      <a class="card" href="C05-Search.html">
+        <img src="_thumbs/C05-Search.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C05</span>
+        <span class="card__name">Search</span>
+        <span class="card__imgs">0 img</span></div>
+      </a>
+      <a class="card" href="C06-SearchResults.html">
+        <img src="_thumbs/C06-SearchResults.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C06</span>
+        <span class="card__name">Search Results</span>
+        <span class="card__imgs">11 img</span></div>
+      </a>
+      <a class="card" href="C07-ProductDetail.html">
+        <img src="_thumbs/C07-ProductDetail.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C07</span>
+        <span class="card__name">Product Detail</span>
+        <span class="card__imgs">4 img</span></div>
+      </a>
+      <a class="card" href="C08-HouseProfile.html">
+        <img src="_thumbs/C08-HouseProfile.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C08</span>
+        <span class="card__name">House Profile</span>
+        <span class="card__imgs">1 img</span></div>
+      </a>
+      </div>
+    </section>
+    <section class="group">
+      <h2>Buy <span>5</span></h2>
+      <div class="grid">
+      <a class="card" href="C09-Wishlist.html">
+        <img src="_thumbs/C09-Wishlist.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C09</span>
+        <span class="card__name">Wishlist</span>
+        <span class="card__imgs">5 img</span></div>
+      </a>
+      <a class="card" href="C10-Bag.html">
+        <img src="_thumbs/C10-Bag.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C10</span>
+        <span class="card__name">Bag</span>
+        <span class="card__imgs">3 img</span></div>
+      </a>
+      <a class="card" href="C11-CheckoutDetails.html">
+        <img src="_thumbs/C11-CheckoutDetails.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C11</span>
+        <span class="card__name">Checkout Details</span>
+        <span class="card__imgs">5 img</span></div>
+      </a>
+      <a class="card" href="C12-CheckoutPayments.html">
+        <img src="_thumbs/C12-CheckoutPayments.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C12</span>
+        <span class="card__name">Checkout Payments</span>
+        <span class="card__imgs">5 img</span></div>
+      </a>
+      <a class="card" href="C13-OrderConfirmation.html">
+        <img src="_thumbs/C13-OrderConfirmation.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C13</span>
+        <span class="card__name">Order Confirmation</span>
+        <span class="card__imgs">2 img</span></div>
+      </a>
+      </div>
+    </section>
+    <section class="group">
+      <h2>Membership <span>6</span></h2>
+      <div class="grid">
+      <a class="card" href="C14-Membership.html">
+        <img src="_thumbs/C14-Membership.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C14</span>
+        <span class="card__name">Membership</span>
+        <span class="card__imgs">1 img</span></div>
+      </a>
+      <a class="card" href="C21-MembershipJoin.html">
+        <img src="_thumbs/C21-MembershipJoin.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C21</span>
+        <span class="card__name">Membership Join</span>
+        <span class="card__imgs">2 img</span></div>
+      </a>
+      <a class="card" href="C22-MembershipPayment.html">
+        <img src="_thumbs/C22-MembershipPayment.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C22</span>
+        <span class="card__name">Membership Payment</span>
+        <span class="card__imgs">2 img</span></div>
+      </a>
+      <a class="card" href="C23-MembershipConfirmation.html">
+        <img src="_thumbs/C23-MembershipConfirmation.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C23</span>
+        <span class="card__name">Membership Confirmation</span>
+        <span class="card__imgs">2 img</span></div>
+      </a>
+      <a class="card" href="C33-MemberWallet.html">
+        <img src="_thumbs/C33-MemberWallet.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C33</span>
+        <span class="card__name">Member Wallet</span>
+        <span class="card__imgs">6 img</span></div>
+      </a>
+      <a class="card" href="C34-MemberReferrals.html">
+        <img src="_thumbs/C34-MemberReferrals.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C34</span>
+        <span class="card__name">Member Referrals</span>
+        <span class="card__imgs">3 img</span></div>
+      </a>
+      </div>
+    </section>
+    <section class="group">
+      <h2>Drops & concierge <span>3</span></h2>
+      <div class="grid">
+      <a class="card" href="C15-LimitedDrops.html">
+        <img src="_thumbs/C15-LimitedDrops.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C15</span>
+        <span class="card__name">Limited Drops</span>
+        <span class="card__imgs">2 img</span></div>
+      </a>
+      <a class="card" href="C24-DropDetail.html">
+        <img src="_thumbs/C24-DropDetail.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C24</span>
+        <span class="card__name">Drop Detail</span>
+        <span class="card__imgs">5 img</span></div>
+      </a>
+      <a class="card" href="C16-RSNConcierge.html">
+        <img src="_thumbs/C16-RSNConcierge.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C16</span>
+        <span class="card__name">R S N Concierge</span>
+        <span class="card__imgs">0 img</span></div>
+      </a>
+      </div>
+    </section>
+    <section class="group">
+      <h2>Account <span>10</span></h2>
+      <div class="grid">
+      <a class="card" href="C17-Me.html">
+        <img src="_thumbs/C17-Me.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C17</span>
+        <span class="card__name">Me</span>
+        <span class="card__imgs">1 img</span></div>
+      </a>
+      <a class="card" href="C25-Orders.html">
+        <img src="_thumbs/C25-Orders.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C25</span>
+        <span class="card__name">Orders</span>
+        <span class="card__imgs">7 img</span></div>
+      </a>
+      <a class="card" href="C26-OrderDetail.html">
+        <img src="_thumbs/C26-OrderDetail.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C26</span>
+        <span class="card__name">Order Detail</span>
+        <span class="card__imgs">1 img</span></div>
+      </a>
+      <a class="card" href="C18-OrderTracking.html">
+        <img src="_thumbs/C18-OrderTracking.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C18</span>
+        <span class="card__name">Order Tracking</span>
+        <span class="card__imgs">1 img</span></div>
+      </a>
+      <a class="card" href="C32-ReturnRequest.html">
+        <img src="_thumbs/C32-ReturnRequest.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C32</span>
+        <span class="card__name">Return Request</span>
+        <span class="card__imgs">3 img</span></div>
+      </a>
+      <a class="card" href="C27-AddressManagement.html">
+        <img src="_thumbs/C27-AddressManagement.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C27</span>
+        <span class="card__name">Address Management</span>
+        <span class="card__imgs">0 img</span></div>
+      </a>
+      <a class="card" href="C31-AddEditAddress.html">
+        <img src="_thumbs/C31-AddEditAddress.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C31</span>
+        <span class="card__name">Add Edit Address</span>
+        <span class="card__imgs">0 img</span></div>
+      </a>
+      <a class="card" href="C28-PaymentMethods.html">
+        <img src="_thumbs/C28-PaymentMethods.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C28</span>
+        <span class="card__name">Payment Methods</span>
+        <span class="card__imgs">4 img</span></div>
+      </a>
+      <a class="card" href="C29-Notifications.html">
+        <img src="_thumbs/C29-Notifications.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C29</span>
+        <span class="card__name">Notifications</span>
+        <span class="card__imgs">10 img</span></div>
+      </a>
+      <a class="card" href="C30-HelpSupport.html">
+        <img src="_thumbs/C30-HelpSupport.jpg" alt="" width="300" loading="lazy">
+        <div class="card__foot"><span class="card__id">C30</span>
+        <span class="card__name">Help Support</span>
+        <span class="card__imgs">3 img</span></div>
+      </a>
+      </div>
+    </section>
+</div>
+</body>
+</html>
