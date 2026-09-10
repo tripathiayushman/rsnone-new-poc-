@@ -1,0 +1,63 @@
+/* ==========================================================================
+   SCREEN: C15 LIMITED DROPS — lifted from rsn-one-html/C15-LimitedDrops.html
+   ("SCREEN: LIMITED DROPS"), scoped under .c15. All values mock px.
+   The root element carries both .c15 and .dropscreen, so the handoff's
+   root-level rules are written with `&`.
+   ========================================================================== */
+.c15 {
+  /* the photograph is the page background, not a section */
+  &.dropscreen{position:relative}
+  .dropscreen__media{position:absolute; inset:0; width:853px; height:1844px;
+                     object-fit:cover; border:0}
+  /* scrim darkens the left third so the copy stays legible */
+  .dropscreen__scrim{position:absolute; inset:0;
+    background:linear-gradient(90deg, rgba(41,28,25,.90) 0%, rgba(41,28,25,.72) 34%,
+                                      rgba(41,28,25,.30) 62%, rgba(41,28,25,.06) 100%)}
+  &.dropscreen > .statusbar,
+  &.dropscreen > .appbar,
+  &.dropscreen > .drop-intro,
+  &.dropscreen > .home-indicator{position:relative; z-index:1}
+  &.dropscreen > .drop-panel{z-index:1}
+  &.dropscreen > .home-indicator{background:transparent; margin-top:auto}
+
+  /* back arrow added to the left of the standard app-bar logo */
+  .appbar__back{display:grid; place-items:center; width:44px; height:44px;
+                margin-right:8px; color:var(--cream)}
+  .appbar__lead{display:flex; align-items:center}
+  /* POC: <AppBar back/> renders arrow, logo and actions as three siblings of a
+     space-between flex row — keep the logo hugging the arrow like the mock */
+  .appbar__logo{margin-right:auto}
+  /* POC: AppBar renders its children ahead of search; the mock's order is
+     search (591) → heart (672) → bag (757), so re-order the three actions */
+  .appbar__actions > .appbar__action:nth-child(1){order:2}
+  .appbar__actions > .appbar__action:nth-child(2){order:1}
+  .appbar__actions > .appbar__action:nth-child(3){order:3}
+
+  /* --- INTRO: eyebrow, rule, 2-line display headline, body, pull-quote ----- */
+  /* left gutter on this screen is 60px, not the standard 36px */
+  .drop-intro{padding:85px 60px 0}
+  .drop-intro__eyebrow{display:block; font-size:22px; line-height:1;
+                       letter-spacing:.22em; text-transform:uppercase;
+                       font-weight:400; color:var(--rose-pale)}
+  .rule{border:0; height:3px; background:var(--rose-pale); opacity:.85; margin:0}
+  .rule--88{width:88px; margin-top:33px}
+  .rule--57{width:57px; margin-top:25px}
+  /* 100px serif, lines set tight (measured baseline-to-baseline = 92px) */
+  .drop-intro__title{font-family:var(--font-serif); font-size:95px; line-height:.97;
+                     font-weight:400; margin:75px 0 0}
+  .drop-intro__body{font-size:32px; line-height:44px; font-weight:300; margin:23px 0 0}
+  .drop-intro__voice{font-family:var(--font-serif); font-style:italic; font-size:32px;
+                     line-height:44px; color:var(--rose-pale); margin:78px 0 0}
+
+  /* --- AUTUMN DROP PANEL: pale card overlapping the bottom of the photo ---- */
+  /* measured rect: x 20 -> 833, y 1292 -> 1743  (813 x 451) */
+  .drop-panel{position:absolute; left:20px; right:20px; top:1292px; height:451px;
+              background:#F2DCD6; color:#3B2A24; border-radius:28px; padding:75px 46px 0}
+  .drop-panel__title{font-family:var(--font-serif); font-size:67px; line-height:1.05;
+                     font-weight:400; margin:0}
+  .drop-panel__body{font-size:36px; line-height:45px; font-weight:300;
+                    color:#6B4F49; margin:18px 0 0}
+  .drop-panel__cta{margin-top:30px; width:721px; height:107px; border-radius:12px;
+                   background:var(--rose); color:#FFF7F5; gap:26px; padding:0}
+  .drop-panel__cta .t-eyebrow{font-size:28px; letter-spacing:.20em; font-weight:400}
+}

@@ -1,0 +1,44 @@
+/* ==========================================================================
+   SCREEN: C05 SEARCH — lifted from rsn-one-html/C05-Search.html ("SCREEN: SEARCH"),
+   scoped under .c05 so it can't leak into other screens. All values mock px.
+   Left/right margin on this screen is 46px for the search field and 52–61px
+   for the lists, NOT the 36px page gutter. All values measured.
+   ========================================================================== */
+.c05 {
+  /* BACK BAR — back arrow only, no title, no actions. Arrow box y 117–157. */
+  .search-nav{flex:0 0 143px; display:flex; align-items:flex-start; padding:47px 46px 0}
+  .search-nav__back{display:block; color:var(--rose-pale)}
+
+  /* SEARCH FIELD — stadium pill, 760 x 136 at x=46, y=213. 1px hairline
+     border, faintly raised fill. Magnifier at x 91, placeholder text at x 179. */
+  .search-field{position:relative; margin:0 46px; height:136px;
+                border:1px solid rgba(250,247,245,.16); border-radius:var(--r-pill);
+                background:rgba(250,247,245,.045); display:flex; align-items:center;
+                padding:0 46px}
+  .search-field__icon{flex:0 0 auto; color:var(--rose-pale); opacity:.85}
+  .search-field__input{flex:1; margin-left:39px; background:none; border:0; outline:0;
+                       font-family:var(--font-sans); font-size:36px; font-weight:300;
+                       color:var(--cream); min-width:0}
+  .search-field__input::placeholder{color:#B9AFAA; font-weight:300}
+  .search-field__input::-webkit-search-cancel-button{-webkit-appearance:none}
+
+  /* LIST HEADING — sans, rose, "R" cap measured 32px => ~44px. */
+  .search-heading{font-size:44px; line-height:1.2; font-weight:400;
+                  color:var(--rose-light); margin:0; padding-left:52px}
+  .search-heading--recent{margin-top:88px}
+  .search-heading--trending{margin-top:83px}
+
+  /* SUGGESTION ROW — 80px circular icon badge at x=61, label at x=199.
+     Row pitch measured 114px in Recent Searches and 119px in Trending. */
+  .search-list{margin:0; padding:0 46px 0 61px; display:flex; flex-direction:column; gap:34px}
+  .search-list--recent{margin-top:57px}
+  .search-list--trending{gap:39px; margin-top:56px}
+  .search-row{display:flex; align-items:center; gap:58px; width:100%; text-align:left}
+  .search-row__badge{flex:0 0 80px; width:80px; height:80px; border-radius:var(--r-pill);
+                     background:rgba(219,146,138,.09); color:var(--rose-pale);
+                     display:grid; place-items:center}
+  .search-row__label{font-size:38px; line-height:1.15; font-weight:300; color:var(--cream)}
+
+  /* HOME INDICATOR — pushed to the bottom of the frame (no tab bar here) */
+  .home-indicator{margin-top:auto}
+}

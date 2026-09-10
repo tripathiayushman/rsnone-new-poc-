@@ -1,0 +1,93 @@
+/* ==========================================================================
+   SCREEN: C06 SEARCH RESULTS — lifted from rsn-one-html/C06-SearchResults.html
+   ("SCREEN: SEARCH RESULTS"), scoped under .c06. All values mock px.
+   Note: this screen's page gutter measures 44px, not the 36px used on
+   C03/C04. Declared once here as --gutter-search rather than silently
+   re-using the token.
+   ========================================================================== */
+.c06 {
+  --gutter-search:44px;
+
+  /* --- SCREEN HEAD: "Search" 78px + one-line subtitle --------------------- */
+  .search-head{padding:13px var(--gutter-search) 0}
+  .search-head__title{font-family:var(--font-serif); font-size:78px; line-height:1.05;
+                      font-weight:400; margin:0}
+  .search-head__sub{margin:8px 0 0; font-size:23px; line-height:1.35; font-weight:300}
+
+  /* --- SEARCH FIELD: 765 x 93, radius 28, icon + placeholder -------------- */
+  .field{position:relative; margin:16px var(--gutter-search) 0; height:93px}
+  .field__icon{position:absolute; left:32px; top:50%; transform:translateY(-50%);
+               color:var(--rose-pale); display:block}
+  .field__input{width:100%; height:100%; border-radius:28px;
+                background:rgba(250,247,245,.03); border:1px solid var(--line-strong);
+                color:var(--cream); font-family:var(--font-sans); font-size:25px;
+                font-weight:300; padding:0 32px 0 103px; outline:none}
+  .field__input::placeholder{color:var(--muted-dim)}
+  .field__input::-webkit-search-cancel-button{-webkit-appearance:none}
+
+  /* --- RECENT SEARCHES: rose section title + "Clear all" + wrapping chips - */
+  .search-section{padding:0 var(--gutter-search)}
+  .search-section--recent {margin-top:45px}
+  .search-section--browse {margin-top:47px}
+  .search-section--results{margin-top:56px}
+  .search-count{font-size:20px}
+  .search-section__head{display:flex; align-items:baseline; justify-content:space-between}
+  .search-section__title{font-family:var(--font-serif); font-size:32px; line-height:1.2;
+                         font-weight:400; margin:0; color:var(--rose-light)}
+  .search-section__action{font-size:22px; font-weight:300; color:var(--rose-light)}
+  .search-section__link{display:inline-flex; align-items:center; gap:12px;
+                        font-size:22px; font-weight:300; color:var(--rose-light)}
+  .recent{display:flex; flex-wrap:wrap; gap:14px; margin-top:23px}
+  .recent__chip{display:inline-flex; align-items:center; gap:22px; height:58px;
+                padding:0 30px; border-radius:var(--r-pill);
+                border:1px solid var(--line); background:rgba(250,247,245,.03);
+                color:var(--cream); font-size:22px; font-weight:300}
+  .recent__chip svg{color:var(--rose-light); flex:0 0 auto}
+
+  /* --- BROWSE BY CATEGORY: same .worlds component as C03, 106px discs ----- */
+  .worlds{display:flex; gap:16px; overflow-x:auto; padding:0 var(--gutter); scrollbar-width:none}
+  .worlds::-webkit-scrollbar{display:none}
+  .world{flex:0 0 118px; text-align:center}
+  .world__disc{width:118px; height:118px; border-radius:var(--r-pill); object-fit:cover}
+  .world__label{margin-top:14px; font-size:18px; font-weight:300}
+  /* C06 overrides — measured 106px discs, 27px gap, 40px page padding */
+  .worlds--search{padding:0 40px; gap:27px; margin-top:24px}
+  .worlds--search .world{flex:0 0 auto; min-width:106px}
+  .worlds--search .world__disc{width:106px; height:106px; margin:0 auto}
+  .worlds--search .world__label{margin-top:12px; font-size:20px}
+  .world--selected .world__disc{box-shadow:0 0 0 2px var(--rose)}
+
+  /* --- RESULTS GRID: same .product-card block as C03, no card surface.
+         2 columns, 385px photo, 21px column gap, 33px page padding.  ------- */
+  .product-rail{display:flex; gap:16px; overflow-x:auto; padding:0 28px 4px; scrollbar-width:none}
+  .product-rail::-webkit-scrollbar{display:none}
+  .product-card{flex:0 0 194px; position:relative}
+  .product-card__media{width:194px; height:160px; object-fit:cover; border-radius:8px}
+  .product-card__wish{position:absolute; top:14px; right:14px; width:40px; height:40px;
+                      display:grid; place-items:center; color:var(--cream)}
+  .product-card__title{margin-top:16px}
+  .product-card__house{margin-top:4px}
+  .product-card__price{margin-top:10px; display:block}
+  .product-card__chip{margin-top:12px}
+  /* C06 result variant */
+  .result-grid{display:grid; grid-template-columns:1fr 1fr; gap:19px 21px;
+               padding:0 33px; margin-top:21px}
+  .product-card--result{flex:none}
+  .product-card--result .product-card__media{width:100%; height:232px; border-radius:8px}
+  .product-card--result .product-card__wish{top:24px; right:24px; width:34px; height:31px}
+  .product-card--result .product-card__title{font-size:27px; margin-top:15px; padding-left:19px}
+  .product-card--result .product-card__house{font-size:18px; margin-top:11px; padding-left:19px}
+  .product-card--result .product-card__foot{display:flex; align-items:center; gap:30px;
+               margin-top:15px; padding-left:19px}
+  .product-card--result .product-card__price{font-size:32px; margin:0}
+  .product-card--result .product-card__chip{height:41px; font-size:20px; padding:0 22px; margin:0}
+  /* POC: <ProductCard> has no .product-card__foot wrapper, so the card itself
+     wraps and price + chip reproduce the measured foot row above */
+  .product-card--result{display:flex; flex-wrap:wrap; align-items:center; align-content:flex-start}
+  .product-card--result .product-card__media,
+  .product-card--result .product-card__title,
+  .product-card--result .product-card__house{flex:0 0 100%; width:100%}
+  .product-card--result .product-card__price{display:inline-block; margin:15px 0 0 19px; white-space:nowrap}
+  .product-card--result .product-card__chip{margin:15px 0 0 30px; white-space:nowrap}
+  .result-grid--last{padding-bottom:40px}
+}

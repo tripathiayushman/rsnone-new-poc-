@@ -1,0 +1,117 @@
+/* ==========================================================================
+   SCREEN: C24 DROP DETAIL — lifted from rsn-one-html/C24-DropDetail.html
+   ("SCREEN: DROP DETAIL"), scoped under .c24. All values mock px.
+   The root element carries both .c24 and .pdp, so the handoff's root-level
+   child selectors are written with `&`.
+   ========================================================================== */
+.c24 {
+  &.pdp{position:relative}
+  .pdp__photo{position:absolute; left:0; top:0; width:853px; height:810px;
+              object-fit:cover; border:0}
+  .pdp__scrim{position:absolute; left:0; top:0; width:853px; height:810px;
+    background:linear-gradient(90deg, rgba(41,28,25,.88) 0%, rgba(41,28,25,.62) 38%,
+                                      rgba(41,28,25,.10) 70%, rgba(41,28,25,0) 100%)}
+  /* everything except the two photo layers sits above them */
+  & > .statusbar, & > .navbar, & > .pdp-copy, & > .pdp-thumbs,
+  & > .pdp-about, & > .badges, & > .disclosure, & > .pdp__foot{position:relative; z-index:1}
+  & > .pdp-voice, & > .countdown{z-index:1}
+
+  /* --- NAV BAR: back (left), wishlist + share (right) --------------------- */
+  .navbar{flex:0 0 110px; display:flex; align-items:center; justify-content:space-between;
+          padding:0 41px 0 33px}
+  .navbar__back{display:grid; place-items:center; width:44px; height:44px; color:var(--cream)}
+  .navbar__actions{display:flex; align-items:center; gap:52px}
+  .navbar__action{display:grid; place-items:center; width:44px; height:44px; color:var(--cream)}
+
+  /* --- HERO COPY (over the photograph) ------------------------------------ */
+  .pdp-copy{padding:19px 45px 0; width:520px}
+  .pdp-copy__eyebrow{display:block; font-size:20px; line-height:1; letter-spacing:.22em;
+                     text-transform:uppercase; color:var(--rose-light); font-weight:400}
+  .pdp-copy__name{font-family:var(--font-serif); font-size:61px; line-height:58px;
+                  font-weight:400; margin:12px 0 0}
+  .pdp-copy__house{font-size:26px; line-height:1.3; font-weight:400; margin:20px 0 0}
+  .pdp-copy__city{font-size:22px; line-height:1.3; font-weight:300; color:var(--muted); margin:4px 0 0}
+  .pdp-copy__price{display:block; font-size:36px; line-height:1.2; color:var(--rose-light);
+                   font-weight:400; margin:16px 0 0}
+  .pdp-copy__chip{margin-top:5px; height:48px; padding:0 26px; font-size:23px}
+  /* italic pull-quote, right of the vessel */
+  .pdp-voice{position:absolute; right:35px; top:268px; width:104px;
+             font-family:var(--font-serif); font-style:italic;
+             line-height:35px; color:var(--cream); font-size:25px}
+
+  /* --- COUNTDOWN PANEL: measured 45 -> 809, y 651 -> 793 (764 x 142) ------- */
+  .countdown{position:absolute; left:45px; top:651px; width:764px; height:142px;
+             border:1px solid var(--line); border-radius:16px;
+             background:rgba(59,42,36,.55); display:flex; align-items:center}
+  .countdown__icon{flex:0 0 122px; display:grid; place-items:center; color:var(--rose-light)}
+  .countdown__main{flex:1}
+  .countdown__label{font-size:21px; line-height:1; font-weight:300; color:var(--cream)}
+  .countdown__clock{display:flex; align-items:baseline; gap:8px; margin-top:8px}
+  .countdown__unit{text-align:center}
+  /* digits measured in the mock at 27px cap height -> 38px, NOT the 56px they
+     were first drawn at; the colon is set at the same size as the digits */
+  .countdown__num{display:block; font-size:38px; line-height:1; color:var(--rose-light); font-weight:400}
+  .countdown__unitlabel{display:block; font-size:18px; line-height:1; color:var(--muted); margin-top:6px}
+  .countdown__sep{font-size:38px; line-height:1; color:var(--rose-light); align-self:center; margin-top:-14px}
+  .countdown__aside{flex:0 0 246px; border-left:1px solid var(--line); align-self:stretch;
+                    display:flex; flex-direction:column; justify-content:center; padding-left:55px}
+  .countdown__stock{font-size:21px; line-height:30px; font-weight:300}
+  .countdown__stock b{color:var(--rose-light); font-weight:400}
+
+  /* --- THUMBNAIL STRIP: 4 x 180x160, 15px gaps, first one selected -------- */
+  /* padding-top clears the absolutely-positioned countdown panel above */
+  .pdp-thumbs{display:flex; gap:15px; padding:271px 45px 0}
+  .pdp-thumb{width:180px; height:160px; border-radius:10px; overflow:hidden; display:block}
+  .pdp-thumb img{width:100%; height:100%; object-fit:cover; border:0; border-radius:10px}
+  .pdp-thumb--active img{border:2px solid var(--rose-pale)}
+  /* POC: thumbs are <button>s that swap the hero photo; the .img-slot fallback
+     box gets the same frame as a real <img> */
+  .pdp-thumb .img-slot{width:100%; height:100%; border-radius:10px}
+  .pdp-thumb--active .img-slot{border:2px solid var(--rose-pale)}
+
+  /* --- ABOUT ------------------------------------------------------------- */
+  .pdp-about{padding:27px 45px 0}
+  .pdp-about__title{font-family:var(--font-serif); font-size:41px; line-height:1.15;
+                    font-weight:400; margin:0}
+  .pdp-about__body{font-size:25px; line-height:34px; font-weight:300; margin:11px 0 0}
+
+  /* --- PROVENANCE BADGES: 3 up, 60px discs, 2-line labels, hairline rules -- */
+  .badges{display:grid; grid-template-columns:240px 340px 1fr; align-items:center;
+          height:60px; margin:35px 45px 0}
+  .badge{display:flex; align-items:center; gap:19px}
+  .badge + .badge{border-left:1px solid var(--line); padding-left:83px}
+  .badge__disc{flex:0 0 60px; width:60px; height:60px; border-radius:var(--r-pill);
+               background:rgba(219,146,138,.16); display:grid; place-items:center;
+               color:var(--rose-light)}
+  .badge__label{font-size:19px; line-height:26px; font-weight:300; white-space:nowrap}
+  /* the mock right-aligns the third badge against the frame edge - see the
+     DEVIATION-RISK note on the .badges block in the markup */
+  .badge:last-child{justify-content:flex-end; padding-left:0}
+  .badge:last-child .badge__label{text-align:right}
+
+  /* --- DISCLOSURE ROWS: label + chevron, 67px tall, hairline above each ---- */
+  .disclosure{margin:43px 45px 0}
+  .list-row{display:flex; align-items:center; justify-content:space-between;
+            height:67px; border-top:1px solid var(--line); color:var(--cream)}
+  .list-row__label{font-family:var(--font-serif); font-size:27px; font-weight:400}
+  .list-row__chevron{color:var(--cream); opacity:.85}
+  /* POC: rows are accordion <button>s; the chevron turns when open and the
+     panel below carries the copy */
+  .disclosure .list-row{width:100%; text-align:left}
+  .list-row__chevron{transition:transform .15s ease}
+  .list-row--open .list-row__chevron{transform:rotate(90deg)}
+  .disclosure__panel{margin:0; padding:2px 45px 26px 0; font-size:22px; line-height:32px;
+                     font-weight:300; color:var(--muted)}
+
+  /* --- STICKY BUY BAR ----------------------------------------------------- */
+  /* POC: the buy bar + home indicator stick to the viewport bottom when the
+     accordions push the page past 1844px */
+  .pdp__foot{position:sticky; bottom:0; margin-top:auto; background:var(--bg)}
+  .buybar{margin-top:2px; border-top:1px solid var(--line); background:var(--bg);
+          display:flex; align-items:center; justify-content:space-between;
+          padding:30px 45px 26px}
+  .buybar__price{display:block; font-size:36px; line-height:1.2; color:var(--rose-light)}
+  .buybar__chip{margin-top:13px; height:46px; padding:0 24px; font-size:23px}
+  .buybar__cta{width:450px; height:88px; border-radius:12px; gap:24px; padding:0}
+  .buybar__cta .t-eyebrow{font-size:28px; letter-spacing:.18em; font-weight:400}
+}

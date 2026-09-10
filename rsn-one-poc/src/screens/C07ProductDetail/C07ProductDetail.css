@@ -1,0 +1,77 @@
+/* ==========================================================================
+   SCREEN: C07 PRODUCT DETAIL — lifted from rsn-one-html/C07-ProductDetail.html
+   ("SCREEN: PRODUCT DETAIL"), scoped under .c07. All values mock px.
+   Page gutter on this screen measures 42px (content column 42 -> 811).
+   ========================================================================== */
+.c07 {
+  --gutter-pdp:42px;
+
+  /* --- GALLERY: full-bleed 853 x 715 photo carousel. Status bar and the
+         back / logo / bag row are overlaid on the photograph. ------------- */
+  .pdp-gallery{position:relative; flex:0 0 715px; height:715px; overflow:hidden}
+  .pdp-gallery__track{display:flex; height:100%; overflow-x:auto; scroll-snap-type:x mandatory;
+                      scrollbar-width:none}
+  .pdp-gallery__track::-webkit-scrollbar{display:none}
+  .pdp-gallery__slide{flex:0 0 853px; height:715px; scroll-snap-align:start}
+  /* light placeholder ground (as on C13) so the dark-ink logo stays readable
+     until the photograph lands — delete with the .slot treatment */
+  .pdp-gallery__slide img,.pdp-gallery__slide .img-slot{width:853px; height:715px; object-fit:cover; border:0;
+                          background:#D9AFA0}
+  .pdp-gallery .statusbar{position:absolute; top:0; left:0; right:0; z-index:2; color:var(--cream)}
+
+  .pdp-topbar{position:absolute; top:88px; left:0; right:0; z-index:2;
+              display:flex; align-items:flex-start; justify-content:space-between;
+              padding:0 30px}
+  .pdp-topbar__back{color:var(--cream); display:block; margin-top:14px}
+  /* LOGO: dark-on-photo variant of the lockup (logo-rsnone-dark-01), 168 x 85 */
+  .pdp-topbar__logo{text-align:center; line-height:1; color:#33241F}
+  .pdp-topbar__bag{position:relative; color:var(--cream); display:block; margin-top:10px}
+
+  .pdp-wish{position:absolute; z-index:2; top:199px; right:39px;
+            width:76px; height:76px; border-radius:var(--r-pill);
+            background:rgba(250,247,245,.18); display:grid; place-items:center; color:var(--cream)}
+  .pdp-wish--on{color:var(--rose)}
+
+  .pdp-dots{position:absolute; z-index:2; left:0; right:0; bottom:40px;
+            display:flex; justify-content:center; gap:23px}
+  .pdp-dots span,.pdp-dots button{width:14px; height:14px; border-radius:var(--r-pill);
+                 background:rgba(250,247,245,.35)}
+  .pdp-dots .is-active{background:var(--cream)}
+
+  /* --- PRODUCT INFO -------------------------------------------------------- */
+  .pdp-info{padding:0 var(--gutter-pdp)}
+  .pdp-info__eyebrow{margin-top:30px; display:block; font-size:18px; line-height:1;
+                     letter-spacing:.16em; text-transform:uppercase; font-weight:400;
+                     color:var(--rose-light)}
+  .pdp-info__title{margin-top:9px}
+  .pdp-info__desc{margin-top:16px; font-size:24px; line-height:33px; font-weight:300}
+  .pdp-info__pricerow{margin-top:29px; display:flex; align-items:center; gap:32px}
+  .pdp-info__price{font-family:var(--font-serif); font-size:44px; line-height:1.2; color:var(--rose-light)}
+  .pdp-info__chip{height:47px; font-size:22px; padding:0 26px}
+
+  /* --- ACTIONS: full-width primary + outlined secondary -------------------- */
+  .pdp-actions{padding:0 var(--gutter-pdp); margin-top:29px}
+  .pdp-actions .btn{width:100%; border-radius:8px; letter-spacing:.16em;
+                    text-transform:uppercase; font-size:18px; font-weight:400}
+  .pdp-actions .btn--primary{height:70px}
+  .pdp-actions .btn--wish{height:71px; margin-top:13px; border:1px solid var(--rose);
+                          color:var(--rose-light); background:none}
+
+  /* --- DETAIL ACCORDION: 6 disclosure rows, 73px each, hairline between ---- */
+  .pdp-accordion{margin-top:27px; padding:0 var(--gutter-pdp); border-top:1px solid var(--line)}
+  .pdp-accordion__row{display:flex; align-items:center; justify-content:space-between;
+                      width:100%; height:73px; border-bottom:1px solid var(--line);
+                      text-align:left}
+  .pdp-accordion__row .t-section{font-size:34px}
+  .pdp-accordion__row svg{color:var(--cream); flex:0 0 auto}
+  /* POC: rows expand; the chevron rotates and the hairline moves under the panel */
+  .pdp-accordion__row svg{transition:transform .2s ease}
+  .pdp-accordion__row[aria-expanded="true"]{border-bottom:0}
+  .pdp-accordion__row[aria-expanded="true"] svg{transform:rotate(180deg)}
+  .pdp-accordion__panel{padding:0 0 26px; font-size:22px; line-height:1.5; font-weight:300;
+                        color:var(--cream); border-bottom:1px solid var(--line)}
+  .pdp-accordion__panel p{margin:0}
+  .pdp-accordion__panel p + p{margin-top:12px}
+  .pdp-accordion__panel a{color:var(--rose-light)}
+  .pdp-accordion--last{margin-bottom:8px}
+}

@@ -1,0 +1,104 @@
+/* ==========================================================================
+   SCREEN: C33 MEMBER WALLET — lifted from rsn-one-html/C33-MemberWallet.html
+   ("SCREEN: MEMBER WALLET"), scoped under .c33. Sections 1–8 live in
+   base.css, section 9 in membership-shared.css. All values mock px.
+   ========================================================================== */
+.c33 {
+  /* Gutter measured at x=40 / x=813 (card width 773) — narrower than the
+     50px used on C21/C22/C23. C33 and C34 agree with each other at 40px. */
+  --gutter:40px;
+
+  /* DEVIATION-RISK: the tab bar on C33 and C34 is 144px tall with a 64px home
+     indicator band against C03's 88+44. Same icons, same labels, 60px more chrome. */
+  .tabbar{flex:0 0 144px; padding-top:28px; align-items:flex-start}
+  .tab{gap:19px}
+  .home-indicator{flex:0 0 64px}
+
+  /* --- top chrome: back arrow + small lockup on one line ------------------- */
+  .c33-nav{margin-top:22px; align-items:center}
+
+  /* --- screen title --------------------------------------------------------- */
+  .c33-title{padding:0 var(--gutter); margin:13px 0 0;
+             font-family:var(--font-serif); font-size:72px; line-height:76px; font-weight:400}
+  .c33-sub{padding:0 var(--gutter); margin:4px 0 0;
+           font-size:26px; line-height:33px; font-weight:300}
+
+  /* --- BALANCE CARD --------------------------------------------------------- */
+  /* 243px tall, 773 wide. A gift-box photograph bleeds in from the right and
+     fades out under the copy. */
+  .balance-card{position:relative; height:243px; margin:14px var(--gutter) 0;
+                border-radius:var(--r-card); overflow:hidden;
+                background:linear-gradient(90deg,#4A332C 0%,#5A3E35 100%)}
+  .balance-card__media{position:absolute; right:0; top:0; width:56%; height:100%;
+                       object-fit:cover; border:0;
+                       -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 34%);
+                       mask-image:linear-gradient(90deg,transparent 0,#000 34%)}
+  .balance-card__body{position:relative; padding:37px 34px 0}
+  .balance-card__label{font-family:var(--font-serif); font-size:32px; line-height:1.2; margin:0}
+  .balance-card__amount{font-family:var(--font-serif); font-size:80px; line-height:1.02;
+                        margin:8px 0 0}
+  .balance-card__note{margin:14px 0 0; font-size:24px; line-height:30px; font-weight:300}
+
+  /* --- two-up action row ---------------------------------------------------- */
+  /* ADD FUNDS 378 wide, VIEW USAGE 380 wide, 18px apart, both 72px tall. */
+  .c33-actions{display:flex; gap:18px; padding:0 var(--gutter); margin-top:16px}
+  .c33-actions .btn{flex:1 1 0; height:72px; border-radius:12px; gap:18px}
+  .c33-actions .t-eyebrow{font-size:24px; letter-spacing:.20em}
+  .c33-actions .btn--outline{border-color:rgba(228,164,157,.55); color:var(--rose-light)}
+
+  /* --- section headings ----------------------------------------------------- */
+  .c33-h2{padding:0 var(--gutter); margin:31px 0 0;
+          font-family:var(--font-serif); font-size:38px; line-height:1.2; font-weight:400}
+  .c33-head{display:flex; align-items:baseline; justify-content:space-between;
+            padding:0 var(--gutter); margin-top:30px}
+  .c33-head h2{font-family:var(--font-serif); font-size:38px; line-height:1.2;
+               font-weight:400; margin:0}
+  .c33-head a,.c33-head button{display:inline-flex; align-items:center; gap:14px;
+              font-size:26px; font-weight:300; color:var(--rose-light)}
+
+  /* --- WALLET BREAKDOWN (shared .data-row) --------------------------------- */
+  .c33-breakdown{padding:0 var(--gutter); margin-top:8px}
+  .c33-breakdown .data-row{min-height:105px}
+  .c33-breakdown .data-row + .data-row{margin-top:11px}
+
+  /* --- RECENT TRANSACTIONS (shared .data-row, thumbnail variant) ----------- */
+  .c33-txns{padding:0 var(--gutter); margin-top:4px}
+  .c33-txns .data-row{min-height:107px; padding:0 26px 0 11px; gap:22px}
+  .c33-txns .data-row + .data-row{margin-top:7px}
+
+  /* --- PROMO BANNER (shared with C34) -------------------------------------- */
+  .c33-promo{height:178px; margin-top:33px}
+  /* the gift photograph in the balance card is pale — light placeholder */
+  .balance-card__media{background:#8A6357}
+
+  .tabbar{margin-top:auto}
+
+  /* ---- POC additions (not in the handoff) --------------------------------- */
+  /* non-member notice above the title */
+  .c33-joinbar{display:flex; align-items:center; justify-content:space-between; gap:16px;
+               margin:12px var(--gutter) 0; padding:18px 26px; border-radius:12px;
+               border:1px solid var(--rose); background:rgba(201,124,121,.14);
+               font-size:22px; font-weight:300; color:var(--rose-pale)}
+  .c33-joinbar svg{flex:0 0 auto; color:var(--rose-light)}
+  /* inline top-up chooser revealed by ADD FUNDS */
+  .c33-topup{margin:14px var(--gutter) 0; padding:24px 26px; border:1px solid var(--line);
+             border-radius:12px; background:var(--panel)}
+  .c33-topup__label{margin:0; font-size:22px; font-weight:300; color:var(--muted)}
+  .c33-topup__chips{display:flex; gap:12px; margin-top:16px}
+  .c33-topup__chip{height:52px; padding:0 26px; font-size:22px; font-weight:300;
+                   border:1px solid var(--line-strong); color:var(--cream)}
+  .c33-topup__chip--on{background:var(--chip-bg); border-color:var(--rose); color:var(--rose-pale)}
+  .c33-topup__row{display:flex; gap:12px; margin-top:16px}
+  .c33-topup__input{flex:1 1 auto; min-width:0; height:60px; padding:0 22px;
+                    border:1px solid var(--line); border-radius:var(--r-input);
+                    background:transparent; color:var(--cream); font-size:22px; font-weight:300}
+  .c33-topup__input::placeholder{color:var(--muted-dim)}
+  .c33-topup__input:focus{outline:none; border-color:var(--line-strong)}
+  .c33-topup__row .btn{height:60px; padding:0 30px}
+  .c33-topup__row .t-eyebrow{font-size:18px}
+  .c33-topup__cancel{font-size:20px; font-weight:300; color:var(--muted); padding:0 10px}
+  /* breakdown rows open the usage list */
+  .c33-breakdown .data-row{cursor:pointer}
+  /* a tx list with nothing in it */
+  .c33-txns .c33-empty{padding:30px 0; font-size:22px; font-weight:300; color:var(--muted); text-align:center}
+}

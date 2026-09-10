@@ -1,0 +1,129 @@
+/* ==========================================================================
+   SCREEN: C30 HELP & SUPPORT — lifted from rsn-one-html/C30-HelpSupport.html
+   ("SCREEN: HELP & SUPPORT"), scoped under .c30. All values mock px.
+   Left/right gutter is 45px here, not the standard 36px.
+   ========================================================================== */
+.c30 {
+  /* back arrow added to the left of the standard app-bar logo */
+  .appbar__back{display:grid; place-items:center; width:44px; height:44px;
+                margin-right:8px; color:var(--rose-light)}
+  .appbar__lead{display:flex; align-items:center}
+  /* POC: <AppBar back/> — the mock draws a ROSE arrow and NO search / bag on
+     this screen; the shared bar sets cream inline and always renders actions */
+  .appbar__back{color:var(--rose-light)!important}
+  .appbar__actions{display:none}
+  .appbar__logo{margin-right:auto}
+
+  /* --- HEADER PHOTO: sits behind the status bar, app bar and title block --- */
+  .help-hero{position:absolute; left:0; top:0; width:853px; height:445px; z-index:0}
+  .help-hero__media{width:100%; height:100%; object-fit:cover; border:0}
+  .help-hero__scrim{position:absolute; inset:0;
+    background:linear-gradient(90deg, rgba(41,28,25,.94) 0%, rgba(41,28,25,.86) 40%,
+                                      rgba(41,28,25,.30) 72%, rgba(41,28,25,.04) 100%)}
+  & > .statusbar, & > .appbar, & > .help-head{position:relative; z-index:1}
+
+  /* --- TITLE BLOCK -------------------------------------------------------- */
+  .help-head{padding:20px 45px 0}
+  /* 67px measured - 3px larger than the shared .t-h1 (64px) */
+  .help-head__title{margin:0; font-size:67px}
+  .help-head__voice{font-family:var(--font-serif); font-size:42px; line-height:1.15;
+                    font-weight:400; margin:11px 0 0}
+  .help-head__voice em{font-style:italic; color:var(--rose-light)}
+  .help-head__body{font-size:26px; line-height:32px; font-weight:300; margin:11px 0 0}
+
+  /* --- SEARCH FIELD: 767 x 77, outlined, magnifier + serif placeholder ----- */
+  .field--search{display:flex; align-items:center; gap:26px; margin:47px 43px 0;
+                 height:77px; padding:0 30px; border:1px solid var(--line-strong);
+                 border-radius:var(--r-input)}
+  .field--search svg{flex:0 0 auto; color:var(--cream)}
+  .field__input{flex:1; background:none; border:0; outline:none; color:var(--cream);
+                font-family:var(--font-serif); font-size:23px; font-weight:400}
+  .field__input::placeholder{color:var(--muted); font-family:var(--font-serif)}
+  /* POC: the search sits above the hero photo's fade */
+  .field--search{position:relative; z-index:1}
+  .field__input::-webkit-search-cancel-button{-webkit-appearance:none; appearance:none}
+  .field__clear{flex:0 0 auto; color:var(--muted); display:grid; place-items:center}
+
+  /* --- POPULAR TOPICS GRID: 3 x 2, 239px tall cards ----------------------- */
+  .help-section{padding:24px 45px 0}
+  .topic-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:19px 10px;
+              margin-top:15px}
+  .topic-card{display:block; height:239px; border:1px solid var(--line);
+              border-radius:12px; padding:18px 27px 0; color:var(--cream)}
+  .topic-card__disc{width:76px; height:76px; border-radius:var(--r-pill);
+                    background:rgba(219,146,138,.14); display:grid; place-items:center;
+                    color:var(--rose-light)}
+  .topic-card__title{font-family:var(--font-serif); font-size:23px; line-height:1.2;
+                     font-weight:400; margin:16px 0 0}
+  .topic-card__text{font-size:18px; line-height:25px; font-weight:300;
+                    color:var(--muted); margin:10px 0 0}
+  .topic-card__arrow{display:block; margin-top:17px; color:var(--rose-light)}
+  /* POC: the mock sets every topic title on one line; with real Playfair metrics
+     the longest ("Product Information") is 192px against a 190px content box, so
+     let it run 2px into the padding rather than wrap */
+  .topic-card__title{white-space:nowrap}
+  /* …and pin the columns to equal thirds so a nowrap title can't grow its
+     column past the 45px gutter (1fr alone is minmax(auto,1fr)) */
+  .topic-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+  /* POC: topic cards are <button>s that open an inline article list below the grid */
+  .topic-card{width:100%; text-align:left}
+  .topic-card--open{border-color:var(--rose-light); background:rgba(219,146,138,.08)}
+  .topic-card--open .topic-card__arrow{transform:rotate(90deg)}
+  .topic-panel{margin-top:19px; border:1px solid var(--line); border-radius:12px; padding:18px 27px 22px}
+  .topic-panel__head{display:flex; align-items:baseline; justify-content:space-between; gap:20px}
+  .topic-panel__title{font-family:var(--font-serif); font-size:23px; line-height:1.2; font-weight:400; margin:0}
+  .topic-panel__close{font-size:19px; font-weight:300; color:var(--rose-light)}
+  .topic-panel__empty{font-size:19px; line-height:25px; font-weight:300; color:var(--muted); margin:12px 0 0}
+  .help-empty{margin:24px 45px 0; font-size:22px; line-height:1.45; font-weight:300; color:var(--muted)}
+
+  /* --- "STILL NEED HELP?" BANNER: pale tile, 764 x 188 -------------------- */
+  .help-banner{position:relative; margin:24px 45px 0; height:188px;
+               border-radius:14px; overflow:hidden; color:#3B2A24}
+  .help-banner__media{position:absolute; inset:0; width:100%; height:100%;
+                      object-fit:cover; border:0}
+  .help-banner__scrim{position:absolute; inset:0;
+    background:linear-gradient(90deg, rgba(240,222,215,.95) 0%, rgba(240,222,215,.88) 45%,
+                                      rgba(240,222,215,.14) 80%, rgba(240,222,215,0) 100%)}
+  .help-banner__body{position:absolute; inset:0; padding:25px 0 0 38px}
+  .help-banner__title{font-family:var(--font-serif); font-size:43px; line-height:1.1;
+                      font-weight:400; margin:0}
+  .help-banner__text{font-size:22px; line-height:1.3; font-weight:300; color:#5C433D; margin:10px 0 0}
+  .help-banner__cta{margin-top:18px; height:54px; width:264px; border-radius:10px;
+                    padding:0; gap:20px}
+  .help-banner__cta .t-eyebrow{font-size:21px; letter-spacing:.18em; font-weight:400}
+
+  /* --- CONTACT + ARTICLE ROWS (spec .list-row) ---------------------------- */
+  .list-row{display:flex; align-items:center; border:1px solid var(--line);
+            border-radius:12px; color:var(--cream); padding:0 33px 0 31px; gap:26px}
+  .list-row--contact{height:77px; margin-top:15px}
+  .list-row--contact + .list-row--contact{margin-top:9px}
+  .list-row--article{height:51px; margin-top:9px; gap:22px}
+  .list-row__icon{flex:0 0 auto; display:grid; place-items:center; color:var(--rose-light)}
+  .list-row__body{flex:1; min-width:0}
+  .list-row__label{display:block; font-family:var(--font-serif); font-size:21px;
+                   line-height:1.15; font-weight:400}
+  .list-row--article .list-row__label{font-family:var(--font-sans); font-size:19px; font-weight:300}
+  .list-row__sub{display:block; font-size:19px; line-height:1.2; font-weight:300;
+                 color:var(--muted); margin-top:6px}
+  .list-row__chevron{flex:0 0 auto; color:var(--cream); opacity:.8}
+  /* POC: article rows are accordion <button>s; the answer sits under the row,
+     indented to the label (31px pad + 28px icon + 22px gap) */
+  .list-row--article{width:100%; text-align:left}
+  .list-row__chevron{transition:transform .15s ease}
+  .list-row--open .list-row__chevron{transform:rotate(90deg)}
+  .article__answer{margin:0; padding:12px 33px 6px 81px; font-size:19px; line-height:27px;
+                   font-weight:300; color:var(--muted)}
+  .help-contacts{padding-top:0}
+
+  /* --- HELP ARTICLES head: title + "View all" link ------------------------ */
+  .help-articles{padding:21px 45px 0}
+  .help-articles__head{display:flex; align-items:baseline; justify-content:space-between}
+  .help-articles__link{display:inline-flex; align-items:center; gap:12px;
+                       font-size:21px; color:var(--rose-light)}
+  /* POC: breathing room above the sticky tab bar when the list is expanded */
+  .help-articles{padding-bottom:24px}
+
+  /* --- TAB BAR (measured taller on this screen than on C03) --------------- */
+  .tabbar{flex:0 0 118px}
+  .home-indicator{flex:0 0 54px}
+}

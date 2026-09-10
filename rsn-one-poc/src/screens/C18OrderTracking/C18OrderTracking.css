@@ -1,0 +1,63 @@
+/* ==========================================================================
+   SCREEN: C18 ORDER TRACKING — lifted from rsn-one-html/C18-OrderTracking.html
+   ("SCREEN: ORDERTRACKING"), scoped under .c18. All values mock px.
+   Back bar (arrow only, no title) → order title → single product line →
+   vertical 8-step status timeline. NO tab bar on this screen.
+   ========================================================================== */
+.c18 {
+  /* --- BACK BAR: arrow only, no title ------------------------------------- */
+  .navbar{flex:0 0 103px; display:flex; align-items:center; padding:0 36px 0 48px}
+  .navbar__back{display:block; color:var(--rose-pale)}
+
+  /* --- ORDER TITLE: two lines at two different sizes ---------------------- */
+  .order-title{padding:19px 36px 0 56px}
+  .order-title__label{font-family:var(--font-serif); font-size:72px; line-height:1;
+                      font-weight:400; margin:0}
+  .order-title__id{font-family:var(--font-serif); font-size:96px; line-height:1;
+                   font-weight:400; margin:0; display:block}
+
+  /* --- ORDERED PRODUCT: one line, 321x297 image + name / house / price ----- */
+  .order-product{display:flex; gap:44px; align-items:flex-start; padding:50px 36px 0 56px}
+  .order-product__media{width:321px; height:297px; object-fit:cover;
+                        border-radius:24px; flex:0 0 321px}
+  .order-product__body{padding-top:46px}
+  .order-product__title{font-family:var(--font-serif); font-size:50px; line-height:1;
+                        font-weight:400; margin:0}
+  .order-product__house{margin:24px 0 0; font-size:38px; line-height:1;
+                        font-weight:300; color:var(--muted)}
+  .order-product__price{margin:34px 0 0; font-size:48px; line-height:1;
+                        font-weight:500; color:var(--rose-light)}
+
+  /* --- TIMELINE (SHARED, VERTICAL) ---------------------------------------
+     States: .timeline__step--done | --current | (no modifier) = pending.
+     Measured: marker column centred on x=116, connector 5px wide, step pitch
+     118px, the one step that carries a timestamp is 145px tall.
+     ------------------------------------------------------------------------ */
+  .timeline{margin:66px 0 0; padding:0 36px 0 92px}
+  .timeline__step{position:relative; display:flex; gap:70px; padding-bottom:70px}
+  .timeline__step--timed{padding-bottom:48px}
+  .timeline__step::before{content:""; position:absolute; left:22px; top:24px;
+                          bottom:0; width:5px; background:var(--line-strong)}
+  .timeline__step--done::before,
+  .timeline__step--current::before{background:var(--rose-light)}
+  .timeline__step:last-child::before{display:none}
+  .timeline__marker{position:relative; z-index:1; flex:0 0 48px; height:48px;
+                    display:grid; place-items:center}
+  .timeline__dot{width:48px; height:48px; border-radius:var(--r-pill);
+                 border:3px solid var(--line-strong); background:var(--bg)}
+  .timeline__step--done  .timeline__dot,
+  .timeline__step--current .timeline__dot{border-color:transparent; background:var(--rose-light)}
+  /* two of the completed markers are drawn 36px instead of 48px — see note */
+  .timeline__dot--sm{width:36px; height:36px}
+  .timeline__label{margin:0; font-size:40px; line-height:48px; font-weight:300; color:var(--muted)}
+  .timeline__step--done .timeline__label{color:var(--cream)}
+  .timeline__step--current .timeline__label{color:var(--rose-light)}
+  .timeline__time{margin:17px 0 0; font-size:32px; line-height:1; font-weight:300;
+                  color:var(--muted)}
+
+  /* ---------- POC ADDITIONS (not in the handoff) -------------------------- */
+  /* "View order details" text link pinned above the home indicator */
+  .track-foot{margin-top:auto; padding:24px 36px 36px 92px}
+  .track-foot__link{display:inline-flex; align-items:center; gap:14px; font-size:26px;
+                    font-weight:300; color:var(--rose-light)}
+}

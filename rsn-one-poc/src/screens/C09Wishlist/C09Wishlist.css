@@ -1,0 +1,53 @@
+/* ==========================================================================
+   SCREEN: C09 WISHLIST — lifted from rsn-one-html/C09-Wishlist.html
+   ("SCREEN: WISHLIST"), scoped under .c09. All values mock px.
+   ========================================================================== */
+.c09 {
+  /* The shared reset (section 2) zeroes html/body only. Zero the browser's
+     default block margins too, so every gap below is an explicit measured
+     value rather than a UA default. */
+  h1,h2,h3,h4,p,ul,figure{margin:0}
+
+  /* --- APP BAR variant: hairline under the bar, measured at y=165 --------- */
+  .appbar{border-bottom:1px solid var(--line)}
+
+  /* --- PAGE HEAD: title + share link + subtitle ---------------------------
+     Measured: "Wishlist" cap-height 62px (glyph top y=224, baseline y=286)
+     -> ~84px Playfair. That is LARGER than the spec's .t-h1 (64px); the two
+     screen titles in this batch differ (C10 "Your Bag" measures ~76px).
+     ---------------------------------------------------------------------- */
+  .wish-head{padding:34px 44px 0; display:flex; align-items:flex-start; justify-content:space-between}
+  .wish-head__title{font-size:88px; line-height:1.05}
+  .wish-head__share{display:inline-flex; align-items:center; gap:20px; margin-top:12px;
+                    color:var(--rose-light); font-size:24px; font-weight:300}
+  .wish-sub{padding:0 44px; margin-top:14px; font-size:30px; line-height:1.2;
+            font-weight:300; color:var(--rose-pale)}
+
+  /* --- WISHLIST: 4 saved-item cards, 789x296, 20px apart ------------------
+     Card = photo 327x296 flush left + body. Body holds house eyebrow, product
+     name, price + member chip on one line, and a footer row with a rose
+     "Move to Bag" button, a 1px vertical divider at x=645, and "Remove".
+     The filled heart top-right is the "saved" state (tap = unsave).
+     ---------------------------------------------------------------------- */
+  .wishlist{margin-top:27px; padding:0 32px 40px}
+  .wish-card{display:flex; height:296px; margin-bottom:20px;
+             background:var(--surface); border-radius:var(--r-card); overflow:hidden}
+  .wish-card__media{flex:0 0 327px; width:327px; height:296px; object-fit:cover; border:0; border-radius:0}
+  .wish-card__body{flex:1; min-width:0; position:relative; padding:36px 26px 21px 30px;
+                   display:flex; flex-direction:column}
+  .wish-card__house{font-size:17px; line-height:1; letter-spacing:.16em;
+                    text-transform:uppercase; font-weight:500; color:var(--muted)}
+  .wish-card__title{font-size:34px; margin-top:6px}
+  .wish-card__pricing{margin-top:15px; display:flex; align-items:center; gap:27px}
+  .wish-card__price{font-size:34px}
+  .wish-card__chip{height:42px; font-size:18px; padding:0 21px}
+  .wish-card__unwish{position:absolute; top:31px; right:26px; width:40px; height:36px;
+                     display:grid; place-items:center; color:var(--rose)}
+  .wish-card__actions{margin-top:auto; display:flex; align-items:center; gap:31px}
+  .wish-card__cta{width:229px; height:63px; gap:14px; padding:0;
+                  border-radius:var(--r-btn); background:var(--rose); color:#33241F;
+                  font-size:22px; font-weight:400}
+  .wish-card__sep{width:1px; height:41px; background:var(--line-strong)}
+  .wish-card__remove{display:inline-flex; align-items:center; gap:14px;
+                     color:var(--muted); font-size:21px; font-weight:300}
+}

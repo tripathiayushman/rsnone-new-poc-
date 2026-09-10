@@ -1,0 +1,52 @@
+/* ==========================================================================
+   SCREEN: C21 MEMBERSHIP JOIN — lifted from rsn-one-html/C21-MembershipJoin.html
+   ("SCREEN: MEMBERSHIP JOIN"), scoped under .c21. Sections 1–8 live in
+   base.css, section 9 in membership-shared.css. All values mock px.
+   ========================================================================== */
+.c21 {
+  /* Gutter: card and button edges measured at x=48 / x=804 (width 756).
+     Normalised to 50px across C21 / C22 / C23. */
+  --gutter:50px;
+
+  /* The photograph is dimmed by a scrim that is heaviest on the left, where the
+     type sits, and clears on the right so the vase and the card read. */
+  .c21-scrim{background:linear-gradient(100deg,
+              rgba(41,28,25,.90) 0%, rgba(41,28,25,.72) 42%,
+              rgba(41,28,25,.30) 62%, rgba(41,28,25,.10) 100%)}
+  /* Below the photograph the page is flat espresso; the mock fades from one to
+     the other at roughly y=760. */
+  .c21-fade{position:absolute; left:0; right:0; top:700px; bottom:0; z-index:0;
+            background:linear-gradient(180deg, rgba(41,28,25,0) 0%, var(--bg) 16%)}
+
+  /* --- top chrome: back arrow, then the lockup on the next line ------------ */
+  .c21-nav{margin-top:36px}
+  .c21-brand{padding:0 var(--gutter); margin-top:14px}
+
+  /* --- headline block over the photograph ---------------------------------- */
+  .c21-copy{padding:0 var(--gutter); margin-top:66px}
+  .c21-copy__title{font-family:var(--font-serif); font-size:68px; line-height:70px;
+                   font-weight:400; margin:0}
+  .c21-copy__title em{font-style:italic; color:var(--rose-light)}
+  .c21-copy__body{margin:22px 0 0; font-size:26px; line-height:36px; font-weight:300}
+
+  /* --- "Membership Benefits" ----------------------------------------------- */
+  .c21-benefits-title{padding:0 var(--gutter); margin:103px 0 0;
+                      font-family:var(--font-serif); font-size:38px; line-height:1.2}
+  /* 3 x 2 grid. Measured: 78px discs, 243px row pitch, blurb leading 25px. */
+  .c21-grid{margin-top:17px; row-gap:25px}
+  .c21-grid .benefit__text{max-width:250px; line-height:25px}
+
+  /* --- price panel ---------------------------------------------------------- */
+  /* measured y 1373-1539 => 167px tall, vertical rule at x=517 (467 in from the
+     panel's own left edge) */
+  .c21-tier{margin-top:30px; height:167px}
+  .c21-tier .tier-card__aside{flex:0 0 226px}
+
+  /* --- CTA + text link ------------------------------------------------------ */
+  .c21-cta{margin:26px var(--gutter) 0; width:auto; height:83px; border-radius:12px}
+  .c21-cta .t-eyebrow{font-size:26px; letter-spacing:.22em}
+  .c21-link{display:block; margin:30px auto 0; font-size:24px; font-weight:300;
+            color:var(--rose-light); text-decoration:underline; text-underline-offset:9px}
+
+  .home-indicator{margin-top:auto}
+}

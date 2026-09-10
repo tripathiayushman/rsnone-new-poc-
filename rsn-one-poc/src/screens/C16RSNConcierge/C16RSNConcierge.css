@@ -1,0 +1,85 @@
+/* ==========================================================================
+   SCREEN: C16 RSN CONCIERGE — lifted from rsn-one-html/C16-RSNConcierge.html
+   ("SCREEN: RSN CONCIERGE"), scoped under .c16. A request form. Back arrow,
+   big serif title, one-line subtitle, three tappable suggestion cards, a
+   free-text box and a full-width rose submit button. No images and no tab
+   bar on this screen. Left/right gutter is 42px here, not the standard 36px.
+   ========================================================================== */
+.c16 {
+  /* --- NAV BAR: back arrow only (no logo, no actions) --------------------- */
+  .navbar{flex:0 0 110px; display:flex; align-items:center; padding:0 42px}
+  .navbar__back{display:grid; place-items:center; width:52px; height:44px;
+                margin-left:-9px; color:var(--cream)}
+
+  .concierge{padding:14px 42px 0}
+  /* 105px serif — the largest type in the set; bigger than the .t-h1 (64px)
+     used for "Shop" on C04. Measured cap height 74px. */
+  .concierge__title{font-family:var(--font-serif); font-size:98px; line-height:1;
+                    font-weight:400; margin:0}
+  .concierge__sub{font-size:49px; line-height:1; font-weight:300; margin:29px 0 0;
+                  color:var(--cream)}
+
+  /* --- SUGGEST CARD: outlined box, 124px icon disc + 1-2 line label -------- */
+  /* reusable: 771 x 232, 30px stack gap, disc inset 41px, label inset 206px  */
+  .suggest-list{margin-top:51px; display:flex; flex-direction:column; gap:30px}
+  .suggest-card{display:flex; align-items:center; width:100%; height:232px;
+                border:1px solid var(--line); border-radius:20px;
+                background:rgba(59,42,36,.35); padding:0 41px; text-align:left}
+  .suggest-card__disc{flex:0 0 124px; width:124px; height:124px; border-radius:var(--r-pill);
+                      background:rgba(219,146,138,.12); display:grid; place-items:center;
+                      color:var(--rose-pale)}
+  .suggest-card__label{margin-left:41px; font-size:41px; line-height:54px;
+                       font-weight:300; color:var(--cream)}
+
+  /* --- FREE-TEXT REQUEST BOX ---------------------------------------------- */
+  /* 771 x 188. ASSUMPTION: the placeholder is drawn vertically centred in the
+     mock; a real <textarea> top-aligns its placeholder. Kept centred here to
+     match the artwork — confirm which is intended. */
+  .concierge__field{margin-top:69px; width:100%; height:188px; display:block;
+                    border:1px solid var(--line); border-radius:20px;
+                    background:transparent; color:var(--cream);
+                    font-family:var(--font-sans); font-size:40px; font-weight:300;
+                    padding:0 54px; line-height:188px; resize:none; overflow:hidden}
+  .concierge__field::placeholder{color:var(--muted-dim); font-weight:300}
+
+  /* --- SUBMIT ------------------------------------------------------------- */
+  .concierge__send{margin-top:96px; width:100%; height:128px; border-radius:12px;
+                   padding:0; gap:0}
+  .concierge__send .t-eyebrow{font-size:30px; letter-spacing:.20em; font-weight:400}
+  .home-indicator{margin-top:auto}
+
+  /* ------------------------------------------------------------------------
+     POC additions — not in the handoff.
+     ------------------------------------------------------------------------ */
+  /* the 188px single-line placeholder centring can't hold typed text, so once
+     the box has content (or focus) it becomes a normal two-line textarea */
+  .concierge__field:focus,.concierge__field:not(:placeholder-shown){
+    line-height:54px; padding:40px 54px; overflow:auto}
+  .suggest-card:hover{background:rgba(59,42,36,.6)}
+  .suggest-card:active{border-color:var(--line-strong)}
+
+  /* CONVERSATION — the request / reply thread, rendered between the suggestion
+     cards and the composer. Bubbles use the surface tokens; the concierge reply
+     is a hairline card with a small rail of suggested objects. */
+  .thread{margin-top:69px; display:flex; flex-direction:column; gap:26px}
+  .msg{max-width:640px; border-radius:24px; padding:30px 40px; font-size:30px;
+       line-height:1.4; font-weight:300; color:var(--cream)}
+  .msg--user{align-self:flex-end; background:var(--chip-bg); color:var(--rose-pale);
+             border-bottom-right-radius:8px}
+  .msg--concierge{align-self:flex-start; background:var(--surface);
+                  border:1px solid var(--line); border-bottom-left-radius:8px}
+  .msg__who{display:block; margin-bottom:12px; color:var(--rose-light)}
+  .msg__picks{display:flex; flex-wrap:wrap; gap:14px; margin-top:24px}
+  .pick{display:inline-flex; align-items:center; gap:14px; height:58px; padding:0 22px;
+        border-radius:var(--r-pill); border:1px solid var(--line-strong);
+        background:var(--surface-2); color:var(--cream); font-size:22px; font-weight:300}
+  .pick:hover{border-color:var(--rose-light)}
+  .pick__price{font-family:var(--font-serif); font-size:22px; color:var(--rose-light)}
+  .msg--typing{display:inline-flex; gap:10px; align-items:center; height:86px}
+  .msg--typing i{width:12px; height:12px; border-radius:50%; background:var(--muted);
+                 animation:c16-blink 1s infinite ease-in-out}
+  .msg--typing i:nth-child(2){animation-delay:.15s}
+  .msg--typing i:nth-child(3){animation-delay:.3s}
+  @keyframes c16-blink{0%,80%,100%{opacity:.25} 40%{opacity:1}}
+  .thread + .concierge__field{margin-top:40px}
+}

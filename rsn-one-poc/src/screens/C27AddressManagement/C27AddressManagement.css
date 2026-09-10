@@ -1,0 +1,77 @@
+/* ==========================================================================
+   SCREEN: C27 MY ADDRESSES — lifted from rsn-one-html/C27-AddressManagement.html
+   ("SCREEN: MY ADDRESSES"), scoped under .c27. All values mock px.
+   Two measured insets on this screen: the header block sits at 44px, the
+   address cards at 38px (the shared --gutter is 36px). Both are transcribed
+   as measured; they almost certainly want to be one value in production.
+   ========================================================================== */
+.c27 {
+  .page{--pad:44px; --card-pad:38px; display:flex; flex-direction:column}
+
+  /* --- NAV BAR: back arrow only, no title. 105px tall, arrow 38x32 ---------- */
+  .navbar{flex:0 0 105px; display:flex; align-items:center; padding:0 var(--pad)}
+  .navbar__back{display:block; color:var(--rose-light)}
+
+  /* --- PAGE HEAD: 64px serif title + 2-line 22px subtitle ------------------ */
+  .page-head{padding:35px var(--pad) 0}
+  .page-head__sub{margin-top:10px; color:var(--cream)}
+
+  /* --------------------------------------------------------------------------
+     ADDRESS LIST — cards 16px apart, first card top y=390.
+     Card box: full width between the 38px insets (778px), 16px radius,
+     hairline border, filled surface. Height is content-driven: 259px for a
+     5-line address, 232px for a 4-line one.
+     -------------------------------------------------------------------------- */
+  .addr-list{display:flex; flex-direction:column; gap:16px;
+             padding:0 var(--card-pad); margin-top:38px}
+
+  .addr-card{position:relative; display:flex; align-items:flex-start; gap:47px;
+             padding:32px 35px 20px 29px;
+             background:var(--surface); border:1px solid var(--line);
+             border-radius:var(--r-card)}
+
+  /* 70px rose-tinted disc holding the address-type icon */
+  .addr-card__icon{flex:0 0 70px; width:70px; height:70px; border-radius:var(--r-pill);
+                   display:grid; place-items:center;
+                   background:rgba(201,124,121,.16); color:var(--rose-light)}
+
+  .addr-card__body{flex:1 1 auto; min-width:0}
+  .addr-card__head{display:flex; align-items:center; gap:27px; min-height:36px}
+  .addr-card__name{font-family:var(--font-serif); font-size:30px; line-height:1.2; font-weight:400; margin:0}
+
+  /* "Default" marker — only the Home card carries it in this mock */
+  .addr-card__default{display:inline-flex; align-items:center; height:42px; padding:0 22px;
+                      border-radius:var(--r-pill); background:rgba(201,124,121,.42);
+                      color:var(--cream); font-size:20px; font-weight:300}
+
+  /* Recipient + address lines. First line is cream, the rest are muted.
+     All lines share a 31px line box. */
+  .addr-card__lines{margin:12px 0 0; font-size:22px; line-height:31px; font-weight:300;
+                    color:var(--muted)}
+  .addr-card__recipient{color:var(--cream)}
+
+  /* Overflow menu — 3 dots, top-right of the card */
+  .addr-card__menu{position:absolute; top:32px; right:35px; width:26px; height:26px;
+                   display:grid; place-items:center; color:var(--cream)}
+
+  /* Edit affordance — rose text link, bottom-right of the card, sitting on the
+     same baseline as the phone number */
+  .addr-card__edit{position:absolute; right:35px; bottom:20px;
+                   font-size:22px; line-height:31px; font-weight:300; color:var(--rose-light)}
+
+  /* --- PRIMARY ACTION: full-width rose button, 90px tall ------------------- */
+  .list-action{padding:0 var(--card-pad); margin-top:33px}
+  .btn--add{height:90px; gap:26px; letter-spacing:.22em; font-size:22px; font-weight:400;
+            text-transform:uppercase; border-radius:12px}
+
+  /* --- POC: the "..." menu opens a small popover (Set as default / Delete) --- */
+  .menu-backdrop{position:absolute; inset:0; z-index:2; cursor:default}
+  .addr-card__popover{position:absolute; top:70px; right:35px; z-index:3; min-width:260px;
+                      padding:8px 0; background:var(--surface-2); border:1px solid var(--line-strong);
+                      border-radius:12px; box-shadow:0 16px 40px rgba(0,0,0,.45)}
+  .addr-card__popover button{display:block; width:100%; text-align:left; padding:16px 26px;
+                             font-size:22px; font-weight:300; color:var(--cream)}
+  .addr-card__popover button:hover{background:rgba(250,247,245,.06)}
+  .addr-card__popover button + button{border-top:1px solid var(--line)}
+  .addr-card__popover .is-danger{color:var(--rose-light)}
+}

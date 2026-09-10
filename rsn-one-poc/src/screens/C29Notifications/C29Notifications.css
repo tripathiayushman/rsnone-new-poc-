@@ -1,0 +1,76 @@
+/* ==========================================================================
+   SCREEN: C29 NOTIFICATIONS — lifted from rsn-one-html/C29-Notifications.html
+   ("SCREEN: NOTIFICATIONS"), scoped under .c29. All values mock px.
+   Left/right gutter is 45px here, not the standard 36px.
+   ========================================================================== */
+.c29 {
+  /* back arrow added to the left of the standard app-bar logo */
+  .appbar__back{display:grid; place-items:center; width:44px; height:44px;
+                margin-right:8px; color:var(--rose-light)}
+  .appbar__lead{display:flex; align-items:center}
+  /* POC: <AppBar back/> — the mock draws a ROSE arrow and NO search / bag on
+     this screen; the shared bar sets cream inline and always renders actions */
+  .appbar__back{color:var(--rose-light)!important}
+  .appbar__actions{display:none}
+  .appbar__logo{margin-right:auto}
+
+  /* --- PAGE HEAD ---------------------------------------------------------- */
+  .notif-head{padding:21px 45px 0}
+  .notif-head__row{display:flex; align-items:flex-start; justify-content:space-between}
+  .notif-head__title{font-family:var(--font-serif); font-size:71px; line-height:1.05;
+                     font-weight:400; margin:0}
+  .notif-head__action{font-size:21px; line-height:1; color:var(--rose-light); margin-top:26px}
+  .notif-head__sub{font-size:29px; line-height:34px; font-weight:300; margin:1px 0 0}
+
+  /* --- GROUP -------------------------------------------------------------- */
+  .notif-group{padding:0 45px}
+  .notif-group + .notif-group{margin-top:18px}
+  .notif-group--first{margin-top:32px}
+  .notif-group__title{margin-bottom:8px}
+  .notif-list{display:flex; flex-direction:column; gap:13px}
+
+  /* --- NOTIFICATION ROW --------------------------------------------------- */
+  .list-row{display:flex; align-items:center; border:1px solid var(--line);
+            border-radius:12px; color:var(--cream)}
+  .list-row--notification{height:107px; padding:0 18px 0 11px; gap:30px}
+  .list-row__media{flex:0 0 133px; width:133px; height:90px; object-fit:cover;
+                   border-radius:8px}
+  .list-row__body{flex:1; min-width:0}
+  .list-row__title{display:block; font-family:var(--font-serif); font-size:24px;
+                   line-height:1.15; font-weight:400; margin:0}
+  .list-row__text{display:block; font-size:19px; line-height:24px; font-weight:300;
+                  color:var(--muted); margin:8px 0 0}
+  .list-row__meta{flex:0 0 auto; display:flex; flex-direction:column; align-items:flex-end;
+                  gap:22px; padding-top:2px}
+  .list-row__time{font-size:18px; line-height:1; color:var(--muted)}
+  .list-row__dot{width:14px; height:14px; border-radius:var(--r-pill); background:var(--rose)}
+  .list-row__dot--read{background:var(--muted-dim); opacity:.7}
+  /* POC: rows are <button>s (mark read, then navigate); unread titles are a
+     touch brighter; body copy wraps where the mock's manual <br> does */
+  .list-row--notification{width:100%; text-align:left}
+  .list-row--unread .list-row__title{color:#FFFFFF}
+  .list-row:not(.list-row--unread) .list-row__title{color:rgba(250,247,245,.86)}
+  .list-row__text{max-width:400px}
+  .list-row__media--blank{display:grid; place-items:center; background:var(--surface-2); color:var(--rose-light)}
+
+  /* --- EDITORIAL BANNER: pale tile, photo bleeding off the right ---------- */
+  .notif-banner{position:relative; display:block; margin:26px 38px 0; height:162px;
+                border-radius:14px; overflow:hidden; color:#3B2A24}
+  .notif-banner__media{position:absolute; inset:0; width:100%; height:100%;
+                       object-fit:cover; border:0}
+  .notif-banner__scrim{position:absolute; inset:0;
+    background:linear-gradient(90deg, rgba(240,222,215,.94) 0%, rgba(240,222,215,.88) 42%,
+                                      rgba(240,222,215,.10) 78%, rgba(240,222,215,0) 100%)}
+  .notif-banner__body{position:absolute; inset:0; padding:26px 0 0 26px}
+  .notif-banner__title{font-family:var(--font-serif); font-size:33px; line-height:39px;
+                       font-weight:400; margin:0}
+  .notif-banner__title em{font-style:italic; color:#B3706C}
+  .notif-banner__link{display:inline-flex; align-items:center; gap:12px; margin-top:10px;
+                      font-size:25px; font-weight:300; color:#4A342E}
+  /* POC: breathing room above the sticky tab bar */
+  .notif-banner{margin-bottom:24px}
+
+  /* --- TAB BAR (measured taller on this screen than on C03) --------------- */
+  .tabbar{flex:0 0 118px}
+  .home-indicator{flex:0 0 54px}
+}

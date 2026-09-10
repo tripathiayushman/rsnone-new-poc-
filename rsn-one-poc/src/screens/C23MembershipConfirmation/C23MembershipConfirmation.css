@@ -1,0 +1,60 @@
+/* ==========================================================================
+   SCREEN: C23 MEMBERSHIP CONFIRMATION — lifted from
+   rsn-one-html/C23-MembershipConfirmation.html ("SCREEN: MEMBERSHIP
+   CONFIRMATION"), scoped under .c23. Sections 1–8 live in base.css,
+   section 9 in membership-shared.css. All values mock px.
+   ========================================================================== */
+.c23 {
+  /* Gutter measured at x=56 / x=794 (the CTA). Normalised to 50px across
+     C21 / C22 / C23. */
+  --gutter:50px;
+
+  /* The photograph runs the full 853 x 1844. A soft scrim keeps the centred
+     type legible; from y=1220 down an almost-opaque espresso panel takes over. */
+  .c23-scrim{background:linear-gradient(180deg,
+              rgba(41,28,25,.62) 0%, rgba(41,28,25,.50) 34%,
+              rgba(41,28,25,.20) 58%, rgba(41,28,25,.10) 100%)}
+
+  /* --- centred confirmation stack ------------------------------------------ */
+  .c23-brand{margin-top:30px; text-align:center}
+  .c23-check{width:110px; height:110px; margin:52px auto 0; border-radius:var(--r-pill);
+             background:var(--rose); color:#fff; display:grid; place-items:center}
+  .c23-title{margin:21px 0 0; text-align:center;
+             font-family:var(--font-serif); font-size:84px; line-height:82px; font-weight:400}
+  .c23-title em{font-style:italic; color:var(--rose-light)}
+  .c23-sub{margin:24px 0 0; text-align:center; font-size:26px; line-height:37px; font-weight:300}
+
+  /* --- the pull-quote set into the photograph, right side ------------------ */
+  /* Absolutely placed because it is composed against the picture, not the grid.
+     Measured: left edge x=648, first line cap-top y=999, 25px line pitch. */
+  .c23-voice{position:absolute; left:648px; top:993px; z-index:1;
+             font-size:16px; line-height:25px; letter-spacing:.24em;
+             text-transform:uppercase; font-weight:400; color:var(--cream); margin:0}
+
+  /* --- "What's Next?" panel ------------------------------------------------ */
+  .c23-next{margin-top:565px; flex:1 0 auto; padding:39px 0 0;
+            background:rgba(41,28,25,.94)}
+  .c23-next__title{text-align:center; font-family:var(--font-serif);
+                   font-size:44px; line-height:1.2; font-weight:400; margin:0}
+  .c23-next__sub{margin:12px 0 0; text-align:center; font-size:26px; line-height:33px;
+                 font-weight:300}
+  /* 3 columns separated by hairline rules — .benefit-grid--ruled */
+  .c23-grid{margin-top:30px}
+  .c23-grid .benefit__icon{width:70px; height:70px}
+  .c23-grid .benefit__title{font-family:var(--font-sans); font-size:24px;
+                            line-height:29px; font-weight:300; margin-top:29px}
+
+  .c23-cta{margin:41px var(--gutter) 0; width:calc(100% - (2 * var(--gutter)));
+           height:83px; border-radius:12px}
+  .c23-cta .t-eyebrow{font-size:26px; letter-spacing:.22em}
+
+  /* the dark panel continues behind the home bar */
+  .home-indicator{background:rgba(41,28,25,.94); margin-top:auto}
+
+  /* ---- POC additions (not in the handoff) --------------------------------- */
+  /* member number eyebrow under the blurb */
+  .c23-memberno{margin:22px 0 0; text-align:center; font-size:16px; letter-spacing:.24em;
+                color:var(--rose-light)}
+  /* the "What's Next?" routes are links — same column layout as .benefit */
+  .c23-route{display:flex; flex-direction:column; align-items:center; color:inherit}
+}

@@ -1,0 +1,125 @@
+/* Shared by C14, C21, C22, C23, C33, C34 — lifted verbatim from the handoff. */
+/* ==========================================================================
+   9. MEMBERSHIP FLOW — SHARED COMPONENTS
+   This block is BYTE-IDENTICAL in C14, C21, C22, C23, C33 and C34. If you
+   change a rule here, change it in all six files. Anything below the
+   "SCREEN:" banner further down is local to one screen only.
+
+   Component            Appears on
+   -------------------  --------------------------------
+   .hero-shot           C14 C21 C22 C23      full-bleed photograph
+   .brandmark               C21 C22 C23 C33 C34   RSN one logo lockup
+   .navbar                  C21 C22     C33 C34   back bar
+   .member-card         C14 C21     C23          membership card artwork
+   .benefit-list        C14                      benefits, vertical
+   .benefit-grid            C21 C22 C23          benefits, grid
+   .tier-card               C21 C22              price / plan panel
+   .data-row                    C22 C33 C34      bordered list row
+   .promo-banner                    C33 C34      light editorial banner
+   ========================================================================== */
+
+/* extra tokens used only by this flow -------------------------------------- */
+:root{
+  --ink:#3B241D;             /* dark text sitting on light photography     */
+  --panel:rgba(250,247,245,.045);  /* translucent card over photography    */
+  --credit:#A9C9AC;          /* "+ ₹8,499" money-in                        */
+  --debit:var(--rose);       /* "- ₹4,049" money-out                       */
+  --banner-bg:#E9D0C8;       /* light promo banner ground                  */
+}
+
+/* --- .hero-shot : a photograph filling the whole artboard ---------------- */
+.screen--photo > *{position:relative; z-index:1}
+.hero-shot{position:absolute; inset:0; z-index:0; overflow:hidden}
+.hero-shot__media{width:100%; height:100%; object-fit:cover; border:0}
+.hero-shot__scrim{position:absolute; inset:0}
+
+/* --- .brandmark : the RSN one logo lockup, shipped as one image asset.
+       .brandmark--sm is the smaller navbar size; both sizes are set on
+       the <img> itself, so the modifier carries no CSS of its own. --- */
+.brandmark{display:inline-block; line-height:1}
+.brandmark--center{text-align:center}
+
+/* --- .navbar : back arrow, optionally with the lockup beside it ---------- */
+.navbar{display:flex; align-items:center; gap:20px; padding:0 var(--gutter)}
+.navbar__back{color:var(--rose-light); display:grid; place-items:center;
+              width:44px; height:44px; flex:0 0 44px}
+.navbar__title{font-family:var(--font-serif); font-size:34px}
+
+/* --- .member-card : the physical RSN One card ---------------------------
+   DECLARED HERE SO THE FLOW SHARES ONE NAME. In C14, C21 and C23 the card is
+   PHOTOGRAPHED INTO the hero image — it is not a separate DOM layer in the
+   mock, and each of those files carries an HTML comment giving the rectangle
+   the card occupies. Use this class if the card ever becomes a real element
+   (e.g. a rendered digital card in the wallet).                          */
+.member-card{position:relative; border-radius:14px; overflow:hidden;
+             box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.member-card__media{width:100%; height:100%; object-fit:cover; border:0}
+.member-card__lockup{position:absolute; inset:0; display:grid; place-items:center}
+
+/* --- .benefit-list : icon disc + label, stacked (C14) -------------------- */
+.benefit-list{display:flex; flex-direction:column}
+.benefit-list__item{display:flex; align-items:center; gap:48px; height:125px}
+.benefit-list__icon{flex:0 0 94px; width:94px; height:94px; border-radius:var(--r-pill);
+                    display:grid; place-items:center;
+                    background:rgba(200,140,125,.30); color:var(--ink)}
+.benefit-list__label{font-size:37px; font-weight:300; color:var(--ink)}
+
+/* --- .benefit-grid : icon disc + title + blurb, in columns (C21/C22/C23) - */
+.benefit-grid{display:grid; padding:0 var(--gutter); text-align:center}
+.benefit-grid--3{grid-template-columns:repeat(3,1fr); row-gap:60px}
+.benefit-grid--4{grid-template-columns:repeat(4,1fr); column-gap:8px}
+.benefit-grid--ruled .benefit + .benefit{border-left:1px solid var(--line)}
+.benefit{display:flex; flex-direction:column; align-items:center}
+.benefit__icon{width:78px; height:78px; border-radius:var(--r-pill);
+               border:1px solid rgba(228,164,157,.55); background:rgba(228,164,157,.10);
+               display:grid; place-items:center; color:var(--rose-pale)}
+.benefit__title{font-family:var(--font-serif); font-size:26px; line-height:1.2; margin:20px 0 0}
+.benefit__text{font-size:22px; line-height:1.35; font-weight:300; color:var(--muted); margin:14px 0 0}
+.benefit-grid--4 .benefit__icon{width:62px; height:62px}
+.benefit-grid--4 .benefit__title{font-size:22px; margin-top:16px}
+.benefit-grid--4 .benefit__text{font-size:18px; margin-top:10px}
+
+/* --- .tier-card : the "RSN One Membership … ₹5,999 / year" panel --------- */
+.tier-card{display:flex; align-items:center; margin:0 var(--gutter);
+           border:1px solid var(--line); border-radius:var(--r-card);
+           background:var(--panel); padding:0 40px}
+.tier-card__main{flex:1 1 auto}
+.tier-card__name{font-family:var(--font-serif); font-size:40px; line-height:1.15; margin:0; white-space:nowrap}
+.tier-card__desc{margin:14px 0 0; font-size:22px; line-height:1.28; font-weight:300; color:var(--muted)}
+.tier-card__rule{flex:0 0 1px; align-self:stretch; margin:34px 40px; background:var(--line)}
+.tier-card__aside{flex:0 0 250px}
+.tier-card__price{font-family:var(--font-serif); font-size:44px; color:var(--rose-light); white-space:nowrap}
+.tier-card__period{font-size:26px; font-weight:300; color:var(--muted); margin-left:8px; white-space:nowrap}
+.tier-card__note{margin:12px 0 0; font-size:20px; line-height:1.3; font-weight:300; color:var(--muted)}
+
+/* --- .data-row : bordered list row — icon/thumb, body, value, chevron ---- */
+.data-row{display:flex; align-items:center; gap:26px;
+          border:1px solid var(--line); border-radius:12px;
+          background:var(--panel); padding:0 26px; min-height:104px}
+.data-row--selected{border-color:var(--rose); background:rgba(201,124,121,.10)}
+.data-row__icon{flex:0 0 62px; width:62px; height:62px; border-radius:var(--r-pill);
+                display:grid; place-items:center;
+                background:rgba(201,124,121,.22); color:var(--rose-light)}
+.data-row__thumb{flex:0 0 136px; width:136px; height:90px; object-fit:cover; border-radius:8px}
+.data-row__body{flex:1 1 auto; min-width:0}
+.data-row__title{font-family:var(--font-serif); font-size:28px; line-height:1.2; margin:0}
+.data-row__sub{margin:6px 0 0; font-size:20px; line-height:1.3; font-weight:300; color:var(--muted)}
+.data-row__meta{margin:5px 0 0; font-size:18px; line-height:1.3; font-weight:300; color:var(--muted-dim)}
+.data-row__value{font-family:var(--font-serif); font-size:30px; white-space:nowrap}
+.data-row__value--credit{color:var(--credit)}
+.data-row__value--debit{color:var(--debit)}
+.data-row__chevron{color:var(--muted); display:grid; place-items:center}
+.data-row + .data-row{margin-top:12px}
+
+/* --- .promo-banner : light editorial strip with a photo behind ----------- */
+.promo-banner{position:relative; display:block; margin:0 var(--gutter);
+              border-radius:var(--r-card); overflow:hidden; background:var(--banner-bg)}
+.promo-banner__media{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border:0;
+                     background:var(--banner-bg)}  /* light placeholder: this slot is a PALE photo */
+.promo-banner__scrim{position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(240,220,212,.94) 0%, rgba(240,220,212,.72) 46%, rgba(240,220,212,0) 72%)}
+.promo-banner__body{position:relative; padding:32px 40px}
+.promo-banner__title{font-family:var(--font-serif); font-size:40px; line-height:44px; color:var(--ink); margin:0}
+.promo-banner__title em{font-style:italic; color:#B4675F}
+.promo-banner__link{display:inline-flex; align-items:center; gap:14px; margin-top:18px;
+                    font-size:24px; font-weight:300; color:#5C3A31}

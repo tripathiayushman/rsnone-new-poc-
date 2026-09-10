@@ -1,0 +1,100 @@
+/* ==========================================================================
+   SCREEN: C20 LOGIN — lifted from rsn-one-html/C20-LoginSignup.html ("SCREEN: LOGIN"),
+   scoped under .c20. One full-bleed photograph behind everything, with a
+   two-axis scrim: dark on the left so the copy reads, and dark below y~900 so
+   the form reads. Content column is x 62 -> 792 (730px wide), i.e. a 62px
+   gutter, not 36px.
+   ========================================================================== */
+.c20 {
+  &.login{--form-line:rgba(250,247,245,.13);
+         --form-fill:rgba(250,247,245,.05);
+         --accent:#E08F8E;}
+
+  .login__media{position:absolute; inset:0; width:853px; height:1844px;
+                object-fit:cover; border:0}
+  .login__scrim{position:absolute; inset:0; background:
+    linear-gradient(90deg, rgba(41,28,25,.93) 0%, rgba(41,28,25,.84) 34%,
+                    rgba(41,28,25,.42) 62%, rgba(41,28,25,.16) 100%),
+    linear-gradient(180deg, rgba(41,28,25,0) 44%, rgba(41,28,25,.55) 48%,
+                    rgba(41,28,25,.95) 53%, rgba(41,28,25,.97) 100%)}
+
+  &.login .statusbar{position:relative; z-index:2}
+
+  /* TOP ROW — back arrow (x 47, y 116) and Skip (right edge x 803, y 126). */
+  .login__back{position:absolute; left:47px; top:112px; color:var(--accent)}
+  .login__skip{position:absolute; top:120px; right:50px; font-size:26px; color:#F9F0E6}
+
+  /* LOCKUP — left aligned; the logo asset runs x 90–407, y 172–318 in the
+     mock, so 289 x 146 at x=88 (the artwork has no side bearing, unlike
+     the type lockup this replaced, which was set from x=62). */
+  .login__lockup{position:absolute; left:88px; top:172px; width:420px}
+
+  /* HEADLINE — 2 lines, "W" cap 73px => ~104px serif, 97px baseline pitch.
+     Line 2 italic rose. */
+  .login__title{position:absolute; left:62px; top:395px; margin:0;
+                font-family:var(--font-serif); font-size:104px; line-height:97px;
+                font-weight:400; color:var(--cream)}
+  .login__title em{font-style:italic; color:#E18A87}
+  /* BODY — 3 hard-broken lines, "S" cap 21px => ~28px, 40px line pitch. */
+  .login__body{position:absolute; left:62px; top:621px; margin:0; width:420px;
+               font-size:28px; line-height:40px; font-weight:300; color:var(--cream)}
+
+  /* SEGMENTED TABS — text-only, active one underlined. "Sign In" x 63–145,
+     "Sign Up" x 250–340, underline 127 x 3 at y 927. */
+  .login__tabs{position:absolute; left:62px; top:881px; display:flex; gap:105px}
+  .login__tab{position:relative; font-size:26px; line-height:1; font-weight:400;
+              color:#C9B2AA; padding-bottom:0}
+  .login__tab--active{color:#E99292; font-weight:500}
+  .login__tab--active::after{content:""; position:absolute; left:0; top:46px;
+                             width:127px; height:3px; background:#D68987}
+
+  /* FORM COLUMN — every control is 730px wide at x=62. */
+  .login__form{position:absolute; left:62px; top:962px; width:730px}
+  .field{position:relative; display:flex; align-items:center; height:88px;
+         border:1px solid var(--form-line); border-radius:var(--r-input);
+         background:var(--form-fill); padding:0 42px}
+  .field + .field{margin-top:18px; height:89px}
+  .field__icon{flex:0 0 auto; color:var(--rose-pale); opacity:.85}
+  .field__input{flex:1; margin-left:38px; background:none; border:0; outline:0;
+                font-family:var(--font-sans); font-size:28px; font-weight:300; color:var(--cream)}
+  .field__input::placeholder{color:#A89D98; font-weight:300}
+  .field__toggle{flex:0 0 auto; color:var(--rose-pale); opacity:.9}
+
+  .login__forgot{display:block; margin:23px 4px 0 0; text-align:right;
+                 font-size:23px; color:#E89692}
+
+  .login__submit{margin-top:38px; display:flex; align-items:center; justify-content:center;
+                 gap:26px; width:100%; height:87px; border-radius:var(--r-input);
+                 background:#BA696A; color:#fff; font-size:26px; letter-spacing:.22em;
+                 text-transform:uppercase}
+
+  /* "or" DIVIDER — hairline x 62–370, label, hairline x 484–792. */
+  .login__or{display:flex; align-items:center; gap:44px; margin-top:26px;
+             font-size:24px; color:#D5C6C0}
+  .login__or::before,.login__or::after{content:""; height:1px; background:rgba(250,247,245,.30)}
+  .login__or::before{width:308px}
+  .login__or::after{width:308px}
+
+  /* SSO BUTTONS — 730 x ~80, rose hairline outline. */
+  .login__sso{display:flex; align-items:center; justify-content:center; gap:38px;
+              width:100%; height:79px; margin-top:21px; border-radius:var(--r-input);
+              border:1px solid rgba(226,150,145,.5); color:#FBF5F1; font-size:26px;
+              font-weight:300}
+  .login__sso + .login__sso{height:80px; margin-top:22px}
+
+  /* FOOTER LINE — centred, "Create an account" in rose. */
+  .login__footer{position:absolute; left:0; right:0; top:1655px; margin:0;
+                 text-align:center; font-size:24px; font-weight:300; color:var(--cream)}
+  .login__footer a,.login__footer button{color:#E19490}
+
+  &.login .home-indicator{position:absolute; z-index:3; left:0; right:0; bottom:0;
+                         background:transparent}
+
+  /* POC: "Forgot password?" is a <button>, so it needs the full column to keep the
+     mock's flush-right placement; inline validation errors sit between fields, so
+     the field that follows an error keeps the mock's 18px pitch. */
+  button.login__forgot{width:100%}
+  .field__error{margin:10px 0 0 4px; font-size:20px}
+  .field__error + .field{margin-top:18px; height:89px}
+  .login__footer button{font-size:inherit; font-weight:inherit}
+}

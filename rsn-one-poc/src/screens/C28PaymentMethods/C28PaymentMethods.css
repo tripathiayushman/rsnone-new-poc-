@@ -1,0 +1,153 @@
+/* ==========================================================================
+   SCREEN: C28 PAYMENT METHODS — lifted from rsn-one-html/C28-PaymentMethods.html
+   ("SCREEN: PAYMENT METHODS"), scoped under .c28. All values mock px.
+   Two measured insets: header block at 44px, cards/section heads at 39px
+   (the shared --gutter is 36px). Both transcribed as measured.
+   ========================================================================== */
+.c28 {
+  .page{--pad:44px; --card-pad:39px; display:flex; flex-direction:column}
+
+  /* --- NAV BAR: back arrow only, no title. 105px tall, arrow 38x33 ---------- */
+  .navbar{flex:0 0 105px; display:flex; align-items:center; padding:0 var(--pad)}
+  .navbar__back{display:block; color:var(--rose-light)}
+
+  /* --- PAGE HEAD: 64px serif title + 2-line 22px subtitle ------------------ */
+  .page-head{padding:30px var(--pad) 0}
+  .page-head__sub{margin-top:2px; color:var(--cream)}
+
+  /* --- SECTION: serif heading left, rose "Add …" action right -------------- */
+  .pay-section{padding:0 var(--card-pad); margin-top:40px}
+  .pay-section__head{display:flex; align-items:center; justify-content:space-between;
+                     margin-bottom:19px}
+  .pay-section__add{display:inline-flex; align-items:center; gap:14px;
+                    font-size:24px; font-weight:300; color:var(--rose-light)}
+
+  /* --------------------------------------------------------------------------
+     PAYMENT CARD ROW — card artwork + name / masked number / expiry, with an
+     optional "Default" marker and a 3-dot overflow menu.
+     Card box 436-595 (159px tall), artwork 226 x 128 at a 22px left inset.
+     -------------------------------------------------------------------------- */
+  .pay-list{display:flex; flex-direction:column; gap:14px}
+  .pay-card{position:relative; display:flex; align-items:center; gap:29px;
+            padding:15px 35px 15px 22px; min-height:159px;
+            background:var(--surface); border:1px solid var(--line);
+            border-radius:var(--r-card)}
+  .pay-card__art{flex:0 0 226px; width:226px; height:128px; object-fit:cover;
+                 border-radius:10px; border:0}
+  .pay-card__body{flex:1 1 auto; min-width:0}
+  .pay-card__name{font-family:var(--font-serif); font-size:28px; line-height:1.2;
+                  font-weight:400; margin:0}
+  .pay-card__number{margin:8px 0 0; font-size:24px; line-height:1.2; font-weight:300;
+                    color:var(--cream)}
+  .pay-card__number b{font-weight:300; letter-spacing:.18em; margin-right:12px}
+  .pay-card__expiry{margin:10px 0 0; font-size:22px; line-height:1.2; font-weight:300;
+                    color:var(--muted)}
+  .pay-card__expiry span{margin-left:14px}
+
+  /* "Default" marker — only the Visa card carries it in this mock.
+     Measured 112 x 41 at x=613, y=468 (i.e. aligned to the NAME line, not to
+     the card's vertical centre). */
+  .pay-card__default{position:absolute; top:32px; right:90px;
+                     display:inline-flex; align-items:center; height:41px; padding:0 24px;
+                     border-radius:var(--r-pill); background:rgba(201,124,121,.42);
+                     color:var(--cream); font-size:21px; font-weight:300}
+
+  /* Overflow menu — 3 dots, vertically centred at the card's right edge */
+  .pay-card__menu{position:absolute; top:50%; right:35px; transform:translateY(-50%);
+                  width:26px; height:26px; display:grid; place-items:center; color:var(--cream)}
+
+  /* --- UPI ROW: same shell, smaller 170 x 85 artwork, single line of text --- */
+  .pay-card--upi{min-height:113px; padding:14px 35px 14px 14px; gap:32px}
+  .pay-card--upi .pay-card__art{flex:0 0 170px; width:170px; height:85px}
+  .pay-card__handle{margin:0; font-size:24px; line-height:1.2; font-weight:300; color:var(--cream)}
+
+  /* --- OPTION ROW: disc icon + title/description + chevron ----------------- */
+  .pay-option{display:flex; align-items:center; gap:51px; min-height:134px;
+              padding:20px 35px 20px 28px;
+              background:var(--surface); border:1px solid var(--line);
+              border-radius:var(--r-card); width:100%; text-align:left}
+  .pay-option__icon{flex:0 0 78px; width:78px; height:78px; border-radius:var(--r-pill);
+                    display:grid; place-items:center;
+                    background:rgba(201,124,121,.16); color:var(--rose-light)}
+  .pay-option__body{flex:1 1 auto}
+  .pay-option__title{display:block; font-family:var(--font-serif); font-size:30px;
+                     line-height:1.2; font-weight:400; margin:0}
+  .pay-option__desc{display:block; margin:10px 0 0; font-size:22px; line-height:1.2;
+                    font-weight:300; color:var(--muted)}
+  .pay-option__chevron{flex:0 0 auto; color:var(--rose-light)}
+
+  /* --- SECURITY NOTE: shield + 2 lines of reassurance copy ----------------- */
+  .secure{display:flex; align-items:flex-start; gap:29px;
+          padding:0 var(--card-pad) 0 54px; margin-top:48px}
+  .secure__icon{flex:0 0 40px; color:var(--rose-light)}
+  .secure__text{margin:0; font-size:22px; line-height:31px; font-weight:300}
+  .secure__text span{color:var(--muted)}
+
+  /* --- PRIMARY ACTION: full-width rose button, 84px tall ------------------- */
+  .page-action{padding:0 var(--card-pad); margin-top:39px}
+  .btn--add{height:84px; gap:26px; letter-spacing:.22em; font-size:22px; font-weight:400;
+            text-transform:uppercase; border-radius:12px}
+
+  /* ==========================================================================
+     POC ADDITIONS
+     ========================================================================== */
+
+  /* --- CARD ARTWORK in CSS (the promo-card-* image slots were not supplied):
+     226 x 128 rounded tile, brand-coloured gradient, brand mark top-left and
+     the RSN dotted arc flourish bottom-right, matching the mock's placement --- */
+  .pay-card__art{position:relative; overflow:hidden; display:block; color:#fff;
+                 box-shadow:inset 0 0 0 1px rgba(250,247,245,.10)}
+  .pay-card__art::before{position:absolute; left:18px; top:16px; font-family:var(--font-sans);
+                         font-weight:700; line-height:1}
+  .pay-card__art::after{content:""; position:absolute; inset:0;
+                        background:linear-gradient(160deg, rgba(255,255,255,.14) 0%, rgba(255,255,255,0) 45%, rgba(0,0,0,.22) 100%)}
+  .pay-card__arc{position:absolute; right:-42px; bottom:-78px; width:190px; height:190px;
+                 border-radius:50%; border:1px dotted rgba(250,247,245,.55)}
+  .pay-card__arc::before,.pay-card__arc::after{content:""; position:absolute; width:8px; height:8px;
+                 border-radius:50%; background:var(--rose-light)}
+  .pay-card__arc::before{left:18px; top:34px}
+  .pay-card__arc::after{left:70px; top:4px}
+  .pay-card__art--visa{background:linear-gradient(135deg,#182C66 0%,#25439A 55%,#4A6BC4 100%)}
+  .pay-card__art--visa::before{content:"VISA"; font-size:32px; font-style:italic; letter-spacing:-.02em}
+  .pay-card__art--mastercard{background:linear-gradient(135deg,#3B2A24 0%,#20140F 100%)}
+  .pay-card__art--mastercard::before{content:""; width:46px; height:46px; border-radius:50%; background:#EB001B}
+  .pay-card__art--mastercard .pay-card__mc{position:absolute; left:46px; top:16px; width:46px; height:46px;
+                 border-radius:50%; background:#F79E1B; opacity:.92}
+  .pay-card__art--amex{background:linear-gradient(135deg,#0C6C78 0%,#1E9DAA 100%)}
+  .pay-card__art--amex::before{content:"AMERICAN\A EXPRESS"; white-space:pre; font-size:15px; line-height:1.15;
+                 letter-spacing:.02em; text-transform:uppercase}
+  .pay-card__art--rupay{background:linear-gradient(135deg,#0B3C6E 0%,#1F6B3A 100%)}
+  .pay-card__art--rupay::before{content:"RuPay"; font-size:28px}
+  .pay-card__art--upi{background:linear-gradient(135deg,#2E211D 0%,#4A342E 100%)}
+  .pay-card__art--upi::before{content:"UPI"; left:auto; top:auto; inset:0; display:grid; place-items:center;
+                 font-size:34px; font-style:italic; letter-spacing:.06em; color:var(--cream)}
+  .pay-card__art--upi .pay-card__arc{right:-60px; bottom:-90px; width:150px; height:150px}
+
+  /* --- "..." popover: Set as default / Remove -------------------------------- */
+  .menu-backdrop{position:absolute; inset:0; z-index:2; cursor:default}
+  .pay-card__popover{position:absolute; top:50%; right:35px; z-index:3; min-width:240px; margin-top:22px;
+                     padding:8px 0; background:var(--surface-2); border:1px solid var(--line-strong);
+                     border-radius:12px; box-shadow:0 16px 40px rgba(0,0,0,.45)}
+  .pay-card__popover button{display:block; width:100%; text-align:left; padding:16px 26px;
+                            font-size:22px; font-weight:300; color:var(--cream)}
+  .pay-card__popover button:hover{background:rgba(250,247,245,.06)}
+  .pay-card__popover button + button{border-top:1px solid var(--line)}
+  .pay-card__popover .is-danger{color:var(--rose-light)}
+  .pay-list__empty{margin:0; font-size:22px; line-height:1.4; font-weight:300; color:var(--muted)}
+
+  /* --- Inline "Add Card" / "Add UPI" forms — the spec's shared .field shell --- */
+  .pay-form{display:flex; flex-direction:column; gap:10px; margin-bottom:19px}
+  .pay-form__row{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+  .field{display:flex; align-items:center; gap:24px; min-height:104px; padding:22px 28px 22px 34px;
+         background:var(--surface); border:1px solid var(--line); border-radius:var(--r-input)}
+  .field__body{flex:1 1 auto; min-width:0}
+  .field__label{display:block; font-size:19px; line-height:1.1; color:var(--muted); font-weight:300}
+  .field__input{display:block; width:100%; margin-top:11px; padding:0; border:0; background:none;
+                color:var(--cream); font-family:var(--font-sans); font-size:24px; line-height:1.2;
+                font-weight:300; -webkit-appearance:none; appearance:none; border-radius:0}
+  .field__input:focus{outline:none}
+  .field__input::placeholder{color:var(--muted-dim)}
+  .field__brand{flex:0 0 auto; font-size:19px; font-weight:300; color:var(--rose-light)}
+  .pay-form__actions{display:flex; gap:12px; margin-top:4px}
+  .pay-form__actions .btn{flex:1; letter-spacing:.18em; font-size:18px; text-transform:uppercase}
+}

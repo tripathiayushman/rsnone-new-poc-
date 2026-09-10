@@ -1,0 +1,125 @@
+/* ==========================================================================
+   RSN ONE — base stylesheet. Sections 1-8 are the handoff's shared block
+   (identical in all 34 CXX files), lifted verbatim. Every value is mock px, 1:1.
+   Screen-specific CSS lives next to each screen in src/screens/CXX/*.css.
+   ========================================================================== */
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans); -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ---------- 9. POC ADDITIONS (not in the handoff) ----------------------- */
+/* light-ground screens (C13, C14, C15 sheet, C31 switch) share these */
+.screen--light{--ink:#2B1A16; --rose-deep:#BC5C67; background:#F0D1C1; color:var(--ink)}
+.screen--light .statusbar{color:var(--ink); position:relative; z-index:2}
+.screen--light .home-indicator{background:transparent; position:relative; z-index:2}
+.screen--light .home-indicator::after{background:var(--cream)}
+/* tab bar + home indicator stick to the bottom of the viewport when a screen
+   grows past 1844px, so navigation is always reachable while demoing */
+.tabwrap{position:sticky; bottom:0; margin-top:auto; z-index:5; background:var(--bg); display:flex; flex-direction:column}
+.tabwrap .tabbar{margin-top:0}
+/* handoff modifier: title-case tab labels on C06/C07/C09-C12/C17 */
+.tabbar--roman .t-tab{text-transform:none; letter-spacing:0; font-size:19px; font-weight:300}
+/* interactive affordances */
+.tab,.list-row,.product-card__wish,.appbar__action{cursor:pointer}
+.btn:disabled{opacity:.45; cursor:not-allowed}
+.btn--primary:hover{filter:brightness(1.06)}
+.btn--outline:hover{background:rgba(250,247,245,.05)}
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--rose-light); outline-offset:2px}
+input,select,textarea{font:inherit; color:inherit}
+/* stand-in photography (a supplied image standing in for a missing slot) */
+img[data-standin]{filter:saturate(.92)}
+/* image placeholder when no file and no stand-in exists */
+.img-slot{display:grid; place-items:center; background:var(--surface-2); color:var(--muted-dim); font-size:12px; text-align:center; padding:8px; overflow:hidden}
+/* toast */
+.toast{position:fixed; left:50%; bottom:180px; transform:translateX(-50%); z-index:50; background:var(--surface-2); color:var(--cream); border:1px solid var(--line-strong); border-radius:var(--r-pill); padding:18px 34px; font-size:20px; box-shadow:0 12px 40px rgba(0,0,0,.4); animation:toast-in .2s ease-out}
+@keyframes toast-in{from{opacity:0; transform:translate(-50%,12px)} to{opacity:1; transform:translate(-50%,0)}}
+/* empty state */
+.empty{padding:120px var(--gutter); text-align:center}
+.empty__title{font-family:var(--font-serif); font-size:40px; line-height:1.15}
+.empty__body{margin-top:16px; font-size:22px; font-weight:300; color:var(--muted); line-height:1.45}
+.empty .btn{margin-top:36px}
+/* form validation */
+.field--error .field__input,.field--error{border-color:var(--rose)!important}
+.field__error{display:block; margin-top:8px; font-size:15px; color:var(--rose-light)}

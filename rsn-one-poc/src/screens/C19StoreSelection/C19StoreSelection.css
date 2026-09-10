@@ -1,0 +1,88 @@
+/* ==========================================================================
+   SCREEN: C19 STORE SELECT — lifted from rsn-one-html/C19-StoreSelection.html
+   ("SCREEN: STORE SELECT"), scoped under .c19. Page gutter on this screen is
+   43px (measured from the card edges), not the 36px default. Everything is
+   absolutely positioned to the measured y so the two big cards land exactly
+   where the mock has them.
+   ========================================================================== */
+.c19 {
+  &.store{background:
+    radial-gradient(700px 520px at 120px 260px, rgba(126,84,66,.30) 0%, rgba(41,28,25,0) 70%),
+    linear-gradient(180deg,#33221D 0%, #2C1E1A 30%, #291C19 60%, #241610 100%);}
+
+  /* FOOTER PHOTOGRAPHY — the bottom 356px of the frame is a still life
+     (blossom in a vase, stone bowl, wooden table) that fades up into the flat
+     background. Above y=1488 the mock has no photographic texture at all
+     (row-wise pixel std ~2), so the top of the screen is a gradient, not an
+     image. */
+  .store__footer{position:absolute; left:0; right:0; top:1488px; height:356px; overflow:hidden}
+  .store__footer-media{width:853px; height:356px; object-fit:cover; border:0}
+  .store__footer-scrim{position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(41,28,25,.92) 0%, rgba(41,28,25,.45) 22%,
+                               rgba(41,28,25,.30) 60%, rgba(41,28,25,.55) 100%)}
+
+  &.store .statusbar{position:relative; z-index:3}
+
+  /* LOCKUP — centred logo asset. Arc y 117–157, wordmark y 164–227,
+     tagline y 244–258: 273 x 138 overall. */
+  .store__lockup{position:absolute; z-index:3; left:0; right:0; top:117px; text-align:center}
+  .store__lockup .logo{margin:0 auto}
+
+  /* HEADLINE — 2 centred lines, "C" cap 61px => ~86px serif, 89px line pitch.
+     "world" is italic rose. */
+  .store__title{position:absolute; z-index:3; left:0; right:0; top:284px; margin:0;
+                text-align:center; font-family:var(--font-serif); font-size:86px;
+                line-height:89px; font-weight:400; color:var(--cream)}
+  .store__title em{font-style:italic; color:#D58985}
+  /* SUBTITLE — 2 centred lines, "S" cap 20px => ~28px, 40px line pitch. */
+  .store__sub{position:absolute; z-index:3; left:0; right:0; top:487px; margin:0;
+              text-align:center; font-size:28px; line-height:40px; font-weight:300;
+              color:#E5DBD4}
+
+  /* STORE CARD — 770 x ~410, x 43–812, 1px rose hairline, 16px radius.
+     Photo bleeds the full card; a left-to-right scrim keeps the left column
+     legible. Card 1 y 626–1033, card 2 y 1070–1487 (37px apart). */
+  .store-card{position:absolute; z-index:3; left:43px; width:770px;
+              border:1px solid rgba(226,160,150,.34); border-radius:var(--r-card);
+              overflow:hidden}
+  .store-card--nepal {top:626px;  height:407px}
+  .store-card--global{top:1070px; height:417px}
+  .store-card__media{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border:0}
+  .store-card__scrim{position:absolute; inset:0;
+    background:linear-gradient(90deg, rgba(41,28,25,.95) 0%, rgba(41,28,25,.92) 30%,
+                               rgba(41,28,25,.55) 48%, rgba(41,28,25,.10) 66%,
+                               rgba(41,28,25,0) 100%)}
+  .store-card__body{position:absolute; left:45px; top:45px; width:400px}
+  /* "RSNOne" + world name: one 2-line block, 62px serif on a 64px pitch. */
+  .store-card__name{margin:0; font-family:var(--font-serif); font-size:62px;
+                    line-height:64px; font-weight:400; color:var(--cream)}
+  .store-card__name em{font-style:italic; color:#D8908C}
+  .store-card__text{margin:34px 0 0; font-size:24px; line-height:32px;
+                    font-weight:300; color:#DCCDC4}
+  .store-card__cta{margin-top:38px; display:flex; align-items:center; justify-content:center;
+                   gap:22px; width:324px; height:69px; border-radius:6px;
+                   background:#BE7070; color:#fff; font-size:20px; letter-spacing:.18em;
+                   text-transform:uppercase}
+  /* Eyebrow line stack in the top-right corner of the card, over the photo. */
+  .store-card__eyebrow{position:absolute; right:43px; width:170px; margin:0;
+                       text-align:right; font-size:14px; line-height:26px;
+                       letter-spacing:.20em; text-transform:uppercase; color:#F0C6BB}
+  .store-card--nepal  .store-card__eyebrow{top:26px}   /* first cap lands at y 663 */
+  .store-card--global .store-card__eyebrow{top:20px}   /* first cap lands at y 1101 */
+
+  /* CLOSING — a 40 x 2 rose rule at y 1560, then a 2-line italic serif voice
+     line, both centred. */
+  .store__rule{position:absolute; z-index:4; left:0; right:0; top:1559px;
+               display:flex; justify-content:center}
+  .store__rule::after{content:""; width:40px; height:2px; background:#B4746B}
+  .store__voice{position:absolute; z-index:4; left:0; right:0; top:1588px; margin:0;
+                text-align:center; font-family:var(--font-serif); font-style:italic;
+                font-size:26px; line-height:36px; color:#D9C3B8}
+
+  &.store .home-indicator{position:absolute; z-index:4; left:0; right:0; bottom:0;
+                         background:transparent}
+
+  /* POC: the card matching the currently selected store carries a rose outline */
+  .store-card--selected{border-color:var(--rose); box-shadow:0 0 0 1px var(--rose)}
+  .store-card:hover .store-card__cta{filter:brightness(1.06)}
+}

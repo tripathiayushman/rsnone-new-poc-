@@ -1,0 +1,63 @@
+/* ==========================================================================
+   SCREEN: C02 WELCOME — lifted from rsn-one-html/C02-Welcome.html ("SCREEN: WELCOME"),
+   scoped under .c02. Full-bleed photograph behind everything; all copy and
+   controls are laid over it. Two different left margins are in play and both
+   are measured: copy sits at x=64, the two buttons at x=100. Screen-local ink
+   colours are sampled from the mock and do NOT come from the token set — this
+   is the only screen in the set that puts dark type on a light ground.
+   ========================================================================== */
+.c02 {
+  &.welcome{--ink:#241210;          /* headline ink, sampled */
+           --ink-body:#36221D;     /* body copy */
+           --ink-rose:#9E514F;     /* italic headline line + script "one" */
+           --ink-tagline:#A8685F;
+           --btn-rose:#BA6E6E;     /* GET STARTED fill, sampled #BA6E6E */
+           --btn-rose-line:#CC7572;}
+
+  /* BACKDROP — one photograph, 853 x 1844, edge to edge. Light plaster/arch at
+     the top, dark table still-life at the bottom. */
+  /* light placeholder ground (as on C13) so the dark-ink logo and copy stay
+     readable until the photograph lands — delete with the .slot treatment */
+  .welcome__media{position:absolute; inset:0; width:853px; height:1844px;
+                  object-fit:cover; border:0; background:#EFD6CC}
+
+  /* iOS status bar + Skip both sit on the LIGHT part of the photo. */
+  &.welcome .statusbar{position:relative; z-index:2; color:#FBF9F9}
+  .welcome__skip{position:absolute; z-index:3; top:120px; right:50px;
+                 font-size:26px; font-weight:400; color:#EAD3C9}
+
+  /* LOCKUP — centred, dark-ink version of the logo asset. Arc y 135–185,
+     wordmark y 191–261, tagline y 285–300: 319 x 161 overall. */
+  .welcome__lockup{position:absolute; z-index:3; left:0; right:0; top:132px; text-align:center}
+  .welcome__lockup .logo{margin:0 auto}
+
+  /* HEADLINE — 3 lines, left edge x=64. "T" cap height measured 69px and the
+     baseline-to-baseline pitch is 94px, so ~96px / .98. Line 3 is italic rose. */
+  .welcome__copy{position:absolute; z-index:3; left:64px; top:412px; width:640px}
+  .welcome__title{font-family:var(--font-serif); font-size:96px; line-height:.98;
+                  font-weight:400; color:var(--ink); margin:0}
+  .welcome__title em{font-style:italic; color:var(--ink-rose)}
+  /* BODY — 3 hard-broken lines, "S" cap 21px => ~28px, 40px line pitch. */
+  .welcome__body{margin:34px 0 0; font-size:28px; line-height:40px;
+                 font-weight:400; color:var(--ink-body)}
+
+  /* CTA STACK — both buttons 652px wide at x=100 (so a 100px gutter, not the
+     36px page gutter used elsewhere). Primary 90px tall, outline 83px tall. */
+  .welcome__cta{position:absolute; z-index:3; left:100px; top:1500px; width:652px}
+  .welcome__btn{display:flex; align-items:center; justify-content:center; width:100%;
+                border-radius:8px; font-size:26px; letter-spacing:.20em;
+                text-transform:uppercase; font-weight:400}
+  .welcome__btn--primary{height:90px; background:var(--btn-rose); color:#fff}
+  .welcome__btn--guest{height:83px; margin-top:15px; background:transparent;
+                       border:1px solid var(--btn-rose-line); color:#CE7E7B}
+
+  /* PAGER — 3 dots, 14px, 30px pitch, centred at y 1732. Slide 1 active. */
+  .welcome__dots{position:absolute; z-index:3; left:0; right:0; top:1732px;
+                 display:flex; justify-content:center; gap:17px}
+  .welcome__dot{width:14px; height:14px; border-radius:var(--r-pill);
+                background:rgba(250,247,245,.42)}
+  .welcome__dot--active{background:#BD7172}
+
+  &.welcome .home-indicator{position:absolute; z-index:3; left:0; right:0; bottom:0;
+                           height:44px; background:transparent}
+}

@@ -1,0 +1,56 @@
+/* ==========================================================================
+   SCREEN: C14 MEMBERSHIP — lifted from rsn-one-html/C14-Membership.html
+   ("SCREEN: MEMBERSHIP"), scoped under .c14. Sections 1–8 live in base.css,
+   section 9 in membership-shared.css. All values mock px.
+   ========================================================================== */
+.c14 {
+  /* FRAME NOTE — the only screen in the set whose PNG is not 853 x 1844.
+     C14-Membership.png is 845 x 1862. Measured against C21/C22/C23 the glyphs
+     are the same size (status-bar "9:41" cap height 24-25px in both), so it is
+     NOT a rescale — the artboard was simply exported 8px narrower and 18px
+     taller, and the content sits ~10px further from the left edge. This file
+     is authored at the standard 853 x 1844; measured x values are normalised
+     by -4px and the 18px of surplus height is taken out of the gap above the
+     CTA. */
+
+  /* This screen is a poster: one full-bleed photograph, dark ink type on it,
+     no app bar and no tab bar. Its own gutters, measured from the mock:
+     the type column starts at x=68 but the CTA runs to a 52px gutter.       */
+  --gutter:68px;
+
+  /* status bar glyphs are DARK here — the photograph is pale pink at the top */
+  .statusbar--ink{color:var(--ink)}
+  /* This screen's photograph is PALE — the dark ink type is unreadable over
+     the default dark image placeholder, so the slot gets a light ground. */
+  .hero-shot__media{background:#E4C3B7}
+
+  /* --- POSTER COPY --------------------------------------------------------- */
+  .poster{padding:0 var(--gutter)}
+  /* Cap height measured 79px => ~110px in the mock's own serif. Playfair
+     Display is wider, so 110px breaks the line; 88px holds "Take your
+     place." on one line as the mock does. */
+  .poster__title{font-family:var(--font-serif); font-size:88px; line-height:110px;
+                 font-weight:400; color:var(--ink); margin:112px 0 0; white-space:nowrap}
+  .poster__body{margin:30px 0 0; font-size:45px; line-height:57px;
+                font-weight:300; color:var(--ink)}
+
+  /* .benefit-list geometry is in membership-shared.css (94px disc, 125px row pitch). */
+  .poster__benefits{margin-top:40px}
+
+  /* --- CTA ----------------------------------------------------------------- */
+  /* Sits at a 52px gutter, i.e. 16px wider on each side than the type column. */
+  .c14-cta{margin:auto 52px 84px; width:auto; height:140px; border-radius:12px;
+           background:rgba(197,110,116,.92); color:#fff}
+  .c14-cta .t-eyebrow{font-size:38px; letter-spacing:.20em}
+
+  /* POC: when the shopper is already a member the single CTA becomes two
+     half-width buttons (Member Wallet / Refer a Friend) at the same gutter. */
+  .c14-cta-row{display:flex; gap:16px; margin:auto 52px 84px}
+  .c14-cta-row .c14-cta{flex:1 1 0; margin:0}
+  .c14-cta-row .c14-cta--outline{background:rgba(250,247,245,.35); color:var(--ink);
+                                 border:2px solid rgba(197,110,116,.92)}
+  .c14-cta-row .t-eyebrow{font-size:26px}
+
+  /* the photograph runs under the home indicator — no dark plate here */
+  .home-indicator{background:transparent}
+}

@@ -1,0 +1,84 @@
+/* ==========================================================================
+   SCREEN: C31 ADD / EDIT ADDRESS — lifted from rsn-one-html/C31-AddEditAddress.html
+   ("SCREEN: ADD ADDRESS"), scoped under .c31. All values mock px.
+   Page padding on this screen measures 44px left / 41px right (the shared
+   --gutter is 36px). Using the measured 44px.
+   ========================================================================== */
+.c31 {
+  .page{--pad:44px; display:flex; flex-direction:column}
+
+  /* --- NAV BAR: back arrow only, no title. 105px tall, arrow 38x32 ---------- */
+  .navbar{flex:0 0 105px; display:flex; align-items:center; padding:0 var(--pad)}
+  .navbar__back{display:block; color:var(--rose-light)}
+
+  /* --- PAGE HEAD: 64px serif title + 2-line 22px subtitle ------------------ */
+  .page-head{padding:16px var(--pad) 0}
+  .page-head__sub{margin-top:5px; color:var(--cream)}
+
+  /* --- FORM: stack of .field rows, 10px apart ------------------------------ */
+  .form{display:flex; flex-direction:column; gap:10px; padding:0 var(--pad); margin-top:44px}
+
+  /* --------------------------------------------------------------------------
+     .field — THE SHARED FORM ROW. Leading rose icon (36px) + label above value.
+     Filled surface, hairline border, 14px radius. Row is 104px tall; 143px when
+     it carries a .field__hint line. This exact component is reused on
+     C11 CheckoutDetails, C12 CheckoutPayments, C20 LoginSignup and here.
+     -------------------------------------------------------------------------- */
+  .field{display:flex; align-items:center; gap:42px;
+         min-height:104px; padding:22px 28px 22px 34px;
+         background:var(--surface); border:1px solid var(--line);
+         border-radius:var(--r-input)}
+  .field__icon{flex:0 0 36px; height:38px; color:var(--rose-light)}
+  .field__body{flex:1 1 auto; min-width:0}
+  .field__label{display:block; font-size:19px; line-height:1.1; color:var(--muted); font-weight:300}
+  .field__input{display:block; width:100%; margin-top:11px; padding:0; border:0; background:none;
+                color:var(--cream); font-family:var(--font-sans); font-size:24px;
+                line-height:1.2; font-weight:300; -webkit-appearance:none; appearance:none;
+                border-radius:0}
+  .field__input:focus{outline:none}
+  .field__input::placeholder{color:var(--muted-dim)}
+  .field__hint{display:block; margin:18px 0 0; font-size:19px; line-height:1.2;
+                color:var(--muted); font-weight:300}
+  .field__chevron{flex:0 0 auto; color:var(--rose-pale)}
+  /* .field--select = the row ends in a chevron-down and the control is a <select> */
+  .field--select .field__input{cursor:pointer}
+  /* .field--link = the row ends in a chevron-right and pushes to another screen */
+  .field--link{cursor:pointer; text-align:left; width:100%; font:inherit; color:inherit}
+  /* POC: native <select> options render on the OS sheet — keep them readable */
+  .field__input option{color:#1B1210; background:#FAF7F5}
+
+  /* --- TOGGLE ROW: same .field shell, switch instead of an input ----------- */
+  .field--toggle{margin-top:4px}
+  .field__title{display:block; font-size:26px; line-height:1.2; font-weight:300; color:var(--cream)}
+  .field__desc{display:block; margin:11px 0 0; font-size:19px; line-height:1.2;
+               color:var(--muted); font-weight:300}
+
+  /* Real <input type="checkbox">, styled as an iOS switch. 76 x 44, knob 36. */
+  .switch{position:relative; flex:0 0 76px; width:76px; height:44px; display:block}
+  .switch__input{position:absolute; inset:0; width:100%; height:100%; margin:0;
+                 opacity:0; cursor:pointer; z-index:2}
+  .switch__track{position:absolute; inset:0; border-radius:var(--r-pill);
+                 background:var(--surface-2); border:1px solid var(--line); transition:none}
+  .switch__track::after{content:""; position:absolute; top:3px; left:3px;
+                        width:36px; height:36px; border-radius:var(--r-pill); background:var(--muted)}
+  .switch__input:checked + .switch__track{background:var(--rose); border-color:transparent}
+  .switch__input:checked + .switch__track::after{left:auto; right:3px; background:#FFFFFF}
+
+  /* --- PRIMARY ACTION: full-width rose button, 88px tall ------------------- */
+  .form-action{padding:0 var(--pad); margin-top:28px}
+  /* POC: the action sits inside the <form> (which already carries the 44px pad) */
+  .form .form-action{padding:0}
+  .btn--save{height:88px; letter-spacing:.22em; font-size:22px; font-weight:400;
+             text-transform:uppercase; border-radius:12px}
+
+  /* --- POC: "Label" field (Home / Office / Other chips) in the same .field shell */
+  .field__chips{display:flex; flex-wrap:wrap; align-items:center; gap:12px; margin-top:12px}
+  .field__chip{display:inline-flex; align-items:center; height:42px; padding:0 22px;
+               border-radius:var(--r-pill); border:1px solid var(--line-strong);
+               color:var(--cream); font-size:20px; font-weight:300}
+  .field__chip--on{background:var(--rose); border-color:transparent; color:#fff}
+  .field__chips .field__input{flex:1 1 200px; width:auto; margin-top:0}
+  /* POC: edit mode — text "Delete address" link under the save button */
+  .form-delete{display:block; margin:26px auto 0; font-size:22px; font-weight:300;
+               color:var(--rose-light)}
+}

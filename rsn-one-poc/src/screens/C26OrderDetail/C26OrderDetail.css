@@ -1,0 +1,131 @@
+/* ==========================================================================
+   SCREEN: C26 ORDER DETAIL — lifted from rsn-one-html/C26-OrderDetail.html
+   ("SCREEN: ORDERDETAIL"), scoped under .c26. All values mock px.
+   All four panels align to x=34 / x=819 (785 wide).
+   ========================================================================== */
+.c26 {
+  /* --- BACK BAR: arrow left, "? Help" right ------------------------------- */
+  .navbar{flex:0 0 103px; display:flex; align-items:center; justify-content:space-between;
+          padding:0 42px 0 42px}
+  .navbar__back{display:block; color:var(--cream)}
+  .navbar__help{display:inline-flex; align-items:center; gap:21px; color:var(--rose-light);
+                font-size:23px}
+
+  /* --- ORDER TITLE --------------------------------------------------------- */
+  .detail-head{padding:8px 36px 0 42px}
+  .detail-head__title{font-family:var(--font-serif); font-size:60px; line-height:1;
+                      font-weight:400; margin:0}
+  .detail-head__meta{margin:10px 0 0; font-size:23px; line-height:1; color:var(--muted)}
+
+  /* --- PANEL: the shared bordered card used by the tracker, the address block
+         and the summary. 785 wide, 1px hairline, 16px radius. --------------- */
+  .panel{margin:22px 34px 0; border:1px solid var(--line);
+         border-radius:var(--r-card); background:var(--surface)}
+  /* a panel that follows a section head sits 8px under it, not 22px */
+  .detail-section + .panel{margin-top:8px}
+
+  /* --- TIMELINE (SHARED) — horizontal variant -----------------------------
+     Same block as the vertical .timeline on C18 Order Tracking; here it is
+     laid out as 4 equal columns inside the tracker card.
+     States: .timeline__step--done | --current | (no modifier) = pending.
+     ------------------------------------------------------------------------ */
+  .timeline--horizontal{display:flex; padding:24px 24px 0}
+  .timeline--horizontal .timeline__step{position:relative; flex:1; display:flex;
+          flex-direction:column; align-items:center; text-align:center}
+  .timeline--horizontal .timeline__step::before{content:""; position:absolute; top:33px;
+          right:50%; width:100%; height:3px; background:var(--line-strong)}
+  .timeline--horizontal .timeline__step:first-child::before{display:none}
+  .timeline--horizontal .timeline__step--done::before,
+  .timeline--horizontal .timeline__step--current::before{background:var(--rose)}
+  .timeline__marker{position:relative; z-index:1; height:68px; display:grid; place-items:center}
+  .timeline__dot{width:56px; height:56px; border-radius:var(--r-pill);
+                 display:grid; place-items:center;
+                 border:2px solid var(--line-strong); background:var(--surface);
+                 color:var(--muted)}
+  .timeline__step--done .timeline__dot{background:var(--rose); border-color:var(--rose); color:#FFF}
+  .timeline__step--current .timeline__dot{width:68px; height:68px; background:var(--rose);
+                 border:3px solid var(--rose-light); color:#FFF}
+  .timeline__label{margin:12px 0 0; font-size:20px; line-height:1.2; color:var(--muted)}
+  .timeline__step--done .timeline__label{color:var(--cream)}
+  .timeline__step--current .timeline__label{color:var(--rose)}
+  .timeline__time{margin:10px 0 0; font-size:20px; line-height:1.2; color:var(--muted)}
+
+  /* --- TRACKER CARD: timeline + hairline + delivery note + CTA ------------- */
+  .tracker__rule{height:1px; margin:18px 24px 0; background:var(--line)}
+  .tracker__note{display:flex; align-items:center; gap:33px; padding:20px 26px 20px 33px}
+  .tracker__icon{flex:0 0 53px; color:var(--rose-light)}
+  .tracker__text{flex:1 1 auto}
+  .tracker__headline{margin:0; font-size:22px; line-height:1.2; color:var(--cream)}
+  .tracker__sub{margin:15px 0 0; font-size:22px; line-height:1.2; color:var(--muted)}
+  .tracker__cta{flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center;
+                gap:18px; width:236px; height:58px; border-radius:var(--r-btn);
+                background:#60342C; color:var(--cream); font-size:22px}
+
+  /* --- SECTION HEAD (serif title + optional rose text link) ---------------- */
+  .detail-section{display:flex; align-items:baseline; justify-content:space-between;
+                  padding:32px 42px 0}
+  .detail-section__title{font-family:var(--font-serif); font-size:36px; line-height:1;
+                         font-weight:400; margin:0}
+  .detail-section__link{font-size:22px; color:var(--rose-light)}
+
+  /* --- ADDRESS CARD -------------------------------------------------------- */
+  .address{display:flex; gap:57px; padding:24px 33px 16px 47px; align-items:flex-start}
+  .address__pin{flex:0 0 32px; color:var(--rose-light); margin-top:26px}
+  .address__name{margin:0; font-size:22px; line-height:1.25; font-weight:500; color:var(--cream)}
+  .address__line{margin:4px 0 0; font-size:21px; line-height:29px; color:var(--muted)}
+
+  /* --- ORDER ITEM LINE ----------------------------------------------------- */
+  .order-item{display:flex; gap:27px; padding:14px 36px 0 40px; align-items:flex-start}
+  .order-item__media{width:248px; height:216px; object-fit:cover; border-radius:14px;
+                     flex:0 0 248px}
+  .order-item__body{padding-top:12px}
+  .order-item__title{font-family:var(--font-serif); font-size:30px; line-height:1;
+                     font-weight:400; margin:0}
+  .order-item__house{margin:15px 0 0; font-size:21px; line-height:1; color:var(--muted)}
+  .order-item__price{display:block; margin-top:24px; font-size:27px; line-height:1;
+                     font-weight:500; color:var(--rose)}
+  .order-item__chip{margin-top:14px; height:39px; padding:0 24px;
+                    background:rgba(219,146,138,.26); color:var(--rose-pale); font-size:21px}
+  .order-item__qty{margin:10px 0 0; font-size:20px; line-height:1; color:var(--muted)}
+
+  /* --- ORDER SUMMARY ------------------------------------------------------- */
+  .summary{padding:23px 36px 23px 37px}
+  .summary__row{display:flex; justify-content:space-between; align-items:baseline;
+                font-size:21px; line-height:1.2; color:var(--muted); margin-top:12px}
+  .summary__row:first-child{margin-top:0}
+  .summary__row .summary__value{color:var(--cream)}
+  .summary__value--discount{color:var(--rose)}
+  .summary__rule{height:1px; margin:19px 0 0; background:var(--line)}
+  .summary__total{display:flex; justify-content:space-between; align-items:baseline; margin-top:20px}
+  .summary__total-label{font-size:25px; font-weight:500; color:var(--cream)}
+  .summary__total-value{font-size:32px; font-weight:500; color:var(--rose)}
+  .summary__foot{display:flex; justify-content:space-between; align-items:baseline; margin-top:20px}
+  .summary__paid{font-size:21px; color:var(--muted)}
+  .summary__invoice{display:inline-flex; align-items:center; gap:14px; font-size:21px;
+                    color:var(--rose-light)}
+
+  /* --- HELP CTA ------------------------------------------------------------ */
+  .help-cta{display:flex; align-items:center; justify-content:center; gap:24px;
+            width:768px; height:78px; margin:24px auto 0;
+            border:1px solid var(--rose); border-radius:var(--r-btn);
+            color:var(--rose-light); font-size:23px}
+
+  /* ---------- POC ADDITIONS (not in the handoff) -------------------------- */
+  /* "Request Return" reuses the help-cta outline language, 16px under it */
+  .return-cta{margin-top:16px}
+  .return-note{width:768px; margin:24px auto 0; font-size:21px; line-height:1.3;
+               color:var(--muted); text-align:center}
+  /* inline address picker opened by "Change" (only while the order is unsealed) */
+  .address-picker{margin:8px 34px 0; border:1px solid var(--rose); border-radius:var(--r-card);
+                  background:var(--surface); overflow:hidden}
+  .address-option{display:flex; align-items:baseline; gap:24px; width:100%; padding:20px 33px;
+                  text-align:left; border-top:1px solid var(--line); font-size:21px; color:var(--cream)}
+  .address-option:first-child{border-top:0}
+  .address-option:hover{background:var(--surface-2)}
+  .address-option__label{flex:0 0 160px; font-weight:500}
+  .address-option__line{flex:1 1 auto; color:var(--muted); line-height:1.3}
+  .address-option--on .address-option__label{color:var(--rose-light)}
+  .address-picker__cancel{display:block; width:100%; padding:16px 33px; text-align:center;
+                          border-top:1px solid var(--line); font-size:20px; color:var(--rose-light)}
+  .detail-end{flex:0 0 40px}
+}

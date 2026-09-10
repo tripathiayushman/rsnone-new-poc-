@@ -1,0 +1,22 @@
+/* Backdrop + artboard. These rules are at viewport scale (outside `zoom`). */
+.frame-backdrop{min-height:100vh; background:#171010; display:flex; flex-direction:column; align-items:center; padding:24px 0 96px}
+.frame{width:853px; flex:0 0 auto; box-shadow:0 30px 80px rgba(0,0,0,.55); border-radius:0}
+@media (max-width:899px){ .frame-backdrop{padding:0 0 72px} .frame{box-shadow:none} }
+
+/* the artboard itself — .screen comes from base.css; keep min-height so short screens
+   still show the full phone */
+.frame > .screen{min-height:1844px}
+
+/* toast at viewport scale */
+.toast{position:fixed; left:50%; bottom:64px; transform:translateX(-50%); z-index:50; background:#3B2A24; color:#FAF7F5;
+  border:1px solid rgba(250,247,245,.28); border-radius:999px; padding:12px 22px; font-size:15px; font-family:'Inter',sans-serif;
+  box-shadow:0 12px 40px rgba(0,0,0,.45); animation:toast-in .2s ease-out; max-width:calc(100vw - 32px); white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+
+/* POC control bar */
+.devbar{position:fixed; left:0; right:0; bottom:0; z-index:40; display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
+  padding:8px 12px; background:rgba(23,16,16,.92); border-top:1px solid rgba(250,247,245,.12); backdrop-filter:blur(8px); font:12px/1 'Inter',sans-serif; color:#A99E99}
+.devbar select,.devbar button{font:inherit; color:#FAF7F5; background:#291C19; border:1px solid rgba(250,247,245,.2); border-radius:6px; padding:6px 10px; cursor:pointer}
+.devbar__jump{max-width:240px}
+.devbar__zoom{display:inline-flex; gap:4px}
+.devbar__zoom button.is-on{background:#C97C79; border-color:#C97C79; color:#fff}
+.devbar__reset{color:#E4A49D}

@@ -1,0 +1,41 @@
+/* ==========================================================================
+   SCREEN: C17 ME — lifted from rsn-one-html/C17-Me.html ("SCREEN: ME"), scoped
+   under .c17. Body = profile header + one flat list of settings rows. No app
+   bar on this screen; the ME tab of the tab bar is active.
+   Measured: list row pitch 142px, hairline after every row (including the
+   last), first row starts at y=427, avatar disc 194px at x=42 / y=169.
+   ========================================================================== */
+.c17 {
+  /* --- PROFILE HEADER: circular avatar + name + member line ---------------- */
+  .profile{display:flex; align-items:center; gap:50px; padding:99px 36px 64px 42px}
+  .profile__avatar{width:194px; height:194px; border-radius:var(--r-pill);
+                   object-fit:cover; flex:0 0 194px}
+  /* 56px measured from a 40px cap height — larger than the .t-title token */
+  .profile__name{font-family:var(--font-serif); font-size:56px; line-height:1.05;
+                 font-weight:400; margin:0}
+  .profile__meta{margin:12px 0 0; font-size:38px; line-height:1.1; font-weight:300;
+                 color:var(--muted)}
+
+  /* --- LIST ROW (SHARED) ---------------------------------------------------
+     icon + label + chevron, full-bleed hairline under each row.
+     Reused on C27 Addresses, C28 Payment Methods, C29 Notifications,
+     C30 Help & Support. Label measures 40px in the mock (the spec's .t-row
+     token says 26px — the mock wins here; flagged below).
+     ------------------------------------------------------------------------ */
+  .list{border-bottom:0}
+  .list-row{display:flex; align-items:center; gap:59px; width:100%; height:142px;
+            padding:0 51px 0 49px; border-bottom:1px solid var(--line);
+            color:var(--cream); text-align:left}
+  .list-row__icon{flex:0 0 64px; height:64px; color:var(--rose-pale)}
+  .list-row__label{font-size:40px; line-height:1; font-weight:300}
+  .list-row__chevron{margin-left:auto; flex:0 0 auto; color:var(--cream); opacity:.9}
+
+  /* POC: unread-count pill on the Notifications row (small rose pill, before
+     the chevron) and the extra "Sign out" row, which is a button in the same
+     .list-row shell. */
+  .list-row__badge{margin-left:auto; min-width:44px; height:44px; padding:0 16px;
+                   border-radius:var(--r-pill); background:var(--rose); color:var(--cream);
+                   font-size:22px; font-weight:600; display:grid; place-items:center}
+  .list-row__badge + .list-row__chevron{margin-left:0}
+  .list-row:hover{background:rgba(250,247,245,.03)}
+}

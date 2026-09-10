@@ -1,0 +1,100 @@
+/* ==========================================================================
+   SCREEN: C22 MEMBERSHIP PAYMENT — lifted from rsn-one-html/C22-MembershipPayment.html
+   ("SCREEN: MEMBERSHIP PAYMENT"), scoped under .c22. Sections 1–8 live in
+   base.css, section 9 in membership-shared.css. All values mock px.
+   ========================================================================== */
+.c22 {
+  /* Gutter measured at x=51 / x=802 (width 751). Normalised to 50px across
+     C21 / C22 / C23. */
+  --gutter:50px;
+
+  /* Photograph is dimmed left-to-right; below ~y=770 the page is flat espresso. */
+  .c22-scrim{background:linear-gradient(100deg,
+              rgba(41,28,25,.88) 0%, rgba(41,28,25,.66) 38%,
+              rgba(41,28,25,.22) 60%, rgba(41,28,25,.06) 100%)}
+  .c22-fade{position:absolute; left:0; right:0; top:700px; bottom:0; z-index:0;
+            background:linear-gradient(180deg, rgba(41,28,25,0) 0%, var(--bg) 14%)}
+
+  /* --- top chrome ----------------------------------------------------------- */
+  .c22-nav{margin-top:36px}
+  .c22-brand{padding:0 var(--gutter); margin-top:26px}
+
+  /* --- headline ------------------------------------------------------------- */
+  .c22-copy{padding:0 var(--gutter); margin-top:52px}
+  .c22-copy__title{font-family:var(--font-serif); font-size:68px; line-height:70px;
+                   font-weight:400; margin:0}
+  .c22-copy__title em{font-style:italic; color:var(--rose-light)}
+  .c22-copy__body{margin:8px 0 0; font-size:26px; line-height:36px; font-weight:300}
+
+  /* --- plan panel (same .tier-card as C21, 150px tall here) ---------------- */
+  .c22-tier{margin-top:49px; height:150px}
+  .c22-tier .tier-card__aside{flex:0 0 230px}
+
+  /* --- section headings ----------------------------------------------------- */
+  .c22-h2{padding:0 var(--gutter); margin:42px 0 0;
+          font-family:var(--font-serif); font-size:38px; line-height:1.2; font-weight:400}
+  /* heading paired with a right-hand affordance ("Secure Payment") */
+  .c22-h2row{display:flex; align-items:baseline; justify-content:space-between;
+             padding:0 var(--gutter); margin-top:56px}
+  .c22-h2row h2{font-family:var(--font-serif); font-size:38px; line-height:1.2;
+                font-weight:400; margin:0}
+  .c22-secure{display:inline-flex; align-items:center; gap:12px;
+              font-size:24px; font-weight:300; color:var(--rose-light)}
+
+  /* --- 4-up benefits (same .benefit-grid as C21, 62px discs) --------------- */
+  .c22-grid{margin-top:13px}
+  .c22-grid .benefit__text{max-width:190px; line-height:22px}
+
+  /* --- payment method list (shared .data-row) ------------------------------ */
+  .c22-methods{padding:0 var(--gutter); margin-top:10px}
+  .c22-methods .data-row{min-height:103px; gap:34px; padding:0 30px}
+  .c22-methods .data-row + .data-row{margin-top:13px}
+  .c22-method__icon{flex:0 0 60px; color:var(--rose-light); display:grid; place-items:center}
+  .c22-method__title{font-size:28px; font-weight:400; margin:0}
+  .c22-method__sub{margin:8px 0 0; font-size:21px; font-weight:300; color:var(--muted)}
+  /* radio: 40px ring, filled rose dot when chosen */
+  .c22-radio{flex:0 0 40px; width:40px; height:40px; border-radius:var(--r-pill);
+             border:2px solid var(--line-strong); display:grid; place-items:center}
+  .c22-radio--on{border-color:var(--rose)}
+  .c22-radio--on::after{content:""; width:20px; height:20px; border-radius:var(--r-pill);
+                        background:var(--rose)}
+
+  /* --- consent row ---------------------------------------------------------- */
+  .c22-consent{display:flex; align-items:center; gap:22px;
+               padding:0 var(--gutter); margin-top:35px}
+  .c22-consent__box{flex:0 0 40px; width:40px; height:40px; border-radius:6px;
+                    background:var(--rose); color:#fff; display:grid; place-items:center}
+  .c22-consent__text{font-size:24px; font-weight:300}
+  .c22-consent__text a{color:var(--rose-light); text-decoration:underline; text-underline-offset:7px}
+
+  /* --- pay button + reassurance line --------------------------------------- */
+  .c22-cta{margin:39px var(--gutter) 0; width:auto; height:83px; border-radius:12px}
+  .c22-cta .t-eyebrow{font-size:26px; letter-spacing:.22em}
+  .c22-note{display:flex; align-items:center; justify-content:center; gap:16px;
+            margin-top:45px; font-size:22px; font-weight:300; color:var(--muted)}
+
+  .home-indicator{margin-top:auto}
+
+  /* ---- POC additions (not in the handoff) --------------------------------- */
+  /* the whole method row is the radio's hit area */
+  .c22-methods .data-row{cursor:pointer; width:100%; text-align:left}
+  /* consent box when unticked */
+  .c22-consent{cursor:pointer}
+  .c22-consent__box--off{background:transparent; border:2px solid var(--line-strong); color:transparent}
+  /* compact detail fields revealed under the chosen method — the checkout
+     .field shell (C11/C12 handoff values: 68px, hairline, 14px radius) */
+  .c22-fields{padding:16px 4px 6px; list-style:none}
+  .c22-fields + .data-row{margin-top:13px}
+  .field{position:relative; margin-top:14px}
+  .field:first-child{margin-top:0}
+  .field__input{width:100%; height:68px; background:transparent; border:1px solid var(--line);
+                border-radius:var(--r-input); color:var(--cream); font-family:var(--font-sans);
+                font-size:21px; font-weight:300; padding:0 24px}
+  .field__input::placeholder{color:var(--muted-dim)}
+  .field__input:focus{outline:none; border-color:var(--line-strong)}
+  .field--select .field__input{appearance:none; padding-right:60px; cursor:pointer}
+  .field--select .field__input option{background:var(--surface-2); color:var(--cream)}
+  .field__chev{position:absolute; right:26px; top:26px; color:var(--muted); pointer-events:none}
+  .field-row{display:flex; gap:14px; margin-top:14px}
+  .field-row .field{flex:1 1 0; min-width:0; margin-top:0}
+}

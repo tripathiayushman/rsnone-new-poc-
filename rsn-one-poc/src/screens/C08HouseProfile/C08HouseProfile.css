@@ -1,0 +1,74 @@
+/* ==========================================================================
+   SCREEN: C08 HOUSE PROFILE — lifted from rsn-one-html/C08-HouseProfile.html
+   ("SCREEN: HOUSE PROFILE"), scoped under .c08. All values mock px.
+   Screen-local light palette, sampled from the panel pixels.
+   NOTE: this is the only screen in the set that inverts — a cream panel with
+   dark ink covering the lower two-thirds. It carries NO tab bar.
+   ========================================================================== */
+.c08 {
+  --panel:#F0DDD8; --ink:#1B1310; --ink-soft:#3C3230;
+  --panel-line:#E1CAC4; --panel-rose:#C06E74;
+
+  /* --- HERO: full-bleed house photography. Visible height 832; the image is
+         drawn 862 tall so the panel's 36px rounded corners sit ON the photo,
+         which is what the mock shows. -------------------------------------- */
+  .house-hero{position:relative; flex:0 0 862px; height:862px; overflow:hidden}
+  .house-hero__media{width:853px; height:862px; object-fit:cover; border:0}
+  .house-hero .statusbar{position:absolute; top:0; left:0; right:0; z-index:2; color:var(--cream)}
+  .house-hero__bar{position:absolute; z-index:2; top:100px; left:0; right:0;
+                   display:flex; align-items:center; justify-content:space-between;
+                   padding:0 52px; color:var(--cream)}
+  .house-hero__bar button,.house-hero__bar a{display:block; color:var(--cream)}
+  .house-hero__save--on{color:var(--rose)}
+
+  /* --- PANEL: cream sheet from y=832 to the bottom of the frame, 36px top
+         corner radius, 68px side padding. ---------------------------------- */
+  .house-panel{position:relative; z-index:1; flex:1; margin-top:-30px;
+               background:var(--panel); color:var(--ink);
+               border-radius:36px 36px 0 0; padding:59px 68px 0;
+               display:flex; flex-direction:column}
+  .house-panel__name{font-family:var(--font-serif); font-size:80px; line-height:1.05;
+                     font-weight:500; margin:0; color:var(--ink)}
+  .house-panel__place{margin:14px 0 0; font-size:37px; line-height:1.3;
+                      font-weight:400; color:var(--ink)}
+  .house-panel__lede{margin:32px 0 0; font-size:36px; line-height:54px;
+                     font-weight:300; color:var(--ink-soft)}
+  .house-panel__cta{margin-top:42px; width:655px; height:107px;
+                    display:inline-flex; align-items:center; justify-content:center;
+                    background:var(--panel-rose); color:#FFF6F3; border-radius:8px;
+                    font-size:30px; letter-spacing:.16em; text-transform:uppercase; font-weight:400}
+  .house-panel__rule{height:1px; background:var(--panel-line); border:0;
+                     margin:55px 0 0; width:100%}
+
+  .house-section{margin-top:43px}
+  .house-section__head{display:flex; align-items:center; justify-content:space-between}
+  .house-section__title{font-family:var(--font-serif); font-size:54px; line-height:1.15;
+                        font-weight:500; margin:0; color:var(--ink)}
+  .house-section__go{color:var(--ink); display:block}
+  /* measured measure: the mock sets this paragraph over 4 lines, ~560px wide */
+  .house-section__body{margin:21px 0 0; max-width:560px; font-size:36px; line-height:54px;
+                       font-weight:300; color:var(--ink-soft)}
+
+  /* --- POC: "Objects from {house}" — the C03 product rail on the cream panel,
+         bled to the panel edges, recoloured for the light ground ------------ */
+  .house-section--objects{margin-top:55px; padding:43px 0 60px; border-top:1px solid var(--panel-line)}
+  .product-rail{display:flex; gap:16px; overflow-x:auto; padding:0 68px 4px; scrollbar-width:none;
+                margin:28px -68px 0}
+  .product-rail::-webkit-scrollbar{display:none}
+  .product-card{flex:0 0 194px; position:relative}
+  .product-card__media{width:194px; height:160px; object-fit:cover; border-radius:8px}
+  .product-card__wish{position:absolute; top:14px; right:14px; width:40px; height:40px;
+                      display:grid; place-items:center; color:var(--cream)}
+  .product-card__title{margin-top:16px; color:var(--ink)}
+  .product-card__house{margin-top:4px; color:var(--ink-soft)}
+  .product-card__price{margin-top:10px; display:block; color:var(--panel-rose)}
+  .product-card__chip{margin-top:12px; background:rgba(192,110,116,.14); color:var(--panel-rose)}
+  .house-section__empty{margin:21px 0 0; font-size:28px; line-height:1.4; font-weight:300; color:var(--ink-soft)}
+
+  /* --- HOME INDICATOR: dark bar on the cream panel, 299 x 12 -------------- */
+  .home-indicator--light{flex:0 0 auto; margin-top:auto; height:66px;
+                         background:var(--panel); display:grid; place-items:center;
+                         margin-left:-68px; margin-right:-68px}
+  .home-indicator--light::after{content:""; width:299px; height:12px; border-radius:6px;
+                                background:#28211E}
+}

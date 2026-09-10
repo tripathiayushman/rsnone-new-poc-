@@ -1,0 +1,30 @@
+/* ==========================================================================
+   SCREEN: C01 SPLASH — lifted from rsn-one-html/C01-Splash.html ("SCREEN: SPLASH"),
+   scoped under .c01. All values mock px.
+   ========================================================================== */
+.c01 {
+  /* Background: flat espresso with a soft warm radial glow centred behind the
+     lockup. Measured, not photographic — the mock has no texture anywhere
+     (row-wise pixel std is ~2 across the whole frame), so this is a gradient,
+     not an image. Peak sampled at (430, 900) = #3D2924 falling to #251A18. */
+  &.splash{background:
+     radial-gradient(620px 560px at 430px 900px, rgba(120,72,60,.42) 0%,
+                     rgba(90,56,48,.18) 45%, rgba(41,28,25,0) 78%),
+     linear-gradient(180deg,#2B1E1A 0%, #291C19 42%, #241816 100%);}
+
+  /* LOCKUP — the full logo asset (arc + wordmark + tagline). Horizontally
+     centred in the 853px frame; block runs y=792 (top of arc) to y=1010
+     (tagline baseline), i.e. 432 x 218 at the mock's 1:1 scale. */
+  .splash__lockup{position:absolute; left:0; right:0; top:792px; text-align:center}
+  .splash__lockup .logo{margin:0 auto}
+
+  /* LOADING INDICATOR — 52 x 52, centred, y 1536–1586. Ring of 8 rose dots at
+     stepped opacity, i.e. a spinner frozen mid-rotation. Static here (no JS). */
+  .splash__spinner{position:absolute; left:0; right:0; top:1536px;
+                   display:flex; justify-content:center; color:var(--rose-light)}
+  /* POC: the frozen frame rotates while the 1.8s hand-off timer runs */
+  .splash__spinner svg{animation:c01-spin 1.1s steps(8) infinite}
+  @keyframes c01-spin{to{transform:rotate(360deg)}}
+
+  .home-indicator{margin-top:auto}
+}

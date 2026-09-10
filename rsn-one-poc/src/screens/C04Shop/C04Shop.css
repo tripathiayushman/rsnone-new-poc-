@@ -1,0 +1,127 @@
+/* ==========================================================================
+   SCREEN: C04 SHOP — lifted from rsn-one-html/C04-Shop.html ("SCREEN: SHOP"),
+   scoped under .c04 so it can't leak into other screens. All values mock px.
+   ========================================================================== */
+.c04 {
+  /* --- SCREEN HEAD: "Shop" 64px + Filter control + one-line subtitle ------- */
+  .shop-head{padding:8px var(--gutter) 0}
+  .shop-head__row{display:flex; align-items:flex-start; justify-content:space-between}
+  .shop-head__filter{display:inline-flex; align-items:center; gap:14px;
+                     color:var(--rose-light); font-size:18px; margin-top:20px}
+  .shop-head__sub{margin-top:6px; font-size:22px; line-height:1.35; font-weight:300; color:var(--cream)}
+
+  /* --- CATEGORY ROW: reuses .worlds / .world from C03, but the discs are
+         83px here (118px on C03) and the row is scrolled 1px past its start,
+         so an 8th disc is clipped by the right frame edge. --------------- */
+  .worlds{display:flex; gap:16px; overflow-x:auto; padding:0 var(--gutter); scrollbar-width:none}
+  .worlds::-webkit-scrollbar{display:none}
+  .world{flex:0 0 118px; text-align:center}
+  .world__disc{width:118px; height:118px; border-radius:var(--r-pill); object-fit:cover}
+  .world__label{margin-top:14px; font-size:18px; font-weight:300}
+  /* C04 overrides — measured 83px discs, 24px gap, 26px page padding */
+  .worlds--shop{padding:0 26px; gap:24px; margin-top:26px}
+  .worlds--shop .world{flex:0 0 auto; min-width:83px}
+  .worlds--shop .world__disc{width:83px; height:83px; margin:0 auto}
+  .worlds--shop .world__label{margin-top:12px; font-size:17px}
+  /* "All" is a filter pill, not a photo: empty disc with a rose selection ring */
+  .world--all .world__disc{display:block; background:var(--surface); border:2px solid var(--rose)}
+  .world--selected .world__disc{box-shadow:0 0 0 2px var(--rose)}
+  /* POC: the world discs are buttons (they set the ?world= param) */
+  .world button{display:block; width:100%; text-align:center}
+
+  /* --- SHOP BANNER: editorial strip, 807 x 206, photo bleeds under copy ---- */
+  .shop-banner{position:relative; height:206px; margin:33px 23px 0;
+               border-radius:8px; overflow:hidden; display:block}
+  .shop-banner__media{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border:0}
+  .shop-banner__scrim{position:absolute; inset:0;
+    background:linear-gradient(90deg, rgba(41,28,25,.88) 0%, rgba(41,28,25,.55) 34%, rgba(41,28,25,.05) 62%)}
+  .shop-banner__copy{position:absolute; left:33px; top:18px; width:420px}
+  .shop-banner__title{font-family:var(--font-serif); font-size:40px; line-height:1.05; font-weight:400; margin:0}
+  .shop-banner__title em{font-style:italic; color:var(--rose-light)}
+  .shop-banner__cta{position:absolute; left:33px; bottom:22px;
+                    display:inline-flex; align-items:center; gap:14px; font-size:14px;
+                    letter-spacing:.16em; text-transform:uppercase; color:var(--rose-pale)}
+  .shop-banner__voice{position:absolute; right:43px; top:44px; width:130px;
+                      font-family:var(--font-serif); font-style:italic;
+                      font-size:19px; line-height:1.32; color:#f3e8e7; text-align:left}
+
+  /* --- "All Products" head + sort control ---------------------------------- */
+  .shop-grid-head{display:flex; align-items:baseline; justify-content:space-between;
+                  padding:0 var(--gutter); margin-top:29px}
+  .shop-sort{display:inline-flex; align-items:center; gap:12px; font-size:17px; color:var(--muted)}
+  /* POC: the sort control is a native <select> dressed as the mock's text + chevron */
+  .shop-sort__select{appearance:none; -webkit-appearance:none; background:none; border:0; padding:0;
+                     color:var(--muted); font-size:17px; cursor:pointer; outline-offset:4px}
+  .shop-sort__select option{color:var(--cream); background:var(--surface-2)}
+
+  /* --- PRODUCT GRID: same .product-card block as C03, in a --tile variant
+         (card surface + hairline + rounded corners). 2 cols, 393px cards,
+         16px column gap, 13px row gap, 25px page padding.  ----------------- */
+  .product-rail{display:flex; gap:16px; overflow-x:auto; padding:0 28px 4px; scrollbar-width:none}
+  .product-rail::-webkit-scrollbar{display:none}
+  .product-card{flex:0 0 194px; position:relative}
+  .product-card__media{width:194px; height:160px; object-fit:cover; border-radius:8px}
+  .product-card__wish{position:absolute; top:14px; right:14px; width:40px; height:40px;
+                      display:grid; place-items:center; color:var(--cream)}
+  .product-card__title{margin-top:16px}
+  .product-card__house{margin-top:4px}
+  .product-card__price{margin-top:10px; display:block}
+  .product-card__chip{margin-top:12px}
+  /* C04 tile variant */
+  .product-grid{display:grid; grid-template-columns:1fr 1fr; gap:13px 16px;
+                padding:0 25px; margin-top:20px}
+  .product-card--tile{flex:none; background:var(--surface); border:1px solid var(--line);
+                      border-radius:8px; overflow:hidden; padding-bottom:16px}
+  .product-card--tile .product-card__media{width:100%; height:186px; border-radius:0; border:0;
+                      border-bottom:1px dashed var(--line)}
+  .product-card--tile .product-card__wish{top:16px; right:16px; width:30px; height:27px}
+  .product-card--tile .product-card__title{font-size:23px; padding:0 18px; margin-top:13px}
+  .product-card--tile .product-card__house{font-size:15px; padding:0 18px; margin-top:8px}
+  /* foot row is tight: measured price 78px, chip 155px, stock 55px inside a
+     357px inner width — sizes below keep all three on one line, as in the mock */
+  .product-card--tile .product-card__foot{display:flex; align-items:center; gap:15px;
+                      padding:0 18px; margin-top:16px; white-space:nowrap}
+  .product-card--tile .product-card__price{font-size:26px; margin:0}
+  .product-card--tile .product-card__chip{height:31px; font-size:18px; padding:0 17px; margin:0}
+  .product-card--tile .product-card__stock{margin-left:auto; font-size:16px; color:var(--muted)}
+  /* POC: <ProductCard> has no .product-card__foot wrapper, so the card itself
+     wraps and the three foot items reproduce the measured row above */
+  .product-card--tile{display:flex; flex-wrap:wrap; align-items:center; align-content:flex-start}
+  .product-card--tile .product-card__media,
+  .product-card--tile .product-card__title,
+  .product-card--tile .product-card__house{flex:0 0 100%; width:100%}
+  .product-card--tile .product-card__price{display:inline-block; margin:16px 0 0 18px; white-space:nowrap}
+  .product-card--tile .product-card__chip{margin:16px 0 0 15px; white-space:nowrap}
+  .product-card--tile .product-card__stock{margin:16px 18px 0 auto; white-space:nowrap}
+  .product-grid--last{padding-bottom:40px}
+
+  /* --- POC: FILTER SHEET (no sheet screen in the handoff set) --------------
+     Scrim covers the whole artboard; the panel sticks to the viewport bottom
+     so it is reachable however tall the grid is. Same surface tokens. ------- */
+  .shop-sheet{position:absolute; inset:0; z-index:20; background:var(--scrim);
+              display:flex; flex-direction:column; justify-content:flex-end}
+  .shop-sheet__panel{position:sticky; bottom:0; background:var(--surface);
+                     border-radius:var(--r-card) var(--r-card) 0 0; padding:34px var(--gutter) 44px;
+                     border-top:1px solid var(--line)}
+  .shop-sheet__head{display:flex; align-items:baseline; justify-content:space-between}
+  .shop-sheet__close{font-size:19px; color:var(--rose-light)}
+  .shop-sheet__label{display:block; margin-top:34px; font-size:13px; line-height:1; letter-spacing:.16em;
+                     text-transform:uppercase; font-weight:500; color:var(--muted)}
+  .shop-sheet__list{margin-top:18px; display:flex; flex-direction:column}
+  .shop-sheet__row{display:flex; align-items:center; justify-content:space-between; height:66px;
+                   border-bottom:1px solid var(--line); font-size:22px; font-weight:300; cursor:pointer}
+  .shop-sheet__row input{position:absolute; opacity:0; width:0; height:0}
+  .shop-sheet__box{width:30px; height:30px; border-radius:6px; border:1px solid var(--line-strong);
+                   display:grid; place-items:center; color:var(--cream)}
+  .shop-sheet__row input:checked + .shop-sheet__box{background:var(--rose); border-color:var(--rose)}
+  .shop-sheet__box svg{opacity:0}
+  .shop-sheet__row input:checked + .shop-sheet__box svg{opacity:1}
+  .shop-sheet__toggle{width:66px; height:38px; border-radius:var(--r-pill); background:rgba(250,247,245,.14);
+                      position:relative; transition:background .15s}
+  .shop-sheet__toggle::after{content:""; position:absolute; top:4px; left:4px; width:30px; height:30px;
+                             border-radius:var(--r-pill); background:var(--cream); transition:left .15s}
+  .shop-sheet__row input:checked + .shop-sheet__toggle{background:var(--rose)}
+  .shop-sheet__row input:checked + .shop-sheet__toggle::after{left:32px}
+  .shop-sheet__actions{margin-top:34px; display:flex; gap:16px}
+  .shop-sheet__actions .btn{flex:1}
+}

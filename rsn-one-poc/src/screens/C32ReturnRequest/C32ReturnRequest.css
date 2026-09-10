@@ -1,0 +1,115 @@
+/* ==========================================================================
+   SCREEN: C32 RETURN REQUEST — lifted from rsn-one-html/C32-ReturnRequest.html
+   ("SCREEN: RETURN REQUEST"), scoped under .c32. All values mock px.
+   Page inset measures 46px on this screen (the shared --gutter is 36px).
+   ========================================================================== */
+.c32 {
+  .page{--pad:46px; display:flex; flex-direction:column}
+
+  /* --- NAV BAR: back arrow + RSN one logo lockup (no title) ---------------- */
+  .navbar{flex:0 0 105px; display:flex; align-items:center; gap:38px; padding:0 33px}
+  .navbar__back{display:block; color:var(--rose-light)}
+  .navbar__logo{display:block; line-height:1}
+
+  /* --- PAGE HEAD: title on the left, outlined "Return Policy" on the right - */
+  .page-head{padding:37px var(--pad) 0}
+  .page-head__top{display:flex; align-items:flex-start; justify-content:space-between; gap:24px}
+  .page-head__sub{margin-top:2px; color:var(--cream)}
+  /* 202 x 63 outlined button, document icon + label */
+  .btn--policy{height:63px; padding:0 24px; gap:16px; font-size:24px; font-weight:300;
+               border-color:rgba(219,146,138,.42); border-radius:12px; flex:0 0 auto}
+  .btn--policy svg{color:var(--rose-light)}
+
+  /* --- SECTION HEAD: serif heading, optional muted note on the right ------- */
+  .rr-section{padding:0 var(--pad)}
+  .rr-section--order{margin-top:42px}
+  .rr-section--reason{margin-top:35px}
+  .rr-section--photos{margin-top:43px}
+  .rr-section--notes{margin-top:37px}
+  .rr-section__head{display:flex; align-items:baseline; justify-content:space-between;
+                    margin-bottom:14px}
+  .rr-section__opt{font-size:26px}          /* the smaller "(Optional)" suffix */
+  .rr-section__note{font-size:22px; font-weight:300; color:var(--muted)}
+
+  /* --------------------------------------------------------------------------
+     ORDER SUMMARY CARD — 442-630 (188px). Thumbnail 172 x 162 + 4 text lines.
+     -------------------------------------------------------------------------- */
+  .order-card{display:flex; align-items:center; gap:25px;
+              padding:13px 24px 13px 13px;
+              background:var(--surface); border:1px solid var(--line);
+              border-radius:var(--r-card)}
+  .order-card__media{flex:0 0 172px; width:172px; height:162px; object-fit:cover;
+                     border-radius:10px; border:0}
+  .order-card__body{flex:1 1 auto; min-width:0}
+  .order-card__no{font-family:var(--font-serif); font-size:26px; line-height:1.2;
+                  font-weight:400; margin:0}
+  .order-card__delivered{margin:8px 0 0; font-size:22px; line-height:1.2; font-weight:300;
+                         color:var(--muted)}
+  .order-card__product{margin-top:15px; font-family:var(--font-serif); font-size:30px;
+                       line-height:1.2; font-weight:400; margin-bottom:0}
+  .order-card__meta{margin:6px 0 0; font-size:22px; line-height:1.2; font-weight:300;
+                    color:var(--muted)}
+  .order-card__meta i{font-style:normal; margin:0 14px; color:var(--muted-dim)}
+  .order-card__price{color:var(--rose-light)}
+
+  /* --------------------------------------------------------------------------
+     REASON LIST — 5 radio rows, 60px tall, 6px apart. Real <input type="radio">
+     in one named group; the checked row gets a rose border and a lighter fill.
+     -------------------------------------------------------------------------- */
+  .reasons{display:flex; flex-direction:column; gap:6px}
+  .reason{display:flex; align-items:center; gap:38px; height:60px; padding:0 27px;
+          background:var(--surface); border:1px solid var(--line); border-radius:10px}
+  .reason__radio{flex:0 0 30px; width:30px; height:30px; margin:0; border-radius:50%;
+                 border:1.5px solid var(--muted); background:none; position:relative;
+                 -webkit-appearance:none; appearance:none; cursor:pointer}
+  .reason__radio:checked{border-color:var(--rose)}
+  .reason__radio:checked::after{content:""; position:absolute; inset:5px;
+                                border-radius:50%; background:var(--rose)}
+  .reason__label{font-family:var(--font-serif); font-size:26px; line-height:1.2; font-weight:400}
+  /* selected-row treatment — modifier class kept for the handoff, :has() makes
+     it real in a browser that supports it */
+  .reason--selected,
+  .reason:has(.reason__radio:checked){background:var(--surface-2); border-color:var(--rose)}
+
+  /* --------------------------------------------------------------------------
+     PHOTO PICKER — 5 slots across, 140px square, 16px apart. Filled slots hold
+     an uploaded photo with a remove (x) button; the rest are dashed "Add Photo".
+     -------------------------------------------------------------------------- */
+  .photo-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:16px}
+  .photo-tile{position:relative; height:140px}
+  .photo-tile__img{width:100%; height:140px; object-fit:cover; border-radius:10px; border:0}
+  .photo-tile__remove{position:absolute; top:10px; right:8px; width:34px; height:34px;
+                      border-radius:var(--r-pill); background:#181110; color:var(--cream);
+                      display:grid; place-items:center}
+  .photo-add{display:flex; flex-direction:column; align-items:center; justify-content:center;
+             gap:16px; width:100%; height:140px; border-radius:10px;
+             border:1px dashed var(--line-strong); color:var(--rose-light)}
+  .photo-add__label{font-size:19px; font-weight:300; color:var(--muted)}
+
+  /* --------------------------------------------------------------------------
+     NOTES — 133px textarea with a character counter pinned bottom-right.
+     -------------------------------------------------------------------------- */
+  .notes{position:relative}
+  .notes__input{display:block; width:100%; height:133px; padding:26px 28px;
+                background:var(--surface); border:1px solid var(--line);
+                border-radius:var(--r-input); color:var(--cream);
+                font-family:var(--font-sans); font-size:22px; line-height:1.3;
+                font-weight:300; resize:none}
+  .notes__input:focus{outline:none}
+  .notes__input::placeholder{color:var(--muted-dim)}
+  .notes__count{position:absolute; right:24px; bottom:19px;
+                font-size:20px; font-weight:300; color:var(--muted)}
+
+  /* --- PRIMARY ACTION: full-width rose button, 72px tall ------------------- */
+  .page-action{padding:0 var(--pad); margin-top:36px}
+  .btn--submit{height:72px; letter-spacing:.22em; font-size:22px; font-weight:400;
+               text-transform:uppercase; border-radius:12px}
+
+  /* ---------- POC ADDITIONS (not in the handoff) -------------------------- */
+  /* hidden native file input behind the "Add Photo" tiles */
+  .photo-input{position:absolute; width:1px; height:1px; opacity:0; pointer-events:none}
+  /* muted line that replaces the submit when the order isn't returnable */
+  .page-action__note{margin:0; padding:24px 0; text-align:center; font-size:22px;
+                     font-weight:300; color:var(--muted)}
+  .page-end{flex:0 0 40px}
+}

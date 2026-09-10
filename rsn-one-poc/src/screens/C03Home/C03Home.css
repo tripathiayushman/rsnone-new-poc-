@@ -1,0 +1,59 @@
+/* ==========================================================================
+   SCREEN: C03 HOME — lifted from rsn-one-html/C03-Home.html ("SCREEN: HOME"),
+   scoped under .c03 so it can't leak into other screens. All values mock px.
+   ========================================================================== */
+.c03 {
+  /* --- HERO: full-bleed photo, overlaid headline, CTA, carousel dots ------- */
+  .hero{position:relative; height:432px; flex:0 0 432px; overflow:hidden}
+  .hero__media{width:100%; height:100%; object-fit:cover; border:0}
+  .hero__scrim{position:absolute; inset:0;
+    background:linear-gradient(90deg, var(--scrim) 0%, rgba(41,28,25,.34) 55%, rgba(41,28,25,.12) 100%)}
+  .hero__copy{position:absolute; left:53px; top:75px; width:400px}
+  .hero__title em{font-style:italic; color:var(--rose-light)}
+  .hero__body{margin-top:22px; font-size:19px; line-height:1.62}
+  .hero__cta{margin-top:32px}
+  .hero__voice{position:absolute; left:723px; bottom:88px; width:120px}
+  .hero__dots{position:absolute; left:0; right:0; bottom:26px; display:flex; justify-content:center; gap:14px}
+  .hero__dot{width:13px; height:13px; border-radius:var(--r-pill); background:rgba(250,247,245,.35); cursor:pointer}
+  .hero__dot--active{background:var(--rose-light)}
+  /* POC: the three slides cross-fade */
+  .hero__slide{position:absolute; inset:0; opacity:0; transition:opacity .6s ease}
+  .hero__slide--on{opacity:1}
+
+  /* --- PRODUCT CARD (shared shape; also on Shop / Wishlist / Drops) -------- */
+  .product-rail{display:flex; gap:16px; overflow-x:auto; padding:0 28px 4px; scrollbar-width:none}
+  .product-rail::-webkit-scrollbar{display:none}
+  .product-card{flex:0 0 194px; position:relative}
+  .product-card__media{width:194px; height:160px; object-fit:cover; border-radius:8px}
+  .product-card__wish{position:absolute; top:14px; right:14px; width:40px; height:40px;
+                      display:grid; place-items:center; color:var(--cream)}
+  .product-card__title{margin-top:16px}
+  .product-card__house{margin-top:4px}
+  .product-card__price{margin-top:10px; display:block}
+  .product-card__chip{margin-top:12px}
+
+  /* --- WORLDS: circular category row -------------------------------------- */
+  .worlds{display:flex; gap:16px; overflow-x:auto; padding:0 var(--gutter); scrollbar-width:none}
+  .worlds::-webkit-scrollbar{display:none}
+  .world{flex:0 0 118px; text-align:center}
+  .world__disc{width:118px; height:118px; border-radius:var(--r-pill); object-fit:cover}
+  .world__label{margin-top:14px; font-size:18px; font-weight:300}
+
+  /* --- PROMO GRID: 2x2 editorial tiles ------------------------------------ */
+  .promo-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px;
+              padding:0 var(--gutter); margin-top:32px}
+  .promo-card{position:relative; height:190px; border-radius:var(--r-card); overflow:hidden; display:block}
+  .promo-card__media{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border:0}
+  .promo-card__scrim{position:absolute; inset:0;
+    background:linear-gradient(90deg, rgba(41,28,25,.80) 0%, rgba(41,28,25,.14) 100%)}
+  .promo-card--light .promo-card__scrim{
+    background:linear-gradient(90deg, rgba(240,222,215,.86) 0%, rgba(240,222,215,.08) 100%)}
+  .promo-card--light .promo-card__body{color:#3B2A24}
+  .promo-card--light .promo-card__link{color:#8A5148}
+  .promo-card__body{position:absolute; inset:0; padding:26px 26px 22px; display:flex; flex-direction:column}
+  .promo-card__title{font-family:var(--font-serif); font-size:30px; line-height:1.1}
+  .promo-card__text{margin-top:10px; font-size:15px; line-height:1.4; max-width:200px; font-weight:300}
+  .promo-card__link{margin-top:auto; display:inline-flex; align-items:center; gap:10px; color:var(--rose-light)}
+
+  .section--last{padding-bottom:40px}
+}
