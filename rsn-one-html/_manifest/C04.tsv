@@ -1,0 +1,17 @@
+world-morning-01	C04-Shop	Category row	83x83	1.00	also on C03 (118x118), C06 (106x106)
+world-skin-01	C04-Shop	Category row	83x83	1.00	also on C03 (118x118), C06 (106x106)
+world-sleep-01	C04-Shop	Category row	83x83	1.00	also on C03 (118x118), C06 (106x106)
+world-table-01	C04-Shop	Category row	83x83	1.00	also on C03 (118x118), C06 (106x106)
+world-gifts-01	C04-Shop	Category row	83x83	1.00	also on C03 (118x118), C06 (106x106)
+world-global-select-01	C04-Shop	Category row	83x83	1.00	also on C03 (118x118), C06 (106x106)
+world-shop-cat-08-01	C04-Shop	Category row	83x83	1.00	NEW SLOT; 8th disc clipped by right frame edge, category unknown - positional name, rename when design shows it
+promo-shop-banner-01	C04-Shop	Shop banner	807x206	3.92	NEW SLOT; "Objects for a more meaningful home." Right third must stay pale - the pull-quote sits on it with no scrim
+prod-copper-vessel-01	C04-Shop	All Products grid	393x186	2.11	also on C03, C06, C07
+prod-brass-kettle-01	C04-Shop	All Products grid	393x186	2.11	also on C03, C06
+prod-beeswax-candle-01	C04-Shop	All Products grid	393x186	2.11	also on C03, C06
+prod-yak-blanket-01	C04-Shop	All Products grid	393x186	2.11	also on C03
+prod-ceramide-cream-01	C04-Shop	All Products grid	393x186	2.11	NEW SLOT; Ceramide Cream, Atelier Sand
+prod-linen-sheets-01	C04-Shop	All Products grid	393x186	2.11	NEW SLOT; Linen Sheets, House of Sujan - also on C06
+prod-shop-grid-07-01	C04-Shop	All Products grid row 4	393x186	2.11	NEW SLOT; card cut off by frame bottom, product not identifiable - positional name, rename when design shows it
+prod-shop-grid-08-01	C04-Shop	All Products grid row 4	393x186	2.11	NEW SLOT; card cut off by frame bottom, product not identifiable - positional name, rename when design shows it
+logo-rsnone-01	C04-Shop	App bar	186x94	1.98	extracted from mock; swap for production SVG
