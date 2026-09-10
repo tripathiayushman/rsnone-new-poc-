@@ -11,7 +11,8 @@
     "images": "node scripts/convert-images.mjs",
     "typecheck": "tsc -b",
     "shots": "node scripts/shots.mjs",
-    "e2e": "node scripts/e2e.mjs"
+    "e2e": "node scripts/e2e.mjs",
+    "build:embedded": "tsc -b && vite build --mode embedded --base ./ --outDir dist-embedded"
   },
   "dependencies": {
     "react": "^19.2.8",

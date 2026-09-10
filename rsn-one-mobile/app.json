@@ -1,0 +1,31 @@
+{
+  "expo": {
+    "name": "RSN One",
+    "slug": "rsn-one",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "dark",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.rsnone.poc"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#291C19",
+        "foregroundImage": "./assets/adaptive-icon.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.rsnone.poc"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "backgroundColor": "#291C19",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#291C19"
+    }
+  }
+}

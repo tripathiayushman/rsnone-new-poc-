@@ -1,0 +1,177 @@
+# On every push to main: verify + build the web POC, build the Expo Android shell that
+# embeds it, and publish both as a GitHub Release (tag v1.0.<run number>).
+name: Build and release
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  NODE_VERSION: 20
+  JAVA_VERSION: 17
+
+jobs:
+  web:
+    name: Web build
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.ver.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: rsn-one-poc/package-lock.json
+
+      - name: Version
+        id: ver
+        run: echo "version=1.0.${{ github.run_number }}" >> "$GITHUB_OUTPUT"
+
+      - name: Install
+        working-directory: rsn-one-poc
+        run: npm ci --no-audit --no-fund
+
+      - name: Type check
+        working-directory: rsn-one-poc
+        run: npm run typecheck
+
+      - name: Build (web, history routing)
+        working-directory: rsn-one-poc
+        run: npm run build
+
+      - name: Build (embedded, hash routing — bundled into the Android app)
+        working-directory: rsn-one-poc
+        run: npm run build:embedded
+
+      - name: Package web build
+        working-directory: rsn-one-poc
+        run: |
+          (cd dist && zip -qr "../rsn-one-web-v${{ steps.ver.outputs.version }}.zip" .)
+          ls -la *.zip
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-dist
+          path: rsn-one-poc/rsn-one-web-*.zip
+          retention-days: 7
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: web-embedded
+          path: rsn-one-poc/dist-embedded
+          retention-days: 1
+
+  android:
+    name: Android build (Expo)
+    needs: web
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: npm
+          cache-dependency-path: rsn-one-mobile/package-lock.json
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - uses: android-actions/setup-android@v3
+
+      - uses: gradle/actions/setup-gradle@v4
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: web-embedded
+          path: rsn-one-poc/dist-embedded
+
+      - name: Install
+        working-directory: rsn-one-mobile
+        run: npm ci --no-audit --no-fund
+
+      - name: Stamp version
+        working-directory: rsn-one-mobile
+        run: |
+          node -e "
+            const fs=require('fs'); const f='app.json'; const j=JSON.parse(fs.readFileSync(f,'utf8'));
+            j.expo.version='${{ needs.web.outputs.version }}';
+            j.expo.android=j.expo.android||{}; j.expo.android.versionCode=${{ github.run_number }};
+            fs.writeFileSync(f, JSON.stringify(j,null,2));"
+
+      - name: Expo prebuild (generate android/)
+        working-directory: rsn-one-mobile
+        run: npx expo prebuild --platform android --no-install --non-interactive
+        env:
+          CI: 1
+
+      - name: Embed web build into android assets
+        working-directory: rsn-one-mobile
+        run: node scripts/embed-web.mjs
+
+      - name: Gradle assembleRelease
+        working-directory: rsn-one-mobile/android
+        run: ./gradlew assembleRelease --no-daemon --stacktrace
+
+      - name: Collect APK
+        working-directory: rsn-one-mobile
+        run: |
+          APK=$(find android/app/build/outputs/apk/release -name '*.apk' | head -1)
+          echo "found: $APK"
+          cp "$APK" "rsn-one-android-v${{ needs.web.outputs.version }}.apk"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: rsn-one-mobile/rsn-one-android-*.apk
+          retention-days: 7
+
+  release:
+    name: GitHub Release
+    needs: [web, android]
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: web-dist
+          path: out
+      - uses: actions/download-artifact@v4
+        with:
+          name: android-apk
+          path: out
+
+      - name: Release notes
+        run: |
+          cat > notes.md <<EOF
+          ## RSN One POC v${{ needs.web.outputs.version }}
+
+          Built from \`${{ github.sha }}\` on \`${{ github.ref_name }}\`.
+
+          | Asset | What it is |
+          |---|---|
+          | \`rsn-one-android-v${{ needs.web.outputs.version }}.apk\` | Android app (Expo shell embedding the web POC). Install on a phone/emulator; signed with the debug key, so allow "unknown sources". |
+          | \`rsn-one-web-v${{ needs.web.outputs.version }}.zip\` | Static web build. Unzip and serve the folder (SPA — route all paths to index.html). |
+
+          Demo script and promo codes: \`rsn-one-poc/README.md\`.
+          EOF
+
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v${{ needs.web.outputs.version }}
+          name: RSN One POC v${{ needs.web.outputs.version }}
+          body_path: notes.md
+          files: out/*
+          fail_on_unmatched_files: true

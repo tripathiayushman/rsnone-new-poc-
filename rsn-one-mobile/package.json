@@ -1,0 +1,27 @@
+{
+  "name": "rsn-one-mobile",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "dependencies": {
+    "expo": "~57.0.21",
+    "expo-status-bar": "~57.0.1",
+    "react": "19.2.3",
+    "react-native": "0.86.3",
+    "react-native-safe-area-context": "~5.7.0",
+    "react-native-webview": "13.16.1"
+  },
+  "devDependencies": {
+    "@types/react": "~19.2.2",
+    "typescript": "~6.0.3"
+  },
+  "scripts": {
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web",
+    "embed-web": "node scripts/embed-web.mjs",
+    "prebuild:android": "expo prebuild --platform android --no-install",
+    "build:android": "npm run prebuild:android && npm run embed-web && cd android && ./gradlew assembleRelease"
+  },
+  "private": true
+}

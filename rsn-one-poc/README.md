@@ -58,3 +58,23 @@ Promo codes that work: `RSN10` (10 %), `WELCOME` (5 %).
 (17 product shots + 4 card artworks) borrow the closest supplied photo — see `STANDIN` in
 `src/lib/images.ts`; those `<img>`s carry `data-standin="true"`. Drop the real file into
 `../rsn-one-html/rsn-one-images/` under the manifest name and re-run `npm run images`.
+
+## Releases (CI)
+
+Every push to `main` runs `.github/workflows/release.yml`:
+
+1. **Web** — `npm ci`, type check, `npm run build` (history routing, for hosting) and
+   `npm run build:embedded` (hash routing + relative paths, for the mobile shell), zipped.
+2. **Android** — `rsn-one-mobile/` is an Expo app that shows the embedded web build in a
+   full-screen WebView. CI runs `expo prebuild`, copies `dist-embedded` into the Android
+   assets (`scripts/embed-web.mjs`), and builds a release APK with Gradle (debug-signed, so
+   it installs anywhere with "unknown sources" on).
+3. **Release** — a GitHub Release `v1.0.<run number>` with the APK and the web zip attached.
+
+Nothing needs an Expo account: the APK is built on the GitHub runner. To also produce an
+iOS build you would add EAS Build (`eas build -p ios`) with an `EXPO_TOKEN` secret and an
+Apple signing profile.
+
+Local equivalents: `npm run build:embedded` here, then in `../rsn-one-mobile`
+`npm run build:android` (needs Android SDK + Java 17), or `EXPO_PUBLIC_WEB_URL=http://<your-ip>:5173 npx expo start`
+to point the shell at the dev server on a device.

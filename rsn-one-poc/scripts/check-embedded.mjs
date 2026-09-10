@@ -1,0 +1,18 @@
+import { chromium } from 'playwright-core';
+import { readdirSync } from 'node:fs'; import { homedir } from 'node:os'; import { join } from 'node:path'; import { pathToFileURL } from 'node:url';
+const pw = join(homedir(), 'AppData/Local/ms-playwright'); const dirs = readdirSync(pw);
+const dir = dirs.find(d => d.startsWith('chromium_headless_shell')) ?? dirs.find(d => d.startsWith('chromium-'));
+const exe = join(pw, dir, dir.startsWith('chromium_headless_shell') ? 'chrome-headless-shell-win64/chrome-headless-shell.exe' : 'chrome-win64/chrome.exe');
+const b = await chromium.launch({ executablePath: exe, args: ['--allow-file-access-from-files'] });
+const p = await b.newPage({ viewport: { width: 430, height: 900 } });
+const errs = []; p.on('pageerror', e => errs.push(e.message)); p.on('console', m => m.type() === 'error' && errs.push(m.text().slice(0, 120)));
+const url = pathToFileURL(process.cwd() + '/dist-embedded/index.html').href;
+await p.goto(url); await p.waitForTimeout(2600);
+console.log('after splash:', p.url().replace(url, 'index.html'));
+await p.getByText('Get Started').click(); await p.waitForTimeout(400);
+console.log('after Get Started:', p.url().replace(url, 'index.html'));
+const imgs = await p.evaluate(() => [...document.images].map(i => ({ src: i.src.split('/').slice(-2).join('/'), ok: i.complete && i.naturalWidth > 0 })));
+console.log('images:', imgs);
+await p.screenshot({ path: '_shots/embedded-file.png' });
+console.log(errs.length ? 'ERRORS: ' + errs.join(' | ') : 'no errors');
+await b.close();

@@ -41,5 +41,6 @@ export function resolveSlot(slot: string): Resolved | null {
   return null;
 }
 function url(slot: string) {
-  return `/images/${slot}${slot.startsWith('logo-') ? '.png' : '.webp'}`;
+  // BASE_URL is '/' for the web build and './' for the embedded mobile build
+  return `${import.meta.env.BASE_URL}images/${slot}${slot.startsWith('logo-') ? '.png' : '.webp'}`;
 }
