@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C10 Bag</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C10 Bag
+   Source mock: rsn-one-design/C10-Bag.png  (853 x 1844, 1x)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Tokens + base components are IDENTICAL in every CXX file; see
+   RSN-HANDOFF-SPEC.md. Screen-specific CSS starts at "SCREEN: BAG".
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   SCREEN: BAG
+   ========================================================================== */
+
+/* The shared reset (section 2) zeroes html/body only. Zero the browser's
+   default block margins too, so every gap below is an explicit measured
+   value rather than a UA default. */
+h1,h2,h3,h4,p,ul,figure{margin:0}
+
+/* --- APP BAR variant: no search icon on this screen, bag only ---------- */
+.appbar--bag .appbar__actions{gap:0}
+
+/* --- PAGE HEAD ---------------------------------------------------------
+   Measured: "Your Bag" cap-height 55px (glyph top y=210) -> ~76px Playfair.
+   Spec .t-h1 is 64px; C09 "Wishlist" measures ~84px. The three screen
+   titles in this batch are all different sizes.
+   ---------------------------------------------------------------------- */
+.bag-head{padding:21px 46px 0}
+.bag-head__title{font-size:78px; line-height:1.05}
+.bag-sub{margin-top:15px; font-size:30px; line-height:1.2; font-weight:300; color:var(--rose-pale)}
+
+/* --- BAG LINES: 2 cards, 779x292, 18px apart ---------------------------
+   Card = photo 323x292 flush left + body. Body: house eyebrow, product
+   name, price, member chip on its own line, then a quantity stepper.
+   Delete (trash) sits top-right of the body, not on the photo.
+   ---------------------------------------------------------------------- */
+.bag-list{margin-top:23px; padding:0 38px}
+.bag-line{display:flex; height:292px; margin-bottom:18px;
+          background:var(--surface); border-radius:var(--r-card); overflow:hidden}
+.bag-line:last-child{margin-bottom:0}
+.bag-line__media{flex:0 0 323px; width:323px; height:292px; object-fit:cover; border:0; border-radius:0}
+.bag-line__body{flex:1; min-width:0; position:relative; padding:31px 30px 22px}
+.bag-line__house{font-size:17px; line-height:1; letter-spacing:.16em;
+                 text-transform:uppercase; font-weight:500; color:var(--muted)}
+.bag-line__title{font-size:34px; margin-top:6px}
+.bag-line__price{display:block; margin-top:11px; font-size:34px}
+.bag-line__chip{margin-top:7px; height:42px; font-size:18px; padding:0 21px}
+.bag-line__remove{position:absolute; top:29px; right:30px; width:36px; height:36px;
+                  display:grid; place-items:center; color:var(--rose-light)}
+/* quantity stepper: 195x51 pill, minus / value / plus */
+.qty{margin-top:29px; width:195px; height:51px; border:1px solid var(--line-strong);
+     border-radius:var(--r-pill); display:flex; align-items:center; justify-content:space-between;
+     padding:0 22px}
+.qty__btn{width:34px; height:34px; display:grid; place-items:center; color:var(--rose-pale)}
+.qty__value{font-size:23px; font-weight:300}
+
+/* --- GIFT NOTE ROW: outlined full-width row, 772x72 --------------------- */
+.gift-note{margin:28px 40px 0; width:772px; height:72px; display:flex; align-items:center;
+           gap:26px; padding:0 26px; border:1px solid var(--line-strong);
+           border-radius:var(--r-input); color:var(--rose-pale); font-size:25px; font-weight:300}
+.gift-note__chev{margin-left:auto; color:var(--muted)}
+
+/* --- ORDER TOTALS ------------------------------------------------------ */
+.totals{margin:48px 40px 0; width:773px}
+.totals__row{display:flex; justify-content:space-between; align-items:baseline;
+             font-size:25px; font-weight:300; margin-bottom:2px}
+.totals__rule{height:1px; background:var(--line); margin:11px 0 19px}
+.totals__grand{display:flex; justify-content:space-between; align-items:baseline}
+.totals__grand-label{font-family:var(--font-serif); font-size:41px; line-height:1}
+.totals__grand-value{font-family:var(--font-serif); font-size:41px; line-height:1; color:var(--cream)}
+.totals__note{margin-top:8px; font-size:18px; color:var(--muted)}
+
+/* --- CHECKOUT CTA + secondary link ------------------------------------- */
+.bag-cta{margin:36px 44px 0; width:766px; height:79px; border-radius:var(--r-btn);
+         background:var(--rose); color:#33241F; gap:22px}
+.bag-cta__label{font-size:26px; letter-spacing:.16em; text-transform:uppercase; font-weight:400}
+.bag-continue{display:block; width:100%; margin-top:32px; text-align:center;
+              color:var(--rose-light); font-size:25px; font-weight:300}
+
+/* --- MEMBER TEASER: outlined banner, 768x110, sparkle + rule + copy ----- */
+.member-teaser{margin:45px 43px 0; width:768px; height:110px; display:flex; align-items:center;
+               border:1px solid var(--line); border-radius:var(--r-card); background:var(--surface)}
+.member-teaser__icon{flex:0 0 132px; display:grid; place-items:center; color:var(--rose-pale)}
+.member-teaser__rule{width:1px; height:56px; background:var(--line-strong)}
+.member-teaser__copy{padding-left:34px; font-size:21px; line-height:1.45; font-weight:300}
+
+/* --- TAB BAR: labels are Title Case on this screen, not UPPERCASE ------- */
+.tabbar--roman .t-tab{text-transform:none; letter-spacing:.01em; font-size:21px; font-weight:300}
+
+</style>
+</head>
+<body>
+
+<div class="screen">
+
+  <!-- ICON: approximated, swap for production icon set -->
+
+  <!-- ==================================================================
+       STATUS BAR — iOS chrome drawn into the mock. Not app UI.
+       ================================================================== -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="statusbar__icons">
+      <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+      <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- ==================================================================
+       APP BAR — logo left, bag right with badge "2". No search icon on
+       this screen and no hairline under the bar (both present on C09).
+       ASSUMPTION: the bag button is the current screen, so it is probably
+       decorative here; the mock gives it no active/pressed treatment.
+       ================================================================== -->
+  <header class="appbar appbar--bag">
+    <a class="appbar__logo" href="C03-Home.html" aria-label="RSN one — Global Family Club">
+      <!-- LOGO: full lockup (arc + wordmark + tagline) as one asset. -->
+      <img class="logo" src="rsn-one-images/logo-rsnone-01.png" alt="logo-rsnone-01" width="186" height="94">
+    </a>
+    <div class="appbar__actions">
+      <button class="appbar__action" aria-label="Bag, 2 items">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="appbar__badge">2</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================================================================
+       PAGE HEAD — title + subtitle. Subtitle counts the lines ("Two")
+       and must stay in sync with the number of bag lines below.
+       ================================================================== -->
+  <div class="bag-head">
+    <h1 class="t-h1 bag-head__title">Your Bag</h1>
+    <p class="bag-sub">Two beautiful pieces, closer to home.</p>
+  </div>
+
+  <!-- ==================================================================
+       BAG LINES — 2 cards, 779x292, photo 323x292 flush left.
+       Each: house eyebrow, name, price, member chip, quantity stepper.
+       ================================================================== -->
+  <ul class="bag-list">
+
+    <li class="bag-line">
+      <img class="bag-line__media" src="rsn-one-images/prod-copper-vessel-01.jpg"
+           alt="prod-copper-vessel-01" width="323" height="292">
+      <div class="bag-line__body">
+        <p class="bag-line__house">House of Lazimpat</p>
+        <h2 class="t-card bag-line__title">Copper Vessel</h2>
+        <span class="t-price bag-line__price">&#8377;25,199</span>
+        <span class="chip chip--member bag-line__chip">Member &#8377;21,499</span>
+        <button class="bag-line__remove" type="button" aria-label="Remove Copper Vessel from bag">
+          <svg width="26" height="30" viewBox="0 0 18 20" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 5h14"/><path d="M4 5l1 13h8l1-13"/><path d="M7 5V2h4v3"/></svg>
+        </button>
+        <div class="qty">
+          <button class="qty__btn" type="button" aria-label="Decrease quantity">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12h14"/></svg>
+          </button>
+          <span class="qty__value">1</span>
+          <button class="qty__btn" type="button" aria-label="Increase quantity">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12h14M12 5v14"/></svg>
+          </button>
+        </div>
+      </div>
+    </li>
+
+    <li class="bag-line">
+      <img class="bag-line__media" src="rsn-one-images/prod-linen-sheets-01.jpg"
+           alt="prod-linen-sheets-01" width="323" height="292">
+      <div class="bag-line__body">
+        <p class="bag-line__house">House of Suj&aacute;n</p>
+        <h2 class="t-card bag-line__title">Linen Sheets</h2>
+        <span class="t-price bag-line__price">&#8377;27,800</span>
+        <span class="chip chip--member bag-line__chip">Member &#8377;23,499</span>
+        <button class="bag-line__remove" type="button" aria-label="Remove Linen Sheets from bag">
+          <svg width="26" height="30" viewBox="0 0 18 20" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M2 5h14"/><path d="M4 5l1 13h8l1-13"/><path d="M7 5V2h4v3"/></svg>
+        </button>
+        <div class="qty">
+          <button class="qty__btn" type="button" aria-label="Decrease quantity">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12h14"/></svg>
+          </button>
+          <span class="qty__value">1</span>
+          <button class="qty__btn" type="button" aria-label="Increase quantity">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 12h14M12 5v14"/></svg>
+          </button>
+        </div>
+      </div>
+    </li>
+  </ul>
+
+  <!-- ==================================================================
+       GIFT NOTE — outlined row, 772x72, opens a sub-screen (chevron).
+       ================================================================== -->
+  <a class="gift-note" href="#">
+    <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M3 9h18v11H3V9Z"/><path d="M3 9l1.5-4h15L21 9"/><path d="M12 5v15"/></svg>
+    Add a gift note
+    <svg class="gift-note__chev" width="22" height="30" viewBox="0 0 12 18" fill="none" stroke="currentColor" stroke-width="1.3"><path d="m3 1 8 8-8 8"/></svg>
+  </a>
+
+  <!-- ==================================================================
+       ORDER TOTALS — Subtotal / Delivery, hairline, Total + tax note.
+       DEVIATION-RISK: Subtotal (&#8377;52,999) is the sum of the two bag lines
+       and is correct here, but checkout (C11 / C12) shows 3 items and
+       &#8377;59,799 — the bag and the checkout summary are out of sync across
+       the flow. Confirm which basket is canonical before build.
+       ================================================================== -->
+  <div class="totals">
+    <div class="totals__row"><span>Subtotal</span><span>&#8377;52,999</span></div>
+    <div class="totals__row"><span>Delivery</span><span>Free</span></div>
+    <div class="totals__rule"></div>
+    <div class="totals__grand">
+      <span class="totals__grand-label">Total</span>
+      <span class="totals__grand-value">&#8377;52,999</span>
+    </div>
+    <p class="totals__note">Inclusive of all taxes</p>
+  </div>
+
+  <!-- ==================================================================
+       PRIMARY CTA — 766x79 rose button, uppercase label + arrow.
+       Secondary "Continue Shopping" text link below it.
+       ================================================================== -->
+  <button class="btn bag-cta" type="button">
+    <span class="bag-cta__label">Checkout</span>
+    <svg width="30" height="18" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h14M10 1l4 4-4 4"/></svg>
+  </button>
+  <a class="bag-continue" href="C04-Shop.html">Continue Shopping</a>
+
+  <!-- ==================================================================
+       MEMBER TEASER — outlined banner 768x110: sparkle, 1px vertical rule,
+       two lines of copy. Spend-gap message.
+       ================================================================== -->
+  <aside class="member-teaser">
+    <span class="member-teaser__icon">
+      <svg width="46" height="46" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c.6 4.6 2.8 6.8 7.4 7.4-4.6.6-6.8 2.8-7.4 7.4-.6-4.6-2.8-6.8-7.4-7.4C9.2 8.8 11.4 6.6 12 2Z"/></svg>
+    </span>
+    <span class="member-teaser__rule" aria-hidden="true"></span>
+    <p class="member-teaser__copy">You're &#8377;47,001 away from early access<br>to Member privileges.</p>
+  </aside>
+
+  <!-- ==================================================================
+       TAB BAR — DEVIATION-RISK: the mock shows the 4-tab bar with NO tab
+       in the active state, because "Bag" is not one of the four tabs. A
+       user on this screen has no indication of where they are, and the
+       tab bar lets them leave a populated bag with one tap. Decide whether
+       Bag is a pushed screen (should show a back bar, not the tab bar) or
+       gets a fifth tab.
+       ================================================================== -->
+  <nav class="tabbar tabbar--roman">
+    <a class="tab" href="C03-Home.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3 3 10v11h6v-6h6v6h6V10l-9-7Z"/></svg>
+      <span class="t-tab">Home</span>
+    </a>
+    <a class="tab" href="C04-Shop.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <span class="t-tab">Shop</span>
+    </a>
+    <a class="tab" href="C09-Wishlist.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20.5S3 14.8 3 9.2A5 5 0 0 1 12 6.5 5 5 0 0 1 21 9.2c0 5.6-9 11.3-9 11.3Z"/></svg>
+      <span class="t-tab">Wishlist</span>
+    </a>
+    <a class="tab" href="C17-Me.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg>
+      <span class="t-tab">Me</span>
+    </a>
+  </nav>
+
+  <div class="home-indicator"></div>
+
+</div>
+
+</body>
+</html>

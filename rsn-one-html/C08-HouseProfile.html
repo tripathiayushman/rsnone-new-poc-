@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C08 House Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C08 House Profile
+   Source mock: rsn-one-design/C08-HouseProfile.png  (853 x 1844, 1x)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Tokens + base components are IDENTICAL in every CXX file; see
+   RSN-HANDOFF-SPEC.md. Screen-specific CSS starts at "SCREEN: HOUSE PROFILE".
+
+   NOTE: this is the only screen in the set that inverts — a cream panel with
+   dark ink covering the lower two-thirds. It carries NO tab bar.
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   SCREEN: HOUSE PROFILE
+   Screen-local light palette, sampled from the panel pixels.
+   ========================================================================== */
+.screen{--panel:#F0DDD8; --ink:#1B1310; --ink-soft:#3C3230;
+        --panel-line:#E1CAC4; --panel-rose:#C06E74}
+
+/* --- HERO: full-bleed house photography. Visible height 832; the image is
+       drawn 862 tall so the panel's 36px rounded corners sit ON the photo,
+       which is what the mock shows. -------------------------------------- */
+.house-hero{position:relative; flex:0 0 862px; height:862px; overflow:hidden}
+.house-hero__media{width:853px; height:862px; object-fit:cover; border:0}
+.house-hero .statusbar{position:absolute; top:0; left:0; right:0; z-index:2; color:var(--cream)}
+.house-hero__bar{position:absolute; z-index:2; top:100px; left:0; right:0;
+                 display:flex; align-items:center; justify-content:space-between;
+                 padding:0 52px; color:var(--cream)}
+
+/* --- PANEL: cream sheet from y=832 to the bottom of the frame, 36px top
+       corner radius, 68px side padding. ---------------------------------- */
+.house-panel{position:relative; z-index:1; flex:1; margin-top:-30px;
+             background:var(--panel); color:var(--ink);
+             border-radius:36px 36px 0 0; padding:59px 68px 0;
+             display:flex; flex-direction:column}
+.house-panel__name{font-family:var(--font-serif); font-size:80px; line-height:1.05;
+                   font-weight:500; margin:0; color:var(--ink)}
+.house-panel__place{margin:14px 0 0; font-size:37px; line-height:1.3;
+                    font-weight:400; color:var(--ink)}
+.house-panel__lede{margin:32px 0 0; font-size:36px; line-height:54px;
+                   font-weight:300; color:var(--ink-soft)}
+.house-panel__cta{margin-top:42px; width:655px; height:107px;
+                  display:inline-flex; align-items:center; justify-content:center;
+                  background:var(--panel-rose); color:#FFF6F3; border-radius:8px;
+                  font-size:30px; letter-spacing:.16em; text-transform:uppercase; font-weight:400}
+.house-panel__rule{height:1px; background:var(--panel-line); border:0;
+                   margin:55px 0 0; width:100%}
+
+.house-section{margin-top:43px}
+.house-section__head{display:flex; align-items:center; justify-content:space-between}
+.house-section__title{font-family:var(--font-serif); font-size:54px; line-height:1.15;
+                      font-weight:500; margin:0; color:var(--ink)}
+.house-section__go{color:var(--ink); display:block}
+/* measured measure: the mock sets this paragraph over 4 lines, ~560px wide */
+.house-section__body{margin:21px 0 0; max-width:560px; font-size:36px; line-height:54px;
+                     font-weight:300; color:var(--ink-soft)}
+
+/* --- HOME INDICATOR: dark bar on the cream panel, 299 x 12 -------------- */
+.home-indicator--light{flex:0 0 auto; margin-top:auto; height:66px;
+                       background:var(--panel); display:grid; place-items:center;
+                       margin-left:-68px; margin-right:-68px}
+.home-indicator--light::after{content:""; width:299px; height:12px; border-radius:6px;
+                              background:#28211E}
+</style>
+</head>
+<body>
+
+<div class="screen">
+
+  <!-- ==================================================================
+       HERO — full-bleed photograph of the house, visible to y=832 where the
+       cream panel starts. Overlaid: the iOS status bar, a back arrow
+       (x=57-97, y=119-157) and a wishlist heart (x=745-792, y=116-158).
+       ASSUMPTION: both overlay icons sit on bare photography with no scrim
+       or button plate — legible here only because this photo is dark in
+       both top corners.
+       ================================================================== -->
+  <section class="house-hero">
+    <img class="house-hero__media" src="rsn-one-images/house-lazimpat-01.jpg"
+         alt="house-lazimpat-01" width="853" height="862">
+
+    <!-- STATUS BAR — iOS chrome drawn into the mock, overlaid on the photo.
+         Not app UI; delete this block when building the real screen. -->
+    <div class="statusbar">
+      <span>9:41</span>
+      <span class="statusbar__icons">
+        <!-- ICON: approximated, swap for production icon set -->
+        <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+        <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+        <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+      </span>
+    </div>
+
+    <!-- NAV BAR — back-arrow variant of the top bar, over the photo -->
+    <div class="house-hero__bar">
+      <a href="C07-ProductDetail.html" aria-label="Back">
+        <svg width="42" height="38" viewBox="0 0 24 22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M23 11H1M9 3 1 11l8 8"/></svg>
+      </a>
+      <button aria-label="Save House of Lazimpat to wishlist">
+        <svg width="48" height="43" viewBox="0 0 18 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 15S1 10.4 1 5.6A4.3 4.3 0 0 1 9 3.4 4.3 4.3 0 0 1 17 5.6C17 10.4 9 15 9 15Z"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ==================================================================
+       HOUSE PANEL — cream sheet, top corners 36px, side padding 68px.
+       House name (80px serif), location (37px), two-line lede (36px/54),
+       primary CTA, hairline, then the first detail section.
+       ================================================================== -->
+  <section class="house-panel">
+
+    <h1 class="house-panel__name">House of Lazimpat</h1>
+    <p class="house-panel__place">Kathmandu, Nepal</p>
+    <p class="house-panel__lede">Objects shaped by place,<br>material and tradition.</p>
+
+    <!-- DEVIATION-RISK: the CTA fill is 655px wide (x=68-722) but its label is
+         optically centred on the full 717px content column (x=68-784) — the
+         same column the hairline below it spans. The fill looks 62px short;
+         most likely the button should be 717px wide and full-bleed to the
+         panel padding. -->
+    <button class="house-panel__cta">Explore the house</button>
+
+    <hr class="house-panel__rule">
+
+    <!-- SECTION: "The House" — 54px serif heading with a forward arrow, then
+         a four-line paragraph. This is the last content in the frame; the
+         panel runs on to the home indicator with ~96px of empty cream, so
+         further sections presumably continue below the fold. -->
+    <div class="house-section">
+      <div class="house-section__head">
+        <h2 class="house-section__title">The House</h2>
+        <a class="house-section__go" href="#" aria-label="Open The House">
+          <svg width="42" height="38" viewBox="0 0 24 22" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1 11h22M15 3l8 8-8 8"/></svg>
+        </a>
+      </div>
+      <p class="house-section__body">Rooted in Nepal’s rich craft heritage, House of Lazimpat creates objects that carry stories across generations.</p>
+    </div>
+
+    <!-- HOME INDICATOR — iOS home bar, dark on the cream panel: 299 x 12,
+         radius 6, y=1807-1818. -->
+    <div class="home-indicator--light"></div>
+  </section>
+
+</div>
+</body>
+</html>

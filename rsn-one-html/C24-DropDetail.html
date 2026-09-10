@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C24 Drop Detail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C24 Drop Detail
+   Source mock: rsn-one-design/C24-DropDetail.png  (853 x 1844, 1x)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Tokens + base components are IDENTICAL in every CXX file; see
+   RSN-HANDOFF-SPEC.md. Screen-specific CSS starts at "SCREEN: DROP DETAIL".
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   SCREEN: DROP DETAIL  (C24)
+   Product page for one Limited Drop object. The product photograph is
+   full-bleed behind the top 810px; the eyebrow / name / house / price /
+   member chip / pull-quote and the countdown panel all sit on top of it.
+   Below the photo: thumbnail strip, About copy, three provenance badges,
+   four disclosure rows, and a sticky price + ADD TO CART bar.
+   No tab bar on this screen.
+   ========================================================================== */
+
+.pdp{position:relative}
+.pdp__photo{position:absolute; left:0; top:0; width:853px; height:810px;
+            object-fit:cover; border:0}
+.pdp__scrim{position:absolute; left:0; top:0; width:853px; height:810px;
+  background:linear-gradient(90deg, rgba(41,28,25,.88) 0%, rgba(41,28,25,.62) 38%,
+                                    rgba(41,28,25,.10) 70%, rgba(41,28,25,0) 100%)}
+/* everything except the two photo layers sits above them */
+.pdp > .statusbar, .pdp > .navbar, .pdp > .pdp-copy, .pdp > .pdp-thumbs,
+.pdp > .pdp-about, .pdp > .badges, .pdp > .disclosure, .pdp > .buybar,
+.pdp > .home-indicator{position:relative; z-index:1}
+.pdp > .pdp-voice, .pdp > .countdown{z-index:1}
+
+/* --- NAV BAR: back (left), wishlist + share (right) --------------------- */
+.navbar{flex:0 0 110px; display:flex; align-items:center; justify-content:space-between;
+        padding:0 41px 0 33px}
+.navbar__back{display:grid; place-items:center; width:44px; height:44px; color:var(--cream)}
+.navbar__actions{display:flex; align-items:center; gap:52px}
+.navbar__action{display:grid; place-items:center; width:44px; height:44px; color:var(--cream)}
+
+/* --- HERO COPY (over the photograph) ------------------------------------ */
+.pdp-copy{padding:19px 45px 0; width:520px}
+.pdp-copy__eyebrow{display:block; font-size:20px; line-height:1; letter-spacing:.22em;
+                   text-transform:uppercase; color:var(--rose-light); font-weight:400}
+.pdp-copy__name{font-family:var(--font-serif); font-size:61px; line-height:58px;
+                font-weight:400; margin:12px 0 0}
+.pdp-copy__house{font-size:26px; line-height:1.3; font-weight:400; margin:20px 0 0}
+.pdp-copy__city{font-size:22px; line-height:1.3; font-weight:300; color:var(--muted); margin:4px 0 0}
+.pdp-copy__price{display:block; font-size:36px; line-height:1.2; color:var(--rose-light);
+                 font-weight:400; margin:16px 0 0}
+.pdp-copy__chip{margin-top:5px; height:48px; padding:0 26px; font-size:23px}
+/* italic pull-quote, right of the vessel */
+.pdp-voice{position:absolute; right:35px; top:268px; width:104px;
+           font-family:var(--font-serif); font-style:italic;
+           line-height:35px; color:var(--cream); font-size:25px}
+
+/* --- COUNTDOWN PANEL: measured 45 -> 809, y 651 -> 793 (764 x 142) ------- */
+.countdown{position:absolute; left:45px; top:651px; width:764px; height:142px;
+           border:1px solid var(--line); border-radius:16px;
+           background:rgba(59,42,36,.55); display:flex; align-items:center}
+.countdown__icon{flex:0 0 122px; display:grid; place-items:center; color:var(--rose-light)}
+.countdown__main{flex:1}
+.countdown__label{font-size:21px; line-height:1; font-weight:300; color:var(--cream)}
+.countdown__clock{display:flex; align-items:baseline; gap:8px; margin-top:8px}
+.countdown__unit{text-align:center}
+/* digits measured in the mock at 27px cap height -> 38px, NOT the 56px they
+   were first drawn at; the colon is set at the same size as the digits */
+.countdown__num{display:block; font-size:38px; line-height:1; color:var(--rose-light); font-weight:400}
+.countdown__unitlabel{display:block; font-size:18px; line-height:1; color:var(--muted); margin-top:6px}
+.countdown__sep{font-size:38px; line-height:1; color:var(--rose-light); align-self:center; margin-top:-14px}
+.countdown__aside{flex:0 0 246px; border-left:1px solid var(--line); align-self:stretch;
+                  display:flex; flex-direction:column; justify-content:center; padding-left:55px}
+.countdown__stock{font-size:21px; line-height:30px; font-weight:300}
+.countdown__stock b{color:var(--rose-light); font-weight:400}
+
+/* --- THUMBNAIL STRIP: 4 x 180x160, 15px gaps, first one selected -------- */
+/* padding-top clears the absolutely-positioned countdown panel above */
+.pdp-thumbs{display:flex; gap:15px; padding:271px 45px 0}
+.pdp-thumb{width:180px; height:160px; border-radius:10px; overflow:hidden; display:block}
+.pdp-thumb img{width:100%; height:100%; object-fit:cover; border:0; border-radius:10px}
+.pdp-thumb--active img{border:2px solid var(--rose-pale)}
+
+/* --- ABOUT ------------------------------------------------------------- */
+.pdp-about{padding:27px 45px 0}
+.pdp-about__title{font-family:var(--font-serif); font-size:41px; line-height:1.15;
+                  font-weight:400; margin:0}
+.pdp-about__body{font-size:25px; line-height:34px; font-weight:300; margin:11px 0 0}
+
+/* --- PROVENANCE BADGES: 3 up, 60px discs, 2-line labels, hairline rules -- */
+.badges{display:grid; grid-template-columns:240px 340px 1fr; align-items:center;
+        height:60px; margin:35px 45px 0}
+.badge{display:flex; align-items:center; gap:19px}
+.badge + .badge{border-left:1px solid var(--line); padding-left:83px}
+.badge__disc{flex:0 0 60px; width:60px; height:60px; border-radius:var(--r-pill);
+             background:rgba(219,146,138,.16); display:grid; place-items:center;
+             color:var(--rose-light)}
+.badge__label{font-size:19px; line-height:26px; font-weight:300; white-space:nowrap}
+/* the mock right-aligns the third badge against the frame edge - see the
+   DEVIATION-RISK note on the .badges block in the markup */
+.badge:last-child{justify-content:flex-end; padding-left:0}
+.badge:last-child .badge__label{text-align:right}
+
+/* --- DISCLOSURE ROWS: label + chevron, 67px tall, hairline above each ---- */
+.disclosure{margin:43px 45px 0}
+.list-row{display:flex; align-items:center; justify-content:space-between;
+          height:67px; border-top:1px solid var(--line); color:var(--cream)}
+.list-row__label{font-family:var(--font-serif); font-size:27px; font-weight:400}
+.list-row__chevron{color:var(--cream); opacity:.85}
+
+/* --- STICKY BUY BAR ----------------------------------------------------- */
+.buybar{margin-top:2px; border-top:1px solid var(--line); background:var(--bg);
+        display:flex; align-items:center; justify-content:space-between;
+        padding:30px 45px 26px}
+.buybar__price{display:block; font-size:36px; line-height:1.2; color:var(--rose-light)}
+.buybar__chip{margin-top:13px; height:46px; padding:0 24px; font-size:23px}
+.buybar__cta{width:450px; height:88px; border-radius:12px; gap:24px; padding:0}
+.buybar__cta .t-eyebrow{font-size:28px; letter-spacing:.18em; font-weight:400}
+.home-indicator{margin-top:auto}
+</style>
+</head>
+<body>
+
+<!-- ICON: approximated, swap for production icon set -->
+
+<div class="screen pdp">
+
+  <!-- ==================================================================
+       PRODUCT PHOTO — full-bleed behind the top 810px of the frame.
+       Same object as prod-copper-vessel-01 on C03 / C04 / C07.
+       ================================================================== -->
+  <img class="pdp__photo" src="rsn-one-images/prod-copper-vessel-01.jpg"
+       alt="prod-copper-vessel-01" width="853" height="810">
+  <div class="pdp__scrim"></div>
+
+  <!-- ==================================================================
+       STATUS BAR — iOS chrome drawn into the mock. Not app UI; delete this
+       block when building the real screen.
+       ================================================================== -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="statusbar__icons">
+      <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+      <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- ==================================================================
+       NAV BAR — back arrow (33-76), wishlist heart (682-724), share
+       (776-812). No logo and no bag on this screen.
+       ================================================================== -->
+  <header class="navbar">
+    <button class="navbar__back" aria-label="Back">
+      <svg width="44" height="34" viewBox="0 0 22 18" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M21 9H1M8 2 1 9l7 7"/></svg>
+    </button>
+    <div class="navbar__actions">
+      <button class="navbar__action" aria-label="Add Handcrafted Copper Vessel to wishlist">
+        <svg width="43" height="38" viewBox="0 0 24 21" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20S1 13.4 1 7.2A5.4 5.4 0 0 1 12 4.3 5.4 5.4 0 0 1 23 7.2C23 13.4 12 20 12 20Z"/></svg>
+      </button>
+      <button class="navbar__action" aria-label="Share">
+        <svg width="37" height="43" viewBox="0 0 20 23" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 10v11h14V10"/><path d="M10 15V1M5 6l5-5 5 5"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================================================================
+       HERO COPY — over the photograph. Eyebrow, 2-line product name,
+       house, city, price, member-price chip. Left gutter 45px.
+       ================================================================== -->
+  <section class="pdp-copy">
+    <span class="pdp-copy__eyebrow">Limited Drop</span>
+    <h1 class="pdp-copy__name">Handcrafted<br>Copper Vessel</h1>
+    <p class="pdp-copy__house">House of Lazimpat</p>
+    <p class="pdp-copy__city">Kathmandu, Nepal</p>
+    <span class="pdp-copy__price">₹25,199</span>
+    <span class="chip chip--member pdp-copy__chip">Member ₹21,499</span>
+  </section>
+
+  <!-- SECTION: italic pull-quote, set right of the vessel, 3 short lines -->
+  <p class="pdp-voice">Tradition<br>in every<br>curve.</p>
+
+  <!-- ==================================================================
+       COUNTDOWN PANEL — translucent card over the photo, 764 x 142 at
+       y=651. Alarm icon, "Limited Drop Ends In", a 4-unit countdown, a
+       vertical hairline at x=562 and the remaining-stock note.
+       ASSUMPTION: the countdown is live data; the digits below are the
+       values drawn in the mock.
+       ================================================================== -->
+  <section class="countdown" aria-label="Limited drop countdown">
+    <div class="countdown__icon">
+      <svg width="52" height="54" viewBox="0 0 26 27" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="13" cy="15" r="10"/><path d="M13 9v6l4 3M5 5 8 2M21 5l-3-3"/></svg>
+    </div>
+    <div class="countdown__main">
+      <div class="countdown__label">Limited Drop Ends In</div>
+      <div class="countdown__clock">
+        <span class="countdown__unit"><b class="countdown__num">03</b><span class="countdown__unitlabel">Days</span></span>
+        <span class="countdown__sep">:</span>
+        <span class="countdown__unit"><b class="countdown__num">12</b><span class="countdown__unitlabel">Hours</span></span>
+        <span class="countdown__sep">:</span>
+        <span class="countdown__unit"><b class="countdown__num">45</b><span class="countdown__unitlabel">Minutes</span></span>
+        <span class="countdown__sep">:</span>
+        <span class="countdown__unit"><b class="countdown__num">28</b><span class="countdown__unitlabel">Seconds</span></span>
+      </div>
+    </div>
+    <div class="countdown__aside">
+      <p class="countdown__stock">Only <b>12</b> left<br>in this drop</p>
+    </div>
+  </section>
+
+  <!-- ==================================================================
+       THUMBNAIL STRIP — 4 images, 180 x 160, 15px gaps, first selected
+       (pale border). Extra angles of the same object: -01 .. -04.
+       ================================================================== -->
+  <ul class="pdp-thumbs">
+    <li><a class="pdp-thumb pdp-thumb--active" href="#" aria-current="true"><img src="rsn-one-images/prod-copper-vessel-01.jpg" alt="prod-copper-vessel-01" width="180" height="160"></a></li>
+    <li><a class="pdp-thumb" href="#"><img src="rsn-one-images/prod-copper-vessel-02.jpg" alt="prod-copper-vessel-02" width="180" height="160"></a></li>
+    <li><a class="pdp-thumb" href="#"><img src="rsn-one-images/prod-copper-vessel-03.jpg" alt="prod-copper-vessel-03" width="180" height="160"></a></li>
+    <li><a class="pdp-thumb" href="#"><img src="rsn-one-images/prod-copper-vessel-04.jpg" alt="prod-copper-vessel-04" width="180" height="160"></a></li>
+  </ul>
+
+  <!-- SECTION: "About this object" — heading + 4-line paragraph -->
+  <section class="pdp-about">
+    <h2 class="pdp-about__title">About this object</h2>
+    <p class="pdp-about__body">A handcrafted copper vessel from the House of Lazimpat,<br>
+      celebrating Nepal’s rich heritage and the artistry of<br>
+      traditional metalwork. Each piece is uniquely made by<br>
+      skilled artisans, carrying forward a legacy of timeless craft.</p>
+  </section>
+
+  <!-- ==================================================================
+       PROVENANCE BADGES — 3 across, 60px icon discs, 2-line labels,
+       vertical hairlines at x=285 and x=625.
+       DEVIATION-RISK: the third label ("Limited Edition") is set flush to
+       the right frame edge (x ends at 812, past the 809 content edge) and
+       reads right-aligned while the other two are left-aligned — looks like
+       an overflow rather than a deliberate variant.
+       ================================================================== -->
+  <ul class="badges">
+    <li class="badge">
+      <span class="badge__disc"><svg width="30" height="30" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M17 3C9 3 4 6 4 12a5 5 0 0 0 5 5c6 0 8-6 8-14Z"/><path d="M4 17 12 9"/></svg></span>
+      <span class="badge__label">Handcrafted<br>by Artisans</span>
+    </li>
+    <li class="badge">
+      <span class="badge__disc"><svg width="30" height="30" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M2 16 10 3l8 13H2Z"/><path d="m7 16 3-4 3 4"/></svg></span>
+      <span class="badge__label">Authentic<br>Nepali Heritage</span>
+    </li>
+    <li class="badge">
+      <span class="badge__disc"><svg width="30" height="30" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M4 3h12l3 5-9 9-9-9 3-5Z"/><path d="M1 8h18M7 3l3 5 3-5"/></svg></span>
+      <span class="badge__label">Limited<br>Edition</span>
+    </li>
+  </ul>
+
+  <!-- ==================================================================
+       DISCLOSURE ROWS — 4 rows, 67px each, hairline above each row.
+       ================================================================== -->
+  <nav class="disclosure">
+    <a class="list-row" href="#"><span class="list-row__label">Maker Story</span>
+      <svg class="list-row__chevron" width="20" height="34" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m2 1 9 9-9 9"/></svg></a>
+    <a class="list-row" href="#"><span class="list-row__label">Product Details</span>
+      <svg class="list-row__chevron" width="20" height="34" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m2 1 9 9-9 9"/></svg></a>
+    <a class="list-row" href="#"><span class="list-row__label">Care Instructions</span>
+      <svg class="list-row__chevron" width="20" height="34" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m2 1 9 9-9 9"/></svg></a>
+    <a class="list-row" href="#"><span class="list-row__label">Shipping &amp; Returns</span>
+      <svg class="list-row__chevron" width="20" height="34" viewBox="0 0 12 20" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m2 1 9 9-9 9"/></svg></a>
+  </nav>
+
+  <!-- ==================================================================
+       BUY BAR — hairline at y=1606, price + member chip on the left,
+       450 x 88 rose ADD TO CART button on the right.
+       ================================================================== -->
+  <div class="buybar">
+    <div>
+      <span class="buybar__price">₹25,199</span>
+      <span class="chip chip--member buybar__chip">Member ₹21,499</span>
+    </div>
+    <button class="btn btn--primary buybar__cta">
+      <span class="t-eyebrow">Add to Cart</span>
+      <svg width="30" height="18" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h14M10 1l4 4-4 4"/></svg>
+    </button>
+  </div>
+
+  <div class="home-indicator"></div>
+
+</div>
+</body>
+</html>

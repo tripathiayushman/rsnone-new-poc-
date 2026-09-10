@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C27 Address Management</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C27 Address Management ("My Addresses")
+   Source mock: rsn-one-design/C27-AddressManagement.png  (853 x 1844, 1x)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Tokens + base components are IDENTICAL in every CXX file; see
+   RSN-HANDOFF-SPEC.md. Screen-specific CSS starts at "SCREEN: MY ADDRESSES".
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   SCREEN: MY ADDRESSES
+   Two measured insets on this screen: the header block sits at 44px, the
+   address cards at 38px (the shared --gutter is 36px). Both are transcribed
+   as measured; they almost certainly want to be one value in production.
+   ========================================================================== */
+.page{--pad:44px; --card-pad:38px; display:flex; flex-direction:column}
+
+/* --- NAV BAR: back arrow only, no title. 105px tall, arrow 38x32 ---------- */
+.navbar{flex:0 0 105px; display:flex; align-items:center; padding:0 var(--pad)}
+.navbar__back{display:block; color:var(--rose-light)}
+
+/* --- PAGE HEAD: 64px serif title + 2-line 22px subtitle ------------------ */
+.page-head{padding:35px var(--pad) 0}
+.page-head__sub{margin-top:10px; color:var(--cream)}
+
+/* --------------------------------------------------------------------------
+   ADDRESS LIST — 4 cards, 16px apart, first card top y=390.
+   Card box: full width between the 38px insets (778px), 16px radius,
+   hairline border, filled surface. Height is content-driven: 259px for a
+   5-line address, 232px for a 4-line one.
+   -------------------------------------------------------------------------- */
+.addr-list{display:flex; flex-direction:column; gap:16px;
+           padding:0 var(--card-pad); margin-top:38px}
+
+.addr-card{position:relative; display:flex; align-items:flex-start; gap:47px;
+           padding:32px 35px 20px 29px;
+           background:var(--surface); border:1px solid var(--line);
+           border-radius:var(--r-card)}
+
+/* 70px rose-tinted disc holding the address-type icon */
+.addr-card__icon{flex:0 0 70px; width:70px; height:70px; border-radius:var(--r-pill);
+                 display:grid; place-items:center;
+                 background:rgba(201,124,121,.16); color:var(--rose-light)}
+
+.addr-card__body{flex:1 1 auto; min-width:0}
+.addr-card__head{display:flex; align-items:center; gap:27px; min-height:36px}
+.addr-card__name{font-family:var(--font-serif); font-size:30px; line-height:1.2; font-weight:400; margin:0}
+
+/* "Default" marker — only the Home card carries it in this mock */
+.addr-card__default{display:inline-flex; align-items:center; height:42px; padding:0 22px;
+                    border-radius:var(--r-pill); background:rgba(201,124,121,.42);
+                    color:var(--cream); font-size:20px; font-weight:300}
+
+/* Recipient + address lines. First line is cream, the rest are muted.
+   All lines share a 31px line box. */
+.addr-card__lines{margin:12px 0 0; font-size:22px; line-height:31px; font-weight:300;
+                  color:var(--muted)}
+.addr-card__recipient{color:var(--cream)}
+
+/* Overflow menu — 3 dots, top-right of the card */
+.addr-card__menu{position:absolute; top:32px; right:35px; width:26px; height:26px;
+                 display:grid; place-items:center; color:var(--cream)}
+
+/* Edit affordance — rose text link, bottom-right of the card, sitting on the
+   same baseline as the phone number */
+.addr-card__edit{position:absolute; right:35px; bottom:20px;
+                 font-size:22px; line-height:31px; font-weight:300; color:var(--rose-light)}
+
+/* --- PRIMARY ACTION: full-width rose button, 90px tall ------------------- */
+.list-action{padding:0 var(--card-pad); margin-top:33px}
+.btn--add{height:90px; gap:26px; letter-spacing:.22em; font-size:22px; font-weight:400;
+          text-transform:uppercase; border-radius:12px}
+</style>
+</head>
+<body>
+
+<div class="screen">
+
+  <!-- ==================================================================
+       STATUS BAR — iOS chrome drawn into the mock. Not app UI; delete this
+       block when building the real screen.
+       ================================================================== -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="statusbar__icons">
+      <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+      <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- ICON: approximated, swap for production icon set -->
+
+  <div class="page">
+
+    <!-- ==================================================================
+         NAV BAR — back arrow only (rose), no title text. Arrow measured
+         38 x 32 at x=43, vertical centre y=127.
+         ================================================================== -->
+    <nav class="navbar">
+      <button class="navbar__back" aria-label="Back">
+        <svg width="38" height="32" viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M23 10H1M9 2 1 10l8 8"/></svg>
+      </button>
+    </nav>
+
+    <!-- ==================================================================
+         PAGE HEAD — screen title + 2-line supporting line.
+         ASSUMPTION: title is set with the shared .t-h1 token (64px). The cap
+         height measured in this mock (54px) implies roughly a 76px face —
+         kept on the token for cross-screen consistency; confirm with design.
+         ================================================================== -->
+    <header class="page-head">
+      <h1 class="t-h1">My Addresses</h1>
+      <p class="t-body-lg page-head__sub">Save and manage your delivery addresses<br>for a seamless experience.</p>
+    </header>
+
+    <!-- ==================================================================
+         ADDRESS LIST — four saved addresses. Card y positions in the mock:
+           Home            390-649  (5 address lines, carries "Default")
+           Office          665-922  (5 address lines)
+           Parents' Home   938-1198 (5 address lines)
+           Vacation Home   1215-1447 (4 address lines — no country line)
+         Every card carries a 3-dot overflow menu (top-right) AND a separate
+         "Edit" text link (bottom-right).
+         DEVIATION-RISK: two edit affordances per card. The "..." menu and the
+         "Edit" link have no visible difference in the mock and no menu state
+         is drawn — confirm what each does (menu = Set default / Delete?).
+         DEVIATION-RISK: icon semantics are inconsistent — "Home" gets a map
+         pin, "Parents' Home" gets a house, "Vacation Home" gets a map pin.
+         Transcribed exactly as drawn.
+         ================================================================== -->
+    <ul class="addr-list">
+
+      <!-- SECTION: Address card — Home. The only entry marked Default. -->
+      <li class="addr-card">
+        <span class="addr-card__icon" aria-hidden="true">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s7-6.3 7-12a7 7 0 1 0-14 0c0 5.7 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+        </span>
+        <div class="addr-card__body">
+          <div class="addr-card__head">
+            <h2 class="addr-card__name">Home</h2>
+            <span class="addr-card__default">Default</span>
+          </div>
+          <p class="addr-card__lines">
+            <span class="addr-card__recipient">Aanya Sharma</span><br>
+            B-102, Maple Residency<br>
+            Panipokhari, Kathmandu 44600<br>
+            Nepal<br>
+            +977 98123 45678
+          </p>
+        </div>
+        <button class="addr-card__menu" aria-label="More options for Home address">
+          <svg width="26" height="6" viewBox="0 0 26 6" fill="currentColor"><circle cx="3" cy="3" r="3"/><circle cx="13" cy="3" r="3"/><circle cx="23" cy="3" r="3"/></svg>
+        </button>
+        <a class="addr-card__edit" href="C31-AddEditAddress.html">Edit</a>
+      </li>
+
+      <!-- SECTION: Address card — Office -->
+      <li class="addr-card">
+        <span class="addr-card__icon" aria-hidden="true">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><rect x="3" y="7.5" width="18" height="12.5" rx="2.5"/><path d="M9 7.5V6a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v1.5"/><path d="M3 13h18"/></svg>
+        </span>
+        <div class="addr-card__body">
+          <div class="addr-card__head">
+            <h2 class="addr-card__name">Office</h2>
+          </div>
+          <p class="addr-card__lines">
+            <span class="addr-card__recipient">Aanya Sharma</span><br>
+            3rd Floor, Innovation Hub<br>
+            Pulchowk, Lalitpur 44700<br>
+            Nepal<br>
+            +977 98123 45678
+          </p>
+        </div>
+        <button class="addr-card__menu" aria-label="More options for Office address">
+          <svg width="26" height="6" viewBox="0 0 26 6" fill="currentColor"><circle cx="3" cy="3" r="3"/><circle cx="13" cy="3" r="3"/><circle cx="23" cy="3" r="3"/></svg>
+        </button>
+        <a class="addr-card__edit" href="C31-AddEditAddress.html">Edit</a>
+      </li>
+
+      <!-- SECTION: Address card — Parents' Home. Note the curly apostrophe. -->
+      <li class="addr-card">
+        <span class="addr-card__icon" aria-hidden="true">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M3 11 12 3l9 8"/><path d="M5.5 9.5V21h13V9.5"/><path d="M10 21v-5.5h4V21"/></svg>
+        </span>
+        <div class="addr-card__body">
+          <div class="addr-card__head">
+            <h2 class="addr-card__name">Parents&rsquo; Home</h2>
+          </div>
+          <p class="addr-card__lines">
+            <span class="addr-card__recipient">Aanya Sharma</span><br>
+            House No. 45, Green Park<br>
+            Baneshwor, Kathmandu 44600<br>
+            Nepal<br>
+            +977 98123 45678
+          </p>
+        </div>
+        <button class="addr-card__menu" aria-label="More options for Parents’ Home address">
+          <svg width="26" height="6" viewBox="0 0 26 6" fill="currentColor"><circle cx="3" cy="3" r="3"/><circle cx="13" cy="3" r="3"/><circle cx="23" cy="3" r="3"/></svg>
+        </button>
+        <a class="addr-card__edit" href="C31-AddEditAddress.html">Edit</a>
+      </li>
+
+      <!-- SECTION: Address card — Vacation Home. Four lines only: this entry
+           has no separate country line, the city line reads "Kaski, Nepal". -->
+      <li class="addr-card">
+        <span class="addr-card__icon" aria-hidden="true">
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s7-6.3 7-12a7 7 0 1 0-14 0c0 5.7 7 12 7 12Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+        </span>
+        <div class="addr-card__body">
+          <div class="addr-card__head">
+            <h2 class="addr-card__name">Vacation Home</h2>
+          </div>
+          <p class="addr-card__lines">
+            <span class="addr-card__recipient">Aanya Sharma</span><br>
+            Lakeside Road, Pokhara 33700<br>
+            Kaski, Nepal<br>
+            +977 98123 45678
+          </p>
+        </div>
+        <button class="addr-card__menu" aria-label="More options for Vacation Home address">
+          <svg width="26" height="6" viewBox="0 0 26 6" fill="currentColor"><circle cx="3" cy="3" r="3"/><circle cx="13" cy="3" r="3"/><circle cx="23" cy="3" r="3"/></svg>
+        </button>
+        <a class="addr-card__edit" href="C31-AddEditAddress.html">Edit</a>
+      </li>
+    </ul>
+
+    <!-- ==================================================================
+         PRIMARY ACTION — full-width rose button, 90px tall, plus-icon +
+         letterspaced uppercase label. Measured x 40..813, y 1481..1570.
+         ================================================================== -->
+    <div class="list-action">
+      <a class="btn btn--primary btn--block btn--add" href="C31-AddEditAddress.html">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+        Add New Address
+      </a>
+    </div>
+  </div>
+
+  <!-- ==================================================================
+       TAB BAR — ME active. Identical block on C03, C04, C09, C17.
+       ================================================================== -->
+  <nav class="tabbar">
+    <a class="tab" href="C03-Home.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3 3 10v11h6v-6h6v6h6V10l-9-7Z"/></svg>
+      <span class="t-tab">Home</span>
+    </a>
+    <a class="tab" href="C04-Shop.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <span class="t-tab">Shop</span>
+    </a>
+    <a class="tab" href="C09-Wishlist.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20.5S3 14.8 3 9.2A5 5 0 0 1 12 6.5 5 5 0 0 1 21 9.2c0 5.6-9 11.3-9 11.3Z"/></svg>
+      <span class="t-tab">Wishlist</span>
+    </a>
+    <a class="tab tab--active" href="C17-Me.html" aria-current="page">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0Z"/></svg>
+      <span class="t-tab">Me</span>
+    </a>
+  </nav>
+
+  <div class="home-indicator"></div>
+
+</div>
+</body>
+</html>

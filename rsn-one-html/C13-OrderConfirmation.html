@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C13 Order Confirmation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C13 Order Confirmation
+   Source mock: rsn-one-design/C13-OrderConfirmation.png  (281 x 567 — LOW-RES EXPORT, scaled to the 853 x 1844 frame)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Tokens + base components are IDENTICAL in every CXX file; see
+   RSN-HANDOFF-SPEC.md. Screen-specific CSS starts at "SCREEN: ORDER CONFIRMATION".
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   SCREEN: ORDER CONFIRMATION
+   ========================================================================== */
+
+/* The shared reset (section 2) zeroes html/body only. Zero the browser's
+   default block margins too, so every gap below is an explicit measured
+   value rather than a UA default. */
+h1,h2,h3,h4,p,ul,figure{margin:0}
+
+/* --- LIGHT SCREEN ------------------------------------------------------
+   This is the only screen in the set that runs LIGHT: a full-bleed pale
+   blush photograph with dark ink type on top. Two extra tokens are needed
+   that the shared palette does not carry; both were sampled from the mock.
+   ---------------------------------------------------------------------- */
+.screen--light{--ink:#2B1A16; --rose-deep:#BC5C67; background:#F0D1C1; color:var(--ink)}
+.screen--light .statusbar{color:var(--ink); position:relative; z-index:2}
+.screen--light .home-indicator{background:transparent; position:relative; z-index:2}
+.screen--light .home-indicator::after{background:var(--cream)}
+
+/* --- FULL-BLEED CONFIRMATION PHOTO ------------------------------------- */
+.confirm{position:absolute; inset:0}
+/* light placeholder ground so the dark type stays readable until the
+   photo lands — delete with the rest of the .slot treatment */
+.confirm__media{width:100%; height:100%; object-fit:cover; border:0; background:#F0D1C1}
+
+/* --- CONFIRMATION CONTENT (all of it sits over the photo) --------------- */
+.confirm-layer{position:relative; z-index:1; display:flex; flex-direction:column; flex:1}
+
+/* logo lockup centred at x~300, voice line to its right */
+.confirm-bar{display:flex; align-items:flex-start; padding:79px 64px 0 219px}
+.confirm-bar__logo{text-align:center; color:var(--ink)}
+.confirm-bar__voice{margin-left:auto; font-family:var(--font-serif); font-style:italic;
+                    font-size:26px; line-height:1.3; color:var(--rose-deep); text-align:left}
+
+/* headline + order number */
+.confirm-head{padding:76px 55px 0}
+.confirm-head__title{font-size:80px; line-height:1.12; font-weight:400}
+.confirm-head__title em{font-style:italic}
+.confirm-head__order{margin-top:74px; font-size:32px; font-weight:300}
+
+/* vertical eyebrow, left edge, 5 short uppercase lines + a short rule */
+.confirm-eyebrow{margin:249px 0 0 46px; width:130px;
+                 font-size:15px; line-height:2.0; letter-spacing:.22em;
+                 text-transform:uppercase; font-weight:500}
+.confirm-eyebrow__rule{margin-top:9px; width:110px; height:1px; background:rgba(43,26,22,.55)}
+
+/* footer CTA block */
+.confirm-foot{margin-top:auto; padding:0 46px 170px 52px}
+.confirm-foot__cta{width:100%; height:127px; border-radius:14px;
+                   background:var(--rose-deep); color:#FCEDE9; gap:26px}
+.confirm-foot__cta-label{font-size:30px; letter-spacing:.18em; text-transform:uppercase; font-weight:400}
+.confirm-foot__link{display:block; width:100%; margin-top:39px; text-align:center;
+                    font-size:30px; font-weight:300; color:var(--ink);
+                    text-decoration:underline; text-underline-offset:8px}
+
+</style>
+</head>
+<body>
+
+<!-- ASSUMPTION: source mock supplied at 281x567, ~3x smaller than every other screen; measurements here are scaled up and approximate. Request a full-size export. -->
+<!-- Scale note: 853 / 281 = 3.036x was applied to every measured value.
+     The supplied file's aspect (281x567 = 0.496) does not match the rest of
+     the set (853x1844 = 0.463): scaled to 853 wide it is only 1721 tall, so
+     ~123px of extra height has been absorbed into the space above the CTA.
+     Type sizes below are therefore indicative, not measured. -->
+
+<div class="screen screen--light">
+
+  <!-- ICON: approximated, swap for production icon set -->
+
+  <!-- ==================================================================
+       FULL-BLEED PHOTO — the entire screen is one photograph (blush wall,
+       RSN one gift box, lit candle, dried blossom in a vase). All type
+       sits on top of it; there is no scrim in the mock, the photo is
+       simply pale enough on the left to carry dark type.
+       DEVIATION-RISK: no scrim means legibility depends entirely on this
+       exact photograph. Swap the image and the headline becomes unreadable.
+       Specify a scrim or a safe-area treatment before build.
+       ================================================================== -->
+  <div class="confirm">
+    <img class="confirm__media" src="rsn-one-images/hero-order-confirmation-01.jpg"
+         alt="hero-order-confirmation-01" width="853" height="1844">
+  </div>
+
+  <div class="confirm-layer">
+
+    <!-- ==================================================================
+         STATUS BAR — dark iOS chrome on the light photo. Not app UI.
+         ================================================================== -->
+    <div class="statusbar">
+      <span>9:41</span>
+      <span class="statusbar__icons">
+        <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+        <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+        <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+      </span>
+    </div>
+
+    <!-- ==================================================================
+         BRAND BAR — logo lockup centred-left, italic voice line to its
+         right. No back arrow, no bag, no search: this is a terminal screen.
+         ASSUMPTION: with no back affordance and no tab bar, the only exits
+         are the two buttons at the bottom. Confirm that is intended.
+         ================================================================== -->
+    <header class="confirm-bar">
+      <a class="confirm-bar__logo" href="C03-Home.html" aria-label="RSN one — Global Family Club">
+        <!-- LOGO: full lockup (arc + wordmark + tagline) as one asset. -->
+        <img class="logo" src="rsn-one-images/logo-rsnone-dark-01.png" alt="logo-rsnone-dark-01" width="313" height="158">
+      </a>
+      <p class="confirm-bar__voice">Thoughtful<br>pieces.<br>Brighter days.</p>
+    </header>
+
+    <!-- ==================================================================
+         HEADLINE — 2 lines, serif, last two words italic. Order reference
+         underneath in sans.
+         ================================================================== -->
+    <div class="confirm-head">
+      <h1 class="t-display confirm-head__title">Your piece<br>is on its way <em>home.</em></h1>
+      <p class="confirm-head__order">Order RSN-10482</p>
+    </div>
+
+    <!-- ==================================================================
+         VERTICAL EYEBROW — the brand line set in 5 short uppercase lines
+         down the left edge, with a short rule under it. Decorative.
+         ================================================================== -->
+    <div class="confirm-eyebrow">
+      More<br>than<br>objects,<br>a kinder<br>tomorrow.
+      <div class="confirm-eyebrow__rule"></div>
+    </div>
+
+    <!-- ==================================================================
+         FOOTER — primary "TRACK ORDER" button (755x127 scaled) and an
+         underlined "Continue Shopping" link.
+         ASSUMPTION: the button is unusually tall once scaled up (127px vs
+         62-79px elsewhere in this set). That is an artefact of the small
+         source export; re-measure against a full-size mock.
+         ================================================================== -->
+    <div class="confirm-foot">
+      <a class="btn confirm-foot__cta" href="C18-OrderTracking.html">
+        <span class="confirm-foot__cta-label">Track Order</span>
+        <svg width="34" height="20" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h14M10 1l4 4-4 4"/></svg>
+      </a>
+      <a class="confirm-foot__link" href="C04-Shop.html">Continue Shopping</a>
+    </div>
+
+    <!-- No tab bar on this screen — only the iOS home indicator. -->
+    <div class="home-indicator"></div>
+  </div>
+
+</div>
+
+</body>
+</html>

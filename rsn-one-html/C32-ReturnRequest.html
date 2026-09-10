@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C32 Return Request</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C32 Return Request
+   Source mock: rsn-one-design/C32-ReturnRequest.png  (853 x 1844, 1x)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Tokens + base components are IDENTICAL in every CXX file; see
+   RSN-HANDOFF-SPEC.md. Screen-specific CSS starts at "SCREEN: RETURN REQUEST".
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   SCREEN: RETURN REQUEST
+   Page inset measures 46px on this screen (the shared --gutter is 36px).
+   ========================================================================== */
+.page{--pad:46px; display:flex; flex-direction:column}
+
+/* --- NAV BAR: back arrow + RSN one logo lockup (no title) ---------------- */
+.navbar{flex:0 0 105px; display:flex; align-items:center; gap:38px; padding:0 33px}
+.navbar__back{display:block; color:var(--rose-light)}
+.navbar__logo{display:block; line-height:1}
+
+/* --- PAGE HEAD: title on the left, outlined "Return Policy" on the right - */
+.page-head{padding:37px var(--pad) 0}
+.page-head__top{display:flex; align-items:flex-start; justify-content:space-between; gap:24px}
+.page-head__sub{margin-top:2px; color:var(--cream)}
+/* 202 x 63 outlined button, document icon + label */
+.btn--policy{height:63px; padding:0 24px; gap:16px; font-size:24px; font-weight:300;
+             border-color:rgba(219,146,138,.42); border-radius:12px; flex:0 0 auto}
+.btn--policy svg{color:var(--rose-light)}
+
+/* --- SECTION HEAD: serif heading, optional muted note on the right ------- */
+.rr-section{padding:0 var(--pad)}
+.rr-section--order{margin-top:42px}
+.rr-section--reason{margin-top:35px}
+.rr-section--photos{margin-top:43px}
+.rr-section--notes{margin-top:37px}
+.rr-section__head{display:flex; align-items:baseline; justify-content:space-between;
+                  margin-bottom:14px}
+.rr-section__opt{font-size:26px}          /* the smaller "(Optional)" suffix */
+.rr-section__note{font-size:22px; font-weight:300; color:var(--muted)}
+
+/* --------------------------------------------------------------------------
+   ORDER SUMMARY CARD — 442-630 (188px). Thumbnail 172 x 162 + 4 text lines.
+   -------------------------------------------------------------------------- */
+.order-card{display:flex; align-items:center; gap:25px;
+            padding:13px 24px 13px 13px;
+            background:var(--surface); border:1px solid var(--line);
+            border-radius:var(--r-card)}
+.order-card__media{flex:0 0 172px; width:172px; height:162px; object-fit:cover;
+                   border-radius:10px; border:0}
+.order-card__body{flex:1 1 auto; min-width:0}
+.order-card__no{font-family:var(--font-serif); font-size:26px; line-height:1.2;
+                font-weight:400; margin:0}
+.order-card__delivered{margin:8px 0 0; font-size:22px; line-height:1.2; font-weight:300;
+                       color:var(--muted)}
+.order-card__product{margin-top:15px; font-family:var(--font-serif); font-size:30px;
+                     line-height:1.2; font-weight:400; margin-bottom:0}
+.order-card__meta{margin:6px 0 0; font-size:22px; line-height:1.2; font-weight:300;
+                  color:var(--muted)}
+.order-card__meta i{font-style:normal; margin:0 14px; color:var(--muted-dim)}
+.order-card__price{color:var(--rose-light)}
+
+/* --------------------------------------------------------------------------
+   REASON LIST — 5 radio rows, 60px tall, 6px apart. Real <input type="radio">
+   in one named group; the first option is checked in the mock and its row
+   gets a rose border and a lighter fill.
+   -------------------------------------------------------------------------- */
+.reasons{display:flex; flex-direction:column; gap:6px}
+.reason{display:flex; align-items:center; gap:38px; height:60px; padding:0 27px;
+        background:var(--surface); border:1px solid var(--line); border-radius:10px}
+.reason__radio{flex:0 0 30px; width:30px; height:30px; margin:0; border-radius:50%;
+               border:1.5px solid var(--muted); background:none; position:relative;
+               -webkit-appearance:none; appearance:none; cursor:pointer}
+.reason__radio:checked{border-color:var(--rose)}
+.reason__radio:checked::after{content:""; position:absolute; inset:5px;
+                              border-radius:50%; background:var(--rose)}
+.reason__label{font-family:var(--font-serif); font-size:26px; line-height:1.2; font-weight:400}
+/* selected-row treatment — modifier class kept for the handoff, :has() makes
+   it real in a browser that supports it */
+.reason--selected,
+.reason:has(.reason__radio:checked){background:var(--surface-2); border-color:var(--rose)}
+
+/* --------------------------------------------------------------------------
+   PHOTO PICKER — 5 slots across, 140px square, 16px apart. Slot 1 holds an
+   uploaded photo with a remove (x) button; slots 2-5 are dashed "Add Photo".
+   -------------------------------------------------------------------------- */
+.photo-grid{display:grid; grid-template-columns:repeat(5,1fr); gap:16px}
+.photo-tile{position:relative; height:140px}
+.photo-tile__img{width:100%; height:140px; object-fit:cover; border-radius:10px; border:0}
+.photo-tile__remove{position:absolute; top:10px; right:8px; width:34px; height:34px;
+                    border-radius:var(--r-pill); background:#181110; color:var(--cream);
+                    display:grid; place-items:center}
+.photo-add{display:flex; flex-direction:column; align-items:center; justify-content:center;
+           gap:16px; width:100%; height:140px; border-radius:10px;
+           border:1px dashed var(--line-strong); color:var(--rose-light)}
+.photo-add__label{font-size:19px; font-weight:300; color:var(--muted)}
+
+/* --------------------------------------------------------------------------
+   NOTES — 133px textarea with a character counter pinned bottom-right.
+   -------------------------------------------------------------------------- */
+.notes{position:relative}
+.notes__input{display:block; width:100%; height:133px; padding:26px 28px;
+              background:var(--surface); border:1px solid var(--line);
+              border-radius:var(--r-input); color:var(--cream);
+              font-family:var(--font-sans); font-size:22px; line-height:1.3;
+              font-weight:300; resize:none}
+.notes__input:focus{outline:none}
+.notes__input::placeholder{color:var(--muted-dim)}
+.notes__count{position:absolute; right:24px; bottom:19px;
+              font-size:20px; font-weight:300; color:var(--muted)}
+
+/* --- PRIMARY ACTION: full-width rose button, 72px tall ------------------- */
+.page-action{padding:0 var(--pad); margin-top:36px}
+.btn--submit{height:72px; letter-spacing:.22em; font-size:22px; font-weight:400;
+             text-transform:uppercase; border-radius:12px}
+</style>
+</head>
+<body>
+
+<div class="screen">
+
+  <!-- ==================================================================
+       STATUS BAR — iOS chrome drawn into the mock. Not app UI; delete this
+       block when building the real screen.
+       ================================================================== -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="statusbar__icons">
+      <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+      <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- ICON: approximated, swap for production icon set -->
+
+  <div class="page">
+
+    <!-- ==================================================================
+         NAV BAR — back arrow (x=33) followed by the RSN one logo lockup
+         (x 108..296, 87px tall including the arc flourish). No title text.
+         ASSUMPTION (resolved): as on C03, the whole lockup is one asset.
+         logo-rsnone-01.png is a PNG extracted from the mock; swap it for
+         the production vector.
+         ================================================================== -->
+    <nav class="navbar">
+      <button class="navbar__back" aria-label="Back">
+        <svg width="38" height="30" viewBox="0 0 24 20" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M23 10H1M9 2 1 10l8 8"/></svg>
+      </button>
+      <a class="navbar__logo" href="C03-Home.html" aria-label="RSN one — Global Family Club">
+        <!-- LOGO: full lockup (arc + wordmark + tagline) as one asset. -->
+        <img class="logo" src="rsn-one-images/logo-rsnone-01.png" alt="logo-rsnone-01" width="186" height="94">
+      </a>
+    </nav>
+
+    <!-- ==================================================================
+         PAGE HEAD — screen title + outlined "Return Policy" button (202x63)
+         on the same line, then a 2-line supporting paragraph.
+         ASSUMPTION: title is set with the shared .t-h1 token (64px); the cap
+         height measured here implies roughly a 70px face. Kept on the token
+         for cross-screen consistency; confirm with design.
+         ================================================================== -->
+    <header class="page-head">
+      <div class="page-head__top">
+        <h1 class="t-h1">Return Request</h1>
+        <a class="btn btn--outline btn--policy" href="#">
+          <svg width="27" height="31" viewBox="0 0 20 23" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M12 1H4a2.5 2.5 0 0 0-2.5 2.5v16A2.5 2.5 0 0 0 4 22h12a2.5 2.5 0 0 0 2.5-2.5V7.5L12 1Z"/><path d="M12 1v6.5h6.5"/><path d="M5.5 12h9M5.5 16h9"/></svg>
+          Return Policy
+        </a>
+      </div>
+      <p class="t-body-lg page-head__sub">Request a return for your order with ease.<br>We&rsquo;re here to help.</p>
+    </header>
+
+    <!-- ==================================================================
+         SECTION: Order Details — the single order line being returned.
+         Card 442-630. Thumbnail reuses the Copper Vessel product slot.
+         ================================================================== -->
+    <section class="rr-section rr-section--order">
+      <div class="rr-section__head">
+        <h2 class="t-section">Order Details</h2>
+      </div>
+
+      <div class="order-card">
+        <img class="order-card__media" src="rsn-one-images/prod-copper-vessel-01.jpg"
+             alt="prod-copper-vessel-01" width="172" height="162">
+        <div class="order-card__body">
+          <p class="order-card__no">Order #RSN10230</p>
+          <p class="order-card__delivered">Delivered on 5 Aug 2024</p>
+          <h3 class="order-card__product">Copper Vessel</h3>
+          <p class="order-card__meta">Qty: 1<i>|</i><span class="order-card__price">₹25,199</span></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         SECTION: Reason for Return — 5 mutually exclusive options, rows
+         720-780 / 786-846 / 851-911 / 916-977 / 982-1042.
+         "Product arrived damaged" is the checked option in the mock.
+         DEVIATION-RISK: "Other" is selectable but the only free-text field on
+         the screen is the optional Additional Notes box further down — there
+         is no required "please specify" input tied to it.
+         ================================================================== -->
+    <section class="rr-section rr-section--reason">
+      <div class="rr-section__head">
+        <h2 class="t-section">Reason for Return</h2>
+      </div>
+
+      <div class="reasons" role="radiogroup" aria-label="Reason for return">
+        <label class="reason reason--selected">
+          <input class="reason__radio" type="radio" name="returnReason" value="damaged" checked>
+          <span class="reason__label">Product arrived damaged</span>
+        </label>
+        <label class="reason">
+          <input class="reason__radio" type="radio" name="returnReason" value="wrong-item">
+          <span class="reason__label">Received wrong item</span>
+        </label>
+        <label class="reason">
+          <input class="reason__radio" type="radio" name="returnReason" value="not-as-expected">
+          <span class="reason__label">Not as expected</span>
+        </label>
+        <label class="reason">
+          <input class="reason__radio" type="radio" name="returnReason" value="quality">
+          <span class="reason__label">Quality issue</span>
+        </label>
+        <label class="reason">
+          <input class="reason__radio" type="radio" name="returnReason" value="other">
+          <span class="reason__label">Other</span>
+        </label>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         SECTION: Add Photos (Optional) — 5 slots across, 140px square, 16px
+         apart, row y 1138-1279. Slot 1 already holds an uploaded photo (the
+         same Copper Vessel shot) with a dark round remove button top-right;
+         slots 2-5 are dashed drop targets with a camera icon.
+         The right-hand note reads "Add up to 5 photos", so the filled slot
+         counts towards the 5 — there is no sixth "add" slot.
+         ================================================================== -->
+    <section class="rr-section rr-section--photos">
+      <div class="rr-section__head">
+        <h2 class="t-section">Add Photos <span class="rr-section__opt">(Optional)</span></h2>
+        <span class="rr-section__note">Add up to 5 photos</span>
+      </div>
+
+      <div class="photo-grid">
+        <!-- Slot 1 — uploaded -->
+        <div class="photo-tile">
+          <img class="photo-tile__img" src="rsn-one-images/prod-copper-vessel-01.jpg"
+               alt="prod-copper-vessel-01" width="140" height="140">
+          <button class="photo-tile__remove" aria-label="Remove this photo">
+            <svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2 2l10 10M12 2 2 12"/></svg>
+          </button>
+        </div>
+
+        <!-- Slots 2-5 — empty drop targets -->
+        <button class="photo-add" type="button">
+          <svg width="34" height="30" viewBox="0 0 24 21" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M1 6.5A2.5 2.5 0 0 1 3.5 4h3L8.5 1h7l2 3h3A2.5 2.5 0 0 1 23 6.5v11A2.5 2.5 0 0 1 20.5 20h-17A2.5 2.5 0 0 1 1 17.5v-11Z"/><circle cx="12" cy="11.5" r="4.2"/></svg>
+          <span class="photo-add__label">Add Photo</span>
+        </button>
+        <button class="photo-add" type="button">
+          <svg width="34" height="30" viewBox="0 0 24 21" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M1 6.5A2.5 2.5 0 0 1 3.5 4h3L8.5 1h7l2 3h3A2.5 2.5 0 0 1 23 6.5v11A2.5 2.5 0 0 1 20.5 20h-17A2.5 2.5 0 0 1 1 17.5v-11Z"/><circle cx="12" cy="11.5" r="4.2"/></svg>
+          <span class="photo-add__label">Add Photo</span>
+        </button>
+        <button class="photo-add" type="button">
+          <svg width="34" height="30" viewBox="0 0 24 21" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M1 6.5A2.5 2.5 0 0 1 3.5 4h3L8.5 1h7l2 3h3A2.5 2.5 0 0 1 23 6.5v11A2.5 2.5 0 0 1 20.5 20h-17A2.5 2.5 0 0 1 1 17.5v-11Z"/><circle cx="12" cy="11.5" r="4.2"/></svg>
+          <span class="photo-add__label">Add Photo</span>
+        </button>
+        <button class="photo-add" type="button">
+          <svg width="34" height="30" viewBox="0 0 24 21" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><path d="M1 6.5A2.5 2.5 0 0 1 3.5 4h3L8.5 1h7l2 3h3A2.5 2.5 0 0 1 23 6.5v11A2.5 2.5 0 0 1 20.5 20h-17A2.5 2.5 0 0 1 1 17.5v-11Z"/><circle cx="12" cy="11.5" r="4.2"/></svg>
+          <span class="photo-add__label">Add Photo</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         SECTION: Additional Notes (Optional) — 133px textarea, placeholder
+         "Tell us more about your return request..." (three full stops, not
+         an ellipsis glyph), 0/500 counter bottom-right.
+         ================================================================== -->
+    <section class="rr-section rr-section--notes">
+      <div class="rr-section__head">
+        <h2 class="t-section">Additional Notes <span class="rr-section__opt">(Optional)</span></h2>
+      </div>
+
+      <div class="notes">
+        <textarea class="notes__input" name="notes" maxlength="500"
+                  placeholder="Tell us more about your return request..."></textarea>
+        <span class="notes__count">0/500</span>
+      </div>
+    </section>
+
+    <!-- ==================================================================
+         PRIMARY ACTION — full-width rose button, 72px tall, letterspaced
+         uppercase label. Measured x 48..806, y 1537..1608.
+         ================================================================== -->
+    <div class="page-action">
+      <button class="btn btn--primary btn--block btn--submit" type="submit">Submit Return Request</button>
+    </div>
+  </div>
+
+  <!-- ==================================================================
+       TAB BAR — ME active. Identical block on C03, C04, C09, C17.
+       ================================================================== -->
+  <nav class="tabbar">
+    <a class="tab" href="C03-Home.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3 3 10v11h6v-6h6v6h6V10l-9-7Z"/></svg>
+      <span class="t-tab">Home</span>
+    </a>
+    <a class="tab" href="C04-Shop.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <span class="t-tab">Shop</span>
+    </a>
+    <a class="tab" href="C09-Wishlist.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20.5S3 14.8 3 9.2A5 5 0 0 1 12 6.5 5 5 0 0 1 21 9.2c0 5.6-9 11.3-9 11.3Z"/></svg>
+      <span class="t-tab">Wishlist</span>
+    </a>
+    <a class="tab tab--active" href="C17-Me.html" aria-current="page">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0Z"/></svg>
+      <span class="t-tab">Me</span>
+    </a>
+  </nav>
+
+  <div class="home-indicator"></div>
+
+</div>
+</body>
+</html>

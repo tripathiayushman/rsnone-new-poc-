@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C11 Checkout Details</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C11 Checkout Details
+   Source mock: rsn-one-design/C11-CheckoutDetails.png  (853 x 1844, 1x)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Tokens + base components are IDENTICAL in every CXX file; see
+   RSN-HANDOFF-SPEC.md. Screen-specific CSS starts at "SCREEN: CHECKOUT — DETAILS".
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   SCREEN: CHECKOUT — DETAILS
+   ========================================================================== */
+
+/* --- CHECKOUT NAV BAR: back arrow + centred-ish logo + italic voice line -
+   Measured: back arrow x=38-70 y=98-126; logo lockup x=117-317 y=54-147;
+   voice line right-aligned to x~813-829.
+   ---------------------------------------------------------------------- */
+/* bar band = y70 (below status bar) to y200 (top of the stepper markers) */
+.checkout-bar{flex:0 0 130px; height:130px; display:flex; align-items:flex-start; gap:47px; padding:9px 40px 0 38px}
+.checkout-bar__back{margin-top:18px; color:var(--cream)}
+.checkout-bar__logo{display:block; line-height:1; text-align:center}
+.checkout-bar__voice{margin-left:auto; text-align:right; font-family:var(--font-serif);
+                     font-style:italic; font-size:32px; line-height:1.28; color:var(--rose-light)}
+
+/* --- STEPPER: Bag / Details / Payment / Review -------------------------
+   IDENTICAL BLOCK IN C11 AND C12 — keep the two copies in sync.
+   Measured: markers 41px circles, centres at x=98 / 316 / 535 / 753
+   (labels y=254-272). Connectors are 2px dotted rules at marker centre.
+   States: .step--done = rose fill + tick; .step--current = rose fill +
+   number, rose label; plain .step = 1px outline + number, cream label.
+   ---------------------------------------------------------------------- */
+.stepper{display:flex; align-items:flex-start; padding:0 58px}
+.step{flex:0 0 80px; display:flex; flex-direction:column; align-items:center; gap:8px}
+.step__dot{width:41px; height:41px; border-radius:var(--r-pill); display:grid; place-items:center;
+           border:1px solid var(--line-strong); font-size:22px; font-weight:400; color:var(--cream)}
+.step__label{font-size:20px; font-weight:300; color:var(--cream); white-space:nowrap}
+.step--done .step__dot{background:var(--rose); border-color:var(--rose); color:#33241F}
+.step--current .step__dot{background:var(--rose); border-color:var(--rose); color:#33241F}
+.step--current .step__label{color:var(--rose-light)}
+.step__line{flex:1 1 auto; height:0; margin-top:20px; border-top:2px dotted var(--line-strong)}
+
+/* --- TWO-COLUMN CHECKOUT BODY -----------------------------------------
+   Left form column 472px (x=34-506), right rail 302px (x=531-833), 25px
+   apart. This is the layout that only works because the canvas is 853px
+   wide — see the "open question" note in RSN-HANDOFF-SPEC.md.
+   ---------------------------------------------------------------------- */
+.checkout{display:flex; gap:25px; padding:0 20px 0 34px; margin-top:23px}
+.checkout__form{flex:0 0 472px; width:472px}
+.checkout__rail{flex:0 0 302px; width:302px; margin-top:-19px}
+
+/* --- FORM PRIMITIVES --------------------------------------------------- */
+.panel-head{display:flex; align-items:flex-start; justify-content:space-between}
+.panel-sub{margin-top:3px; margin-bottom:3px; font-size:18px; line-height:1.4; font-weight:300; color:var(--muted)}
+.panel-head + .panel-sub{margin-top:4px}
+.field{position:relative; margin-top:22px}
+.panel-sub + .field{margin-top:29px}
+.field__input{width:100%; height:68px; background:transparent; border:1px solid var(--line);
+              border-radius:var(--r-input); color:var(--cream); font-family:var(--font-sans);
+              font-size:21px; font-weight:300; padding:0 24px}
+.field--icon .field__input{padding-left:74px}
+.field__icon{position:absolute; left:26px; top:20px; color:var(--rose-pale)}
+.field__input::placeholder{color:var(--muted-dim)}
+.field-row{display:flex; gap:19px}
+.field-row .field{flex:1 1 0; min-width:0}
+.field--select .field__input{appearance:none; padding-right:60px}
+.field__chev{position:absolute; right:26px; top:26px; color:var(--muted); pointer-events:none}
+
+/* --- ORDER SUMMARY CARD (right rail) ----------------------------------
+   302px wide. Head row: serif title + "3 items". Then 3 line items with
+   103x96 thumbnails, hairline, Subtotal / Shipping, hairline, Total.
+   ---------------------------------------------------------------------- */
+.summary{background:var(--surface); border-radius:var(--r-card); padding:24px 22px 18px}
+.summary__head{display:flex; align-items:baseline; justify-content:space-between}
+.summary__title{font-family:var(--font-serif); font-size:27px; line-height:1; white-space:nowrap}
+.summary__count{font-size:15px; color:var(--muted)}
+.summary__list{margin-top:23px}
+.summary__item{display:flex; gap:17px; margin-bottom:29px}
+.summary__media{flex:0 0 103px; width:103px; height:96px; object-fit:cover; border-radius:8px}
+.summary__name{font-family:var(--font-serif); font-size:20px; line-height:1.2}
+.summary__house{margin-top:4px; font-size:15px; line-height:1.2; font-weight:300; color:var(--muted)}
+.summary__price{display:block; margin-top:9px; font-family:var(--font-serif);
+                font-size:20px; line-height:1.2; color:var(--rose-light)}
+.summary__qty{margin-top:7px; font-size:15px; line-height:1.2; font-weight:300; color:var(--muted)}
+.summary__rule{height:1px; background:var(--line); margin:4px 0 23px}
+.summary__rule--total{margin:4px 0 21px}
+.summary__row{display:flex; justify-content:space-between; align-items:baseline;
+              font-size:18px; font-weight:300; margin-bottom:9px}
+.summary__total{display:flex; justify-content:space-between; align-items:baseline}
+.summary__total-label{font-size:18px; font-weight:300}
+.summary__total-value{font-family:var(--font-serif); font-size:28px; color:var(--rose-light)}
+
+/* --- PROMO CODE ROW (right rail) --------------------------------------- */
+.promo-row{margin-top:29px; width:100%; height:69px; display:flex; align-items:center; gap:19px;
+           padding:0 18px 0 25px; border:1px solid var(--line); border-radius:var(--r-input);
+           color:var(--rose-pale); font-size:19px; font-weight:300; white-space:nowrap}
+.promo-row__chev{margin-left:auto; color:var(--muted)}
+
+/* --- EDITORIAL TILE (right rail) — photo with an italic voice overlay --- */
+.rail-tile{position:relative; margin-top:29px; height:317px; border-radius:var(--r-card);
+           overflow:hidden}
+.rail-tile__media{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border:0}
+.rail-tile__copy{position:absolute; left:29px; top:36px; width:150px;
+                 font-family:var(--font-serif); font-style:italic; font-size:29px;
+                 line-height:1.24; color:#33241F}
+.rail-tile__rule{position:absolute; left:29px; top:190px; width:46px; height:1px;
+                 background:rgba(51,36,31,.55)}
+
+/* --- CHECKOUT FOOTER: full-width CTA spanning BOTH columns ------------- */
+.checkout-foot{padding:0 36px; margin-top:37px}
+.checkout-foot__cta{width:100%; height:62px; border-radius:var(--r-btn);
+                    background:var(--rose); color:#33241F; font-size:27px; font-weight:300; gap:22px}
+.checkout-foot__secure{margin-top:13px; display:flex; align-items:center; justify-content:center;
+                       gap:16px; font-size:17px; font-weight:300; color:var(--muted)}
+
+/* The shared reset (section 2) zeroes html/body only. Zero the browser's
+   default block margins too, so every gap below is an explicit measured
+   value rather than a UA default. */
+h1,h2,h3,h4,p,ul,figure{margin:0}
+
+/* --- C11 ONLY ----------------------------------------------------------
+   Hairline under the stepper: measured y=319, x=78 to x=504 — it stops at
+   the left column and does NOT run under the right rail. See DEVIATION-RISK
+   in the markup.
+   ---------------------------------------------------------------------- */
+.stepper-rule{height:1px; background:var(--line); margin:40px 0 0 78px; width:427px}
+
+.delivery-title{font-size:40px; white-space:nowrap}
+.saved-address{flex:0 0 auto; height:45px; padding:0 14px; border:1px solid var(--rose);
+               border-radius:var(--r-btn); color:var(--rose-light);
+               font-size:16px; font-weight:300; margin-top:3px; white-space:nowrap}
+
+.method-head{margin:53px 0 32px}
+.method-title{font-size:40px; white-space:nowrap}
+
+/* delivery-method radio rows: 472x79, 23px apart */
+.method{display:flex; align-items:center; gap:20px; height:79px; margin-top:22px;
+        padding:0 26px 0 22px; border:1px solid var(--line); border-radius:var(--r-input)}
+.method__radio{flex:0 0 29px; width:29px; height:29px; border-radius:var(--r-pill);
+               border:2px solid var(--line-strong); display:grid; place-items:center}
+.method--on .method__radio{border-color:var(--rose)}
+.method--on .method__radio::after{content:""; width:15px; height:15px;
+               border-radius:var(--r-pill); background:var(--rose)}
+.method__icon{flex:0 0 46px; color:var(--rose-light)}
+.method__text{flex:1; min-width:0}
+.method__name{display:block; font-size:18px; font-weight:400}
+.method__eta{display:block; margin-top:3px; font-size:16px; font-weight:300; color:var(--muted)}
+.method__price{font-size:20px; font-weight:400; white-space:nowrap}
+.method--on .method__price{color:var(--rose-light)}
+
+.note-head{margin-top:70px; display:flex; align-items:center; gap:18px;
+           font-family:var(--font-serif); font-size:30px}
+.note-head__opt{color:var(--muted); font-size:24px}
+.note-head svg{color:var(--rose-light)}
+.note-area{margin-top:15px; width:100%; height:92px; resize:none;
+           background:transparent; border:1px solid var(--line); border-radius:var(--r-input);
+           color:var(--cream); font-family:var(--font-sans); font-size:19px; font-weight:300;
+           padding:19px 24px}
+.note-area::placeholder{color:var(--muted-dim)}
+
+/* --- TAB BAR: labels are Title Case on this screen, not UPPERCASE ------- */
+.tabbar--roman .t-tab{text-transform:none; letter-spacing:.01em; font-size:21px; font-weight:300}
+
+</style>
+</head>
+<body>
+
+<div class="screen">
+
+  <!-- ICON: approximated, swap for production icon set -->
+
+  <!-- ==================================================================
+       STATUS BAR — iOS chrome drawn into the mock. Not app UI.
+       ================================================================== -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="statusbar__icons">
+      <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+      <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- ==================================================================
+       CHECKOUT BAR — back arrow, logo lockup, italic voice line right.
+       Replaces the standard app bar for the whole checkout flow (C11/C12).
+       ================================================================== -->
+  <header class="checkout-bar">
+    <button class="checkout-bar__back" type="button" aria-label="Back to bag">
+      <svg width="33" height="29" viewBox="0 0 20 18" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M19 9H1M8 1 1 9l7 8"/></svg>
+    </button>
+    <a class="checkout-bar__logo" href="C03-Home.html" aria-label="RSN one — Global Family Club">
+      <!-- LOGO: full lockup (arc + wordmark + tagline) as one asset. -->
+      <img class="logo" src="rsn-one-images/logo-rsnone-01.png" alt="logo-rsnone-01" width="186" height="94">
+    </a>
+    <p class="checkout-bar__voice">More than objects,<br>a kinder tomorrow.</p>
+  </header>
+
+  <!-- ==================================================================
+       STEPPER — step 1 Bag done, step 2 Details current, 3 and 4 ahead.
+       Reusable block: this markup and its CSS are identical in C12, only
+       the state classes move along.
+       ================================================================== -->
+  <nav class="stepper" aria-label="Checkout progress">
+    <div class="step step--done">
+      <span class="step__dot" aria-hidden="true">
+        <svg width="20" height="15" viewBox="0 0 14 11" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m1 5.5 4 4 8-8"/></svg>
+      </span>
+      <span class="step__label">Bag</span>
+    </div>
+    <span class="step__line" aria-hidden="true"></span>
+    <div class="step step--current" aria-current="step">
+      <span class="step__dot">2</span>
+      <span class="step__label">Details</span>
+    </div>
+    <span class="step__line" aria-hidden="true"></span>
+    <div class="step">
+      <span class="step__dot">3</span>
+      <span class="step__label">Payment</span>
+    </div>
+    <span class="step__line" aria-hidden="true"></span>
+    <div class="step">
+      <span class="step__dot">4</span>
+      <span class="step__label">Review</span>
+    </div>
+  </nav>
+
+  <!-- DEVIATION-RISK: this hairline (measured y=319) runs from x=78 to
+       x=504 only — it stops dead at the edge of the left form column and
+       does not continue under the right rail. Reads as a layout slip
+       rather than intent; C12 has no rule under its stepper at all. -->
+  <div class="stepper-rule"></div>
+
+  <!-- ==================================================================
+       CHECKOUT BODY — two columns: form 472px left, order rail 302px right.
+       ================================================================== -->
+  <div class="checkout">
+
+    <!-- ---------- LEFT: delivery form ---------------------------------- -->
+    <div class="checkout__form">
+
+      <div class="panel-head">
+        <h1 class="t-title delivery-title">Delivery Details</h1>
+        <button class="saved-address" type="button">Use saved address</button>
+      </div>
+      <p class="panel-sub">Where should we send your order?</p>
+
+      <!-- SECTION: address form — 5 inputs, 68px tall, 22px apart.
+           City and Pincode share a row (226px + 226px, 19px gutter). -->
+      <div class="field field--icon">
+        <span class="field__icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg>
+        </span>
+        <input class="field__input" type="text" placeholder="Full Name" aria-label="Full Name">
+      </div>
+
+      <div class="field field--icon">
+        <span class="field__icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21s7-6.3 7-11a7 7 0 1 0-14 0c0 4.7 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+        </span>
+        <input class="field__input" type="text" placeholder="Address Line 1" aria-label="Address Line 1">
+      </div>
+
+      <div class="field">
+        <input class="field__input" type="text" placeholder="Address Line 2 (Optional)" aria-label="Address Line 2 (Optional)">
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <input class="field__input" type="text" placeholder="City" aria-label="City">
+        </div>
+        <div class="field">
+          <input class="field__input" type="text" placeholder="Pincode" aria-label="Pincode">
+        </div>
+      </div>
+
+      <div class="field field--select">
+        <select class="field__input" aria-label="Country">
+          <option>India</option>
+        </select>
+        <span class="field__chev" aria-hidden="true">
+          <svg width="26" height="16" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.3"><path d="m1 1 7 7 7-7"/></svg>
+        </span>
+      </div>
+
+      <!-- SECTION: delivery method — 2 radio rows, 472x79, 23px apart.
+           Standard is selected. -->
+      <div class="method-head">
+        <h2 class="t-title method-title">Delivery Method</h2>
+        <p class="panel-sub">Choose how you'd like to receive your order.</p>
+      </div>
+
+      <label class="method method--on">
+        <input type="radio" name="delivery" checked hidden>
+        <span class="method__radio" aria-hidden="true"></span>
+        <span class="method__icon">
+          <svg width="42" height="34" viewBox="0 0 26 20" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M1 3h14v11H1V3Z"/><path d="M15 7h5l4 4v3h-9V7Z"/><circle cx="6" cy="16" r="2.4"/><circle cx="18" cy="16" r="2.4"/></svg>
+        </span>
+        <span class="method__text">
+          <span class="method__name">Standard Delivery</span>
+          <span class="method__eta">3&#8211;5 business days</span>
+        </span>
+        <span class="method__price">Free</span>
+      </label>
+
+      <label class="method">
+        <input type="radio" name="delivery" hidden>
+        <span class="method__radio" aria-hidden="true"></span>
+        <span class="method__icon">
+          <svg width="42" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M20 4c0 9-5 14-11 14-2 0-4-1-4-1S8 4 20 4Z"/><path d="M5 19 14 9"/></svg>
+        </span>
+        <span class="method__text">
+          <span class="method__name">Express Delivery</span>
+          <span class="method__eta">1&#8211;2 business days</span>
+        </span>
+        <span class="method__price">&#8377;199</span>
+      </label>
+
+      <!-- DEVIATION-RISK: Express Delivery costs &#8377;199 but the Order Summary
+           to the right hard-codes "Shipping Free" and a Total of &#8377;59,799.
+           The summary has to recalculate when Express is picked; the mock
+           shows no such state. -->
+
+      <!-- SECTION: gift note textarea, 472x92 -->
+      <div class="note-head">
+        <svg width="34" height="30" viewBox="0 0 20 18" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M1 2h18v11H7l-6 4V2Z"/><path d="M5 6h10M5 9h6"/></svg>
+        Add a Note <span class="note-head__opt">(Optional)</span>
+      </div>
+      <textarea class="note-area" placeholder="Add a gift note or special instructions..." aria-label="Add a note"></textarea>
+    </div>
+
+    <!-- ---------- RIGHT: order rail ------------------------------------ -->
+    <aside class="checkout__rail">
+
+      <!-- SECTION: Order Summary card, 302px wide. 3 line items with
+           103x96 thumbnails, then Subtotal / Shipping / Total. -->
+      <div class="summary">
+        <div class="summary__head">
+          <h2 class="summary__title">Order Summary</h2>
+          <span class="summary__count">3 items</span>
+        </div>
+
+        <ul class="summary__list">
+          <li class="summary__item">
+            <img class="summary__media" src="rsn-one-images/prod-copper-vessel-01.jpg"
+                 alt="prod-copper-vessel-01" width="103" height="96">
+            <div>
+              <div class="summary__name">Copper Vessel</div>
+              <div class="summary__house">House of Lazimpat</div>
+              <span class="summary__price">&#8377;25,199</span>
+              <div class="summary__qty">Qty: 1</div>
+            </div>
+          </li>
+          <li class="summary__item">
+            <img class="summary__media" src="rsn-one-images/prod-linen-sheets-01.jpg"
+                 alt="prod-linen-sheets-01" width="103" height="96">
+            <div>
+              <div class="summary__name">Linen Sheets</div>
+              <div class="summary__house">House of Suj&aacute;n</div>
+              <span class="summary__price">&#8377;27,800</span>
+              <div class="summary__qty">Qty: 1</div>
+            </div>
+          </li>
+          <li class="summary__item">
+            <img class="summary__media" src="rsn-one-images/prod-beeswax-candle-01.jpg"
+                 alt="prod-beeswax-candle-01" width="103" height="96">
+            <div>
+              <div class="summary__name">Beeswax Candle</div>
+              <div class="summary__house">Atelier Sand</div>
+              <span class="summary__price">&#8377;6,800</span>
+              <div class="summary__qty">Qty: 1</div>
+            </div>
+          </li>
+        </ul>
+
+        <div class="summary__rule"></div>
+        <div class="summary__row"><span>Subtotal</span><span>&#8377;59,799</span></div>
+        <div class="summary__row"><span>Shipping</span><span>Free</span></div>
+        <div class="summary__rule summary__rule--total"></div>
+        <div class="summary__total">
+          <span class="summary__total-label">Total</span>
+          <span class="summary__total-value">&#8377;59,799</span>
+        </div>
+      </div>
+
+      <!-- SECTION: promo code disclosure row, 302x69 -->
+      <button class="promo-row" type="button" aria-expanded="false">
+        <svg width="32" height="28" viewBox="0 0 20 18" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M1 8V2h6l11 11-6 6L1 8Z"/><circle cx="5" cy="6" r="1.4"/></svg>
+        Have a promo code?
+        <span class="promo-row__chev" aria-hidden="true">
+          <svg width="26" height="16" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.3"><path d="m1 1 7 7 7-7"/></svg>
+        </span>
+      </button>
+
+      <!-- SECTION: editorial tile, 302x317. Italic voice copy sits ON the
+           photo (dark type on a light image) with a short rule under it. -->
+      <div class="rail-tile">
+        <img class="rail-tile__media" src="rsn-one-images/promo-thoughtful-pieces-01.jpg"
+             alt="promo-thoughtful-pieces-01" width="302" height="317">
+        <p class="rail-tile__copy">Thoughtful<br>pieces.<br>Brighter<br>days.</p>
+        <span class="rail-tile__rule" aria-hidden="true"></span>
+      </div>
+      <!-- ASSUMPTION: the tag in this photo reads "For a kinder tomorrow." —
+           treated as part of the photograph, not as live text. -->
+    </aside>
+  </div>
+
+  <!-- ==================================================================
+       CHECKOUT FOOTER — primary CTA spans the FULL frame width (x=35-816),
+       i.e. under both columns, followed by the reassurance line.
+       ================================================================== -->
+  <div class="checkout-foot">
+    <button class="btn checkout-foot__cta" type="button">
+      Continue to Payment
+      <svg width="30" height="18" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h14M10 1l4 4-4 4"/></svg>
+    </button>
+    <p class="checkout-foot__secure">
+      <svg width="26" height="30" viewBox="0 0 16 18" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="1" y="7" width="14" height="10" rx="2"/><path d="M4 7V5a4 4 0 0 1 8 0v2"/></svg>
+      Your information is secure and encrypted.
+    </p>
+  </div>
+
+  <!-- ==================================================================
+       TAB BAR — DEVIATION-RISK: the full 4-tab bar is drawn during
+       checkout with no tab active. It offers a one-tap exit out of a
+       payment flow and gives no "where am I" signal. Most checkouts hide
+       the tab bar; confirm this is intended.
+       ================================================================== -->
+  <nav class="tabbar tabbar--roman">
+    <a class="tab" href="C03-Home.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3 3 10v11h6v-6h6v6h6V10l-9-7Z"/></svg>
+      <span class="t-tab">Home</span>
+    </a>
+    <a class="tab" href="C04-Shop.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <span class="t-tab">Shop</span>
+    </a>
+    <a class="tab" href="C09-Wishlist.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20.5S3 14.8 3 9.2A5 5 0 0 1 12 6.5 5 5 0 0 1 21 9.2c0 5.6-9 11.3-9 11.3Z"/></svg>
+      <span class="t-tab">Wishlist</span>
+    </a>
+    <a class="tab" href="C17-Me.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg>
+      <span class="t-tab">Me</span>
+    </a>
+  </nav>
+
+  <div class="home-indicator"></div>
+
+</div>
+
+</body>
+</html>

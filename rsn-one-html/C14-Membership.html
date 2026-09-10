@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C14 Membership</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C14 Membership
+   Source mock: rsn-one-design/C14-Membership.png  (845 x 1862, 1x — see frame note below)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Sections 1-9 below are IDENTICAL in every membership-flow file
+   (C14, C21, C22, C23, C33, C34); see RSN-HANDOFF-SPEC.md.
+   Screen-specific CSS starts at "SCREEN: MEMBERSHIP".
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   9. MEMBERSHIP FLOW — SHARED COMPONENTS
+   This block is BYTE-IDENTICAL in C14, C21, C22, C23, C33 and C34. If you
+   change a rule here, change it in all six files. Anything below the
+   "SCREEN:" banner further down is local to one screen only.
+
+   Component            Appears on
+   -------------------  --------------------------------
+   .hero-shot           C14 C21 C22 C23      full-bleed photograph
+   .brandmark               C21 C22 C23 C33 C34   RSN one logo lockup
+   .navbar                  C21 C22     C33 C34   back bar
+   .member-card         C14 C21     C23          membership card artwork
+   .benefit-list        C14                      benefits, vertical
+   .benefit-grid            C21 C22 C23          benefits, grid
+   .tier-card               C21 C22              price / plan panel
+   .data-row                    C22 C33 C34      bordered list row
+   .promo-banner                    C33 C34      light editorial banner
+   ========================================================================== */
+
+/* extra tokens used only by this flow -------------------------------------- */
+:root{
+  --ink:#3B241D;             /* dark text sitting on light photography     */
+  --panel:rgba(250,247,245,.045);  /* translucent card over photography    */
+  --credit:#A9C9AC;          /* "+ ₹8,499" money-in                        */
+  --debit:var(--rose);       /* "- ₹4,049" money-out                       */
+  --banner-bg:#E9D0C8;       /* light promo banner ground                  */
+}
+
+/* --- .hero-shot : a photograph filling the whole artboard ---------------- */
+.screen--photo > *{position:relative; z-index:1}
+.hero-shot{position:absolute; inset:0; z-index:0; overflow:hidden}
+.hero-shot__media{width:100%; height:100%; object-fit:cover; border:0}
+.hero-shot__scrim{position:absolute; inset:0}
+
+/* --- .brandmark : the RSN one logo lockup, shipped as one image asset.
+       .brandmark--sm is the smaller navbar size; both sizes are set on
+       the <img> itself, so the modifier carries no CSS of its own. --- */
+.brandmark{display:inline-block; line-height:1}
+.brandmark--center{text-align:center}
+
+/* --- .navbar : back arrow, optionally with the lockup beside it ---------- */
+.navbar{display:flex; align-items:center; gap:20px; padding:0 var(--gutter)}
+.navbar__back{color:var(--rose-light); display:grid; place-items:center;
+              width:44px; height:44px; flex:0 0 44px}
+.navbar__title{font-family:var(--font-serif); font-size:34px}
+
+/* --- .member-card : the physical RSN One card ---------------------------
+   DECLARED HERE SO THE FLOW SHARES ONE NAME. In C14, C21 and C23 the card is
+   PHOTOGRAPHED INTO the hero image — it is not a separate DOM layer in the
+   mock, and each of those files carries an HTML comment giving the rectangle
+   the card occupies. Use this class if the card ever becomes a real element
+   (e.g. a rendered digital card in the wallet).                          */
+.member-card{position:relative; border-radius:14px; overflow:hidden;
+             box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.member-card__media{width:100%; height:100%; object-fit:cover; border:0}
+.member-card__lockup{position:absolute; inset:0; display:grid; place-items:center}
+
+/* --- .benefit-list : icon disc + label, stacked (C14) -------------------- */
+.benefit-list{display:flex; flex-direction:column}
+.benefit-list__item{display:flex; align-items:center; gap:48px; height:125px}
+.benefit-list__icon{flex:0 0 94px; width:94px; height:94px; border-radius:var(--r-pill);
+                    display:grid; place-items:center;
+                    background:rgba(200,140,125,.30); color:var(--ink)}
+.benefit-list__label{font-size:37px; font-weight:300; color:var(--ink)}
+
+/* --- .benefit-grid : icon disc + title + blurb, in columns (C21/C22/C23) - */
+.benefit-grid{display:grid; padding:0 var(--gutter); text-align:center}
+.benefit-grid--3{grid-template-columns:repeat(3,1fr); row-gap:60px}
+.benefit-grid--4{grid-template-columns:repeat(4,1fr); column-gap:8px}
+.benefit-grid--ruled .benefit + .benefit{border-left:1px solid var(--line)}
+.benefit{display:flex; flex-direction:column; align-items:center}
+.benefit__icon{width:78px; height:78px; border-radius:var(--r-pill);
+               border:1px solid rgba(228,164,157,.55); background:rgba(228,164,157,.10);
+               display:grid; place-items:center; color:var(--rose-pale)}
+.benefit__title{font-family:var(--font-serif); font-size:26px; line-height:1.2; margin:20px 0 0}
+.benefit__text{font-size:22px; line-height:1.35; font-weight:300; color:var(--muted); margin:14px 0 0}
+.benefit-grid--4 .benefit__icon{width:62px; height:62px}
+.benefit-grid--4 .benefit__title{font-size:22px; margin-top:16px}
+.benefit-grid--4 .benefit__text{font-size:18px; margin-top:10px}
+
+/* --- .tier-card : the "RSN One Membership … ₹5,999 / year" panel --------- */
+.tier-card{display:flex; align-items:center; margin:0 var(--gutter);
+           border:1px solid var(--line); border-radius:var(--r-card);
+           background:var(--panel); padding:0 40px}
+.tier-card__main{flex:1 1 auto}
+.tier-card__name{font-family:var(--font-serif); font-size:40px; line-height:1.15; margin:0; white-space:nowrap}
+.tier-card__desc{margin:14px 0 0; font-size:22px; line-height:1.28; font-weight:300; color:var(--muted)}
+.tier-card__rule{flex:0 0 1px; align-self:stretch; margin:34px 40px; background:var(--line)}
+.tier-card__aside{flex:0 0 250px}
+.tier-card__price{font-family:var(--font-serif); font-size:44px; color:var(--rose-light); white-space:nowrap}
+.tier-card__period{font-size:26px; font-weight:300; color:var(--muted); margin-left:8px; white-space:nowrap}
+.tier-card__note{margin:12px 0 0; font-size:20px; line-height:1.3; font-weight:300; color:var(--muted)}
+
+/* --- .data-row : bordered list row — icon/thumb, body, value, chevron ---- */
+.data-row{display:flex; align-items:center; gap:26px;
+          border:1px solid var(--line); border-radius:12px;
+          background:var(--panel); padding:0 26px; min-height:104px}
+.data-row--selected{border-color:var(--rose); background:rgba(201,124,121,.10)}
+.data-row__icon{flex:0 0 62px; width:62px; height:62px; border-radius:var(--r-pill);
+                display:grid; place-items:center;
+                background:rgba(201,124,121,.22); color:var(--rose-light)}
+.data-row__thumb{flex:0 0 136px; width:136px; height:90px; object-fit:cover; border-radius:8px}
+.data-row__body{flex:1 1 auto; min-width:0}
+.data-row__title{font-family:var(--font-serif); font-size:28px; line-height:1.2; margin:0}
+.data-row__sub{margin:6px 0 0; font-size:20px; line-height:1.3; font-weight:300; color:var(--muted)}
+.data-row__meta{margin:5px 0 0; font-size:18px; line-height:1.3; font-weight:300; color:var(--muted-dim)}
+.data-row__value{font-family:var(--font-serif); font-size:30px; white-space:nowrap}
+.data-row__value--credit{color:var(--credit)}
+.data-row__value--debit{color:var(--debit)}
+.data-row__chevron{color:var(--muted); display:grid; place-items:center}
+.data-row + .data-row{margin-top:12px}
+
+/* --- .promo-banner : light editorial strip with a photo behind ----------- */
+.promo-banner{position:relative; display:block; margin:0 var(--gutter);
+              border-radius:var(--r-card); overflow:hidden; background:var(--banner-bg)}
+.promo-banner__media{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border:0;
+                     background:var(--banner-bg)}  /* light placeholder: this slot is a PALE photo */
+.promo-banner__scrim{position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(240,220,212,.94) 0%, rgba(240,220,212,.72) 46%, rgba(240,220,212,0) 72%)}
+.promo-banner__body{position:relative; padding:32px 40px}
+.promo-banner__title{font-family:var(--font-serif); font-size:40px; line-height:44px; color:var(--ink); margin:0}
+.promo-banner__title em{font-style:italic; color:#B4675F}
+.promo-banner__link{display:inline-flex; align-items:center; gap:14px; margin-top:18px;
+                    font-size:24px; font-weight:300; color:#5C3A31}
+
+/* ==========================================================================
+   SCREEN: MEMBERSHIP
+   ========================================================================== */
+/* FRAME NOTE — the only screen in the set whose PNG is not 853 x 1844.
+   C14-Membership.png is 845 x 1862. Measured against C21/C22/C23 the glyphs
+   are the same size (status-bar "9:41" cap height 24-25px in both), so it is
+   NOT a rescale — the artboard was simply exported 8px narrower and 18px
+   taller, and the content sits ~10px further from the left edge
+   ("9:41" starts at x=81 here vs x=70-71 on C21/C22/C23; the right-hand
+   status icons end at x=792 of 845 vs x=809 of 853). In other words the
+   content is OFFSET/inset inside a differently-sized frame, not cropped.
+   This file is authored at the standard 853 x 1844; measured x values are
+   normalised by -4px (re-centring 845 content in an 853 frame) and the 18px
+   of surplus height is taken out of the gap above the CTA. See also the
+   ASSUMPTION comment on the frame in the markup.                         */
+
+/* This screen is a poster: one full-bleed photograph, dark ink type on it,
+   no app bar and no tab bar. Its own gutters, measured from the mock:
+   the type column starts at x=68 but the CTA runs to a 52px gutter.       */
+.screen--c14{--gutter:68px}
+
+/* status bar glyphs are DARK here — the photograph is pale pink at the top */
+.statusbar--ink{color:var(--ink)}
+/* This screen's photograph is PALE — the dark ink type is unreadable over
+   the default dark image placeholder, so the slot gets a light ground.
+   Delete with the rest of the .slot styling when the real image lands. */
+.screen--c14 .hero-shot__media{background:#E4C3B7}
+
+/* --- POSTER COPY --------------------------------------------------------- */
+.poster{padding:0 var(--gutter)}
+/* Cap height measured 79px => ~110px in the mock's own serif. Playfair
+   Display is wider, so 110px breaks the line; 88px holds "Take your
+   place." on one line as the mock does. Re-measure when the real brand
+   serif is confirmed. */
+.poster__title{font-family:var(--font-serif); font-size:88px; line-height:110px;
+               font-weight:400; color:var(--ink); margin:112px 0 0; white-space:nowrap}
+.poster__body{margin:30px 0 0; font-size:45px; line-height:57px;
+              font-weight:300; color:var(--ink)}
+
+/* .benefit-list geometry is in section 9 (94px disc, 125px row pitch). */
+.poster__benefits{margin-top:40px}
+
+/* --- CTA ----------------------------------------------------------------- */
+/* Sits at a 52px gutter, i.e. 16px wider on each side than the type column. */
+.c14-cta{margin:auto 52px 84px; width:auto; height:140px; border-radius:12px;
+         background:rgba(197,110,116,.92); color:#fff}
+.c14-cta .t-eyebrow{font-size:38px; letter-spacing:.20em}
+
+/* the photograph runs under the home indicator — no dark plate here */
+.screen--c14 .home-indicator{background:transparent}
+
+</style>
+</head>
+<body>
+
+<!-- ICON: approximated, swap for production icon set -->
+
+<!-- ASSUMPTION: source frame. C14-Membership.png is 845 x 1862 while every
+     other mock in the set is 853 x 1844. Type size is identical to C21/C22/C23
+     (status-bar cap height 24-25px in both), so this is not a rescale: the
+     artboard is 8px narrower, 18px taller, and the content is inset ~10px
+     further from the left edge. Top chrome and the home indicator line up with
+     the standard frame, so the 18px of surplus sits at the BOTTOM. This file is
+     authored at the standard 853 x 1844: measured x values normalised by -4px,
+     measured y values used as-is, surplus height removed from the gap above the
+     CTA. Ask the designer to re-export at 853 x 1844 before build. -->
+
+<div class="screen screen--photo screen--c14">
+
+  <!-- ==================================================================
+       SECTION: hero photograph — the whole screen is one image: a pale pink linen /
+       waffle-weave throw with the physical RSN One membership card lying on
+       it. Rendered 853 x 1844, full bleed, no scrim. All type below sits
+       directly on it in dark ink.
+       ================================================================== -->
+  <div class="hero-shot">
+    <img class="hero-shot__media" src="rsn-one-images/hero-membership-01.jpg"
+         alt="hero-membership-01" width="853" height="1844">
+  </div>
+
+  <!-- ==================================================================
+       STATUS BAR — iOS chrome drawn into the mock. Not app UI; delete this
+       block when building the real screen. NOTE: dark glyphs here
+       (.statusbar--ink) because the photograph is pale at the top.
+       ================================================================== -->
+  <div class="statusbar statusbar--ink">
+    <span>9:41</span>
+    <span class="statusbar__icons">
+      <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+      <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- DEVIATION-RISK: there is NO back arrow, close button or tab bar on this
+       screen. Once the user is here the only exit is "BECOME A MEMBER". If
+       C14 is reachable from Home / Me, it needs a dismiss affordance. -->
+
+  <!-- ==================================================================
+       SECTION: poster copy — single-line serif headline, two-line sans
+       subtitle (45px / 57px leading), then the benefit list.
+       Type column starts at x=68; the CTA below uses a wider 52px gutter.
+       ================================================================== -->
+  <div class="poster">
+    <h1 class="poster__title">Take your place.</h1>
+    <p class="poster__body">More than shopping.<br>A global family.</p>
+
+    <!-- SECTION: benefit list — 5 rows, 125px pitch. Each row is a 94px
+         tinted disc holding a line icon, a 48px gap, then a 37px label.
+         Same component as .benefit-grid on C21/C22/C23, stacked instead of
+         gridded. -->
+    <ul class="benefit-list poster__benefits">
+      <li class="benefit-list__item">
+        <span class="benefit-list__icon">
+          <!-- gift -->
+          <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="9" width="18" height="12" rx="1"/><path d="M3 13h18M12 9v12"/><path d="M12 9S10.5 4 8 4a2 2 0 0 0 0 5h4Zm0 0s1.5-5 4-5a2 2 0 0 1 0 5h-4Z"/></svg>
+        </span>
+        <span class="benefit-list__label">Member pricing</span>
+      </li>
+      <li class="benefit-list__item">
+        <span class="benefit-list__icon">
+          <!-- padlock -->
+          <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><circle cx="12" cy="15.5" r="1.4"/></svg>
+        </span>
+        <span class="benefit-list__label">Early access</span>
+      </li>
+      <li class="benefit-list__item">
+        <span class="benefit-list__icon">
+          <!-- ASSUMPTION: this icon is an Eiffel Tower in the mock. Reading it
+               as "travel / far-away places" for "Private discoveries" — odd
+               against a Nepal-led brand, worth confirming with the designer. -->
+          <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 2v3M10.6 5h2.8M9.4 11h5.2M7.6 16h8.8M12 5c0 5-3.5 11-5.5 16M12 5c0 5 3.5 11 5.5 16M5 21h14"/></svg>
+        </span>
+        <span class="benefit-list__label">Private discoveries</span>
+      </li>
+      <li class="benefit-list__item">
+        <span class="benefit-list__icon">
+          <!-- person -->
+          <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg>
+        </span>
+        <span class="benefit-list__label">Concierge</span>
+      </li>
+      <li class="benefit-list__item">
+        <span class="benefit-list__icon">
+          <!-- award rosette -->
+          <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="9" r="6"/><path d="m9.2 8.8 2.8-2 2.8 2-1.1 3.3H10.3L9.2 8.8Z"/><path d="m8.6 14.4-2 6.6 5.4-2.6 5.4 2.6-2-6.6"/></svg>
+        </span>
+        <span class="benefit-list__label">Rewards</span>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ==================================================================
+       .member-card — the physical RSN One card (embossed shield crest,
+       "RSN one", GLOBAL FAMILY CLUB) is PHOTOGRAPHED INTO hero-membership-01;
+       it is not a separate layer in the mock. Measured rectangle in the source
+       PNG: roughly x 105-845, y 1025-1575, rotated about -8 degrees, running
+       off the right edge of the frame. If it ever becomes a real element use
+       class .member-card (declared in section 9) so all six files agree.
+       ================================================================== -->
+
+  <!-- ==================================================================
+       SECTION: CTA — 140px tall rose button, 52px gutter, sits at the bottom of the
+       stack (84px above the home indicator).
+       DEVIATION-RISK: the button overlaps the bottom-left corner of the
+       photographed membership card. Fine as art direction, but if the card
+       ever becomes a live layer the two will collide.
+       ================================================================== -->
+  <button class="btn btn--primary btn--block c14-cta">
+    <span class="t-eyebrow">Become a Member</span>
+  </button>
+
+  <div class="home-indicator"></div>
+
+</div>
+
+</body>
+</html>

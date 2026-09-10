@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C06 Search Results</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C06 Search Results
+   Source mock: rsn-one-design/C06-SearchResults.png  (853 x 1844, 1x)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Tokens + base components are IDENTICAL in every CXX file; see
+   RSN-HANDOFF-SPEC.md. Screen-specific CSS starts at "SCREEN: SEARCH RESULTS".
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   SCREEN: SEARCH RESULTS
+   Note: this screen's page gutter measures 44px, not the 36px used on
+   C03/C04. Declared once here as --gutter-search rather than silently
+   re-using the token.
+   ========================================================================== */
+.screen{--gutter-search:44px}
+
+/* --- SCREEN HEAD: "Search" 78px + one-line subtitle --------------------- */
+.search-head{padding:13px var(--gutter-search) 0}
+.search-head__title{font-family:var(--font-serif); font-size:78px; line-height:1.05;
+                    font-weight:400; margin:0}
+.search-head__sub{margin:8px 0 0; font-size:23px; line-height:1.35; font-weight:300}
+
+/* --- SEARCH FIELD: 765 x 93, radius 28, icon + placeholder -------------- */
+.field{position:relative; margin:16px var(--gutter-search) 0; height:93px}
+.field__icon{position:absolute; left:32px; top:50%; transform:translateY(-50%);
+             color:var(--rose-pale); display:block}
+.field__input{width:100%; height:100%; border-radius:28px;
+              background:rgba(250,247,245,.03); border:1px solid var(--line-strong);
+              color:var(--cream); font-family:var(--font-sans); font-size:25px;
+              font-weight:300; padding:0 32px 0 103px; outline:none}
+.field__input::placeholder{color:var(--muted-dim)}
+
+/* --- RECENT SEARCHES: rose section title + "Clear all" + wrapping chips - */
+.search-section{padding:0 var(--gutter-search)}
+.search-section--recent {margin-top:45px}
+.search-section--browse {margin-top:47px}
+.search-section--results{margin-top:56px}
+.search-count{font-size:20px}
+.search-section__head{display:flex; align-items:baseline; justify-content:space-between}
+.search-section__title{font-family:var(--font-serif); font-size:32px; line-height:1.2;
+                       font-weight:400; margin:0; color:var(--rose-light)}
+.search-section__action{font-size:22px; font-weight:300; color:var(--rose-light)}
+.search-section__link{display:inline-flex; align-items:center; gap:12px;
+                      font-size:22px; font-weight:300; color:var(--rose-light)}
+.recent{display:flex; flex-wrap:wrap; gap:14px; margin-top:23px}
+.recent__chip{display:inline-flex; align-items:center; gap:22px; height:58px;
+              padding:0 30px; border-radius:var(--r-pill);
+              border:1px solid var(--line); background:rgba(250,247,245,.03);
+              color:var(--cream); font-size:22px; font-weight:300}
+.recent__chip svg{color:var(--rose-light); flex:0 0 auto}
+
+/* --- BROWSE BY CATEGORY: same .worlds component as C03, 106px discs ----- */
+.worlds{display:flex; gap:16px; overflow-x:auto; padding:0 var(--gutter); scrollbar-width:none}
+.worlds::-webkit-scrollbar{display:none}
+.world{flex:0 0 118px; text-align:center}
+.world__disc{width:118px; height:118px; border-radius:var(--r-pill); object-fit:cover}
+.world__label{margin-top:14px; font-size:18px; font-weight:300}
+/* C06 overrides — measured 106px discs, 27px gap, 40px page padding */
+.worlds--search{padding:0 40px; gap:27px; margin-top:24px}
+.worlds--search .world{flex:0 0 auto; min-width:106px}
+.worlds--search .world__disc{width:106px; height:106px}
+.worlds--search .world__label{margin-top:12px; font-size:20px}
+.world--selected .world__disc{box-shadow:0 0 0 2px var(--rose)}
+
+/* --- RESULTS GRID: same .product-card block as C03, no card surface.
+       2 columns, 385px photo, 21px column gap, 33px page padding.  ------- */
+.product-rail{display:flex; gap:16px; overflow-x:auto; padding:0 28px 4px; scrollbar-width:none}
+.product-rail::-webkit-scrollbar{display:none}
+.product-card{flex:0 0 194px; position:relative}
+.product-card__media{width:194px; height:160px; object-fit:cover; border-radius:8px}
+.product-card__wish{position:absolute; top:14px; right:14px; width:40px; height:40px;
+                    display:grid; place-items:center; color:var(--cream)}
+.product-card__title{margin-top:16px}
+.product-card__house{margin-top:4px}
+.product-card__price{margin-top:10px; display:block}
+.product-card__chip{margin-top:12px}
+/* C06 result variant */
+.result-grid{display:grid; grid-template-columns:1fr 1fr; gap:19px 21px;
+             padding:0 33px; margin-top:21px}
+.product-card--result{flex:none}
+.product-card--result .product-card__media{width:100%; height:232px; border-radius:8px}
+.product-card--result .product-card__wish{top:24px; right:24px; width:34px; height:31px}
+.product-card--result .product-card__title{font-size:27px; margin-top:15px; padding-left:19px}
+.product-card--result .product-card__house{font-size:18px; margin-top:11px; padding-left:19px}
+.product-card--result .product-card__foot{display:flex; align-items:center; gap:30px;
+             margin-top:15px; padding-left:19px}
+.product-card--result .product-card__price{font-size:32px; margin:0}
+.product-card--result .product-card__chip{height:41px; font-size:20px; padding:0 22px; margin:0}
+
+/* --- TAB BAR: labels are Title Case on this screen, not UPPERCASE ------- */
+.tabbar--roman .t-tab{text-transform:none; letter-spacing:.01em; font-size:20px; font-weight:300}
+</style>
+</head>
+<body>
+
+<div class="screen">
+
+  <!-- ==================================================================
+       STATUS BAR — iOS chrome drawn into the mock. Not app UI; delete this
+       block when building the real screen.
+       ================================================================== -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="statusbar__icons">
+      <!-- ICON: approximated, swap for production icon set -->
+      <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+      <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- ==================================================================
+       APP BAR — identical block to C03 Home. Bag badge reads 1 on this
+       screen (3 on C03/C04).
+       ================================================================== -->
+  <header class="appbar">
+    <a class="appbar__logo" href="C03-Home.html" aria-label="RSN one — Global Family Club">
+      <!-- LOGO: full lockup (arc + wordmark + tagline) as one asset. -->
+      <img class="logo" src="rsn-one-images/logo-rsnone-01.png" alt="logo-rsnone-01" width="186" height="94">
+    </a>
+    <div class="appbar__actions">
+      <button class="appbar__action" aria-label="Search">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>
+      </button>
+      <button class="appbar__action" aria-label="Bag, 1 item">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="appbar__badge">1</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================================================================
+       SCREEN HEAD — "Search" (78px serif, glyph top y=202) + subtitle
+       (25px, y=276). Note the title is 78px here vs 64px for "Shop" on C04.
+       DEVIATION-RISK: this mock is filed as "Search Results" but it is the
+       full Search screen — the search field is empty (placeholder showing),
+       recent searches are still listed, and a 24-result grid is rendered
+       below. Nothing on screen says what the 24 results are results FOR.
+       ================================================================== -->
+  <section class="search-head">
+    <h1 class="search-head__title">Search</h1>
+    <p class="search-head__sub">Discover extraordinary objects, houses and rituals.</p>
+  </section>
+
+  <!-- ==================================================================
+       SEARCH FIELD — 765 x 93, corner radius 28, magnifier at x=32 inside
+       the field, placeholder text starting at x=103 inside the field.
+       ================================================================== -->
+  <div class="field">
+    <span class="field__icon" aria-hidden="true">
+      <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>
+    </span>
+    <input class="field__input" type="search" aria-label="Search houses, objects, rituals"
+           placeholder="Search houses, objects, rituals...">
+  </div>
+
+  <!-- ==================================================================
+       RECENT SEARCHES — rose 32px serif heading + "Clear all" text button.
+       5 outlined chips, each a clock icon + the query, wrapping onto two
+       rows (58px tall, 14px gaps).
+       ================================================================== -->
+  <section class="search-section search-section--recent">
+    <div class="search-section__head">
+      <h2 class="search-section__title">Recent Searches</h2>
+      <button class="search-section__action">Clear all</button>
+    </div>
+    <ul class="recent">
+      <li><a class="recent__chip" href="#">
+        <svg width="26" height="26" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="8" cy="8" r="6.6"/><path d="M8 4.2V8l2.6 1.6"/></svg>
+        Copper vessel</a></li>
+      <li><a class="recent__chip" href="#">
+        <svg width="26" height="26" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="8" cy="8" r="6.6"/><path d="M8 4.2V8l2.6 1.6"/></svg>
+        Linen sheets</a></li>
+      <li><a class="recent__chip" href="#">
+        <svg width="26" height="26" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="8" cy="8" r="6.6"/><path d="M8 4.2V8l2.6 1.6"/></svg>
+        Nepal</a></li>
+      <li><a class="recent__chip" href="#">
+        <svg width="26" height="26" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="8" cy="8" r="6.6"/><path d="M8 4.2V8l2.6 1.6"/></svg>
+        Beeswax candle</a></li>
+      <li><a class="recent__chip" href="#">
+        <svg width="26" height="26" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="8" cy="8" r="6.6"/><path d="M8 4.2V8l2.6 1.6"/></svg>
+        Tableware</a></li>
+    </ul>
+  </section>
+
+  <!-- ==================================================================
+       BROWSE BY CATEGORY — 34px serif heading + "View all →". Six 106px
+       circular categories (discs y=731-841, labels y=853-871). The first
+       (Morning) carries a rose selection ring.
+       ASSUMPTION: the rose ring on Morning reads as a selected/active state,
+       but nothing else on the screen is filtered to Morning.
+       ================================================================== -->
+  <section class="search-section search-section--browse">
+    <div class="search-section__head">
+      <h2 class="t-section">Browse by Category</h2>
+      <a class="search-section__link" href="C04-Shop.html">View all
+        <svg width="26" height="16" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h14M10 1l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </section>
+  <ul class="worlds worlds--search">
+    <li class="world world--selected"><a href="#"><img class="world__disc" src="rsn-one-images/world-morning-01.jpg" alt="world-morning-01" width="106" height="106"><div class="world__label">Morning</div></a></li>
+    <li class="world"><a href="#"><img class="world__disc" src="rsn-one-images/world-skin-01.jpg" alt="world-skin-01" width="106" height="106"><div class="world__label">Skin</div></a></li>
+    <li class="world"><a href="#"><img class="world__disc" src="rsn-one-images/world-sleep-01.jpg" alt="world-sleep-01" width="106" height="106"><div class="world__label">Sleep</div></a></li>
+    <li class="world"><a href="#"><img class="world__disc" src="rsn-one-images/world-table-01.jpg" alt="world-table-01" width="106" height="106"><div class="world__label">Table</div></a></li>
+    <li class="world"><a href="#"><img class="world__disc" src="rsn-one-images/world-gifts-01.jpg" alt="world-gifts-01" width="106" height="106"><div class="world__label">Gifts</div></a></li>
+    <li class="world"><a href="#"><img class="world__disc" src="rsn-one-images/world-global-select-01.jpg" alt="world-global-select-01" width="106" height="106"><div class="world__label">Global Select</div></a></li>
+  </ul>
+
+  <!-- ==================================================================
+       SEARCH RESULTS — 34px serif heading + "24 results" count.
+       2-column grid, 4 cards visible. Photo 385 wide, heart button on the
+       photo, then name / house / price + member chip. No card surface here
+       (unlike the C04 grid) and no stock label.
+       DEVIATION-RISK: the card text is indented 19px relative to the left
+       edge of its own photo (photo starts at x=33, text at x=52), so names
+       and prices do not line up with the images above them.
+       ASSUMPTION: the two result rows measure 237px and 222px of photo
+       height respectively; authored here as a single 232px for both.
+       ================================================================== -->
+  <section class="search-section search-section--results">
+    <div class="search-section__head">
+      <h2 class="t-section">Search Results</h2>
+      <span class="t-meta search-count">24 results</span>
+    </div>
+  </section>
+
+  <div class="result-grid">
+
+    <article class="product-card product-card--result">
+      <img class="product-card__media" src="rsn-one-images/prod-copper-vessel-01.jpg" alt="prod-copper-vessel-01" width="385" height="232">
+      <button class="product-card__wish" aria-label="Add Copper Vessel to wishlist">
+        <svg width="34" height="31" viewBox="0 0 18 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 15S1 10.4 1 5.6A4.3 4.3 0 0 1 9 3.4 4.3 4.3 0 0 1 17 5.6C17 10.4 9 15 9 15Z"/></svg>
+      </button>
+      <h3 class="t-card product-card__title">Copper Vessel</h3>
+      <p class="t-meta product-card__house">House of Lazimpat</p>
+      <div class="product-card__foot">
+        <span class="t-price product-card__price">₹25,199</span>
+        <span class="chip chip--member product-card__chip">Member ₹21,499</span>
+      </div>
+    </article>
+
+    <article class="product-card product-card--result">
+      <img class="product-card__media" src="rsn-one-images/prod-linen-sheets-01.jpg" alt="prod-linen-sheets-01" width="385" height="232">
+      <button class="product-card__wish" aria-label="Add Linen Sheets to wishlist">
+        <svg width="34" height="31" viewBox="0 0 18 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 15S1 10.4 1 5.6A4.3 4.3 0 0 1 9 3.4 4.3 4.3 0 0 1 17 5.6C17 10.4 9 15 9 15Z"/></svg>
+      </button>
+      <h3 class="t-card product-card__title">Linen Sheets</h3>
+      <p class="t-meta product-card__house">House of Sujàn</p>
+      <div class="product-card__foot">
+        <span class="t-price product-card__price">₹27,800</span>
+        <span class="chip chip--member product-card__chip">Member ₹23,499</span>
+      </div>
+    </article>
+
+    <article class="product-card product-card--result">
+      <img class="product-card__media" src="rsn-one-images/prod-brass-kettle-01.jpg" alt="prod-brass-kettle-01" width="385" height="232">
+      <button class="product-card__wish" aria-label="Add Brass Kettle to wishlist">
+        <svg width="34" height="31" viewBox="0 0 18 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 15S1 10.4 1 5.6A4.3 4.3 0 0 1 9 3.4 4.3 4.3 0 0 1 17 5.6C17 10.4 9 15 9 15Z"/></svg>
+      </button>
+      <h3 class="t-card product-card__title">Brass Kettle</h3>
+      <p class="t-meta product-card__house">House of Lahori</p>
+      <div class="product-card__foot">
+        <span class="t-price product-card__price">₹18,500</span>
+        <span class="chip chip--member product-card__chip">Member ₹15,750</span>
+      </div>
+    </article>
+
+    <article class="product-card product-card--result">
+      <img class="product-card__media" src="rsn-one-images/prod-beeswax-candle-01.jpg" alt="prod-beeswax-candle-01" width="385" height="232">
+      <button class="product-card__wish" aria-label="Add Beeswax Candle to wishlist">
+        <svg width="34" height="31" viewBox="0 0 18 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 15S1 10.4 1 5.6A4.3 4.3 0 0 1 9 3.4 4.3 4.3 0 0 1 17 5.6C17 10.4 9 15 9 15Z"/></svg>
+      </button>
+      <h3 class="t-card product-card__title">Beeswax Candle</h3>
+      <p class="t-meta product-card__house">Atelier Sand</p>
+      <div class="product-card__foot">
+        <span class="t-price product-card__price">₹6,800</span>
+        <span class="chip chip--member product-card__chip">Member ₹5,780</span>
+      </div>
+    </article>
+  </div>
+
+  <!-- ==================================================================
+       TAB BAR — measured band: hairline y=1691, icons y=1713-1750,
+       labels y=1764-1781.
+       DEVIATION-RISK: no tab is marked active on this screen — all four
+       labels and icons are cream. Every other screen in the set highlights
+       one tab in rose. Also, labels here are Title Case ("Home") while
+       C03/C04 use UPPERCASE ("HOME"); transcribed as drawn via
+       .tabbar--roman.
+       ================================================================== -->
+  <nav class="tabbar tabbar--roman">
+    <a class="tab" href="C03-Home.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3.5 3.5 10.5V21h17V10.5L12 3.5Z"/><path d="M10 21v-5h4v5"/></svg>
+      <span class="t-tab">Home</span>
+    </a>
+    <a class="tab" href="C04-Shop.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <span class="t-tab">Shop</span>
+    </a>
+    <a class="tab" href="C09-Wishlist.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20.5S3 14.8 3 9.2A5 5 0 0 1 12 6.5 5 5 0 0 1 21 9.2c0 5.6-9 11.3-9 11.3Z"/></svg>
+      <span class="t-tab">Wishlist</span>
+    </a>
+    <a class="tab" href="C17-Me.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg>
+      <span class="t-tab">Me</span>
+    </a>
+  </nav>
+
+  <div class="home-indicator"></div>
+
+</div>
+</body>
+</html>

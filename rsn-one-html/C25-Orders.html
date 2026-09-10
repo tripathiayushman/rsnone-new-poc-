@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C25 Orders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C25 Orders
+   Source mock: rsn-one-design/C25-Orders.png  (853 x 1844, 1x)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Tokens + base components (sections 1-8) are IDENTICAL in every CXX file and
+   are copied verbatim from C03-Home.html; see RSN-HANDOFF-SPEC.md.
+   Screen-specific CSS starts at "SCREEN: ORDERS".
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   SCREEN: ORDERS
+   App bar → "My Orders" title + subtitle → filter chip row → 5 order cards
+   → editorial banner → tab bar. Page gutter on this screen measures 33px
+   (not the 36px token); cards, chips and the banner all align to x=33/823.
+   ========================================================================== */
+
+/* --- SCREEN TITLE -------------------------------------------------------- */
+.orders-head{padding:56px 33px 0}
+.orders-head__title{font-family:var(--font-serif); font-size:80px; line-height:1;
+                    font-weight:400; margin:0}
+.orders-head__sub{margin:22px 0 0; font-size:26px; line-height:33px;
+                  font-weight:300; color:var(--cream)}
+
+/* --- FILTER CHIP ROW -----------------------------------------------------
+   Horizontal scroller, 58px pills. First chip is the active (rose-filled)
+   state; the rest are rose hairline outlines.
+   ------------------------------------------------------------------------ */
+.filter-row{display:flex; align-items:center; overflow-x:auto; margin-top:42px;
+            padding:0 33px 4px; scrollbar-width:none}
+.filter-row::-webkit-scrollbar{display:none}
+.filter-chip{flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center;
+             height:58px; padding:0 26px; border-radius:var(--r-pill);
+             border:1px solid rgba(219,146,138,.42); color:var(--cream);
+             font-size:25px; font-weight:300; white-space:nowrap}
+.filter-chip + .filter-chip{margin-left:-10px}
+.filter-chip--active{background:var(--rose); border-color:var(--rose); color:#FFF}
+
+/* --- ORDER CARD ----------------------------------------------------------
+   790 x 185, 11px apart. Thumbnail 205x161 inset 12px; copy column at x=275;
+   date top-right; chevron bottom-right.
+   ------------------------------------------------------------------------ */
+.order-list{margin-top:20px; padding:0 33px; display:flex; flex-direction:column; gap:11px}
+.order-card{position:relative; display:flex; gap:25px; height:185px; padding:12px;
+            border:1px solid rgba(201,124,121,.32); border-radius:var(--r-card);
+            background:var(--surface); color:var(--cream)}
+.order-card__media{width:205px; height:161px; object-fit:cover; border-radius:10px;
+                   flex:0 0 205px}
+.order-card__body{position:relative; flex:1 1 auto; padding-top:10px}
+.order-card__id{font-family:var(--font-serif); font-size:27px; line-height:1;
+                font-weight:400; margin:0}
+.order-card__date{position:absolute; top:15px; right:12px; font-size:20px;
+                  line-height:1; color:var(--muted)}
+.order-card__count{margin:9px 0 0; font-size:20px; line-height:1; color:var(--muted)}
+.order-card__price{display:block; margin-top:14px; font-size:26px; line-height:1;
+                   font-weight:500; color:var(--rose)}
+.order-card__chevron{position:absolute; right:18px; top:120px; color:var(--cream); opacity:.85}
+
+/* status pill inside an order card — one variant per fulfilment state */
+.order-status{display:inline-flex; align-items:center; gap:14px; height:41px;
+              margin-top:10px; padding:0 22px; border-radius:var(--r-pill);
+              font-size:20px; line-height:1}
+.order-status--delivered {background:#3D4030; color:#D6DAC6}
+.order-status--shipped   {background:#4E3B33; color:#E2CDB9}
+.order-status--processing{background:#4E3B33; color:#E2CDB9}
+.order-status--returned  {background:#5C3A36; color:#E5C2BA}
+
+/* --- EDITORIAL BANNER (light photography, dark type) --------------------- */
+.banner{position:relative; display:block; height:185px; margin:22px 33px 0;
+        border-radius:var(--r-card); overflow:hidden}
+.banner__media{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border:0}
+.banner__scrim{position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(240,222,215,.92) 0%, rgba(240,222,215,.55) 42%, rgba(240,222,215,0) 62%)}
+.banner__body{position:absolute; inset:0; padding:28px 32px}
+.banner__title{font-family:var(--font-serif); font-size:37px; line-height:1.2;
+               color:#312421; margin:0}
+.banner__title em{font-style:italic; color:#A05C59; display:block}
+.banner__link{display:inline-flex; align-items:center; gap:14px; margin-top:26px;
+              font-size:21px; color:#6C5751}
+</style>
+</head>
+<body>
+
+<div class="screen">
+
+  <!-- ICON: approximated, swap for production icon set -->
+
+  <!-- ==================================================================
+       STATUS BAR — iOS chrome drawn into the mock. Not app UI; delete this
+       block when building the real screen.
+       ================================================================== -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="statusbar__icons">
+      <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+      <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- ==================================================================
+       APP BAR — logo (left), search + bag with count badge (right).
+       Same block on C03 Home, C04 Shop, C09 Wishlist, C15 Drops, C25 Orders.
+       ASSUMPTION (resolved): the arc-and-dots flourish is logo artwork —
+       the whole lockup is one asset. logo-rsnone-01.png is a PNG
+       extracted from the mock; swap it for the production vector.
+       ================================================================== -->
+  <header class="appbar">
+    <a class="appbar__logo" href="C03-Home.html" aria-label="RSN one — Global Family Club">
+      <!-- LOGO: full lockup (arc + wordmark + tagline) as one asset. -->
+      <img class="logo" src="rsn-one-images/logo-rsnone-01.png" alt="logo-rsnone-01" width="186" height="94">
+    </a>
+    <div class="appbar__actions">
+      <button class="appbar__action" aria-label="Search">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>
+      </button>
+      <button class="appbar__action" aria-label="Bag, 3 items">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="appbar__badge">3</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================================================================
+       SCREEN TITLE — "My Orders" ≈80px serif, two-line 26px subtitle.
+       ================================================================== -->
+  <div class="orders-head">
+    <h1 class="orders-head__title">My Orders</h1>
+    <p class="orders-head__sub">Track your orders, view details<br>and manage returns.</p>
+  </div>
+
+  <!-- ==================================================================
+       FILTER CHIPS — 5 states, "All Orders" selected. 58px pills that run
+       to the right edge of the frame.
+       DEVIATION-RISK: in the mock the pill outlines OVERLAP each other by
+       ~10px, so adjacent borders collide and a stray hairline sits between
+       "Processing" and "Shipped". Reproduced here with a negative margin;
+       it almost certainly wants to be a spaced row instead.
+       ================================================================== -->
+  <div class="filter-row" role="group" aria-label="Filter orders">
+      <button class="filter-chip filter-chip--active" aria-pressed="true">All Orders</button>
+      <button class="filter-chip" aria-pressed="false">Processing</button>
+      <button class="filter-chip" aria-pressed="false">Shipped</button>
+      <button class="filter-chip" aria-pressed="false">Delivered</button>
+      <button class="filter-chip" aria-pressed="false">Returns</button>
+  </div>
+
+  <!-- ==================================================================
+       ORDER LIST — 5 cards, 790x185, 11px apart. Each: thumbnail, order
+       number, order date (top-right), item count, fulfilment status pill,
+       total, chevron.
+       ASSUMPTION: card 3 reuses prod-beeswax-candle-01 — it is the same
+       styled shot as C03 Home's candle card, but LIT rather than unlit;
+       confirm whether that needs a second file. Card 5 reuses
+       prod-copper-vessel-01 (the engraved vessel, as on C03 / C24 / C26).
+       ================================================================== -->
+  <section class="order-list-wrap">
+    <ul class="order-list">
+      <li>
+        <a class="order-card" href="C26-OrderDetail.html">
+          <img class="order-card__media" src="rsn-one-images/prod-brass-kettle-01.jpg" alt="prod-brass-kettle-01" width="205" height="161">
+          <div class="order-card__body">
+            <h3 class="order-card__id">Order #RSN10234</h3>
+            <span class="order-card__date">12 Sep 2024</span>
+            <p class="order-card__count">2 items</p>
+            <span class="order-status order-status--delivered"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Delivered</span>
+            <span class="order-card__price">₹32,800</span>
+          </div>
+          <svg class="order-card__chevron" width="17" height="35" viewBox="0 0 10 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m1.2 1.5 7.3 8.5-7.3 8.5"/></svg>
+        </a>
+      </li>
+      <li>
+        <a class="order-card" href="C26-OrderDetail.html">
+          <img class="order-card__media" src="rsn-one-images/prod-yak-blanket-01.jpg" alt="prod-yak-blanket-01" width="205" height="161">
+          <div class="order-card__body">
+            <h3 class="order-card__id">Order #RSN10223</h3>
+            <span class="order-card__date">5 Sep 2024</span>
+            <p class="order-card__count">1 item</p>
+            <span class="order-status order-status--shipped"><svg width="26" height="22" viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M1 3h13v11H1z"/><path d="M14 7h5l4 4v3h-9z"/><circle cx="7" cy="17" r="2.2"/><circle cx="18" cy="17" r="2.2"/></svg>Shipped</span>
+            <span class="order-card__price">₹24,500</span>
+          </div>
+          <svg class="order-card__chevron" width="17" height="35" viewBox="0 0 10 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m1.2 1.5 7.3 8.5-7.3 8.5"/></svg>
+        </a>
+      </li>
+      <li>
+        <a class="order-card" href="C26-OrderDetail.html">
+          <img class="order-card__media" src="rsn-one-images/prod-beeswax-candle-01.jpg" alt="prod-beeswax-candle-01" width="205" height="161">
+          <div class="order-card__body">
+            <h3 class="order-card__id">Order #RSN10232</h3>
+            <span class="order-card__date">28 Aug 2024</span>
+            <p class="order-card__count">3 items</p>
+            <span class="order-status order-status--processing"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v5.4l3.4 2"/></svg>Processing</span>
+            <span class="order-card__price">₹18,900</span>
+          </div>
+          <svg class="order-card__chevron" width="17" height="35" viewBox="0 0 10 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m1.2 1.5 7.3 8.5-7.3 8.5"/></svg>
+        </a>
+      </li>
+      <li>
+        <a class="order-card" href="C26-OrderDetail.html">
+          <img class="order-card__media" src="rsn-one-images/prod-ceramic-mug-01.jpg" alt="prod-ceramic-mug-01" width="205" height="161">
+          <div class="order-card__body">
+            <h3 class="order-card__id">Order #RSN10231</h3>
+            <span class="order-card__date">14 Aug 2024</span>
+            <p class="order-card__count">1 item</p>
+            <span class="order-status order-status--delivered"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>Delivered</span>
+            <span class="order-card__price">₹6,800</span>
+          </div>
+          <svg class="order-card__chevron" width="17" height="35" viewBox="0 0 10 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m1.2 1.5 7.3 8.5-7.3 8.5"/></svg>
+        </a>
+      </li>
+      <li>
+        <a class="order-card" href="C26-OrderDetail.html">
+          <img class="order-card__media" src="rsn-one-images/prod-copper-vessel-01.jpg" alt="prod-copper-vessel-01" width="205" height="161">
+          <div class="order-card__body">
+            <h3 class="order-card__id">Order #RSN10230</h3>
+            <span class="order-card__date">2 Aug 2024</span>
+            <p class="order-card__count">1 item</p>
+            <span class="order-status order-status--returned"><svg width="24" height="22" viewBox="0 0 24 22" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 8h11a5 5 0 0 1 0 10H8"/><path d="M8 3 3 8l5 5"/></svg>Returned</span>
+            <span class="order-card__price">₹25,199</span>
+          </div>
+          <svg class="order-card__chevron" width="17" height="35" viewBox="0 0 10 20" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m1.2 1.5 7.3 8.5-7.3 8.5"/></svg>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ==================================================================
+       EDITORIAL BANNER — 790x185, light photography with a left-to-right
+       cream scrim, dark serif headline with a rose italic second line and
+       a text link.
+       ================================================================== -->
+  <a class="banner" href="C04-Shop.html">
+    <img class="banner__media" src="rsn-one-images/promo-thoughtful-living-01.jpg"
+         alt="promo-thoughtful-living-01" width="790" height="185">
+    <div class="banner__scrim"></div>
+    <div class="banner__body">
+      <p class="banner__title">Thoughtful living,<em>delivered worldwide.</em></p>
+      <span class="banner__link">Explore new arrivals
+        <svg width="26" height="16" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M0 5h14M10 1l4 4-4 4"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <!-- ==================================================================
+       TAB BAR — 4th tab active.
+       DEVIATION-RISK: this mock names the 4th tab "ORDERS" with the person
+       icon, while C17 names the same tab "Me". The app cannot have both —
+       decide whether the 4th tab is the profile tab or an Orders tab.
+       ================================================================== -->
+  <nav class="tabbar">
+    <a class="tab" href="C03-Home.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3.5 3.5 10.5V21h5.5v-6h6v6H20V10.5L12 3.5Z"/></svg>
+      <span class="t-tab">Home</span>
+    </a>
+    <a class="tab" href="C04-Shop.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <span class="t-tab">Shop</span>
+    </a>
+    <a class="tab" href="C09-Wishlist.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20.5S3 14.8 3 9.2A5 5 0 0 1 12 6.5 5 5 0 0 1 21 9.2c0 5.6-9 11.3-9 11.3Z"/></svg>
+      <span class="t-tab">Wishlist</span>
+    </a>
+    <a class="tab tab--active" href="C25-Orders.html" aria-current="page">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="7.5" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0Z"/></svg>
+      <span class="t-tab">Orders</span>
+    </a>
+  </nav>
+
+  <div class="home-indicator"></div>
+
+</div>
+
+</body>
+</html>

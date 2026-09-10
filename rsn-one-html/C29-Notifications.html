@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C29 Notifications</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C29 Notifications
+   Source mock: rsn-one-design/C29-Notifications.png  (853 x 1844, 1x)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Tokens + base components are IDENTICAL in every CXX file; see
+   RSN-HANDOFF-SPEC.md. Screen-specific CSS starts at "SCREEN: NOTIFICATIONS".
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   SCREEN: NOTIFICATIONS  (C29)
+   Title row with a "Mark all as read" action, then three dated groups
+   (Today / This Week / Earlier) of notification rows, an editorial banner,
+   and the 4-tab bar with ME active.
+   Left/right gutter is 45px here, not the standard 36px.
+   Rows are the .list-row pattern in the spec, in a --notification variant:
+   thumbnail + title + body on the left, timestamp + unread dot on the right.
+   ========================================================================== */
+
+/* back arrow added to the left of the standard app-bar logo */
+.appbar__back{display:grid; place-items:center; width:44px; height:44px;
+              margin-right:8px; color:var(--rose-light)}
+.appbar__lead{display:flex; align-items:center}
+
+/* --- PAGE HEAD ---------------------------------------------------------- */
+.notif-head{padding:21px 45px 0}
+.notif-head__row{display:flex; align-items:flex-start; justify-content:space-between}
+.notif-head__title{font-family:var(--font-serif); font-size:71px; line-height:1.05;
+                   font-weight:400; margin:0}
+.notif-head__action{font-size:21px; line-height:1; color:var(--rose-light); margin-top:26px}
+.notif-head__sub{font-size:29px; line-height:34px; font-weight:300; margin:1px 0 0}
+
+/* --- GROUP -------------------------------------------------------------- */
+.notif-group{padding:0 45px}
+.notif-group + .notif-group{margin-top:18px}
+.notif-group--first{margin-top:32px}
+.notif-group__title{margin-bottom:8px}
+.notif-list{display:flex; flex-direction:column; gap:13px}
+
+/* --- NOTIFICATION ROW --------------------------------------------------- */
+.list-row{display:flex; align-items:center; border:1px solid var(--line);
+          border-radius:12px; color:var(--cream)}
+.list-row--notification{height:107px; padding:0 18px 0 11px; gap:30px}
+.list-row__media{flex:0 0 133px; width:133px; height:90px; object-fit:cover;
+                 border-radius:8px}
+.list-row__body{flex:1; min-width:0}
+.list-row__title{display:block; font-family:var(--font-serif); font-size:24px;
+                 line-height:1.15; font-weight:400; margin:0}
+.list-row__text{display:block; font-size:19px; line-height:24px; font-weight:300;
+                color:var(--muted); margin:8px 0 0}
+.list-row__meta{flex:0 0 auto; display:flex; flex-direction:column; align-items:flex-end;
+                gap:22px; padding-top:2px}
+.list-row__time{font-size:18px; line-height:1; color:var(--muted)}
+.list-row__dot{width:14px; height:14px; border-radius:var(--r-pill); background:var(--rose)}
+.list-row__dot--read{background:var(--muted-dim); opacity:.7}
+
+/* --- EDITORIAL BANNER: pale tile, photo bleeding off the right ---------- */
+.notif-banner{position:relative; display:block; margin:26px 38px 0; height:162px;
+              border-radius:14px; overflow:hidden; color:#3B2A24}
+.notif-banner__media{position:absolute; inset:0; width:100%; height:100%;
+                     object-fit:cover; border:0}
+.notif-banner__scrim{position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(240,222,215,.94) 0%, rgba(240,222,215,.88) 42%,
+                                    rgba(240,222,215,.10) 78%, rgba(240,222,215,0) 100%)}
+.notif-banner__body{position:absolute; inset:0; padding:26px 0 0 26px}
+.notif-banner__title{font-family:var(--font-serif); font-size:33px; line-height:39px;
+                     font-weight:400; margin:0}
+.notif-banner__title em{font-style:italic; color:#B3706C}
+.notif-banner__link{display:inline-flex; align-items:center; gap:12px; margin-top:10px;
+                    font-size:25px; font-weight:300; color:#4A342E}
+
+/* --- TAB BAR (measured taller on this screen than on C03) --------------- */
+.tabbar{flex:0 0 118px}
+.home-indicator{flex:0 0 54px}
+</style>
+</head>
+<body>
+
+<!-- ICON: approximated, swap for production icon set -->
+
+<div class="screen">
+
+  <!-- ==================================================================
+       STATUS BAR — iOS chrome drawn into the mock. Not app UI; delete this
+       block when building the real screen.
+       ================================================================== -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="statusbar__icons">
+      <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+      <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- ==================================================================
+       APP BAR — back arrow + logo only. No search or bag on this screen.
+       ================================================================== -->
+  <header class="appbar">
+    <div class="appbar__lead">
+      <button class="appbar__back" aria-label="Back">
+        <svg width="40" height="32" viewBox="0 0 22 18" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M21 9H1M8 2 1 9l7 7"/></svg>
+      </button>
+      <a class="appbar__logo" href="C03-Home.html" aria-label="RSN one — Global Family Club">
+        <!-- LOGO: full lockup (arc + wordmark + tagline) as one asset. -->
+        <img class="logo" src="rsn-one-images/logo-rsnone-01.png" alt="logo-rsnone-01" width="186" height="94">
+      </a>
+    </div>
+  </header>
+
+  <!-- ==================================================================
+       PAGE HEAD — 67px serif title with a text action on the same line,
+       then a 2-line subtitle.
+       ================================================================== -->
+  <div class="notif-head">
+    <div class="notif-head__row">
+      <h1 class="notif-head__title">Notifications</h1>
+      <button class="notif-head__action" type="button">Mark all as read</button>
+    </div>
+    <p class="notif-head__sub">Stay updated with your orders, rewards<br>and more.</p>
+  </div>
+
+  <!-- ==================================================================
+       GROUP: "Today" — 3 unread rows (rose dot). Row 763 x 107, thumbnail
+       133 x 90.
+       ================================================================== -->
+  <section class="notif-group notif-group--first">
+    <h2 class="t-section notif-group__title">Today</h2>
+    <ul class="notif-list">
+      <li><a class="list-row list-row--notification" href="C26-OrderDetail.html">
+        <img class="list-row__media" src="rsn-one-images/prod-gift-box-01.jpg" alt="prod-gift-box-01" width="133" height="90">
+        <span class="list-row__body">
+          <span class="list-row__title">Your order has been delivered</span>
+          <span class="list-row__text">Order #RSN10230 has been delivered<br>successfully.</span>
+        </span>
+        <span class="list-row__meta"><span class="list-row__time">2h ago</span><span class="list-row__dot"></span></span>
+      </a></li>
+
+      <li><a class="list-row list-row--notification" href="C33-MemberWallet.html">
+        <img class="list-row__media" src="rsn-one-images/prod-beeswax-candle-01.jpg" alt="prod-beeswax-candle-01" width="133" height="90">
+        <span class="list-row__body">
+          <span class="list-row__title">You earned a reward!</span>
+          <span class="list-row__text">You've received ₹2,000 in your wallet<br>for referring a friend.</span>
+        </span>
+        <span class="list-row__meta"><span class="list-row__time">5h ago</span><span class="list-row__dot"></span></span>
+      </a></li>
+
+      <li><a class="list-row list-row--notification" href="C04-Shop.html">
+        <img class="list-row__media" src="rsn-one-images/prod-carved-vase-01.jpg" alt="prod-carved-vase-01" width="133" height="90">
+        <span class="list-row__body">
+          <span class="list-row__title">New arrivals are here</span>
+          <span class="list-row__text">Explore the latest collection from<br>House of Lazimpat.</span>
+        </span>
+        <span class="list-row__meta"><span class="list-row__time">8h ago</span><span class="list-row__dot"></span></span>
+      </a></li>
+    </ul>
+  </section>
+
+  <!-- SECTION: group "This Week" — 3 unread rows -->
+  <section class="notif-group">
+    <h2 class="t-section notif-group__title">This Week</h2>
+    <ul class="notif-list">
+      <li><a class="list-row list-row--notification" href="C32-ReturnRequest.html">
+        <img class="list-row__media" src="rsn-one-images/prod-yak-blanket-01.jpg" alt="prod-yak-blanket-01" width="133" height="90">
+        <span class="list-row__body">
+          <span class="list-row__title">Your return request is approved</span>
+          <span class="list-row__text">Your return for Order #RSN10198<br>has been approved.</span>
+        </span>
+        <span class="list-row__meta"><span class="list-row__time">12 Aug</span><span class="list-row__dot"></span></span>
+      </a></li>
+
+      <li><a class="list-row list-row--notification" href="C04-Shop.html">
+        <img class="list-row__media" src="rsn-one-images/world-global-select-01.jpg" alt="world-global-select-01" width="133" height="90">
+        <span class="list-row__body">
+          <span class="list-row__title">Exclusive offer for members</span>
+          <span class="list-row__text">Get 10% off on Global Select collection.<br>Valid till 18 Aug.</span>
+        </span>
+        <span class="list-row__meta"><span class="list-row__time">10 Aug</span><span class="list-row__dot"></span></span>
+      </a></li>
+
+      <li><a class="list-row list-row--notification" href="C33-MemberWallet.html">
+        <img class="list-row__media" src="rsn-one-images/prod-glass-diffuser-01.jpg" alt="prod-glass-diffuser-01" width="133" height="90">
+        <span class="list-row__body">
+          <span class="list-row__title">Your wallet has been updated</span>
+          <span class="list-row__text">₹4,049 has been refunded to your wallet<br>for Order #RSN10156.</span>
+        </span>
+        <span class="list-row__meta"><span class="list-row__time">8 Aug</span><span class="list-row__dot"></span></span>
+      </a></li>
+    </ul>
+  </section>
+
+  <!-- SECTION: group "Earlier" — 2 rows whose status dot is grey, not rose.
+       ASSUMPTION: rose dot = unread, grey dot = read. The mock shows the two
+       colours but no legend; confirm the mapping before build. -->
+  <section class="notif-group">
+    <h2 class="t-section notif-group__title">Earlier</h2>
+    <ul class="notif-list">
+      <li><a class="list-row list-row--notification" href="C14-Membership.html">
+        <img class="list-row__media" src="rsn-one-images/prod-brass-kettle-01.jpg" alt="prod-brass-kettle-01" width="133" height="90">
+        <span class="list-row__body">
+          <span class="list-row__title">Welcome to RSN One</span>
+          <span class="list-row__text">Thank you for joining our global family.<br>Here's to a more thoughtful tomorrow.</span>
+        </span>
+        <span class="list-row__meta"><span class="list-row__time">1 Aug</span><span class="list-row__dot list-row__dot--read"></span></span>
+      </a></li>
+
+      <li><a class="list-row list-row--notification" href="C17-Me.html">
+        <img class="list-row__media" src="rsn-one-images/drop-stone-bowl-01.jpg" alt="drop-stone-bowl-01" width="133" height="90">
+        <span class="list-row__body">
+          <span class="list-row__title">Your profile is complete</span>
+          <span class="list-row__text">You're all set to enjoy a seamless<br>shopping experience.</span>
+        </span>
+        <span class="list-row__meta"><span class="list-row__time">28 Jul</span><span class="list-row__dot list-row__dot--read"></span></span>
+      </a></li>
+    </ul>
+  </section>
+
+  <!-- ==================================================================
+       EDITORIAL BANNER — 779 x 162 pale tile, photo bleeding off the right,
+       2-line serif headline with an italic rose last word, and a text link.
+       ASSUMPTION: the pale left half is a scrim over one photograph rather
+       than a solid panel butted against a cropped image — the mock shows a
+       soft gradient between them, so it is modelled as a scrim here.
+       ================================================================== -->
+  <a class="notif-banner" href="C04-Shop.html">
+    <img class="notif-banner__media" src="rsn-one-images/promo-quiet-table-01.jpg" alt="promo-quiet-table-01" width="779" height="162">
+    <div class="notif-banner__scrim"></div>
+    <div class="notif-banner__body">
+      <div class="notif-banner__title">A more thoughtful<br>tomorrow, <em>together.</em></div>
+      <span class="notif-banner__link">Explore new arrivals
+        <svg width="26" height="16" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h14M10 1l4 4-4 4"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <!-- ==================================================================
+       TAB BAR — ME active on this screen (the ME icon is filled, not
+       outlined). Identical block on C03, C04, C09, C17, C30.
+       ================================================================== -->
+  <nav class="tabbar">
+    <a class="tab" href="C03-Home.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3 3 10v11h6v-6h6v6h6V10l-9-7Z"/></svg>
+      <span class="t-tab">Home</span>
+    </a>
+    <a class="tab" href="C04-Shop.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <span class="t-tab">Shop</span>
+    </a>
+    <a class="tab" href="C09-Wishlist.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20.5S3 14.8 3 9.2A5 5 0 0 1 12 6.5 5 5 0 0 1 21 9.2c0 5.6-9 11.3-9 11.3Z"/></svg>
+      <span class="t-tab">Wishlist</span>
+    </a>
+    <a class="tab tab--active" href="C17-Me.html" aria-current="page">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0Z"/></svg>
+      <span class="t-tab">Me</span>
+    </a>
+  </nav>
+
+  <div class="home-indicator"></div>
+
+</div>
+</body>
+</html>

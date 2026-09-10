@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C20 Login / Sign Up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C20 Login / Sign Up (Sign In tab selected)
+   Source mock: rsn-one-design/C20-LoginSignup.png  (853 x 1844, 1x)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Tokens + base components are IDENTICAL in every CXX file; see
+   RSN-HANDOFF-SPEC.md. Screen-specific CSS starts at "SCREEN: LOGIN".
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   SCREEN: LOGIN
+   One full-bleed photograph behind everything, with a two-axis scrim: dark
+   on the left so the copy reads, and dark below y~900 so the form reads.
+   Content column is x 62 -> 792 (730px wide), i.e. a 62px gutter, not 36px.
+   ========================================================================== */
+.login{--form-line:rgba(250,247,245,.13);
+       --form-fill:rgba(250,247,245,.05);
+       --accent:#E08F8E;}
+
+.login__media{position:absolute; inset:0; width:853px; height:1844px;
+              object-fit:cover; border:0}
+.login__scrim{position:absolute; inset:0; background:
+  linear-gradient(90deg, rgba(41,28,25,.93) 0%, rgba(41,28,25,.84) 34%,
+                  rgba(41,28,25,.42) 62%, rgba(41,28,25,.16) 100%),
+  linear-gradient(180deg, rgba(41,28,25,0) 44%, rgba(41,28,25,.55) 48%,
+                  rgba(41,28,25,.95) 53%, rgba(41,28,25,.97) 100%)}
+
+.login .statusbar{position:relative; z-index:2}
+
+/* TOP ROW — back arrow (x 47, y 116) and Skip (right edge x 803, y 126). */
+.login__back{position:absolute; left:47px; top:112px; color:var(--accent)}
+.login__skip{position:absolute; top:120px; right:50px; font-size:26px; color:#F9F0E6}
+
+/* LOCKUP — left aligned; the logo asset runs x 90–407, y 172–318 in the
+   mock, so 289 x 146 at x=88 (the artwork has no side bearing, unlike
+   the type lockup this replaced, which was set from x=62). */
+.login__lockup{position:absolute; left:88px; top:172px; width:420px}
+
+/* HEADLINE — 2 lines, "W" cap 73px => ~104px serif, 97px baseline pitch.
+   Line 2 italic rose. */
+.login__title{position:absolute; left:62px; top:395px; margin:0;
+              font-family:var(--font-serif); font-size:104px; line-height:97px;
+              font-weight:400; color:var(--cream)}
+.login__title em{font-style:italic; color:#E18A87}
+/* BODY — 3 hard-broken lines, "S" cap 21px => ~28px, 40px line pitch. */
+.login__body{position:absolute; left:62px; top:621px; margin:0; width:420px;
+             font-size:28px; line-height:40px; font-weight:300; color:var(--cream)}
+
+/* SEGMENTED TABS — text-only, active one underlined. "Sign In" x 63–145,
+   "Sign Up" x 250–340, underline 127 x 3 at y 927. */
+.login__tabs{position:absolute; left:62px; top:881px; display:flex; gap:105px}
+.login__tab{position:relative; font-size:26px; line-height:1; font-weight:400;
+            color:#C9B2AA; padding-bottom:0}
+.login__tab--active{color:#E99292; font-weight:500}
+.login__tab--active::after{content:""; position:absolute; left:0; top:46px;
+                           width:127px; height:3px; background:#D68987}
+
+/* FORM COLUMN — every control is 730px wide at x=62. */
+.login__form{position:absolute; left:62px; top:962px; width:730px}
+.field{position:relative; display:flex; align-items:center; height:88px;
+       border:1px solid var(--form-line); border-radius:var(--r-input);
+       background:var(--form-fill); padding:0 42px}
+.field + .field{margin-top:18px; height:89px}
+.field__icon{flex:0 0 auto; color:var(--rose-pale); opacity:.85}
+.field__input{flex:1; margin-left:38px; background:none; border:0; outline:0;
+              font-family:var(--font-sans); font-size:28px; font-weight:300; color:var(--cream)}
+.field__input::placeholder{color:#A89D98; font-weight:300}
+.field__toggle{flex:0 0 auto; color:var(--rose-pale); opacity:.9}
+
+.login__forgot{display:block; margin:23px 4px 0 0; text-align:right;
+               font-size:23px; color:#E89692}
+
+.login__submit{margin-top:38px; display:flex; align-items:center; justify-content:center;
+               gap:26px; width:100%; height:87px; border-radius:var(--r-input);
+               background:#BA696A; color:#fff; font-size:26px; letter-spacing:.22em;
+               text-transform:uppercase}
+
+/* "or" DIVIDER — hairline x 62–370, label, hairline x 484–792. */
+.login__or{display:flex; align-items:center; gap:44px; margin-top:26px;
+           font-size:24px; color:#D5C6C0}
+.login__or::before,.login__or::after{content:""; height:1px; background:rgba(250,247,245,.30)}
+.login__or::before{width:308px}
+.login__or::after{width:308px}
+
+/* SSO BUTTONS — 730 x ~80, rose hairline outline. */
+.login__sso{display:flex; align-items:center; justify-content:center; gap:38px;
+            width:100%; height:79px; margin-top:21px; border-radius:var(--r-input);
+            border:1px solid rgba(226,150,145,.5); color:#FBF5F1; font-size:26px;
+            font-weight:300}
+.login__sso + .login__sso{height:80px; margin-top:22px}
+
+/* FOOTER LINE — centred, "Create an account" in rose. */
+.login__footer{position:absolute; left:0; right:0; top:1655px; margin:0;
+               text-align:center; font-size:24px; font-weight:300; color:var(--cream)}
+.login__footer a{color:#E19490}
+
+.login .home-indicator{position:absolute; z-index:3; left:0; right:0; bottom:0;
+                       background:transparent}
+</style>
+</head>
+<body>
+
+<!-- ICON: approximated, swap for production icon set -->
+
+<div class="screen login">
+
+  <!-- ==================================================================
+       BACKDROP PHOTO — full-bleed 853 x 1844: textured vase of blossom, a
+       stone bowl and "The Kinfolk Home" on a plaster ledge. Two overlaid
+       scrims (left-to-right and top-to-bottom) keep the copy and the form
+       legible; below roughly y=960 the photo is fully darkened out.
+       ================================================================== -->
+  <img class="login__media" src="rsn-one-images/hero-login-01.jpg"
+       alt="hero-login-01" width="853" height="1844">
+  <div class="login__scrim"></div>
+
+  <!-- ==================================================================
+       STATUS BAR — iOS chrome drawn into the mock. Not app UI; delete this
+       block when building the real screen.
+       ================================================================== -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="statusbar__icons">
+      <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+      <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- SECTION: back arrow (rose, x 47 y 116) and Skip (cream, right edge 803).
+       ASSUMPTION: back returns to C19 Store Selection, Skip enters the app as
+       a guest. Neither destination is shown in the mock. -->
+  <button class="login__back" type="button" aria-label="Back">
+    <svg width="42" height="38" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12H4"/><path d="m10 6-6 6 6 6"/></svg>
+  </button>
+  <button class="login__skip" type="button">Skip</button>
+
+  <!-- ==================================================================
+       BRAND LOCKUP — left aligned, cream wordmark with the rose script
+       "one" and the arc flourish above it.
+       ASSUMPTION (resolved): the lockup is one asset. logo-rsnone-01.png
+       is a PNG extracted from the mock; swap for the production vector.
+       ================================================================== -->
+  <div class="login__lockup">
+    <!-- LOGO: full lockup (arc + wordmark + tagline) as one asset. -->
+    <img class="logo" src="rsn-one-images/logo-rsnone-01.png" alt="logo-rsnone-01" width="289" height="146">
+  </div>
+
+  <!-- SECTION: headline — 2 lines, second italic rose. -->
+  <h1 class="login__title">Welcome<br><em>back.</em></h1>
+
+  <!-- SECTION: supporting copy — 3 hard-broken lines. -->
+  <p class="login__body">Sign in to continue your<br>journey with extraordinary<br>objects, homes and rituals.</p>
+
+  <!-- ==================================================================
+       TABS — "Sign In" / "Sign Up", text only, active state = rose label
+       plus a 127 x 3 rose underline at y 927.
+       DEVIATION-RISK: the underline is 127px wide but the "Sign In" label
+       is only 82px wide, so the marker overhangs the label by 45px on the
+       right. Either the marker should match the label width or it should be
+       a fixed-width tab.
+       ASSUMPTION: only the Sign In tab is mocked. The Sign Up form (name,
+       email, password, terms) has no screen in the set.
+       ================================================================== -->
+  <div class="login__tabs" role="tablist">
+    <button class="login__tab login__tab--active" role="tab" aria-selected="true" type="button">Sign In</button>
+    <button class="login__tab" role="tab" aria-selected="false" type="button">Sign Up</button>
+  </div>
+
+  <!-- ==================================================================
+       SIGN-IN FORM — all controls 730px wide at x=62.
+       Email field   y  962–1050 (88px tall)
+       Password      y 1068–1157 (89px tall, eye toggle at the right edge)
+       Forgot link   y 1180–1200, flush right
+       SIGN IN       y 1233–1320 (87px tall, rose fill, trailing arrow)
+       ================================================================== -->
+  <form class="login__form" onsubmit="return false">
+
+    <label class="field">
+      <span class="field__icon" aria-hidden="true">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="m3 7 9 6 9-6"/></svg>
+      </span>
+      <input class="field__input" type="email" name="email" placeholder="Email address" autocomplete="email">
+    </label>
+
+    <label class="field">
+      <span class="field__icon" aria-hidden="true">
+        <svg width="32" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"><rect x="4" y="10.5" width="16" height="11" rx="2.5"/><path d="M8 10.5V7.6a4 4 0 0 1 8 0v2.9"/></svg>
+      </span>
+      <input class="field__input" type="password" name="password" placeholder="Password" autocomplete="current-password">
+      <button class="field__toggle" type="button" aria-label="Show password">
+        <svg width="36" height="26" viewBox="0 0 24 17" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M1 8.5S5 2 12 2s11 6.5 11 6.5S19 15 12 15 1 8.5 1 8.5Z"/><circle cx="12" cy="8.5" r="3.2"/></svg>
+      </button>
+    </label>
+
+    <a class="login__forgot" href="#">Forgot password?</a>
+
+    <button class="login__submit" type="submit">Sign in
+      <svg width="30" height="18" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h14M10 1l4 4-4 4"/></svg>
+    </button>
+
+    <!-- SECTION: "or" divider — two 308px hairlines with the label between. -->
+    <div class="login__or"><span>or</span></div>
+
+    <!-- SECTION: third-party sign-in. Both 730px wide, rose hairline outline.
+         ICON: the Apple and Google marks below are approximations — swap for
+         the official brand assets, which have their own usage rules. -->
+    <button class="login__sso" type="button">
+      <svg width="36" height="42" viewBox="0 0 20 24" fill="#fff" aria-hidden="true"><path d="M14.8 12.6c0-2.5 2-3.7 2.1-3.8-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.5-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.5 1.3 0 1.8-.8 3.3-.8s2 .8 3.3.8c1.4 0 2.3-1.2 3.1-2.5.6-.9 1-1.8 1.3-2.8-3.4-1.3-2.7-5-2.7-5.1ZM12.4 4.2c.7-.9 1.2-2.1 1-3.3-1 0-2.3.7-3 1.6-.7.8-1.3 2-1.1 3.2 1.1.1 2.3-.6 3.1-1.5Z"/></svg>
+      <span>Continue with Apple</span>
+    </button>
+
+    <button class="login__sso" type="button">
+      <svg width="42" height="42" viewBox="0 0 48 48" aria-hidden="true">
+        <path fill="#4285F4" d="M45.1 24.5c0-1.6-.1-2.8-.4-4.1H24v7.5h11.9c-.2 2-1.5 5-4.4 7l6.7 5.2c4-3.7 6.9-9.1 6.9-15.6Z"/>
+        <path fill="#34A853" d="M24 46c5.8 0 10.7-1.9 14.2-5.2l-6.7-5.2c-1.8 1.3-4.2 2.2-7.5 2.2-5.7 0-10.6-3.8-12.3-9l-7 5.4C8.2 41.3 15.5 46 24 46Z"/>
+        <path fill="#FBBC05" d="M11.7 28.8c-.5-1.3-.7-2.8-.7-4.3s.3-3 .7-4.3l-7-5.4C3.6 17.6 3 20.7 3 24s.6 6.4 1.7 9.2l7-4.4Z"/>
+        <path fill="#EA4335" d="M24 10.7c4 0 6.8 1.7 8.3 3.2l6-5.9C34.6 4.6 29.8 2 24 2 15.5 2 8.2 6.7 4.7 14.8l7 5.4c1.7-5.2 6.6-9.5 12.3-9.5Z"/>
+      </svg>
+      <span>Continue with Google</span>
+    </button>
+  </form>
+
+  <!-- ==================================================================
+       FOOTER — "New to RSN One? Create an account", centred at y 1661.
+       DEVIATION-RISK: this link and the "Sign Up" tab above are two routes
+       to the same thing. Decide which one owns account creation, or the two
+       will drift apart.
+       ================================================================== -->
+  <p class="login__footer">New to RSN One? <a href="#">Create an account</a></p>
+
+  <!-- HOME INDICATOR — iOS chrome. -->
+  <div class="home-indicator"></div>
+
+</div>
+</body>
+</html>

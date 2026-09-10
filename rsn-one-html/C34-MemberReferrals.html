@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C34 Member Referrals</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C34 Member Referrals
+   Source mock: rsn-one-design/C34-MemberReferrals.png  (853 x 1844, 1x)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Sections 1-9 below are IDENTICAL in every membership-flow file
+   (C14, C21, C22, C23, C33, C34); see RSN-HANDOFF-SPEC.md.
+   Screen-specific CSS starts at "SCREEN: MEMBER REFERRALS".
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   9. MEMBERSHIP FLOW — SHARED COMPONENTS
+   This block is BYTE-IDENTICAL in C14, C21, C22, C23, C33 and C34. If you
+   change a rule here, change it in all six files. Anything below the
+   "SCREEN:" banner further down is local to one screen only.
+
+   Component            Appears on
+   -------------------  --------------------------------
+   .hero-shot           C14 C21 C22 C23      full-bleed photograph
+   .brandmark               C21 C22 C23 C33 C34   RSN one logo lockup
+   .navbar                  C21 C22     C33 C34   back bar
+   .member-card         C14 C21     C23          membership card artwork
+   .benefit-list        C14                      benefits, vertical
+   .benefit-grid            C21 C22 C23          benefits, grid
+   .tier-card               C21 C22              price / plan panel
+   .data-row                    C22 C33 C34      bordered list row
+   .promo-banner                    C33 C34      light editorial banner
+   ========================================================================== */
+
+/* extra tokens used only by this flow -------------------------------------- */
+:root{
+  --ink:#3B241D;             /* dark text sitting on light photography     */
+  --panel:rgba(250,247,245,.045);  /* translucent card over photography    */
+  --credit:#A9C9AC;          /* "+ ₹8,499" money-in                        */
+  --debit:var(--rose);       /* "- ₹4,049" money-out                       */
+  --banner-bg:#E9D0C8;       /* light promo banner ground                  */
+}
+
+/* --- .hero-shot : a photograph filling the whole artboard ---------------- */
+.screen--photo > *{position:relative; z-index:1}
+.hero-shot{position:absolute; inset:0; z-index:0; overflow:hidden}
+.hero-shot__media{width:100%; height:100%; object-fit:cover; border:0}
+.hero-shot__scrim{position:absolute; inset:0}
+
+/* --- .brandmark : the RSN one logo lockup, shipped as one image asset.
+       .brandmark--sm is the smaller navbar size; both sizes are set on
+       the <img> itself, so the modifier carries no CSS of its own. --- */
+.brandmark{display:inline-block; line-height:1}
+.brandmark--center{text-align:center}
+
+/* --- .navbar : back arrow, optionally with the lockup beside it ---------- */
+.navbar{display:flex; align-items:center; gap:20px; padding:0 var(--gutter)}
+.navbar__back{color:var(--rose-light); display:grid; place-items:center;
+              width:44px; height:44px; flex:0 0 44px}
+.navbar__title{font-family:var(--font-serif); font-size:34px}
+
+/* --- .member-card : the physical RSN One card ---------------------------
+   DECLARED HERE SO THE FLOW SHARES ONE NAME. In C14, C21 and C23 the card is
+   PHOTOGRAPHED INTO the hero image — it is not a separate DOM layer in the
+   mock, and each of those files carries an HTML comment giving the rectangle
+   the card occupies. Use this class if the card ever becomes a real element
+   (e.g. a rendered digital card in the wallet).                          */
+.member-card{position:relative; border-radius:14px; overflow:hidden;
+             box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.member-card__media{width:100%; height:100%; object-fit:cover; border:0}
+.member-card__lockup{position:absolute; inset:0; display:grid; place-items:center}
+
+/* --- .benefit-list : icon disc + label, stacked (C14) -------------------- */
+.benefit-list{display:flex; flex-direction:column}
+.benefit-list__item{display:flex; align-items:center; gap:48px; height:125px}
+.benefit-list__icon{flex:0 0 94px; width:94px; height:94px; border-radius:var(--r-pill);
+                    display:grid; place-items:center;
+                    background:rgba(200,140,125,.30); color:var(--ink)}
+.benefit-list__label{font-size:37px; font-weight:300; color:var(--ink)}
+
+/* --- .benefit-grid : icon disc + title + blurb, in columns (C21/C22/C23) - */
+.benefit-grid{display:grid; padding:0 var(--gutter); text-align:center}
+.benefit-grid--3{grid-template-columns:repeat(3,1fr); row-gap:60px}
+.benefit-grid--4{grid-template-columns:repeat(4,1fr); column-gap:8px}
+.benefit-grid--ruled .benefit + .benefit{border-left:1px solid var(--line)}
+.benefit{display:flex; flex-direction:column; align-items:center}
+.benefit__icon{width:78px; height:78px; border-radius:var(--r-pill);
+               border:1px solid rgba(228,164,157,.55); background:rgba(228,164,157,.10);
+               display:grid; place-items:center; color:var(--rose-pale)}
+.benefit__title{font-family:var(--font-serif); font-size:26px; line-height:1.2; margin:20px 0 0}
+.benefit__text{font-size:22px; line-height:1.35; font-weight:300; color:var(--muted); margin:14px 0 0}
+.benefit-grid--4 .benefit__icon{width:62px; height:62px}
+.benefit-grid--4 .benefit__title{font-size:22px; margin-top:16px}
+.benefit-grid--4 .benefit__text{font-size:18px; margin-top:10px}
+
+/* --- .tier-card : the "RSN One Membership … ₹5,999 / year" panel --------- */
+.tier-card{display:flex; align-items:center; margin:0 var(--gutter);
+           border:1px solid var(--line); border-radius:var(--r-card);
+           background:var(--panel); padding:0 40px}
+.tier-card__main{flex:1 1 auto}
+.tier-card__name{font-family:var(--font-serif); font-size:40px; line-height:1.15; margin:0; white-space:nowrap}
+.tier-card__desc{margin:14px 0 0; font-size:22px; line-height:1.28; font-weight:300; color:var(--muted)}
+.tier-card__rule{flex:0 0 1px; align-self:stretch; margin:34px 40px; background:var(--line)}
+.tier-card__aside{flex:0 0 250px}
+.tier-card__price{font-family:var(--font-serif); font-size:44px; color:var(--rose-light); white-space:nowrap}
+.tier-card__period{font-size:26px; font-weight:300; color:var(--muted); margin-left:8px; white-space:nowrap}
+.tier-card__note{margin:12px 0 0; font-size:20px; line-height:1.3; font-weight:300; color:var(--muted)}
+
+/* --- .data-row : bordered list row — icon/thumb, body, value, chevron ---- */
+.data-row{display:flex; align-items:center; gap:26px;
+          border:1px solid var(--line); border-radius:12px;
+          background:var(--panel); padding:0 26px; min-height:104px}
+.data-row--selected{border-color:var(--rose); background:rgba(201,124,121,.10)}
+.data-row__icon{flex:0 0 62px; width:62px; height:62px; border-radius:var(--r-pill);
+                display:grid; place-items:center;
+                background:rgba(201,124,121,.22); color:var(--rose-light)}
+.data-row__thumb{flex:0 0 136px; width:136px; height:90px; object-fit:cover; border-radius:8px}
+.data-row__body{flex:1 1 auto; min-width:0}
+.data-row__title{font-family:var(--font-serif); font-size:28px; line-height:1.2; margin:0}
+.data-row__sub{margin:6px 0 0; font-size:20px; line-height:1.3; font-weight:300; color:var(--muted)}
+.data-row__meta{margin:5px 0 0; font-size:18px; line-height:1.3; font-weight:300; color:var(--muted-dim)}
+.data-row__value{font-family:var(--font-serif); font-size:30px; white-space:nowrap}
+.data-row__value--credit{color:var(--credit)}
+.data-row__value--debit{color:var(--debit)}
+.data-row__chevron{color:var(--muted); display:grid; place-items:center}
+.data-row + .data-row{margin-top:12px}
+
+/* --- .promo-banner : light editorial strip with a photo behind ----------- */
+.promo-banner{position:relative; display:block; margin:0 var(--gutter);
+              border-radius:var(--r-card); overflow:hidden; background:var(--banner-bg)}
+.promo-banner__media{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border:0;
+                     background:var(--banner-bg)}  /* light placeholder: this slot is a PALE photo */
+.promo-banner__scrim{position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(240,220,212,.94) 0%, rgba(240,220,212,.72) 46%, rgba(240,220,212,0) 72%)}
+.promo-banner__body{position:relative; padding:32px 40px}
+.promo-banner__title{font-family:var(--font-serif); font-size:40px; line-height:44px; color:var(--ink); margin:0}
+.promo-banner__title em{font-style:italic; color:#B4675F}
+.promo-banner__link{display:inline-flex; align-items:center; gap:14px; margin-top:18px;
+                    font-size:24px; font-weight:300; color:#5C3A31}
+
+/* ==========================================================================
+   SCREEN: MEMBER REFERRALS
+   ========================================================================== */
+/* Gutter measured at x=40 / x=812 (card width 772) — same as C33. */
+.screen--c34{--gutter:40px}
+
+/* DEVIATION-RISK: as on C33, the tab bar here is 144px with a 64px home
+   indicator band (hairline y=1639, home bar centred y=1806) against C03's
+   88+44. Same icons and labels, 60px more chrome. Pick one height. */
+.screen--c34 .tabbar{flex:0 0 144px; padding-top:28px; align-items:flex-start; margin-top:auto}
+.screen--c34 .tab{gap:19px}
+.screen--c34 .home-indicator{flex:0 0 64px}
+
+/* --- top chrome ----------------------------------------------------------- */
+.c34-nav{margin-top:22px; align-items:center}
+.c34-title{padding:0 var(--gutter); margin:4px 0 0;
+           font-family:var(--font-serif); font-size:63px; line-height:68px; font-weight:400}
+.c34-sub{padding:0 var(--gutter); margin:9px 0 0;
+         font-size:26px; line-height:31px; font-weight:300}
+
+/* --- REFERRAL HERO CARD --------------------------------------------------- */
+/* 772 x 263. Light photograph (gift box, ribbon, dried blossom) with a
+   left-to-right scrim; dark ink type. Structurally the same as
+   .promo-banner further down — kept separate because the copy block is
+   three lines deep and the card is twice as tall. */
+.referral-hero{position:relative; display:block; height:263px;
+               margin:16px var(--gutter) 0; border-radius:var(--r-card);
+               overflow:hidden; background:var(--banner-bg)}
+.referral-hero__media{position:absolute; inset:0; width:100%; height:100%;
+                      object-fit:cover; border:0; background:var(--banner-bg)}
+.referral-hero__scrim{position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(240,222,215,.95) 0%, rgba(240,222,215,.80) 40%, rgba(240,222,215,0) 70%)}
+.referral-hero__body{position:relative; padding:30px 40px}
+.referral-hero__title{font-family:var(--font-serif); font-size:52px; line-height:52px;
+                      color:var(--ink); margin:0}
+.referral-hero__title em{font-style:italic; color:#B4675F}
+.referral-hero__text{margin:16px 0 0; font-size:24px; line-height:31px;
+                     font-weight:300; color:#4A2E26}
+
+/* --- SHARE BUTTON + INVITE LINK FIELD ------------------------------------ */
+.c34-share{margin:18px var(--gutter) 0; width:auto; height:77px; border-radius:12px; gap:22px}
+.c34-share .t-eyebrow{font-size:26px; letter-spacing:.22em}
+/* the link is read-only in the mock — a display field with a Copy action */
+.invite-field{display:flex; align-items:center; height:71px; margin:10px var(--gutter) 0;
+              border:1px solid var(--line); border-radius:12px; background:var(--panel)}
+.invite-field__input{flex:1 1 auto; min-width:0; border:0; background:none; outline:none;
+                     padding:0 26px; font-family:var(--font-sans); font-size:24px;
+                     font-weight:300; color:var(--muted)}
+.invite-field__rule{flex:0 0 1px; align-self:stretch; margin:14px 0; background:var(--line)}
+.invite-field__copy{flex:0 0 172px; height:100%; font-size:26px; font-weight:300;
+                    color:var(--rose-light)}
+
+/* --- section headings ----------------------------------------------------- */
+.c34-h2{padding:0 var(--gutter); margin:25px 0 0;
+        font-family:var(--font-serif); font-size:38px; line-height:1.2; font-weight:400}
+.c34-head{display:flex; align-items:baseline; justify-content:space-between;
+          padding:0 var(--gutter); margin-top:22px}
+.c34-head h2{font-family:var(--font-serif); font-size:38px; line-height:1.2;
+             font-weight:400; margin:0}
+.c34-head a{display:inline-flex; align-items:center; gap:14px;
+            font-size:26px; font-weight:300; color:var(--rose-light)}
+
+/* --- REWARDS CARD: two halves split by a hairline ------------------------ */
+.reward-split{display:flex; align-items:center; height:138px; margin:5px var(--gutter) 0;
+              border:1px solid var(--line); border-radius:12px; background:var(--panel)}
+.reward-split__half{flex:1 1 0; display:flex; align-items:center; gap:24px; padding:0 30px}
+.reward-split__rule{flex:0 0 1px; align-self:stretch; margin:32px 0; background:var(--line)}
+.reward-split__amount{font-family:var(--font-serif); font-size:40px; line-height:1.1; margin:0}
+.reward-split__label{margin:8px 0 0; font-size:22px; line-height:27px;
+                     font-weight:300; color:var(--muted)}
+
+/* --- STATS CARD: three cells split by hairlines -------------------------- */
+.stat-split{display:flex; align-items:center; height:117px; margin:5px var(--gutter) 0;
+            border:1px solid var(--line); border-radius:12px; background:var(--panel)}
+.stat-split__cell{flex:1 1 0; padding:0 26px}
+.stat-split__rule{flex:0 0 1px; align-self:stretch; margin:26px 0; background:var(--line)}
+.stat-split__num{font-size:38px; line-height:1.1; font-weight:400; margin:0}
+.stat-split__label{margin:8px 0 0; font-size:21px; font-weight:300; color:var(--muted);
+                   white-space:nowrap}
+
+/* --- RECENT REFERRALS (shared .data-row) --------------------------------- */
+.c34-referrals{padding:0 var(--gutter); margin-top:5px}
+.c34-referrals .data-row{min-height:89px; gap:24px}
+.c34-referrals .data-row + .data-row{margin-top:8px}
+/* initial-letter avatar instead of a photograph */
+.c34-avatar{font-family:var(--font-serif); font-size:30px; color:var(--cream)}
+
+/* --- PROMO BANNER (shared with C33) -------------------------------------- */
+.c34-promo{height:170px; margin-top:22px}
+
+</style>
+</head>
+<body>
+
+<!-- ICON: approximated, swap for production icon set -->
+
+<div class="screen screen--c34">
+
+  <!-- ==================================================================
+       STATUS BAR — iOS chrome drawn into the mock. Not app UI.
+       ================================================================== -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="statusbar__icons">
+      <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+      <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- SECTION: back bar — back arrow + small lockup, same block as C33. -->
+  <nav class="navbar c34-nav">
+    <button class="navbar__back" aria-label="Back">
+      <svg width="40" height="28" viewBox="0 0 22 15" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M21 7.5H1M7 1.5 1 7.5l6 6"/></svg>
+    </button>
+    <a class="brandmark brandmark--sm" href="#" aria-label="RSN one — Global Family Club">
+      <!-- LOGO: full lockup (arc + wordmark + tagline) as one asset. -->
+      <img class="logo" src="rsn-one-images/logo-rsnone-01.png" alt="logo-rsnone-01" width="156" height="79">
+    </a>
+  </nav>
+
+  <h1 class="c34-title">Refer a Friend</h1>
+  <p class="c34-sub">Share the extraordinary. Invite your<br>friends and earn rewards together.</p>
+
+  <!-- ==================================================================
+       SECTION: referral hero card — 772 x 263, light photograph of a ribboned RSN
+       one gift box with dried blossom, scrimmed on the left for dark ink
+       type. Serif headline with an italic rose word, 3-line body.
+       ================================================================== -->
+  <div class="referral-hero">
+    <img class="referral-hero__media" src="rsn-one-images/promo-referral-gift-01.jpg"
+         alt="promo-referral-gift-01" width="772" height="263">
+    <div class="referral-hero__scrim"></div>
+    <div class="referral-hero__body">
+      <div class="referral-hero__title">A more<br><em>thoughtful</em> circle.</div>
+      <p class="referral-hero__text">Give your friends 10% off<br>their first order, and earn<br>₹1,000 for each successful referral.</p>
+    </div>
+  </div>
+
+  <!-- ==================================================================
+       SECTION: share action — 77px rose button, then the invite link shown in a
+       read-only field with a "Copy" action, split by a hairline at x=636.
+       ================================================================== -->
+  <button class="btn btn--primary btn--block c34-share">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 16V4M8 8l4-4 4 4"/><path d="M5 14v5h14v-5"/></svg>
+    <span class="t-eyebrow">Share Invite Link</span>
+  </button>
+
+  <div class="invite-field">
+    <input class="invite-field__input" type="text" value="https://rsnone.com/invite/aanya123" readonly aria-label="Your invite link">
+    <span class="invite-field__rule" aria-hidden="true"></span>
+    <button class="invite-field__copy">Copy</button>
+  </div>
+
+  <!-- ==================================================================
+       SECTION: "Your Rewards" — one 138px panel split in two by a hairline.
+       Each half: 62px tinted disc, amount, 2-line caption.
+       ================================================================== -->
+  <h2 class="c34-h2">Your Rewards</h2>
+
+  <div class="reward-split">
+    <div class="reward-split__half">
+      <span class="data-row__icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="3" y="9" width="18" height="12" rx="1"/><path d="M3 13h18M12 9v12"/><path d="M12 9S10.5 4 8 4a2 2 0 0 0 0 5h4Zm0 0s1.5-5 4-5a2 2 0 0 1 0 5h-4Z"/></svg>
+      </span>
+      <span>
+        <p class="reward-split__amount">₹1,000</p>
+        <p class="reward-split__label">for each successful<br>referral</p>
+      </span>
+    </div>
+    <span class="reward-split__rule" aria-hidden="true"></span>
+    <div class="reward-split__half">
+      <span class="data-row__icon">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12.5 3H21v8.5L11 21.5 2.5 13 12.5 3Z"/><path d="M16.6 8.4h.01"/></svg>
+      </span>
+      <span>
+        <p class="reward-split__amount">10% Off</p>
+        <p class="reward-split__label">for your friend's<br>first order</p>
+      </span>
+    </div>
+  </div>
+
+  <!-- ==================================================================
+       SECTION: "Referral Stats" + "View all" — one 117px panel, three cells
+       split by hairlines at x=293 and x=560.
+       ASSUMPTION: 8 successful referrals x ₹1,000 = ₹8,000, which matches
+       "Total Earnings". Consistent, so the numbers are real sample data
+       rather than placeholders.
+       ================================================================== -->
+  <div class="c34-head">
+    <h2>Referral Stats</h2>
+    <a href="#">View all
+      <svg width="30" height="18" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h14M10 1l4 4-4 4"/></svg>
+    </a>
+  </div>
+
+  <div class="stat-split">
+    <div class="stat-split__cell">
+      <p class="stat-split__num">12</p>
+      <p class="stat-split__label">Friends Invited</p>
+    </div>
+    <span class="stat-split__rule" aria-hidden="true"></span>
+    <div class="stat-split__cell">
+      <p class="stat-split__num">8</p>
+      <p class="stat-split__label">Successful Referrals</p>
+    </div>
+    <span class="stat-split__rule" aria-hidden="true"></span>
+    <div class="stat-split__cell">
+      <p class="stat-split__num">₹8,000</p>
+      <p class="stat-split__label">Total Earnings</p>
+    </div>
+  </div>
+
+  <!-- ==================================================================
+       SECTION: "Recent Referrals" — two 89px .data-row entries. The avatar
+       is an initial letter in a tinted disc, not a photograph, so there is
+       no image slot here.
+       DEVIATION-RISK: the card says 8 successful referrals but only 2 rows
+       are shown and there is no "View all" on this heading (the one above
+       belongs to Referral Stats). The other 6 are unreachable.
+       ================================================================== -->
+  <h2 class="c34-h2">Recent Referrals</h2>
+
+  <ul class="c34-referrals">
+    <li class="data-row">
+      <span class="data-row__icon c34-avatar" aria-hidden="true">R</span>
+      <span class="data-row__body">
+        <h3 class="data-row__title">Riya Mehta</h3>
+        <p class="data-row__sub">Joined on 12 Aug 2024</p>
+      </span>
+      <span class="data-row__value data-row__value--credit">+ ₹1,000</span>
+    </li>
+    <li class="data-row">
+      <span class="data-row__icon c34-avatar" aria-hidden="true">K</span>
+      <span class="data-row__body">
+        <h3 class="data-row__title">Karan Sethi</h3>
+        <p class="data-row__sub">Joined on 03 Aug 2024</p>
+      </span>
+      <span class="data-row__value data-row__value--credit">+ ₹1,000</span>
+    </li>
+  </ul>
+
+  <!-- ==================================================================
+       SECTION: promo banner — 170px, same .promo-banner component and the SAME
+       photograph as C33's banner (promo-quiet-table-01). Only the copy
+       differs.
+       ================================================================== -->
+  <a class="promo-banner c34-promo" href="C14-Membership.html">
+    <img class="promo-banner__media" src="rsn-one-images/promo-quiet-table-01.jpg"
+         alt="promo-quiet-table-01" width="772" height="170">
+    <div class="promo-banner__scrim"></div>
+    <div class="promo-banner__body">
+      <div class="promo-banner__title">Extraordinary living<br>is better <em>together.</em></div>
+      <span class="promo-banner__link">Build your global family
+        <svg width="28" height="16" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h14M10 1l4 4-4 4"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <!-- SECTION: tab bar — ME active. Same 144px height note as C33. -->
+  <nav class="tabbar">
+    <a class="tab" href="C03-Home.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3.5 3.5 10.5V21h17V10.5L12 3.5Z"/></svg>
+      <span class="t-tab">Home</span>
+    </a>
+    <a class="tab" href="C04-Shop.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <span class="t-tab">Shop</span>
+    </a>
+    <a class="tab" href="C09-Wishlist.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20.5S3 14.8 3 9.2A5 5 0 0 1 12 6.5 5 5 0 0 1 21 9.2c0 5.6-9 11.3-9 11.3Z"/></svg>
+      <span class="t-tab">Wishlist</span>
+    </a>
+    <a class="tab tab--active" href="C17-Me.html" aria-current="page">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0Z"/></svg>
+      <span class="t-tab">Me</span>
+    </a>
+  </nav>
+
+  <div class="home-indicator"></div>
+
+</div>
+
+</body>
+</html>

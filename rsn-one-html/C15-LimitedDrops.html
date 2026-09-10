@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C15 Limited Drops</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C15 Limited Drops
+   Source mock: rsn-one-design/C15-LimitedDrops.png  (853 x 1844, 1x)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Tokens + base components are IDENTICAL in every CXX file; see
+   RSN-HANDOFF-SPEC.md. Screen-specific CSS starts at "SCREEN: LIMITED DROPS".
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   SCREEN: LIMITED DROPS  (C15)
+   One full-bleed photograph fills the whole 853x1844 frame; the status bar,
+   app bar and all copy sit on top of it. A pale "The Autumn Drop" panel
+   overlaps the bottom of the photo. There is NO tab bar on this screen —
+   only the iOS home indicator.
+   ========================================================================== */
+
+/* the photograph is the page background, not a section */
+.dropscreen{position:relative}
+.dropscreen__media{position:absolute; inset:0; width:853px; height:1844px;
+                   object-fit:cover; border:0}
+/* scrim darkens the left third so the copy stays legible */
+.dropscreen__scrim{position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(41,28,25,.90) 0%, rgba(41,28,25,.72) 34%,
+                                    rgba(41,28,25,.30) 62%, rgba(41,28,25,.06) 100%)}
+.dropscreen > .statusbar,
+.dropscreen > .appbar,
+.dropscreen > .drop-intro,
+.dropscreen > .home-indicator{position:relative; z-index:1}
+.dropscreen > .drop-panel{z-index:1}
+.dropscreen > .home-indicator{background:transparent; margin-top:auto}
+
+/* back arrow added to the left of the standard app-bar logo */
+.appbar__back{display:grid; place-items:center; width:44px; height:44px;
+              margin-right:8px; color:var(--cream)}
+.appbar__lead{display:flex; align-items:center}
+
+/* --- INTRO: eyebrow, rule, 2-line display headline, body, pull-quote ----- */
+/* left gutter on this screen is 60px, not the standard 36px */
+.drop-intro{padding:85px 60px 0}
+.drop-intro__eyebrow{display:block; font-size:22px; line-height:1;
+                     letter-spacing:.22em; text-transform:uppercase;
+                     font-weight:400; color:var(--rose-pale)}
+.rule{border:0; height:3px; background:var(--rose-pale); opacity:.85; margin:0}
+.rule--88{width:88px; margin-top:33px}
+.rule--57{width:57px; margin-top:25px}
+/* 100px serif, lines set tight (measured baseline-to-baseline = 92px) */
+.drop-intro__title{font-family:var(--font-serif); font-size:95px; line-height:.97;
+                   font-weight:400; margin:75px 0 0}
+.drop-intro__body{font-size:32px; line-height:44px; font-weight:300; margin:23px 0 0}
+.drop-intro__voice{font-family:var(--font-serif); font-style:italic; font-size:32px;
+                   line-height:44px; color:var(--rose-pale); margin:78px 0 0}
+
+/* --- AUTUMN DROP PANEL: pale card overlapping the bottom of the photo ---- */
+/* measured rect: x 20 -> 833, y 1292 -> 1743  (813 x 451) */
+.drop-panel{position:absolute; left:20px; right:20px; top:1292px; height:451px;
+            background:#F2DCD6; color:#3B2A24; border-radius:28px; padding:75px 46px 0}
+.drop-panel__title{font-family:var(--font-serif); font-size:67px; line-height:1.05;
+                   font-weight:400; margin:0}
+.drop-panel__body{font-size:36px; line-height:45px; font-weight:300;
+                  color:#6B4F49; margin:18px 0 0}
+.drop-panel__cta{margin-top:30px; width:721px; height:107px; border-radius:12px;
+                 background:var(--rose); color:#FFF7F5; gap:26px; padding:0}
+.drop-panel__cta .t-eyebrow{font-size:28px; letter-spacing:.20em; font-weight:400}
+</style>
+</head>
+<body>
+
+<!-- ICON: approximated, swap for production icon set -->
+
+<div class="screen dropscreen">
+
+  <!-- ==================================================================
+       BACKGROUND PHOTO — one image behind the entire frame (853 x 1844),
+       plus a left-to-right scrim. Everything below sits on top of it.
+       ================================================================== -->
+  <img class="dropscreen__media" src="rsn-one-images/hero-limited-drops-01.jpg"
+       alt="hero-limited-drops-01" width="853" height="1844">
+  <div class="dropscreen__scrim"></div>
+
+  <!-- ==================================================================
+       STATUS BAR — iOS chrome drawn into the mock. Not app UI; delete this
+       block when building the real screen.
+       ================================================================== -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="statusbar__icons">
+      <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+      <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- ==================================================================
+       APP BAR — same block as C03 Home, with a back arrow added ahead of
+       the logo and a THIRD action (wishlist heart) between search and bag.
+       Measured: back 34-70, logo 113-312, search 591-628, heart 672-711,
+       bag 757-799, badge circle 780-822.
+       ================================================================== -->
+  <header class="appbar">
+    <div class="appbar__lead">
+      <button class="appbar__back" aria-label="Back">
+        <svg width="42" height="34" viewBox="0 0 22 18" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M21 9H1M8 2 1 9l7 7"/></svg>
+      </button>
+      <a class="appbar__logo" href="C03-Home.html" aria-label="RSN one — Global Family Club">
+        <!-- LOGO: full lockup (arc + wordmark + tagline) as one asset. -->
+        <img class="logo" src="rsn-one-images/logo-rsnone-01.png" alt="logo-rsnone-01" width="186" height="94">
+      </a>
+    </div>
+    <div class="appbar__actions">
+      <button class="appbar__action" aria-label="Search">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>
+      </button>
+      <a class="appbar__action" href="C09-Wishlist.html" aria-label="Wishlist">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 20.5S3 14.8 3 9.2A5 5 0 0 1 12 6.5 5 5 0 0 1 21 9.2c0 5.6-9 11.3-9 11.3Z"/></svg>
+      </a>
+      <a class="appbar__action" href="C10-Bag.html" aria-label="Bag, 3 items">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="appbar__badge">3</span>
+      </a>
+    </div>
+  </header>
+
+  <!-- ==================================================================
+       INTRO — eyebrow + 88x3 rule + 2-line display headline + 2-line body
+       + italic pull-quote + 57x3 rule. Left gutter 60px on this screen.
+       ASSUMPTION: "C10" in the eyebrow is a screen/route reference the
+       designer left in the artwork (this file is C15). Confirm whether it
+       is real copy or a stray label before build.
+       ================================================================== -->
+  <section class="drop-intro">
+    <span class="drop-intro__eyebrow">C10 Limited Drops</span>
+    <hr class="rule rule--88">
+    <h1 class="drop-intro__title">Limited<br>Discoveries</h1>
+    <p class="drop-intro__body">Rare objects. Exclusive access.<br>For those who seek more.</p>
+    <p class="drop-intro__voice">Thoughtful pieces.<br>Brighter days.</p>
+    <hr class="rule rule--57">
+  </section>
+
+  <!-- ==================================================================
+       "The Autumn Drop" PANEL — pale card, 813 x 451, overlapping the
+       bottom of the photograph (top edge y=1292). Title, 2-line body,
+       full-width rose EXPLORE DROP button (721 x 107).
+       DEVIATION-RISK: the panel covers the lower third of the hero
+       photograph and there is no tab bar on this screen, so HOME / SHOP /
+       WISHLIST / ME are unreachable from here — the back arrow is the only
+       way out. Confirm this is intended.
+       ================================================================== -->
+  <section class="drop-panel">
+    <h2 class="drop-panel__title">The Autumn Drop</h2>
+    <p class="drop-panel__body">Curated pieces from exceptional<br>houses, available for a limited time.</p>
+    <a class="btn btn--primary drop-panel__cta" href="C24-DropDetail.html">
+      <span class="t-eyebrow">Explore Drop</span>
+      <svg width="34" height="20" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h14M10 1l4 4-4 4"/></svg>
+    </a>
+  </section>
+
+  <div class="home-indicator"></div>
+
+</div>
+</body>
+</html>

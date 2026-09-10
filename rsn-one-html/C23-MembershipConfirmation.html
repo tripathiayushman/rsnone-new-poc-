@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C23 Membership Confirmation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C23 Membership Confirmation
+   Source mock: rsn-one-design/C23-MembershipConfirmation.png  (853 x 1844, 1x)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Sections 1-9 below are IDENTICAL in every membership-flow file
+   (C14, C21, C22, C23, C33, C34); see RSN-HANDOFF-SPEC.md.
+   Screen-specific CSS starts at "SCREEN: MEMBERSHIP CONFIRMATION".
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   9. MEMBERSHIP FLOW — SHARED COMPONENTS
+   This block is BYTE-IDENTICAL in C14, C21, C22, C23, C33 and C34. If you
+   change a rule here, change it in all six files. Anything below the
+   "SCREEN:" banner further down is local to one screen only.
+
+   Component            Appears on
+   -------------------  --------------------------------
+   .hero-shot           C14 C21 C22 C23      full-bleed photograph
+   .brandmark               C21 C22 C23 C33 C34   RSN one logo lockup
+   .navbar                  C21 C22     C33 C34   back bar
+   .member-card         C14 C21     C23          membership card artwork
+   .benefit-list        C14                      benefits, vertical
+   .benefit-grid            C21 C22 C23          benefits, grid
+   .tier-card               C21 C22              price / plan panel
+   .data-row                    C22 C33 C34      bordered list row
+   .promo-banner                    C33 C34      light editorial banner
+   ========================================================================== */
+
+/* extra tokens used only by this flow -------------------------------------- */
+:root{
+  --ink:#3B241D;             /* dark text sitting on light photography     */
+  --panel:rgba(250,247,245,.045);  /* translucent card over photography    */
+  --credit:#A9C9AC;          /* "+ ₹8,499" money-in                        */
+  --debit:var(--rose);       /* "- ₹4,049" money-out                       */
+  --banner-bg:#E9D0C8;       /* light promo banner ground                  */
+}
+
+/* --- .hero-shot : a photograph filling the whole artboard ---------------- */
+.screen--photo > *{position:relative; z-index:1}
+.hero-shot{position:absolute; inset:0; z-index:0; overflow:hidden}
+.hero-shot__media{width:100%; height:100%; object-fit:cover; border:0}
+.hero-shot__scrim{position:absolute; inset:0}
+
+/* --- .brandmark : the RSN one logo lockup, shipped as one image asset.
+       .brandmark--sm is the smaller navbar size; both sizes are set on
+       the <img> itself, so the modifier carries no CSS of its own. --- */
+.brandmark{display:inline-block; line-height:1}
+.brandmark--center{text-align:center}
+
+/* --- .navbar : back arrow, optionally with the lockup beside it ---------- */
+.navbar{display:flex; align-items:center; gap:20px; padding:0 var(--gutter)}
+.navbar__back{color:var(--rose-light); display:grid; place-items:center;
+              width:44px; height:44px; flex:0 0 44px}
+.navbar__title{font-family:var(--font-serif); font-size:34px}
+
+/* --- .member-card : the physical RSN One card ---------------------------
+   DECLARED HERE SO THE FLOW SHARES ONE NAME. In C14, C21 and C23 the card is
+   PHOTOGRAPHED INTO the hero image — it is not a separate DOM layer in the
+   mock, and each of those files carries an HTML comment giving the rectangle
+   the card occupies. Use this class if the card ever becomes a real element
+   (e.g. a rendered digital card in the wallet).                          */
+.member-card{position:relative; border-radius:14px; overflow:hidden;
+             box-shadow:0 24px 60px rgba(0,0,0,.35)}
+.member-card__media{width:100%; height:100%; object-fit:cover; border:0}
+.member-card__lockup{position:absolute; inset:0; display:grid; place-items:center}
+
+/* --- .benefit-list : icon disc + label, stacked (C14) -------------------- */
+.benefit-list{display:flex; flex-direction:column}
+.benefit-list__item{display:flex; align-items:center; gap:48px; height:125px}
+.benefit-list__icon{flex:0 0 94px; width:94px; height:94px; border-radius:var(--r-pill);
+                    display:grid; place-items:center;
+                    background:rgba(200,140,125,.30); color:var(--ink)}
+.benefit-list__label{font-size:37px; font-weight:300; color:var(--ink)}
+
+/* --- .benefit-grid : icon disc + title + blurb, in columns (C21/C22/C23) - */
+.benefit-grid{display:grid; padding:0 var(--gutter); text-align:center}
+.benefit-grid--3{grid-template-columns:repeat(3,1fr); row-gap:60px}
+.benefit-grid--4{grid-template-columns:repeat(4,1fr); column-gap:8px}
+.benefit-grid--ruled .benefit + .benefit{border-left:1px solid var(--line)}
+.benefit{display:flex; flex-direction:column; align-items:center}
+.benefit__icon{width:78px; height:78px; border-radius:var(--r-pill);
+               border:1px solid rgba(228,164,157,.55); background:rgba(228,164,157,.10);
+               display:grid; place-items:center; color:var(--rose-pale)}
+.benefit__title{font-family:var(--font-serif); font-size:26px; line-height:1.2; margin:20px 0 0}
+.benefit__text{font-size:22px; line-height:1.35; font-weight:300; color:var(--muted); margin:14px 0 0}
+.benefit-grid--4 .benefit__icon{width:62px; height:62px}
+.benefit-grid--4 .benefit__title{font-size:22px; margin-top:16px}
+.benefit-grid--4 .benefit__text{font-size:18px; margin-top:10px}
+
+/* --- .tier-card : the "RSN One Membership … ₹5,999 / year" panel --------- */
+.tier-card{display:flex; align-items:center; margin:0 var(--gutter);
+           border:1px solid var(--line); border-radius:var(--r-card);
+           background:var(--panel); padding:0 40px}
+.tier-card__main{flex:1 1 auto}
+.tier-card__name{font-family:var(--font-serif); font-size:40px; line-height:1.15; margin:0; white-space:nowrap}
+.tier-card__desc{margin:14px 0 0; font-size:22px; line-height:1.28; font-weight:300; color:var(--muted)}
+.tier-card__rule{flex:0 0 1px; align-self:stretch; margin:34px 40px; background:var(--line)}
+.tier-card__aside{flex:0 0 250px}
+.tier-card__price{font-family:var(--font-serif); font-size:44px; color:var(--rose-light); white-space:nowrap}
+.tier-card__period{font-size:26px; font-weight:300; color:var(--muted); margin-left:8px; white-space:nowrap}
+.tier-card__note{margin:12px 0 0; font-size:20px; line-height:1.3; font-weight:300; color:var(--muted)}
+
+/* --- .data-row : bordered list row — icon/thumb, body, value, chevron ---- */
+.data-row{display:flex; align-items:center; gap:26px;
+          border:1px solid var(--line); border-radius:12px;
+          background:var(--panel); padding:0 26px; min-height:104px}
+.data-row--selected{border-color:var(--rose); background:rgba(201,124,121,.10)}
+.data-row__icon{flex:0 0 62px; width:62px; height:62px; border-radius:var(--r-pill);
+                display:grid; place-items:center;
+                background:rgba(201,124,121,.22); color:var(--rose-light)}
+.data-row__thumb{flex:0 0 136px; width:136px; height:90px; object-fit:cover; border-radius:8px}
+.data-row__body{flex:1 1 auto; min-width:0}
+.data-row__title{font-family:var(--font-serif); font-size:28px; line-height:1.2; margin:0}
+.data-row__sub{margin:6px 0 0; font-size:20px; line-height:1.3; font-weight:300; color:var(--muted)}
+.data-row__meta{margin:5px 0 0; font-size:18px; line-height:1.3; font-weight:300; color:var(--muted-dim)}
+.data-row__value{font-family:var(--font-serif); font-size:30px; white-space:nowrap}
+.data-row__value--credit{color:var(--credit)}
+.data-row__value--debit{color:var(--debit)}
+.data-row__chevron{color:var(--muted); display:grid; place-items:center}
+.data-row + .data-row{margin-top:12px}
+
+/* --- .promo-banner : light editorial strip with a photo behind ----------- */
+.promo-banner{position:relative; display:block; margin:0 var(--gutter);
+              border-radius:var(--r-card); overflow:hidden; background:var(--banner-bg)}
+.promo-banner__media{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border:0;
+                     background:var(--banner-bg)}  /* light placeholder: this slot is a PALE photo */
+.promo-banner__scrim{position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(240,220,212,.94) 0%, rgba(240,220,212,.72) 46%, rgba(240,220,212,0) 72%)}
+.promo-banner__body{position:relative; padding:32px 40px}
+.promo-banner__title{font-family:var(--font-serif); font-size:40px; line-height:44px; color:var(--ink); margin:0}
+.promo-banner__title em{font-style:italic; color:#B4675F}
+.promo-banner__link{display:inline-flex; align-items:center; gap:14px; margin-top:18px;
+                    font-size:24px; font-weight:300; color:#5C3A31}
+
+/* ==========================================================================
+   SCREEN: MEMBERSHIP CONFIRMATION
+   ========================================================================== */
+/* Gutter measured at x=56 / x=794 (the CTA). Normalised to 50px across
+   C21 / C22 / C23 — see the note in C21. */
+.screen--c23{--gutter:50px}
+
+/* The photograph runs the full 853 x 1844. A soft scrim keeps the centred
+   type legible; from y=1220 down an almost-opaque espresso panel takes over
+   (the seam is a hard edge in the mock, measured at y=1220). */
+.c23-scrim{background:linear-gradient(180deg,
+            rgba(41,28,25,.62) 0%, rgba(41,28,25,.50) 34%,
+            rgba(41,28,25,.20) 58%, rgba(41,28,25,.10) 100%)}
+
+/* --- centred confirmation stack ------------------------------------------ */
+.c23-brand{margin-top:30px; text-align:center}
+.c23-check{width:110px; height:110px; margin:52px auto 0; border-radius:var(--r-pill);
+           background:var(--rose); color:#fff; display:grid; place-items:center}
+.c23-title{margin:21px 0 0; text-align:center;
+           font-family:var(--font-serif); font-size:84px; line-height:82px; font-weight:400}
+.c23-title em{font-style:italic; color:var(--rose-light)}
+.c23-sub{margin:24px 0 0; text-align:center; font-size:26px; line-height:37px; font-weight:300}
+
+/* --- the pull-quote set into the photograph, right side ------------------ */
+/* Absolutely placed because it is composed against the picture, not the grid.
+   Measured: left edge x=648, first line cap-top y=999, 25px line pitch. */
+.c23-voice{position:absolute; left:648px; top:993px; z-index:1;
+           font-size:16px; line-height:25px; letter-spacing:.24em;
+           text-transform:uppercase; font-weight:400; color:var(--cream); margin:0}
+
+/* --- "What's Next?" panel ------------------------------------------------ */
+.c23-next{margin-top:565px; flex:1 0 auto; padding:39px 0 0;
+          background:rgba(41,28,25,.94)}
+.c23-next__title{text-align:center; font-family:var(--font-serif);
+                 font-size:44px; line-height:1.2; font-weight:400; margin:0}
+.c23-next__sub{margin:12px 0 0; text-align:center; font-size:26px; line-height:33px;
+               font-weight:300}
+/* 3 columns separated by hairline rules — .benefit-grid--ruled */
+.c23-grid{margin-top:30px}
+.c23-grid .benefit__icon{width:70px; height:70px}
+.c23-grid .benefit__title{font-family:var(--font-sans); font-size:24px;
+                          line-height:29px; font-weight:300; margin-top:29px}
+
+.c23-cta{margin:41px var(--gutter) 0; width:calc(100% - (2 * var(--gutter)));
+         height:83px; border-radius:12px}
+.c23-cta .t-eyebrow{font-size:26px; letter-spacing:.22em}
+
+/* the dark panel continues behind the home bar */
+.screen--c23 .home-indicator{background:rgba(41,28,25,.94); margin-top:auto}
+
+</style>
+</head>
+<body>
+
+<!-- ICON: approximated, swap for production icon set -->
+
+<div class="screen screen--photo screen--c23">
+
+  <!-- ==================================================================
+       SECTION: hero photograph — full bleed, 853 x 1844. The RSN One gift box stands
+       upright on a marble ledge with a stone bowl, a vase of blossom and
+       loose petals falling through the frame. Same shoot as C21/C22, third
+       frame, so it gets its own slot.
+       ================================================================== -->
+  <div class="hero-shot">
+    <img class="hero-shot__media" src="rsn-one-images/hero-membership-welcome-01.jpg"
+         alt="hero-membership-welcome-01" width="853" height="1844">
+    <div class="hero-shot__scrim c23-scrim"></div>
+  </div>
+
+  <!-- ==================================================================
+       STATUS BAR — iOS chrome drawn into the mock. Not app UI.
+       ================================================================== -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="statusbar__icons">
+      <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+      <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- DEVIATION-RISK: no back arrow and no tab bar on this screen. That is
+       usually correct for a success screen — "EXPLORE NOW" is the only way
+       on — but it means the user cannot get back to the receipt. Confirm
+       there is a membership record elsewhere (C17 Me / C33 Wallet). -->
+
+  <!-- ==================================================================
+       SECTION: confirmation stack — all centred: lockup, 110px rose tick,
+       84px serif headline on 82px leading, 2-line blurb.
+       ================================================================== -->
+  <div class="c23-brand">
+    <a class="brandmark brandmark--center" href="#" aria-label="RSN one — Global Family Club">
+      <!-- LOGO: full lockup (arc + wordmark + tagline) as one asset. -->
+      <img class="logo" src="rsn-one-images/logo-rsnone-01.png" alt="logo-rsnone-01" width="240" height="121">
+    </a>
+  </div>
+
+  <!-- SECTION: success tick — 110px rose disc, white check -->
+  <div class="c23-check" aria-hidden="true">
+    <svg width="58" height="58" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12.5 4.5 4.5L19 7"/></svg>
+  </div>
+
+  <h1 class="c23-title">Welcome to<br><em>RSN One!</em></h1>
+  <p class="c23-sub">Your membership is now active.<br>A more meaningful world awaits you.</p>
+
+  <!-- ==================================================================
+       SECTION: pull-quote set into the photograph, right of the box. 5 lines of
+       tracked-out uppercase, left edge x=648, 25px line pitch.
+       DEVIATION-RISK: this sits on the brightest part of the photo (petals
+       and vase) with no scrim of its own — contrast will vary with the final
+       image. Needs a plate or a darker crop.
+       ================================================================== -->
+  <p class="c23-voice">Extraordinary<br>objects.<br>A more<br>meaningful<br>you.</p>
+
+  <!-- ==================================================================
+       .member-card — the RSN One box is PHOTOGRAPHED INTO
+       hero-membership-welcome-01 (measured rectangle: x 253-590, y 675-1215,
+       standing upright). Not a separate layer here.
+       ================================================================== -->
+
+  <!-- ==================================================================
+       SECTION: "What's Next?" panel — near-opaque espresso plate over the photo,
+       hard top edge measured at y=1220, runs to the bottom of the frame.
+       3 routes separated by hairline rules, then the primary CTA.
+       ================================================================== -->
+  <section class="c23-next">
+    <h2 class="c23-next__title">What’s Next?</h2>
+    <p class="c23-next__sub">Start exploring a world of extraordinary objects,<br>homes and experiences.</p>
+
+    <ul class="benefit-grid benefit-grid--3 benefit-grid--ruled c23-grid">
+      <li class="benefit">
+        <span class="benefit__icon">
+          <!-- shopping bag -->
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        </span>
+        <h3 class="benefit__title">Shop<br>Curated Collections</h3>
+      </li>
+      <li class="benefit">
+        <span class="benefit__icon">
+          <!-- star -->
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="m12 3 2.8 5.9 6.2.9-4.5 4.5 1.1 6.4L12 17.7 6.4 20.7l1.1-6.4L3 9.8l6.2-.9L12 3Z"/></svg>
+        </span>
+        <h3 class="benefit__title">Discover<br>Limited Drops</h3>
+      </li>
+      <li class="benefit">
+        <span class="benefit__icon">
+          <!-- globe -->
+          <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c5 5 5 13 0 18M12 3c-5 5-5 13 0 18"/></svg>
+        </span>
+        <h3 class="benefit__title">Explore<br>Global Makers</h3>
+      </li>
+    </ul>
+
+    <button class="btn btn--primary btn--block c23-cta">
+      <span class="t-eyebrow">Explore Now</span>
+      <svg width="30" height="18" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h14M10 1l4 4-4 4"/></svg>
+    </button>
+  </section>
+
+  <div class="home-indicator"></div>
+
+</div>
+
+</body>
+</html>

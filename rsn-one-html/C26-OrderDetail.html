@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C26 OrderDetail</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C26 OrderDetail
+   Source mock: rsn-one-design/C26-OrderDetail.png  (853 x 1844, 1x)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Tokens + base components (sections 1-8) are IDENTICAL in every CXX file and
+   are copied verbatim from C03-Home.html; see RSN-HANDOFF-SPEC.md.
+   Screen-specific CSS starts at "SCREEN: ORDERDETAIL".
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   SCREEN: ORDERDETAIL
+   Back bar (+ Help) → order title → tracker card → shipping address →
+   order items → order summary → help CTA → tab bar.
+   All four panels align to x=34 / x=819 (785 wide).
+   ========================================================================== */
+
+/* --- BACK BAR: arrow left, "? Help" right ------------------------------- */
+.navbar{flex:0 0 103px; display:flex; align-items:center; justify-content:space-between;
+        padding:0 42px 0 42px}
+.navbar__back{display:block; color:var(--cream)}
+.navbar__help{display:inline-flex; align-items:center; gap:21px; color:var(--rose-light);
+              font-size:23px}
+
+/* --- ORDER TITLE --------------------------------------------------------- */
+.detail-head{padding:8px 36px 0 42px}
+.detail-head__title{font-family:var(--font-serif); font-size:60px; line-height:1;
+                    font-weight:400; margin:0}
+.detail-head__meta{margin:10px 0 0; font-size:23px; line-height:1; color:var(--muted)}
+
+/* --- PANEL: the shared bordered card used by the tracker, the address block
+       and the summary. 785 wide, 1px hairline, 16px radius. --------------- */
+.panel{margin:22px 34px 0; border:1px solid var(--line);
+       border-radius:var(--r-card); background:var(--surface)}
+/* a panel that follows a section head sits 8px under it, not 22px */
+.detail-section + .panel{margin-top:8px}
+
+/* --- TIMELINE (SHARED) — horizontal variant -----------------------------
+   Same block as the vertical .timeline on C18 Order Tracking; here it is
+   laid out as 4 equal columns inside the tracker card.
+   States: .timeline__step--done | --current | (no modifier) = pending.
+   Measured marker centres: x=123 / 316 / 536 / 736 (i.e. NOT perfectly
+   even — this file uses equal flex columns, which lands within ~14px).
+   ------------------------------------------------------------------------ */
+.timeline--horizontal{display:flex; padding:24px 24px 0}
+.timeline--horizontal .timeline__step{position:relative; flex:1; display:flex;
+        flex-direction:column; align-items:center; text-align:center}
+.timeline--horizontal .timeline__step::before{content:""; position:absolute; top:33px;
+        right:50%; width:100%; height:3px; background:var(--line-strong)}
+.timeline--horizontal .timeline__step:first-child::before{display:none}
+.timeline--horizontal .timeline__step--done::before,
+.timeline--horizontal .timeline__step--current::before{background:var(--rose)}
+.timeline__marker{position:relative; z-index:1; height:68px; display:grid; place-items:center}
+.timeline__dot{width:56px; height:56px; border-radius:var(--r-pill);
+               display:grid; place-items:center;
+               border:2px solid var(--line-strong); background:var(--surface);
+               color:var(--muted)}
+.timeline__step--done .timeline__dot{background:var(--rose); border-color:var(--rose); color:#FFF}
+.timeline__step--current .timeline__dot{width:68px; height:68px; background:var(--rose);
+               border:3px solid var(--rose-light); color:#FFF}
+.timeline__label{margin:12px 0 0; font-size:20px; line-height:1.2; color:var(--muted)}
+.timeline__step--done .timeline__label{color:var(--cream)}
+.timeline__step--current .timeline__label{color:var(--rose)}
+.timeline__time{margin:10px 0 0; font-size:20px; line-height:1.2; color:var(--muted)}
+
+/* --- TRACKER CARD: timeline + hairline + delivery note + CTA ------------- */
+.tracker__rule{height:1px; margin:18px 24px 0; background:var(--line)}
+.tracker__note{display:flex; align-items:center; gap:33px; padding:20px 26px 20px 33px}
+.tracker__icon{flex:0 0 53px; color:var(--rose-light)}
+.tracker__text{flex:1 1 auto}
+.tracker__headline{margin:0; font-size:22px; line-height:1.2; color:var(--cream)}
+.tracker__sub{margin:15px 0 0; font-size:22px; line-height:1.2; color:var(--muted)}
+.tracker__cta{flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center;
+              gap:18px; width:236px; height:58px; border-radius:var(--r-btn);
+              background:#60342C; color:var(--cream); font-size:22px}
+
+/* --- SECTION HEAD (serif title + optional rose text link) ---------------- */
+.detail-section{display:flex; align-items:baseline; justify-content:space-between;
+                padding:32px 42px 0}
+.detail-section__title{font-family:var(--font-serif); font-size:36px; line-height:1;
+                       font-weight:400; margin:0}
+.detail-section__link{font-size:22px; color:var(--rose-light)}
+
+/* --- ADDRESS CARD -------------------------------------------------------- */
+.address{display:flex; gap:57px; padding:24px 33px 16px 47px; align-items:flex-start}
+.address__pin{flex:0 0 32px; color:var(--rose-light); margin-top:26px}
+.address__name{margin:0; font-size:22px; line-height:1.25; font-weight:500; color:var(--cream)}
+.address__line{margin:4px 0 0; font-size:21px; line-height:29px; color:var(--muted)}
+
+/* --- ORDER ITEM LINE ----------------------------------------------------- */
+.order-item{display:flex; gap:27px; padding:14px 36px 0 40px; align-items:flex-start}
+.order-item__media{width:248px; height:216px; object-fit:cover; border-radius:14px;
+                   flex:0 0 248px}
+.order-item__body{padding-top:12px}
+.order-item__title{font-family:var(--font-serif); font-size:30px; line-height:1;
+                   font-weight:400; margin:0}
+.order-item__house{margin:15px 0 0; font-size:21px; line-height:1; color:var(--muted)}
+.order-item__price{display:block; margin-top:24px; font-size:27px; line-height:1;
+                   font-weight:500; color:var(--rose)}
+.order-item__chip{margin-top:14px; height:39px; padding:0 24px;
+                  background:rgba(219,146,138,.26); color:var(--rose-pale); font-size:21px}
+.order-item__qty{margin:10px 0 0; font-size:20px; line-height:1; color:var(--muted)}
+
+/* --- ORDER SUMMARY ------------------------------------------------------- */
+.summary{padding:23px 36px 23px 37px}
+.summary__row{display:flex; justify-content:space-between; align-items:baseline;
+              font-size:21px; line-height:1.2; color:var(--muted); margin-top:12px}
+.summary__row:first-child{margin-top:0}
+.summary__row .summary__value{color:var(--cream)}
+.summary__value--discount{color:var(--rose)}
+.summary__rule{height:1px; margin:19px 0 0; background:var(--line)}
+.summary__total{display:flex; justify-content:space-between; align-items:baseline; margin-top:20px}
+.summary__total-label{font-size:25px; font-weight:500; color:var(--cream)}
+.summary__total-value{font-size:32px; font-weight:500; color:var(--rose)}
+.summary__foot{display:flex; justify-content:space-between; align-items:baseline; margin-top:20px}
+.summary__paid{font-size:21px; color:var(--muted)}
+.summary__invoice{display:inline-flex; align-items:center; gap:14px; font-size:21px;
+                  color:var(--rose-light)}
+
+/* --- HELP CTA ------------------------------------------------------------ */
+.help-cta{display:flex; align-items:center; justify-content:center; gap:24px;
+          width:768px; height:78px; margin:24px auto 0;
+          border:1px solid var(--rose); border-radius:var(--r-btn);
+          color:var(--rose-light); font-size:23px}
+</style>
+</head>
+<body>
+
+<div class="screen">
+
+  <!-- ICON: approximated, swap for production icon set -->
+
+  <!-- ==================================================================
+       STATUS BAR — iOS chrome drawn into the mock. Not app UI; delete this
+       block when building the real screen.
+       ================================================================== -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="statusbar__icons">
+      <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+      <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- ==================================================================
+       BACK BAR — cream back arrow (x=42), rose "? Help" affordance (x=701).
+       ================================================================== -->
+  <header class="navbar">
+    <button class="navbar__back" aria-label="Back">
+      <svg width="35" height="32" viewBox="0 0 24 21" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M23 10.5H1"/><path d="M9.5 1 1 10.5 9.5 20"/></svg>
+    </button>
+    <a class="navbar__help" href="C30-HelpSupport.html">
+      <svg width="37" height="37" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="12" r="10"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.3 2.4c-.6.2-.9.8-.9 1.4v.5"/><path d="M12 16.6h.01" stroke-width="2" stroke-linecap="round"/></svg>
+      Help
+    </a>
+  </header>
+
+  <!-- ==================================================================
+       ORDER TITLE — 60px serif number + 23px placed-on line.
+       ================================================================== -->
+  <div class="detail-head">
+    <h1 class="detail-head__title">Order #RSN10234</h1>
+    <p class="detail-head__meta">Placed on 8 Sep 2024, 10:24 AM</p>
+  </div>
+
+  <!-- ==================================================================
+       TRACKER CARD — 785x289 panel at y=297. Holds the 4-step horizontal
+       timeline, a hairline, and the delivery note + "Track Package" CTA.
+       Steps: Order Placed and Shipped are complete (rose disc + check),
+       "Out for Delivery" is current (larger rose disc with a ring, rose
+       label), "Delivered" is pending (hollow disc, grey connector).
+       DEVIATION-RISK: the completed steps carry dates but the current step
+       shows "11 Sep" — i.e. a future/today date on an unfinished step —
+       while "Delivered" shows none. Confirm the date rule.
+       ================================================================== -->
+  <section class="panel tracker">
+    <ol class="timeline timeline--horizontal">
+      <li class="timeline__step timeline__step--done">
+        <span class="timeline__marker"><span class="timeline__dot"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span></span>
+        <p class="timeline__label">Order Placed</p>
+        <p class="timeline__time">8 Sep</p>
+      </li>
+      <li class="timeline__step timeline__step--done">
+        <span class="timeline__marker"><span class="timeline__dot"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m5 12.5 4.5 4.5L19 7"/></svg></span></span>
+        <p class="timeline__label">Shipped</p>
+        <p class="timeline__time">9 Sep</p>
+      </li>
+      <li class="timeline__step timeline__step--current">
+        <span class="timeline__marker"><span class="timeline__dot"><svg width="30" height="24" viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M1 3.5h13v11H1z"/><path d="M14 7.5h5l4 4v3h-9z"/><circle cx="7" cy="17.5" r="2.2"/><circle cx="18" cy="17.5" r="2.2"/></svg></span></span>
+        <p class="timeline__label">Out for Delivery</p>
+        <p class="timeline__time">11 Sep</p>
+      </li>
+      <li class="timeline__step">
+        <span class="timeline__marker"><span class="timeline__dot"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3.5 7.5h17v12h-17z"/><path d="M3.5 7.5 6 4h12l2.5 3.5"/><path d="M10 11.5h4"/></svg></span></span>
+        <p class="timeline__label">Delivered</p>
+      </li>
+    </ol>
+
+    <div class="tracker__rule"></div>
+
+    <div class="tracker__note">
+      <span class="tracker__icon"><svg width="53" height="41" viewBox="0.5 2.5 23 18" fill="none" stroke="currentColor" stroke-width=".95"><path d="M1 3.5h13v11H1z"/><path d="M14 7.5h5l4 4v3h-9z"/><circle cx="7" cy="17.5" r="2.2"/><circle cx="18" cy="17.5" r="2.2"/></svg></span>
+      <div class="tracker__text">
+        <p class="tracker__headline">Your order is out for delivery</p>
+        <p class="tracker__sub">Arriving today by 8:00 PM</p>
+      </div>
+      <a class="tracker__cta" href="C18-OrderTracking.html">Track Package
+        <svg width="26" height="16" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M0 5h14M10 1l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </section>
+
+  <!-- ==================================================================
+       SHIPPING ADDRESS — serif section head with a rose "Change" link,
+       then a 785x190 panel: pin icon + recipient + 4 address lines.
+       ================================================================== -->
+  <div class="detail-section">
+    <h2 class="detail-section__title">Shipping Address</h2>
+    <a class="detail-section__link" href="C31-AddEditAddress.html">Change</a>
+  </div>
+
+  <section class="panel">
+    <div class="address">
+      <span class="address__pin">
+        <svg width="32" height="38" viewBox="0 0 24 28" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 26s8.5-8.6 8.5-15A8.5 8.5 0 1 0 3.5 11C3.5 17.4 12 26 12 26Z"/><circle cx="12" cy="11" r="3.2"/></svg>
+      </span>
+      <div>
+        <p class="address__name">Aanya Sharma</p>
+        <p class="address__line">B-102, Maple Residency<br>Panipokhari, Kathmandu 44600<br>Nepal</p>
+        <p class="address__line">+977 98123 45678</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================================
+       ORDER ITEMS — one line item: 248x216 photo, name, house, price,
+       member-price chip, quantity.
+       DEVIATION-RISK: the house reads "House of Lazimpat" here but
+       "House of Lazaripat" on C18 Order Tracking for the same product.
+       ASSUMPTION: reuses prod-copper-vessel-01 — the same engraved vessel
+       photographed for C03 Home, C24 Drop Detail and C25 Orders. C18 Order
+       Tracking shows a different, plain hammered vessel for the same SKU
+       (registered there as prod-copper-vessel-05).
+       ================================================================== -->
+  <div class="detail-section">
+    <h2 class="detail-section__title">Order Items</h2>
+  </div>
+
+  <section class="order-item">
+    <img class="order-item__media" src="rsn-one-images/prod-copper-vessel-01.jpg"
+         alt="prod-copper-vessel-01" width="248" height="216">
+    <div class="order-item__body">
+      <h3 class="order-item__title">Copper Vessel</h3>
+      <p class="order-item__house">House of Lazimpat</p>
+      <span class="order-item__price">₹25,199</span>
+      <span class="chip chip--member order-item__chip">Member ₹21,499</span>
+      <p class="order-item__qty">Qty: 1</p>
+    </div>
+  </section>
+
+  <!-- ==================================================================
+       ORDER SUMMARY — 785x251 panel: three meta rows, hairline, total,
+       payment method + invoice link.
+       ================================================================== -->
+  <div class="detail-section">
+    <h2 class="detail-section__title">Order Summary</h2>
+  </div>
+
+  <section class="panel">
+    <div class="summary">
+      <div class="summary__row"><span>Subtotal</span><span class="summary__value">₹25,199</span></div>
+      <div class="summary__row"><span>Member Discount</span><span class="summary__value summary__value--discount">- ₹3,700</span></div>
+      <div class="summary__row"><span>Shipping</span><span class="summary__value">Free</span></div>
+
+      <div class="summary__rule"></div>
+
+      <div class="summary__total">
+        <span class="summary__total-label">Total Paid</span>
+        <span class="summary__total-value">₹21,499</span>
+      </div>
+      <div class="summary__foot">
+        <span class="summary__paid">Paid via Credit Card (•••• 4242)</span>
+        <a class="summary__invoice" href="#">View Invoice
+          <svg width="26" height="16" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M0 5h14M10 1l4 4-4 4"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================================================================
+       HELP CTA — 768x78 rose outline button, centred.
+       ================================================================== -->
+  <a class="help-cta" href="C16-RSNConcierge.html">
+    <svg width="33" height="32" viewBox="0 0 24 23" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2.5c5.2 0 9.5 3.4 9.5 7.6s-4.3 7.6-9.5 7.6c-1 0-2-.1-2.9-.4l-4.6 2 1.3-3.6C3.5 14.4 2.5 12.4 2.5 10.1 2.5 5.9 6.8 2.5 12 2.5Z"/></svg>
+    Need Help with this Order?
+  </a>
+
+  <!-- ==================================================================
+       TAB BAR.
+       DEVIATION-RISK: no tab is marked active on this mock — all four
+       labels are cream. Order Detail is reached through ME → Orders, so
+       ME (or the Orders tab, see C25) should read as active.
+       ================================================================== -->
+  <nav class="tabbar">
+    <a class="tab" href="C03-Home.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3.5 3.5 10.5V21h5.5v-6h6v6H20V10.5L12 3.5Z"/></svg>
+      <span class="t-tab">Home</span>
+    </a>
+    <a class="tab" href="C04-Shop.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <span class="t-tab">Shop</span>
+    </a>
+    <a class="tab" href="C09-Wishlist.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20.5S3 14.8 3 9.2A5 5 0 0 1 12 6.5 5 5 0 0 1 21 9.2c0 5.6-9 11.3-9 11.3Z"/></svg>
+      <span class="t-tab">Wishlist</span>
+    </a>
+    <a class="tab" href="C17-Me.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg>
+      <span class="t-tab">Me</span>
+    </a>
+  </nav>
+
+  <div class="home-indicator"></div>
+
+</div>
+
+</body>
+</html>

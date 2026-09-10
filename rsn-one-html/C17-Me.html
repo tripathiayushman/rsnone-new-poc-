@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C17 Me</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C17 Me
+   Source mock: rsn-one-design/C17-Me.png  (853 x 1844, 1x)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Tokens + base components (sections 1-8) are IDENTICAL in every CXX file and
+   are copied verbatim from C03-Home.html; see RSN-HANDOFF-SPEC.md.
+   Screen-specific CSS starts at "SCREEN: ME".
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   SCREEN: ME
+   Body = profile header + one flat list of 8 settings rows. No app bar on
+   this screen; the ME tab of the tab bar is active.
+   Measured: list row pitch 142px, hairline after every row (including the
+   last), first row starts at y=427, avatar disc 194px at x=42 / y=169.
+   ========================================================================== */
+
+/* --- PROFILE HEADER: circular avatar + name + member line ---------------- */
+.profile{display:flex; align-items:center; gap:50px; padding:99px 36px 64px 42px}
+.profile__avatar{width:194px; height:194px; border-radius:var(--r-pill);
+                 object-fit:cover; flex:0 0 194px}
+/* 56px measured from a 40px cap height — larger than the .t-title token */
+.profile__name{font-family:var(--font-serif); font-size:56px; line-height:1.05;
+               font-weight:400; margin:0}
+.profile__meta{margin:12px 0 0; font-size:38px; line-height:1.1; font-weight:300;
+               color:var(--muted)}
+
+/* --- LIST ROW (SHARED) ---------------------------------------------------
+   icon + label + chevron, full-bleed hairline under each row.
+   Reused on C27 Addresses, C28 Payment Methods, C29 Notifications,
+   C30 Help & Support. Label measures 40px in the mock (the spec's .t-row
+   token says 26px — the mock wins here; flagged below).
+   ------------------------------------------------------------------------ */
+.list{border-bottom:0}
+.list-row{display:flex; align-items:center; gap:59px; width:100%; height:142px;
+          padding:0 51px 0 49px; border-bottom:1px solid var(--line);
+          color:var(--cream); text-align:left}
+.list-row__icon{flex:0 0 64px; height:64px; color:var(--rose-pale)}
+.list-row__label{font-size:40px; line-height:1; font-weight:300}
+.list-row__chevron{margin-left:auto; flex:0 0 auto; color:var(--cream); opacity:.9}
+</style>
+</head>
+<body>
+
+<div class="screen">
+
+  <!-- ICON: approximated, swap for production icon set -->
+
+  <!-- ==================================================================
+       STATUS BAR — iOS chrome drawn into the mock. Not app UI; delete this
+       block when building the real screen.
+       ================================================================== -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="statusbar__icons">
+      <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+      <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- ==================================================================
+       PROFILE HEADER — 194px circular avatar (x=42, y=169), name and
+       membership line. There is NO app bar and no screen title on this
+       screen; the avatar block is the header.
+       ================================================================== -->
+  <header class="profile">
+    <img class="profile__avatar" src="rsn-one-images/avatar-maya-kapoor-01.jpg"
+         alt="avatar-maya-kapoor-01" width="194" height="194">
+    <div class="profile__text">
+      <h1 class="profile__name">Maya Kapoor</h1>
+      <p class="profile__meta">Founding Member 047</p>
+    </div>
+  </header>
+
+  <!-- ==================================================================
+       ACCOUNT LIST — 8 full-bleed rows, 142px each, hairline under every
+       row INCLUDING the last one. Row = rose outline icon (64px, left
+       inset 49px) + 40px label + cream chevron (right inset 51px).
+       This .list-row block is the shared settings-row pattern; C27, C28,
+       C29 and C30 reuse it.
+       ASSUMPTION: the row destinations below are inferred from the label
+       text — the mock shows no navigation targets.
+       DEVIATION-RISK: the label measures 40px in the mock, but
+       RSN-HANDOFF-SPEC.md's type scale gives .t-row as 26px. The mock is
+       reproduced here; the token needs reconciling before build.
+       ================================================================== -->
+  <nav>
+    <ul class="list">
+      <li><a class="list-row" href="C14-Membership.html">
+        <svg class="list-row__icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 3 4 6v6c0 4.6 3.4 8.1 8 9 4.6-.9 8-4.4 8-9V6l-8-3Z"/><path d="m12 8.6 1.1 2.3 2.5.3-1.8 1.7.5 2.5-2.3-1.2-2.3 1.2.5-2.5-1.8-1.7 2.5-.3L12 8.6Z"/></svg>
+        <span class="list-row__label">Membership</span>
+        <svg class="list-row__chevron" width="20" height="34" viewBox="0 0 10 17" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m1.2 1 7.3 7.5-7.3 7.5"/></svg>
+      </a></li>
+      <li><a class="list-row" href="C25-Orders.html">
+        <svg class="list-row__icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5 7.5h14l-1 12.5H6L5 7.5Z"/><path d="M9 7.5V6a3 3 0 0 1 6 0v1.5"/></svg>
+        <span class="list-row__label">Orders</span>
+        <svg class="list-row__chevron" width="20" height="34" viewBox="0 0 10 17" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m1.2 1 7.3 7.5-7.3 7.5"/></svg>
+      </a></li>
+      <li><a class="list-row" href="C09-Wishlist.html">
+        <svg class="list-row__icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 20.5S3 14.8 3 9.2A5 5 0 0 1 12 6.5 5 5 0 0 1 21 9.2c0 5.6-9 11.3-9 11.3Z"/></svg>
+        <span class="list-row__label">Wishlist</span>
+        <svg class="list-row__chevron" width="20" height="34" viewBox="0 0 10 17" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m1.2 1 7.3 7.5-7.3 7.5"/></svg>
+      </a></li>
+      <li><a class="list-row" href="C16-RSNConcierge.html">
+        <svg class="list-row__icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="10" r="2.8"/><path d="M6.6 19a6 6 0 0 1 10.8 0"/></svg>
+        <span class="list-row__label">Concierge</span>
+        <svg class="list-row__chevron" width="20" height="34" viewBox="0 0 10 17" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m1.2 1 7.3 7.5-7.3 7.5"/></svg>
+      </a></li>
+      <li><a class="list-row" href="C27-AddressManagement.html">
+        <svg class="list-row__icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21s6.5-6.2 6.5-11a6.5 6.5 0 1 0-13 0C5.5 14.8 12 21 12 21Z"/><circle cx="12" cy="10" r="2.4"/><path d="M7 21.6h10"/></svg>
+        <span class="list-row__label">Addresses</span>
+        <svg class="list-row__chevron" width="20" height="34" viewBox="0 0 10 17" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m1.2 1 7.3 7.5-7.3 7.5"/></svg>
+      </a></li>
+      <li><a class="list-row" href="C28-PaymentMethods.html">
+        <svg class="list-row__icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><rect x="2.5" y="5.5" width="19" height="13" rx="2.5"/><path d="M2.5 10h19"/><path d="M6 14.5h3"/></svg>
+        <span class="list-row__label">Payment</span>
+        <svg class="list-row__chevron" width="20" height="34" viewBox="0 0 10 17" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m1.2 1 7.3 7.5-7.3 7.5"/></svg>
+      </a></li>
+      <li><a class="list-row" href="C29-Notifications.html">
+        <svg class="list-row__icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 17V10.5a6 6 0 1 1 12 0V17"/><path d="M4.5 17h15"/><path d="M10 20a2 2 0 0 0 4 0"/></svg>
+        <span class="list-row__label">Notifications</span>
+        <svg class="list-row__chevron" width="20" height="34" viewBox="0 0 10 17" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m1.2 1 7.3 7.5-7.3 7.5"/></svg>
+      </a></li>
+      <li><a class="list-row" href="C30-HelpSupport.html">
+        <svg class="list-row__icon" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.4a2.5 2.5 0 1 1 3.3 2.4c-.6.2-.9.8-.9 1.4v.5"/><path d="M12 16.6h.01" stroke-width="1.8" stroke-linecap="round"/></svg>
+        <span class="list-row__label">Help</span>
+        <svg class="list-row__chevron" width="20" height="34" viewBox="0 0 10 17" fill="none" stroke="currentColor" stroke-width="1.4"><path d="m1.2 1 7.3 7.5-7.3 7.5"/></svg>
+      </a></li>
+    </ul>
+  </nav>
+
+  <!-- ==================================================================
+       TAB BAR — ME active. Identical block on C03, C04, C09, C17.
+       DEVIATION-RISK: this mock labels the tabs in sentence case
+       ("Home / Shop / Wishlist / Me") while C25 Orders labels the same bar
+       in caps ("HOME / SHOP / WISHLIST / ORDERS") and renames the 4th tab.
+       The shared .t-tab token uppercases; one of the two mocks is wrong.
+       ================================================================== -->
+  <nav class="tabbar">
+    <a class="tab" href="C03-Home.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3.5 3.5 10.5V21h5.5v-6h6v6H20V10.5L12 3.5Z"/></svg>
+      <span class="t-tab">Home</span>
+    </a>
+    <a class="tab" href="C04-Shop.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+      <span class="t-tab">Shop</span>
+    </a>
+    <a class="tab" href="C09-Wishlist.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20.5S3 14.8 3 9.2A5 5 0 0 1 12 6.5 5 5 0 0 1 21 9.2c0 5.6-9 11.3-9 11.3Z"/></svg>
+      <span class="t-tab">Wishlist</span>
+    </a>
+    <a class="tab tab--active" href="C17-Me.html" aria-current="page">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="7.5" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0Z"/></svg>
+      <span class="t-tab">Me</span>
+    </a>
+  </nav>
+
+  <div class="home-indicator"></div>
+
+</div>
+
+</body>
+</html>

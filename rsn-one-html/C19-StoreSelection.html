@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C19 Store Selection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C19 Store Selection ("Choose your world of RSN")
+   Source mock: rsn-one-design/C19-StoreSelection.png  (853 x 1844, 1x)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Tokens + base components are IDENTICAL in every CXX file; see
+   RSN-HANDOFF-SPEC.md. Screen-specific CSS starts at "SCREEN: STORE SELECT".
+   ========================================================================== */
+.store__lockup .logo{margin:0 auto}
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   SCREEN: STORE SELECT
+   Page gutter on this screen is 43px (measured from the card edges), not the
+.store__lockup .logo{margin:0 auto}
+   36px default. Everything is absolutely positioned to the measured y so the
+   two big cards land exactly where the mock has them.
+   ========================================================================== */
+.store{background:
+  radial-gradient(700px 520px at 120px 260px, rgba(126,84,66,.30) 0%, rgba(41,28,25,0) 70%),
+  linear-gradient(180deg,#33221D 0%, #2C1E1A 30%, #291C19 60%, #241610 100%);}
+
+/* FOOTER PHOTOGRAPHY — the bottom 356px of the frame is a still life
+   (blossom in a vase, stone bowl, wooden table) that fades up into the flat
+   background. Above y=1488 the mock has no photographic texture at all
+   (row-wise pixel std ~2), so the top of the screen is a gradient, not an
+   image. */
+.store__footer{position:absolute; left:0; right:0; top:1488px; height:356px; overflow:hidden}
+.store__footer-media{width:853px; height:356px; object-fit:cover; border:0}
+.store__footer-scrim{position:absolute; inset:0;
+  background:linear-gradient(180deg, rgba(41,28,25,.92) 0%, rgba(41,28,25,.45) 22%,
+                             rgba(41,28,25,.30) 60%, rgba(41,28,25,.55) 100%)}
+
+.store .statusbar{position:relative; z-index:3}
+
+/* LOCKUP — centred logo asset. Arc y 117–157, wordmark y 164–227,
+   tagline y 244–258: 273 x 138 overall. */
+.store__lockup{position:absolute; z-index:3; left:0; right:0; top:117px; text-align:center}
+
+/* HEADLINE — 2 centred lines, "C" cap 61px => ~86px serif, 89px line pitch.
+   "world" is italic rose. */
+.store__title{position:absolute; z-index:3; left:0; right:0; top:284px; margin:0;
+              text-align:center; font-family:var(--font-serif); font-size:86px;
+              line-height:89px; font-weight:400; color:var(--cream)}
+.store__title em{font-style:italic; color:#D58985}
+/* SUBTITLE — 2 centred lines, "S" cap 20px => ~28px, 40px line pitch. */
+.store__sub{position:absolute; z-index:3; left:0; right:0; top:487px; margin:0;
+            text-align:center; font-size:28px; line-height:40px; font-weight:300;
+            color:#E5DBD4}
+
+/* STORE CARD — 770 x ~410, x 43–812, 1px rose hairline, 16px radius.
+   Photo bleeds the full card; a left-to-right scrim keeps the left column
+   legible. Card 1 y 626–1033, card 2 y 1070–1487 (37px apart). */
+.store-card{position:absolute; z-index:3; left:43px; width:770px;
+            border:1px solid rgba(226,160,150,.34); border-radius:var(--r-card);
+            overflow:hidden}
+.store-card--nepal {top:626px;  height:407px}
+.store-card--global{top:1070px; height:417px}
+.store-card__media{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border:0}
+.store-card__scrim{position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(41,28,25,.95) 0%, rgba(41,28,25,.92) 30%,
+                             rgba(41,28,25,.55) 48%, rgba(41,28,25,.10) 66%,
+                             rgba(41,28,25,0) 100%)}
+.store-card__body{position:absolute; left:45px; top:45px; width:400px}
+/* "RSNOne" + world name: one 2-line block, 62px serif on a 64px pitch. */
+.store-card__name{margin:0; font-family:var(--font-serif); font-size:62px;
+                  line-height:64px; font-weight:400; color:var(--cream)}
+.store-card__name em{font-style:italic; color:#D8908C}
+.store-card__text{margin:34px 0 0; font-size:24px; line-height:32px;
+                  font-weight:300; color:#DCCDC4}
+.store-card__cta{margin-top:38px; display:flex; align-items:center; justify-content:center;
+                 gap:22px; width:324px; height:69px; border-radius:6px;
+                 background:#BE7070; color:#fff; font-size:20px; letter-spacing:.18em;
+                 text-transform:uppercase}
+/* Eyebrow line stack in the top-right corner of the card, over the photo. */
+.store-card__eyebrow{position:absolute; right:43px; width:170px; margin:0;
+                     text-align:right; font-size:14px; line-height:26px;
+                     letter-spacing:.20em; text-transform:uppercase; color:#F0C6BB}
+.store-card--nepal  .store-card__eyebrow{top:26px}   /* first cap lands at y 663 */
+.store-card--global .store-card__eyebrow{top:20px}   /* first cap lands at y 1101 */
+
+/* CLOSING — a 40 x 2 rose rule at y 1560, then a 2-line italic serif voice
+   line, both centred. */
+.store__rule{position:absolute; z-index:4; left:0; right:0; top:1559px;
+             display:flex; justify-content:center}
+.store__rule::after{content:""; width:40px; height:2px; background:#B4746B}
+.store__voice{position:absolute; z-index:4; left:0; right:0; top:1588px; margin:0;
+              text-align:center; font-family:var(--font-serif); font-style:italic;
+              font-size:26px; line-height:36px; color:#D9C3B8}
+
+.store .home-indicator{position:absolute; z-index:4; left:0; right:0; bottom:0;
+                       background:transparent}
+</style>
+</head>
+<body>
+
+<!-- ICON: approximated, swap for production icon set -->
+
+<div class="screen store">
+
+  <!-- ==================================================================
+       FOOTER PHOTOGRAPHY — full-width still life occupying the bottom
+       356px of the frame, fading up into the flat background.
+       ================================================================== -->
+  <div class="store__footer">
+    <img class="store__footer-media" src="rsn-one-images/hero-store-footer-01.jpg"
+         alt="hero-store-footer-01" width="853" height="356">
+    <div class="store__footer-scrim"></div>
+  </div>
+
+  <!-- ==================================================================
+       STATUS BAR — iOS chrome drawn into the mock. Not app UI; delete this
+       block when building the real screen.
+       ================================================================== -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="statusbar__icons">
+      <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+      <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- ==================================================================
+       BRAND LOCKUP — centred. Same lockup as C01/C02/C20, smaller here
+       ("R" cap 62px). ASSUMPTION (resolved): the lockup is one asset —
+       logo-rsnone-01.png, extracted from the mock. Swap it for the
+       production vector.
+       ================================================================== -->
+  <div class="store__lockup">
+    <!-- LOGO: full lockup (arc + wordmark + tagline) as one asset. -->
+    <img class="logo" src="rsn-one-images/logo-rsnone-01.png" alt="logo-rsnone-01" width="273" height="138">
+  </div>
+
+  <!-- SECTION: screen headline, 2 centred lines, "world" italic rose. -->
+  <h1 class="store__title">Choose your<br><em>world</em> of RSN.</h1>
+
+  <!-- SECTION: subtitle, 2 hard-broken centred lines. -->
+  <p class="store__sub">Same extraordinary curation.<br>Different worlds to explore.</p>
+
+  <!-- ==================================================================
+       STORE CARD 1 — RSNOne Nepal. 770 x 407 at y 626. Left column:
+       "RSNOne" / italic "Nepal", 2-line description, rose CTA (324 x 69).
+       Right: photo of a carved Nepali temple with the Himalaya behind, and
+       a 4-line eyebrow set over it.
+       ASSUMPTION: the eyebrow lines are set flush right (3 of the 4 lines
+       share the exact right edge x=769; "LOCAL" stops 12px short, which
+       reads as a manual break rather than a different alignment).
+       ================================================================== -->
+  <a class="store-card store-card--nepal" href="#">
+    <img class="store-card__media" src="rsn-one-images/promo-store-nepal-01.jpg"
+         alt="promo-store-nepal-01" width="770" height="407">
+    <div class="store-card__scrim"></div>
+
+    <p class="store-card__eyebrow">Local<br>Roots.<br>Timeless<br>Beauty.</p>
+
+    <div class="store-card__body">
+      <h2 class="store-card__name">RSNOne<br><em>Nepal</em></h2>
+      <p class="store-card__text">Extraordinary objects<br>from the heart of Nepal.</p>
+      <span class="store-card__cta">Explore Nepal
+        <svg width="26" height="16" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h14M10 1l4 4-4 4"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <!-- ==================================================================
+       STORE CARD 2 — RSNOne Global Select. 770 x 417 at y 1070. Same
+       layout as card 1; photo is a globe on a stack of books.
+       DEVIATION-RISK: card 1 is 407px tall and card 2 is 417px — a 10px
+       mismatch between two cards that read as a matched pair. Pick one.
+       ================================================================== -->
+  <a class="store-card store-card--global" href="#">
+    <img class="store-card__media" src="rsn-one-images/promo-store-global-01.jpg"
+         alt="promo-store-global-01" width="770" height="417">
+    <div class="store-card__scrim"></div>
+
+    <p class="store-card__eyebrow">A more<br>Thoughtful<br>way to live.</p>
+
+    <div class="store-card__body">
+      <h2 class="store-card__name">RSNOne<br><em>Global Select</em></h2>
+      <p class="store-card__text">Extraordinary makers<br>from around the world.</p>
+      <span class="store-card__cta">Explore Global
+        <svg width="26" height="16" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h14M10 1l4 4-4 4"/></svg>
+      </span>
+    </div>
+  </a>
+
+  <!-- ==================================================================
+       CLOSING — 40 x 2 rose rule at y 1560, then the italic pull-quote
+       "Different places. / A more meaningful home." over the footer photo.
+       DEVIATION-RISK: this screen has no back arrow, no Skip and no tab
+       bar, so once it is reached the only way out is to pick a store. If it
+       can be entered from Me / Settings to switch store later, it needs a
+       dismiss control.
+       ================================================================== -->
+  <div class="store__rule" aria-hidden="true"></div>
+  <p class="store__voice">Different places.<br>A more meaningful home.</p>
+
+  <!-- HOME INDICATOR — iOS chrome. -->
+  <div class="home-indicator"></div>
+
+</div>
+</body>
+</html>
