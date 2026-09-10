@@ -64,3 +64,18 @@ search + concierge reply → state survives reload → sign-out resets.
 - No responsive layout below the 853px artboard (design decision pending — PLAN.md §9.1).
 - No unit tests; verification is type-level + the two browser scripts above.
 - Fonts load from Google Fonts; offline demos fall back to Georgia / system sans.
+
+## Review round 1 (11 Sep 2026)
+
+Feedback from the team's phone review, all fixed and re-verified:
+
+| Item | Fix |
+|---|---|
+| UI too small on phone | Compact 520px canvas below 900px viewports (`.frame--compact`, base.css §9); every screen carries `.frame--compact &` overrides; desktop canvas unchanged |
+| "Added to bag" toast too big | Smaller single-line toast at viewport scale |
+| Add to bag should become Go to bag | C07 / C24: button flips once the product is in the bag and navigates to `/bag` |
+| Continue Shopping hard to read (C13) | White link with soft shadow |
+| Help arrow leaves the card; tab bar disappears after expanding | Arrow rotates inside a fixed box; screen root uses `overflow-x: clip` so the sticky tab bar pins to the viewport on every screen |
+| Dev control bar visible in the app | Rendered only on the dev server or with `?dev` |
+
+Checks: `npm run typecheck` 0 errors · `COMPACT=1 npm run shots` 34/34 clean · `npm run shots` 34/34 clean (1000px viewport) · `npm run e2e` 30/30.
