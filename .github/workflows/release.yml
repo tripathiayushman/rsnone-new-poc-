@@ -5,6 +5,12 @@ name: Build and release
 on:
   push:
     branches: [main]
+    # design inputs and docs don't change the build — don't cut a release for them
+    paths-ignore:
+      - "rsn-one-html/**"
+      - "rsn-one-design/**"
+      - "**/*.docx"
+      - "**/*.md"
   workflow_dispatch:
 
 permissions:
