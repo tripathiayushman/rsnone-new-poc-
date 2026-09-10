@@ -69,4 +69,23 @@
 
   /* POC: breathing room under the banner before the (sticky) tab bar */
   .orders-end{flex:0 0 40px}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    .orders-head{padding:40px 24px 0}
+    .filter-row{padding:0 24px 4px; margin-top:32px}
+    .order-list{padding:0 24px}
+    /* card grows with its copy; thumbnail shrinks so the text column keeps ~300px */
+    .order-card{height:auto; min-height:174px; gap:16px}
+    .order-card__media{width:140px; height:150px; flex-basis:140px; align-self:center}
+    .order-card__body{padding:4px 30px 4px 0; min-width:0}
+    /* date sits under the order number instead of top-right, where it collided */
+    .order-card__date{position:static; display:block; margin-top:8px}
+    .order-card__chevron{top:50%; transform:translateY(-50%); right:14px}
+    .banner{margin:22px 24px 0; height:176px}
+    .banner__scrim{background:linear-gradient(90deg, rgba(240,222,215,.94) 0%, rgba(240,222,215,.72) 55%, rgba(240,222,215,.1) 85%)}
+    .banner__body{padding:22px 24px}
+    .banner__title{font-size:30px}
+    .banner__link{margin-top:20px}
+  }
 }

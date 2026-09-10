@@ -68,7 +68,10 @@
   /* POC: topic cards are <button>s that open an inline article list below the grid */
   .topic-card{width:100%; text-align:left}
   .topic-card--open{border-color:var(--rose-light); background:rgba(219,146,138,.08)}
-  .topic-card--open .topic-card__arrow{transform:rotate(90deg)}
+  .topic-card__arrow > svg{display:block; transition:transform .15s}
+  /* feedback: rotate the glyph inside a fixed box so it stays within the card */
+  .topic-card__arrow{width:30px; height:30px; display:grid; place-items:center; margin-top:10px}
+  .topic-card--open .topic-card__arrow > svg{transform:rotate(90deg)}
   .topic-panel{margin-top:19px; border:1px solid var(--line); border-radius:12px; padding:18px 27px 22px}
   .topic-panel__head{display:flex; align-items:baseline; justify-content:space-between; gap:20px}
   .topic-panel__title{font-family:var(--font-serif); font-size:23px; line-height:1.2; font-weight:400; margin:0}
@@ -126,4 +129,25 @@
   /* --- TAB BAR (measured taller on this screen than on C03) --------------- */
   .tabbar{flex:0 0 118px}
   .home-indicator{flex:0 0 54px}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    .help-hero{width:100%}
+    .help-head{padding:16px 24px 0}
+    .help-head__title{font-size:56px}
+    .help-head__body br{display:none}
+    .field--search{margin:36px 24px 0; padding:0 20px; gap:16px}
+    .help-section{padding:24px 24px 0}
+    /* topic grid: 3 columns -> 2; cards grow with their (now wrapping) titles */
+    .topic-grid{grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px 10px}
+    .topic-card{height:auto; min-height:220px; padding:16px 18px 16px}
+    .topic-card__title{white-space:normal}
+    .topic-panel{padding:18px 18px 22px}
+    .help-empty{margin:24px 24px 0}
+    .help-banner{margin:24px 24px 0}
+    .help-banner__body{padding:22px 0 0 24px}
+    .list-row{padding:0 20px}
+    .article__answer{padding:12px 20px 6px 70px}
+    .help-articles{padding:21px 24px 24px}
+  }
 }

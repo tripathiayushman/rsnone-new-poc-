@@ -74,4 +74,17 @@
   .addr-card__popover button:hover{background:rgba(250,247,245,.06)}
   .addr-card__popover button + button{border-top:1px solid var(--line)}
   .addr-card__popover .is-danger{color:var(--rose-light)}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    .page{--pad:24px; --card-pad:24px}
+    .page-head__sub br{display:none}
+    .addr-list{margin-top:30px}
+    .addr-card{gap:18px; padding:24px 20px 18px 18px}
+    .addr-card__icon{flex-basis:56px; width:56px; height:56px}
+    .addr-card__head{flex-wrap:wrap; gap:8px 14px; padding-right:40px}
+    .addr-card__menu{top:26px; right:20px}
+    .addr-card__edit{right:20px; bottom:18px}
+    .addr-card__popover{top:62px; right:20px}
+  }
 }

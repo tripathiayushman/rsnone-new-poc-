@@ -114,4 +114,45 @@
   .buybar__chip{margin-top:13px; height:46px; padding:0 24px; font-size:23px}
   .buybar__cta{width:450px; height:88px; border-radius:12px; gap:24px; padding:0}
   .buybar__cta .t-eyebrow{font-size:28px; letter-spacing:.18em; font-weight:400}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    .pdp__photo, .pdp__scrim{width:100%}
+    .navbar{padding:0 24px}
+    .navbar__actions{gap:30px}
+    .pdp-copy{width:auto; padding:12px 24px 0}
+    /* pull-quote moves down beside the house / price lines so it clears the 2-line name */
+    .pdp-voice{right:24px; top:360px}
+    /* countdown leaves the 853-based absolute slot and flows under the copy; the
+       stock aside wraps onto its own line under the clock */
+    .countdown{position:relative; left:auto; top:auto; width:auto; height:auto;
+               min-height:142px; margin:56px 24px 0; flex-wrap:wrap; padding:18px 0 16px}
+    .countdown__icon{flex:0 0 80px}
+    .countdown__main{flex:1 1 0; min-width:0}
+    .countdown__aside{flex:1 0 100%; border-left:0; border-top:1px solid var(--line);
+                      margin-top:16px; padding:14px 0 0 80px}
+    .countdown__stock br{display:none}
+    .pdp-thumbs{padding:24px 24px 0; gap:10px}
+    .pdp-thumbs > li{flex:1 1 0; min-width:0}
+    .pdp-thumb{width:100%; height:100px}
+    .pdp-about{padding:27px 24px 0}
+    /* badges: three equal columns, smaller discs, labels may wrap */
+    .badges{grid-template-columns:repeat(3,minmax(0,1fr)); height:auto; margin:28px 24px 0;
+            align-items:start}
+    .badge{gap:10px}
+    .badge + .badge{padding-left:12px}
+    .badge__disc{flex-basis:44px; width:44px; height:44px}
+    .badge__disc svg{width:24px; height:24px}
+    .badge__label{font-size:17px; line-height:23px; white-space:normal}
+    .badge:last-child{justify-content:flex-start; padding-left:12px}
+    .badge:last-child .badge__label{text-align:left}
+    .disclosure{margin:36px 24px 0}
+    .disclosure__panel{padding-right:24px}
+    /* buy bar: chip tightened, CTA takes the remaining width */
+    .buybar{padding:22px 24px 20px; gap:14px}
+    .buybar > div{flex:0 0 auto}
+    .buybar__chip{height:40px; padding:0 14px; font-size:19px}
+    .buybar__cta{flex:1 1 auto; width:auto; min-width:0; height:76px; gap:14px}
+    .buybar__cta .t-eyebrow{font-size:21px; letter-spacing:.14em}
+  }
 }

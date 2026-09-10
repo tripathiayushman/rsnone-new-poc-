@@ -60,4 +60,13 @@
 
   &.welcome .home-indicator{position:absolute; z-index:3; left:0; right:0; bottom:0;
                            height:44px; background:transparent}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    .welcome__media{width:100%}
+    .welcome__skip{right:24px}
+    .welcome__copy{left:24px; width:472px}
+    .welcome__title{font-size:70px}
+    .welcome__cta{left:24px; width:472px}
+  }
 }

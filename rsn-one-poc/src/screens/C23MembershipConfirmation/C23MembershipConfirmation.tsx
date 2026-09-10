@@ -56,7 +56,7 @@ export default function C23MembershipConfirmation() {
       {/* "What's Next?" panel — near-opaque espresso plate, 3 routes, primary CTA. */}
       <section className="c23-next">
         <h2 className="c23-next__title">What’s Next?</h2>
-        <p className="c23-next__sub">Start exploring a world of extraordinary objects,<br />homes and experiences.</p>
+        <p className="c23-next__sub">Start exploring a world of extraordinary objects, <br />homes and experiences.</p>
 
         <ul className="benefit-grid benefit-grid--3 benefit-grid--ruled c23-grid">
           {NEXT.map(n => (

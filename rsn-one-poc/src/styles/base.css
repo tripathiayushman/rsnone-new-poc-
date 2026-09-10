@@ -21,8 +21,9 @@
 html,body{margin:0;padding:0}
 body{background:#171010; font-family:var(--font-sans); -webkit-font-smoothing:antialiased;}
 /* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
-.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
-        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+.screen{width:var(--canvas-w,853px); min-height:1844px; background:var(--bg); color:var(--cream);
+        /* overflow-x clip (not hidden): hidden makes .screen a scroll container, which stops the sticky tab bar pinning to the viewport */
+        position:relative; overflow-x:clip; overflow-y:visible; display:flex; flex-direction:column;}
 img{display:block; max-width:100%}
 button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
 a{color:inherit; text-decoration:none}
@@ -90,6 +91,15 @@ ul,ol{margin:0; padding:0; list-style:none}
 .home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
 
 /* ---------- 9. POC ADDITIONS (not in the handoff) ----------------------- */
+/* Compact canvas: on phones the artboard is 520px wide instead of 853 so type reads at
+   ~0.8x instead of ~0.48x. Screens add `.frame--compact &` overrides for layouts that
+   only fit at 853 (two-column checkout, 385px product tiles, fixed-width copy blocks). */
+.frame--compact{--canvas-w:520px; --gutter:24px}
+.frame--compact .statusbar{padding:0 24px}
+.frame--compact .appbar{padding:0 24px 14px}
+.frame--compact .appbar__actions{gap:22px}
+.frame--compact .section__head{padding:0 24px}
+.frame--compact .home-indicator::after{width:200px}
 /* light-ground screens (C13, C14, C15 sheet, C31 switch) share these */
 .screen--light{--ink:#2B1A16; --rose-deep:#BC5C67; background:#F0D1C1; color:var(--ink)}
 .screen--light .statusbar{color:var(--ink); position:relative; z-index:2}

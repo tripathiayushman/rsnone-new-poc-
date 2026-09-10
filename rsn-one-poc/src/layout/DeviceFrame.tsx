@@ -30,13 +30,16 @@ export function DeviceFrame() {
 
   // dev controls (screen jump, zoom, reset) only on the local dev server or with ?dev in the URL
   const showDev = import.meta.env.DEV || new URLSearchParams(window.location.search).has('dev');
-  const fit = Math.min(1, (vw - 8) / ART_W);
-  const zoom = vw < 900 ? fit : Math.min(zoomPref, fit);
+  // phones: compact 520px canvas scaled to the viewport width; desktop: 853px mock canvas
+  const compact = vw < 900;
+  const canvasW = compact ? 520 : ART_W;
+  const fit = Math.min(1, (vw - 8) / canvasW);
+  const zoom = compact ? fit : Math.min(zoomPref, fit);
   const current = SCREENS.find(s => s.match(pathname));
 
   return (
     <div className={"frame-backdrop" + (showDev ? ' frame-backdrop--dev' : '')}>
-      <div className="frame" style={{ zoom }}>
+      <div className={"frame" + (compact ? " frame--compact" : "")} style={{ zoom, width: canvasW }}>
         <Outlet />
       </div>
 

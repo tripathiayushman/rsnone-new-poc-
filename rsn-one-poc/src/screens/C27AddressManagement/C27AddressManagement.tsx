@@ -58,7 +58,7 @@ export default function C27AddressManagement() {
         {/* PAGE HEAD — screen title + 2-line supporting line */}
         <header className="page-head">
           <h1 className="t-h1">My Addresses</h1>
-          <p className="t-body-lg page-head__sub">Save and manage your delivery addresses<br />for a seamless experience.</p>
+          <p className="t-body-lg page-head__sub">Save and manage your delivery addresses{' '}<br />for a seamless experience.</p>
         </header>
 
         {addresses.length === 0 ? (

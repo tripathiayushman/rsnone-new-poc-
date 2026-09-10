@@ -97,4 +97,19 @@
   .field__error{margin:10px 0 0 4px; font-size:20px}
   .field__error + .field{margin-top:18px; height:89px}
   .login__footer button{font-size:inherit; font-weight:inherit}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    .login__media{width:100%}
+    .login__back{left:20px}
+    .login__skip{right:24px}
+    .login__lockup{left:40px}
+    .login__title{left:24px; font-size:88px; line-height:84px}
+    .login__body{left:24px; width:440px}
+    .login__tabs{left:24px; gap:72px}
+    .login__form{left:24px; width:472px}
+    .field{padding:0 24px}
+    .field__input{margin-left:22px; min-width:0}
+    .login__or::before,.login__or::after{width:auto; flex:1}
+  }
 }

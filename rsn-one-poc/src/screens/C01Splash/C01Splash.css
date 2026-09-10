@@ -27,4 +27,14 @@
   @keyframes c01-spin{to{transform:rotate(360deg)}}
 
   .home-indicator{margin-top:auto}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    /* glow re-centred on the narrower frame (was at x=430 of 853) */
+    &.splash{background:
+       radial-gradient(520px 560px at 260px 900px, rgba(120,72,60,.42) 0%,
+                       rgba(90,56,48,.18) 45%, rgba(41,28,25,0) 78%),
+       linear-gradient(180deg,#2B1E1A 0%, #291C19 42%, #241816 100%);}
+    .splash__lockup .logo{width:380px; height:auto}
+  }
 }

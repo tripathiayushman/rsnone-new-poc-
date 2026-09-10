@@ -106,8 +106,8 @@ export default function C31AddEditAddress() {
           <h1 className="t-h1">{editing ? 'Edit Address' : 'Add Address'}</h1>
           <p className="t-body-lg page-head__sub">
             {editing
-              ? <>Update this delivery address to keep your<br />orders arriving seamlessly.</>
-              : <>Add a new delivery address to receive your<br />orders seamlessly.</>}
+              ? <>Update this delivery address to keep your{' '}<br />orders arriving seamlessly.</>
+              : <>Add a new delivery address to receive your{' '}<br />orders seamlessly.</>}
           </p>
         </header>
 

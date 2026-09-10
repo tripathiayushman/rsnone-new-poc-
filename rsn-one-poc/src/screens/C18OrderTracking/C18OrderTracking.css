@@ -60,4 +60,26 @@
   .track-foot{margin-top:auto; padding:24px 36px 36px 92px}
   .track-foot__link{display:inline-flex; align-items:center; gap:14px; font-size:26px;
                     font-weight:300; color:var(--rose-light)}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    .navbar{padding:0 24px}
+    .order-title{padding:12px 24px 0}
+    .order-title__label{font-size:60px}
+    .order-title__id{font-size:76px}
+    /* product line: 190px photo + copy at hero-but-phone sizes (the mock's 50/38/48
+       stack only fits beside a 321px image) */
+    .order-product{gap:22px; padding:36px 24px 0}
+    .order-product__media{width:190px; height:176px; flex-basis:190px; border-radius:18px}
+    .order-product__body{padding-top:16px; min-width:0}
+    .order-product__title{font-size:38px}
+    .order-product__house{font-size:26px; margin-top:16px}
+    .order-product__price{font-size:36px; margin-top:22px}
+    .timeline{margin-top:52px; padding:0 24px}
+    .timeline__step{gap:28px; padding-bottom:56px}
+    .timeline__step--timed{padding-bottom:40px}
+    .timeline__label{font-size:34px; line-height:48px}
+    .timeline__time{font-size:26px}
+    .track-foot{padding:16px 24px 32px}
+  }
 }

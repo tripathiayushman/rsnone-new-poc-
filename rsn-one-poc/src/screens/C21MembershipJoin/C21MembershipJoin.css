@@ -49,4 +49,18 @@
             color:var(--rose-light); text-decoration:underline; text-underline-offset:9px}
 
   .home-indicator{margin-top:auto}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    --gutter:24px;
+    .c21-copy{margin-top:48px}
+    .c21-copy__title{font-size:56px; line-height:60px}
+    .c21-benefits-title{margin-top:72px}
+    .c21-grid{grid-template-columns:repeat(2,1fr); row-gap:40px; column-gap:12px}
+    .c21-grid .benefit__text{max-width:210px}
+    .c21-tier{flex-direction:column; align-items:stretch; height:auto; padding:28px 26px}
+    .c21-tier .tier-card__name{font-size:36px; white-space:normal}
+    .c21-tier .tier-card__rule{flex:0 0 1px; margin:24px 0}
+    .c21-tier .tier-card__aside{flex:0 0 auto}
+  }
 }

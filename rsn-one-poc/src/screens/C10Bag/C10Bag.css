@@ -90,4 +90,28 @@
   .gift-note__area::placeholder{color:var(--muted-dim)}
   .totals__row--discount span:last-child{color:var(--rose-light)}
   .bag-body{padding-bottom:40px}
+
+  /* --- COMPACT CANVAS (520px) --------------------------------------------
+     Gutters to 24px, every fixed 766-779px width to fluid, the 323px card
+     photo narrowed so the body keeps room for the title/price/qty stack.
+     ---------------------------------------------------------------------- */
+  .frame--compact & {
+    .bag-head{padding:21px 24px 0}
+    .bag-list{padding:0 24px}
+    .bag-line{height:auto; min-height:260px}
+    .bag-line__media{flex:0 0 170px; width:170px; height:auto; align-self:stretch}
+    .bag-line__body{padding:24px 20px 20px}
+    .bag-line__house{padding-right:44px}
+    .bag-line__title{font-size:28px}
+    .bag-line__price{font-size:28px}
+    .bag-line__remove{top:20px; right:16px}
+    .qty{margin-top:22px}
+    .gift-note{margin:28px 24px 0; width:auto}
+    .gift-note__area{margin:14px 24px 0; width:auto}
+    .totals{margin:40px 24px 0; width:auto}
+    .bag-cta{margin:32px 24px 0; width:calc(100% - 48px)}
+    .member-teaser{margin:40px 24px 0; width:auto; height:auto; min-height:110px; padding:18px 20px 18px 0}
+    .member-teaser__icon{flex:0 0 90px}
+    .member-teaser__copy{padding-left:24px}
+  }
 }

@@ -38,4 +38,14 @@
                    font-size:22px; font-weight:600; display:grid; place-items:center}
   .list-row__badge + .list-row__chevron{margin-left:0}
   .list-row:hover{background:rgba(250,247,245,.03)}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    .profile{gap:28px; padding:80px 24px 48px}
+    .profile__avatar{width:150px; height:150px; flex-basis:150px}
+    .profile__text{min-width:0}
+    .profile__name{font-size:48px}
+    .profile__meta{font-size:30px}
+    .list-row{gap:32px; padding:0 24px}
+  }
 }

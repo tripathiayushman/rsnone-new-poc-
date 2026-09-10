@@ -56,7 +56,7 @@ export default function C29Notifications() {
           <h1 className="notif-head__title">Notifications</h1>
           <button className="notif-head__action" type="button" onClick={onMarkAll}>Mark all as read</button>
         </div>
-        <p className="notif-head__sub">Stay updated with your orders, rewards<br />and more.</p>
+        <p className="notif-head__sub">Stay updated with your orders, rewards{' '}<br />and more.</p>
       </div>
 
       {groups.length === 0 ? (

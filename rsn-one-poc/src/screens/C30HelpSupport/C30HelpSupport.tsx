@@ -74,7 +74,7 @@ export default function C30HelpSupport() {
       <div className="help-head">
         <h1 className="t-h1 help-head__title">Help & Support</h1>
         <p className="help-head__voice">We’re here for <em>you.</em></p>
-        <p className="help-head__body">Get support, find answers or reach out<br />to our team.</p>
+        <p className="help-head__body">Get support, find answers or reach out{' '}<br />to our team.</p>
       </div>
 
       {/* search field — filters the topic grid and the article list live */}

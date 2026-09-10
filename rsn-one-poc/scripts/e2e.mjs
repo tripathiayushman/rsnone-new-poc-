@@ -12,7 +12,7 @@ const dir = dirs.find(d => d.startsWith('chromium_headless_shell')) ?? dirs.find
 const exe = join(pw, dir, dir.startsWith('chromium_headless_shell') ? 'chrome-headless-shell-win64/chrome-headless-shell.exe' : 'chrome-win64/chrome.exe');
 
 const browser = await chromium.launch({ executablePath: exe });
-const ctx = await browser.newContext({ viewport: { width: 853, height: 1844 } });
+const ctx = await browser.newContext({ viewport: { width: 1000, height: 1844 } }); // ≥900 keeps the desktop (853) canvas
 await ctx.grantPermissions(['clipboard-read', 'clipboard-write']);
 const page = await ctx.newPage();
 const errors = [];

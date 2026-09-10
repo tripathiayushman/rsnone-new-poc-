@@ -112,4 +112,23 @@
   .page-action__note{margin:0; padding:24px 0; text-align:center; font-size:22px;
                      font-weight:300; color:var(--muted)}
   .page-end{flex:0 0 40px}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    .page{--pad:24px}
+    .navbar{padding:0 24px; gap:28px}
+    .page-head{padding-top:28px}
+    /* title + "Return Policy" no longer share a line: the button wraps under the title */
+    .page-head__top{flex-wrap:wrap; gap:14px 24px}
+    .page-head__top .t-h1{font-size:54px}
+    .page-head__sub{margin-top:10px}
+    .btn--policy{height:56px}
+    .rr-section__head{flex-wrap:wrap; gap:4px 16px}
+    .order-card{gap:16px; padding:12px 16px 12px 12px}
+    .order-card__media{flex-basis:130px; width:130px; height:122px}
+    .reason{gap:20px; padding:0 20px}
+    /* photo picker: 3 tiles a row (149px) instead of 5 slivers */
+    .photo-grid{grid-template-columns:repeat(3,1fr); gap:12px}
+    .notes__input{padding:22px 22px}
+  }
 }

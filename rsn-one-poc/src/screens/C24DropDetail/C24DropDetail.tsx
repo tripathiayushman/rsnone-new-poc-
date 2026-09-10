@@ -36,6 +36,7 @@ export default function C24DropDetail() {
   const house = product ? houseById(product.house) : undefined;
 
   const addToBag = useStore(s => s.addToBag);
+  const inBag = useStore(s => !!product && s.bag.some(b => b.productId === product.id));
   const toggleWishlist = useStore(s => s.toggleWishlist);
   const showToast = useStore(s => s.showToast);
   const wished = useIsWishlisted(product?.id ?? '');
@@ -121,7 +122,7 @@ export default function C24DropDetail() {
           </div>
         </div>
         <div className="countdown__aside">
-          <p className="countdown__stock">Only <b>{drop.remaining}</b> left<br />in this drop</p>
+          <p className="countdown__stock">Only <b>{drop.remaining}</b> left{' '}<br />in this drop</p>
         </div>
       </section>
 
@@ -182,8 +183,8 @@ export default function C24DropDetail() {
             <span className="buybar__price">{inr(product.price)}</span>
             <span className="chip chip--member buybar__chip">Member {inr(product.memberPrice)}</span>
           </div>
-          <button className="btn btn--primary buybar__cta" onClick={() => addToBag(product.id)}>
-            <span className="t-eyebrow">Add to Cart</span>
+          <button className="btn btn--primary buybar__cta" onClick={() => (inBag ? navigate('/bag') : addToBag(product.id))}>
+            <span className="t-eyebrow">{inBag ? 'Go to bag' : 'Add to Cart'}</span>
             <svg width="30" height="18" viewBox="0 0 16 10" fill="none" stroke="currentColor" strokeWidth="1.2"><path d="M0 5h14M10 1l4 4-4 4" /></svg>
           </button>
         </div>

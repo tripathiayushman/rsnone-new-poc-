@@ -124,4 +124,27 @@
   .shop-sheet__row input:checked + .shop-sheet__toggle::after{left:32px}
   .shop-sheet__actions{margin-top:34px; display:flex; gap:16px}
   .shop-sheet__actions .btn{flex:1}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    .shop-head{padding:8px 24px 0}
+    .worlds--shop{padding:0 24px; gap:18px; margin-top:22px}
+    /* banner: copy column narrows so the pull-quote no longer overlaps it */
+    .shop-banner{margin:28px 24px 0; height:196px}
+    .shop-banner__copy{left:22px; top:16px; width:230px}
+    .shop-banner__title{font-size:32px}
+    .shop-banner__cta{left:22px; bottom:18px}
+    .shop-banner__voice{right:18px; top:34px; width:130px; font-size:17px}
+    .shop-grid-head{padding:0 24px; margin-top:24px}
+    /* tiles: two fluid ~230px columns; price on its own line, chip + stock share the next */
+    .product-grid{padding:0 24px; gap:12px}
+    .product-card--tile .product-card__media{height:150px}
+    .product-card--tile .product-card__title{padding:0 14px}
+    .product-card--tile .product-card__house{padding:0 14px}
+    .product-card--tile .product-card__price{margin:12px 0 0 14px}
+    .product-card--tile .product-card__chip{height:28px; font-size:15px; padding:0 10px; margin:10px 0 0 14px}
+    .product-card--tile .product-card__stock{font-size:14px; margin:10px 12px 0 auto}
+    .shop-sheet__panel{padding:28px 24px 36px}
+    .shop-sheet__row{height:60px}
+  }
 }

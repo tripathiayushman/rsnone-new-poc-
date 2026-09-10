@@ -202,4 +202,22 @@
   .promo-form__apply:disabled{opacity:.45; cursor:not-allowed}
   .summary__row--discount span:last-child{color:var(--rose-light)}
   .checkout-foot__cta:disabled{opacity:.45; cursor:not-allowed}
+
+  /* --- COMPACT CANVAS (520px) --------------------------------------------
+     Same treatment as C11: rail stacks below the accordion at full width,
+     bar / stepper / footer gutters tighten, voice line steps down.
+     ---------------------------------------------------------------------- */
+  .frame--compact & {
+    .checkout-bar{gap:20px; padding:9px 24px 0}
+    .checkout-bar__voice{font-size:22px; max-width:190px}
+    .stepper{padding:0 16px}
+    .step{flex:0 0 78px}
+    .checkout{flex-direction:column; gap:40px; padding:0 24px}
+    .checkout__form{flex:0 0 auto; width:100%}
+    .checkout__rail{flex:0 0 auto; width:100%; margin-top:0}
+    .rail-tile{height:240px}
+    .checkout-foot{padding:0 24px}
+    .promo-row{white-space:normal}
+    .pay-title{white-space:normal}
+  }
 }

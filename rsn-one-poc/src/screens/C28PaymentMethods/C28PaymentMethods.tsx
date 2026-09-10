@@ -136,7 +136,7 @@ export default function C28PaymentMethods() {
         {/* PAGE HEAD — screen title + 2-line supporting line */}
         <header className="page-head">
           <h1 className="t-h1">Payment Methods</h1>
-          <p className="t-body-lg page-head__sub">Save and manage your payment methods<br />for a faster, more seamless checkout.</p>
+          <p className="t-body-lg page-head__sub">Save and manage your payment methods{' '}<br />for a faster, more seamless checkout.</p>
         </header>
 
         {/* SECTION: Cards — saved cards 14px apart; artwork drawn in CSS.

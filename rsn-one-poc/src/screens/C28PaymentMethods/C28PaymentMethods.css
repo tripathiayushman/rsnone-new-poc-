@@ -150,4 +150,37 @@
   .field__brand{flex:0 0 auto; font-size:19px; font-weight:300; color:var(--rose-light)}
   .pay-form__actions{display:flex; gap:12px; margin-top:4px}
   .pay-form__actions .btn{flex:1; letter-spacing:.18em; font-size:18px; text-transform:uppercase}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    .page{--pad:24px; --card-pad:24px}
+    .page-head__sub br{display:none}
+    .pay-section{margin-top:32px}
+    /* card row: 226x128 artwork -> 150x85, room on the right for the "..." menu */
+    .pay-card{gap:18px; padding:14px 50px 14px 14px; min-height:113px}
+    .pay-card__art{flex-basis:150px; width:150px; height:85px}
+    .pay-card__art::before{left:12px; top:10px}
+    .pay-card__arc{right:-30px; bottom:-55px; width:130px; height:130px}
+    .pay-card__arc::before{left:12px; top:24px}
+    .pay-card__arc::after{left:48px; top:3px}
+    .pay-card__art--visa::before{font-size:22px}
+    .pay-card__art--mastercard::before{width:32px; height:32px}
+    .pay-card__art--mastercard .pay-card__mc{left:32px; top:10px; width:32px; height:32px}
+    .pay-card__art--amex::before{font-size:11px}
+    .pay-card__art--rupay::before{font-size:20px}
+    .pay-card__art--upi::before{font-size:24px}
+    .pay-card--upi{gap:18px; padding:14px 50px 14px 14px; min-height:88px}
+    .pay-card--upi .pay-card__art{flex-basis:120px; width:120px; height:60px}
+    .pay-card--upi .pay-card__arc{right:-40px; bottom:-60px; width:100px; height:100px}
+    /* the marker moves off the name line to the card's bottom-right corner */
+    .pay-card__default{top:auto; bottom:12px; right:14px; height:34px; padding:0 16px; font-size:19px}
+    .pay-card__menu{top:14px; right:14px; transform:none}
+    .pay-card__popover{top:44px; right:14px; margin-top:0}
+    .pay-option{gap:18px; padding:18px 20px; min-height:110px}
+    .pay-option__icon{flex-basis:60px; width:60px; height:60px}
+    .secure{gap:18px; padding:0 24px 0 28px; margin-top:36px}
+    .page-action{margin-top:32px}
+    .btn--add{gap:16px; letter-spacing:.14em; padding:0 24px}
+    .field{gap:16px; padding:18px 18px 18px 20px}
+  }
 }

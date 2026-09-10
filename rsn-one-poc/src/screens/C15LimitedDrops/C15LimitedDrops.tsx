@@ -39,7 +39,7 @@ export default function C15LimitedDrops() {
         <span className="drop-intro__eyebrow">Limited Drops</span>
         <hr className="rule rule--88" />
         <h1 className="drop-intro__title">Limited<br />Discoveries</h1>
-        <p className="drop-intro__body">Rare objects. Exclusive access.<br />For those who seek more.</p>
+        <p className="drop-intro__body">Rare objects. Exclusive access.{' '}<br />For those who seek more.</p>
         <p className="drop-intro__voice">Thoughtful pieces.<br />Brighter days.</p>
         <hr className="rule rule--57" />
       </section>

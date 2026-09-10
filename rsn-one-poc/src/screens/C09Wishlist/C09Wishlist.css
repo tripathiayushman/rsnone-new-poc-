@@ -50,4 +50,26 @@
   .wish-card__sep{width:1px; height:41px; background:var(--line-strong)}
   .wish-card__remove{display:inline-flex; align-items:center; gap:14px;
                      color:var(--muted); font-size:21px; font-weight:300}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    .wish-head{padding:28px 24px 0}
+    .wish-head__title{font-size:64px}
+    .wish-head__share{gap:12px; font-size:20px; white-space:nowrap}
+    .wish-sub{padding:0 24px}
+    .wishlist{padding:0 24px 40px}
+    /* card: 260 tall, photo column shrinks 327 -> 140 */
+    .wish-card{height:260px}
+    .wish-card > a{flex:0 0 140px}
+    .wish-card__media{flex:none; width:140px; height:260px}
+    .wish-card__body{padding:22px 16px 16px 18px}
+    .wish-card__house{font-size:14px; padding-right:40px}
+    .wish-card__pricing{gap:8px 12px; flex-wrap:wrap}
+    .wish-card__chip{height:36px; font-size:16px; padding:0 14px}
+    .wish-card__unwish{top:18px; right:12px}
+    .wish-card__actions{gap:12px; margin-top:20px}
+    .wish-card__cta{width:auto; padding:0 12px; height:54px; font-size:18px; gap:10px; white-space:nowrap}
+    .wish-card__sep{height:32px}
+    .wish-card__remove{font-size:18px; gap:10px; white-space:nowrap}
+  }
 }

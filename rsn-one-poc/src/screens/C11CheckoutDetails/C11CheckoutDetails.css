@@ -186,4 +186,26 @@
   .promo-form__apply:disabled{opacity:.45; cursor:not-allowed}
   .summary__row--discount span:last-child{color:var(--rose-light)}
   .checkout-foot__cta:disabled{opacity:.45; cursor:not-allowed}
+
+  /* --- COMPACT CANVAS (520px) --------------------------------------------
+     The two columns (472 + 302) only fit at 853: the order rail stacks
+     BELOW the form at full width. Bar and stepper gutters tighten, the
+     voice line steps down so it fits beside the logo, the stepper hairline
+     goes fluid, and the title / "Use saved address" row may wrap.
+     ---------------------------------------------------------------------- */
+  .frame--compact & {
+    .checkout-bar{gap:20px; padding:9px 24px 0}
+    .checkout-bar__voice{font-size:22px; max-width:190px}
+    .stepper{padding:0 16px}
+    .step{flex:0 0 78px}
+    .checkout{flex-direction:column; gap:40px; padding:0 24px}
+    .checkout__form{flex:0 0 auto; width:100%}
+    .checkout__rail{flex:0 0 auto; width:100%; margin-top:0}
+    .rail-tile{height:240px}
+    .checkout-foot{padding:0 24px}
+    .promo-row{white-space:normal}
+    .stepper-rule{margin:40px 24px 0; width:auto}
+    .panel-head{flex-wrap:wrap; gap:8px 12px}
+    .delivery-title,.method-title{white-space:normal}
+  }
 }

@@ -7,6 +7,7 @@ import { homedir } from 'node:os';
 import { join } from 'node:path';
 
 const BASE = process.env.BASE ?? 'http://localhost:5173';
+const COMPACT = !!process.env.COMPACT; // COMPACT=1 → phone viewport (412px), screenshots suffixed -m
 const OUT = '_shots'; mkdirSync(OUT, { recursive: true });
 const pw = join(homedir(), 'AppData/Local/ms-playwright');
 const dirs = readdirSync(pw);
@@ -38,7 +39,8 @@ const seed = {
 };
 
 const browser = await chromium.launch({ executablePath: exe });
-const ctx = await browser.newContext({ viewport: { width: 853, height: 1844 }, deviceScaleFactor: 1 });
+// desktop must be ≥ 900px wide or DeviceFrame switches to the compact phone canvas
+const ctx = await browser.newContext({ viewport: COMPACT ? { width: 412, height: 915 } : { width: 1000, height: 1844 }, deviceScaleFactor: COMPACT ? 2 : 1 });
 await ctx.addInitScript((s) => {
   const cur = JSON.parse(localStorage.getItem('rsn-one-poc') || '{"state":{}}');
   localStorage.setItem('rsn-one-poc', JSON.stringify({ ...s, state: { ...cur.state, ...s.state } }));
@@ -56,8 +58,9 @@ for (const [id, path] of list) {
     await page.evaluate(async () => { const h = document.documentElement.scrollHeight; for (let y = 0; y < h; y += 800) { window.scrollTo(0, y); await new Promise(r => setTimeout(r, 60)); } window.scrollTo(0, 0); });
     await page.waitForLoadState('networkidle');
     await page.waitForTimeout(300);
-    await page.addStyleTag({ content: '.devbar{display:none!important} .frame-backdrop{padding:0!important} .frame{zoom:1!important;box-shadow:none!important}' });
-    await page.screenshot({ path: `${OUT}/${id}.png`, fullPage: true });
+    await page.addStyleTag({ content: COMPACT ? '.devbar{display:none!important} .frame-backdrop{padding:0!important}' : '.devbar{display:none!important} .frame-backdrop{padding:0!important} .frame{zoom:1!important;box-shadow:none!important}' });
+    if (COMPACT) await page.screenshot({ path: `${OUT}/${id}-m.png`, fullPage: true });
+    else await page.locator('.frame').screenshot({ path: `${OUT}/${id}.png` }); // the 853px artboard only
     const h = await page.evaluate(() => document.querySelector('.screen')?.scrollHeight ?? 0);
     const url = page.url().replace(BASE, '');
     console.log(`${id} ${path.padEnd(32)} h=${String(h).padEnd(5)} ${url !== path ? 'REDIRECTED→' + url : ''}${errors.length ? '  ERRORS: ' + errors.join(' | ') : ''}`);

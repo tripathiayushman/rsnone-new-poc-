@@ -94,4 +94,27 @@
   /* the banner is a share action (a <button>), so it must keep the anchor's box */
   .c34-promo{width:auto; text-align:left; cursor:pointer}
   .c34-referrals .c34-empty{padding:30px 0; font-size:22px; font-weight:300; color:var(--muted); text-align:center}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    --gutter:24px;
+    .referral-hero{height:auto; min-height:263px}
+    .referral-hero__body{padding:26px 24px 28px}
+    .referral-hero__title{font-size:44px; line-height:46px}
+    .referral-hero__scrim{background:linear-gradient(90deg, rgba(240,222,215,.95) 0%, rgba(240,222,215,.88) 55%, rgba(240,222,215,.45) 100%)}
+    .c34-share{gap:14px; padding:0 20px}
+    .c34-share .t-eyebrow{font-size:22px}
+    .invite-field__input{padding:0 16px; font-size:20px}
+    .invite-field__copy{flex-basis:100px}
+    .reward-split{flex-direction:column; align-items:stretch; height:auto}
+    .reward-split__half{padding:22px 24px}
+    .reward-split__rule{margin:0 24px}
+    .stat-split{height:auto; min-height:117px; align-items:stretch}
+    .stat-split__cell{display:flex; flex-direction:column; justify-content:center; padding:18px 12px}
+    .stat-split__label{white-space:normal; line-height:1.25}
+    .c34-referrals .data-row{gap:16px; padding:0 18px}
+    .c34-promo{height:auto; min-height:170px}
+    .c34-promo .promo-banner__body{padding:24px}
+    .c34-promo .promo-banner__scrim{background:linear-gradient(90deg, rgba(240,220,212,.94) 0%, rgba(240,220,212,.86) 55%, rgba(240,220,212,.40) 100%)}
+  }
 }

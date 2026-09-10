@@ -41,4 +41,19 @@
 
   /* HOME INDICATOR — pushed to the bottom of the frame (no tab bar here) */
   .home-indicator{margin-top:auto}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    .search-nav{flex-basis:120px; padding:40px 24px 0}
+    .search-field{margin:0 24px; height:104px; padding:0 30px}
+    .search-field__input{margin-left:22px; font-size:28px}
+    .search-heading{padding-left:28px}
+    .search-heading--recent{margin-top:60px}
+    .search-heading--trending{margin-top:60px}
+    .search-list{padding:0 24px 0 28px; gap:26px}
+    .search-list--recent{margin-top:40px}
+    .search-list--trending{gap:28px; margin-top:40px}
+    .search-row{gap:24px}
+    .search-row__badge{flex-basis:68px; width:68px; height:68px}
+  }
 }

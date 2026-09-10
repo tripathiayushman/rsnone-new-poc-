@@ -53,4 +53,17 @@
 
   /* the photograph runs under the home indicator — no dark plate here */
   .home-indicator{background:transparent}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    --gutter:24px;
+    .poster__title{font-size:56px; line-height:64px; margin-top:84px}
+    .benefit-list__item{gap:28px; height:112px}
+    .benefit-list__icon{flex-basis:84px; width:84px; height:84px}
+    .c14-cta{margin:auto 24px 64px; height:112px}
+    .c14-cta .t-eyebrow{font-size:28px}
+    .c14-cta-row{flex-direction:column; gap:12px; margin:auto 24px 64px}
+    .c14-cta-row .c14-cta{flex:0 0 auto; margin:0; height:96px}
+    .c14-cta-row .t-eyebrow{font-size:24px}
+  }
 }

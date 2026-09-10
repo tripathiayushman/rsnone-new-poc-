@@ -90,4 +90,22 @@
   .product-card--result .product-card__price{display:inline-block; margin:15px 0 0 19px; white-space:nowrap}
   .product-card--result .product-card__chip{margin:15px 0 0 30px; white-space:nowrap}
   .result-grid--last{padding-bottom:40px}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    --gutter-search:24px;
+    .search-head__title{font-size:64px}
+    .field{height:80px}
+    .field__icon{left:24px}
+    .field__input{padding:0 24px 0 84px}
+    .worlds--search{padding:0 24px; gap:20px}
+    /* results: two fluid ~229px columns; the 19px text indent shrinks to 12px */
+    .result-grid{padding:0 24px; gap:16px 14px}
+    .product-card--result .product-card__media{height:150px}
+    .product-card--result .product-card__wish{top:14px; right:14px}
+    .product-card--result .product-card__title{padding-left:12px}
+    .product-card--result .product-card__house{padding-left:12px}
+    .product-card--result .product-card__price{font-size:26px; margin:12px 0 0 12px}
+    .product-card--result .product-card__chip{height:34px; font-size:16px; padding:0 14px; margin:10px 0 0 12px}
+  }
 }

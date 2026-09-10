@@ -57,4 +57,16 @@
                 color:var(--rose-light)}
   /* the "What's Next?" routes are links — same column layout as .benefit */
   .c23-route{display:flex; flex-direction:column; align-items:center; color:inherit}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    --gutter:24px;
+    .c23-title{font-size:68px; line-height:72px; padding:0 24px}
+    .c23-sub{padding:0 24px}
+    /* the photo is centre-cropped to 520px, so x=648 falls off the canvas — pin to the right gutter */
+    .c23-voice{left:auto; right:24px; top:836px; text-align:right}
+    .c23-next__sub{padding:0 24px}
+    .c23-next__sub br{display:none}
+    .c23-grid .benefit{padding:0 6px}
+  }
 }

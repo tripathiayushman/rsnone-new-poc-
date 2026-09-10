@@ -81,4 +81,13 @@
   /* POC: edit mode — text "Delete address" link under the save button */
   .form-delete{display:block; margin:26px auto 0; font-size:22px; font-weight:300;
                color:var(--rose-light)}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    .page{--pad:24px}
+    .page-head__sub br{display:none}
+    .form{margin-top:32px}
+    /* 42px icon gap and 34px inset shrink so the value column keeps its width */
+    .field{gap:20px; padding:20px 20px 20px 22px}
+  }
 }

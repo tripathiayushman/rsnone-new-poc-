@@ -56,4 +56,19 @@
   .promo-card__link{margin-top:auto; display:inline-flex; align-items:center; gap:10px; color:var(--rose-light)}
 
   .section--last{padding-bottom:40px}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    .hero{height:380px; flex-basis:380px}
+    .hero__copy{left:24px; top:56px; width:300px}
+    .hero__title{font-size:44px}
+    .hero__body{font-size:17px}
+    .hero__voice{left:auto; right:16px; bottom:70px; width:110px}
+    .product-rail{padding:0 24px 4px}
+    .worlds{padding:0 24px}
+    .promo-grid{padding:0 24px; gap:12px}
+    .promo-card{height:176px}
+    .promo-card__title{font-size:26px}
+    .promo-card__body{padding:20px 18px 18px}
+  }
 }

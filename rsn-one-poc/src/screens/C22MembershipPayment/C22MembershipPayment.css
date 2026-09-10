@@ -97,4 +97,23 @@
   .field__chev{position:absolute; right:26px; top:26px; color:var(--muted); pointer-events:none}
   .field-row{display:flex; gap:14px; margin-top:14px}
   .field-row .field{flex:1 1 0; min-width:0; margin-top:0}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    --gutter:24px;
+    .c22-copy{margin-top:40px}
+    .c22-copy__title{font-size:56px; line-height:60px}
+    .c22-copy__body{margin-top:14px}
+    .c22-tier{flex-direction:column; align-items:stretch; height:auto; padding:26px; margin-top:40px}
+    .c22-tier .tier-card__name{font-size:36px; white-space:normal}
+    .c22-tier .tier-card__rule{flex:0 0 1px; margin:22px 0}
+    .c22-tier .tier-card__aside{flex:0 0 auto}
+    .c22-grid{grid-template-columns:repeat(2,1fr); row-gap:36px; column-gap:12px}
+    .c22-h2row{flex-wrap:wrap; gap:6px 20px; margin-top:44px}
+    .c22-methods .data-row{gap:20px; padding:0 20px}
+    .c22-consent{align-items:flex-start}
+    .c22-consent__box{margin-top:2px}
+    .c22-note{padding:0 24px; gap:14px}
+    .c22-note svg{flex:0 0 auto}
+  }
 }

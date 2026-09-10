@@ -128,4 +128,33 @@
   .address-picker__cancel{display:block; width:100%; padding:16px 33px; text-align:center;
                           border-top:1px solid var(--line); font-size:20px; color:var(--rose-light)}
   .detail-end{flex:0 0 40px}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    .navbar{padding:0 24px}
+    .detail-head{padding:8px 24px 0}
+    .detail-head__title{font-size:50px}
+    .panel{margin:22px 24px 0}
+    .timeline--horizontal{padding:20px 12px 0}
+    .timeline__label{font-size:19px}
+    /* delivery note: text takes the row, the CTA drops to a full-width line below */
+    .tracker__note{flex-wrap:wrap; gap:16px 20px; padding:20px 24px}
+    .tracker__icon{flex-basis:44px}
+    .tracker__text{flex:1 1 220px}
+    .tracker__cta{flex:0 0 100%; width:100%}
+    .detail-section{padding:28px 24px 0; gap:16px}
+    .address{gap:22px; padding:20px 24px 16px}
+    .address__pin{margin-top:6px}
+    /* item line: 160px photo leaves ~290px for the copy so the price chip no longer clips */
+    .order-item{gap:18px; padding:14px 24px 0}
+    .order-item__media{width:160px; height:140px; flex-basis:160px; border-radius:12px}
+    .order-item__body{padding-top:4px; min-width:0}
+    .order-item__title{font-size:27px}
+    .summary{padding:20px 24px}
+    .help-cta,.return-note{width:auto; margin-left:24px; margin-right:24px; padding:0 16px}
+    .help-cta{gap:16px; text-align:center}
+    .address-picker{margin:8px 24px 0}
+    .address-option{gap:16px; padding:18px 20px}
+    .address-option__label{flex-basis:110px}
+  }
 }

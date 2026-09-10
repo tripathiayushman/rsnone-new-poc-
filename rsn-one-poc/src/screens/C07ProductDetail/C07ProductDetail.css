@@ -74,4 +74,18 @@
   .pdp-accordion__panel p + p{margin-top:12px}
   .pdp-accordion__panel a{color:var(--rose-light)}
   .pdp-accordion--last{margin-bottom:8px}
+
+  /* ---- compact canvas (520px, phones) ---- */
+  .frame--compact & {
+    --gutter-pdp:24px;
+    /* gallery: slides are canvas-wide (the TSX reads the track width for snapping) */
+    .pdp-gallery{flex-basis:560px; height:560px}
+    .pdp-gallery__slide{flex-basis:100%; width:100%; height:560px}
+    .pdp-gallery__slide img,.pdp-gallery__slide .img-slot{width:100%; height:560px}
+    .pdp-topbar{top:80px; padding:0 20px}
+    .pdp-wish{top:172px; right:24px; width:64px; height:64px}
+    .pdp-dots{bottom:28px}
+    .pdp-info__title{font-size:54px}
+    .pdp-info__pricerow{gap:20px; flex-wrap:wrap}
+  }
 }

@@ -22,6 +22,7 @@ export default function C07ProductDetail() {
 
   const isMember = useStore(s => s.isMember);
   const addToBag = useStore(s => s.addToBag);
+  const inBag = useStore(s => !!product && s.bag.some(b => b.productId === product.id));
   const toggleWishlist = useStore(s => s.toggleWishlist);
   const wished = useIsWishlisted(id);
   const bagCount = useBagCount();
@@ -37,9 +38,10 @@ export default function C07ProductDetail() {
 
   const onScroll = () => {
     const el = track.current; if (!el) return;
-    setSlide(Math.max(0, Math.min(product.images.length - 1, Math.round(el.scrollLeft / SLIDE_W))));
+    // slide width = track width (853 on the mock canvas, 520 on the compact one)
+    setSlide(Math.max(0, Math.min(product.images.length - 1, Math.round(el.scrollLeft / (el.clientWidth || SLIDE_W)))));
   };
-  const goTo = (i: number) => track.current?.scrollTo({ left: i * SLIDE_W, behavior: 'smooth' });
+  const goTo = (i: number) => track.current?.scrollTo({ left: i * (track.current.clientWidth || SLIDE_W), behavior: 'smooth' });
 
   const mainPrice = isMember ? product.memberPrice : product.price;
   const chip = isMember ? `You save ${inr(product.price - product.memberPrice)}` : `Member ${inr(product.memberPrice)}`;
@@ -111,8 +113,9 @@ export default function C07ProductDetail() {
 
       {/* ACTIONS — "Add to bag" + "Save to wishlist" (shares state with the gallery heart) */}
       <div className="pdp-actions">
-        <button className="btn btn--primary" onClick={() => addToBag(product.id)} disabled={product.stock === 'out'}>
-          {product.stock === 'out' ? 'Sold out' : 'Add to bag'}
+        {/* feedback: once added, the button becomes "Go to bag" (store convention) */}
+        <button className="btn btn--primary" onClick={() => (inBag ? navigate('/bag') : addToBag(product.id))} disabled={product.stock === 'out'}>
+          {product.stock === 'out' ? 'Sold out' : inBag ? 'Go to bag' : 'Add to bag'}
         </button>
         <button className="btn btn--wish" aria-pressed={wished} onClick={() => toggleWishlist(product.id)}>
           <svg width="34" height="31" viewBox="0 0 18 16" fill={wished ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="1.2"><path d="M9 15S1 10.4 1 5.6A4.3 4.3 0 0 1 9 3.4 4.3 4.3 0 0 1 17 5.6C17 10.4 9 15 9 15Z" /></svg>
