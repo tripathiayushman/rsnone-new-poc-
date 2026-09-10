@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C02 Welcome</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C02 Welcome (onboarding, slide 1 of 3)
+   Source mock: rsn-one-design/C02-Welcome.png  (853 x 1844, 1x)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Tokens + base components are IDENTICAL in every CXX file; see
+   RSN-HANDOFF-SPEC.md. Screen-specific CSS starts at "SCREEN: WELCOME".
+   ========================================================================== */
+.welcome__lockup .logo{margin:0 auto}
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   SCREEN: WELCOME
+   Full-bleed photograph behind everything; all copy and controls are laid
+.welcome__lockup .logo{margin:0 auto}
+   over it. Two different left margins are in play and both are measured:
+   copy sits at x=64, the two buttons at x=100. Screen-local ink colours are
+   sampled from the mock and do NOT come from the token set — this is the
+   only screen in the set that puts dark type on a light ground.
+   ========================================================================== */
+.welcome{--ink:#241210;          /* headline ink, sampled */
+         --ink-body:#36221D;     /* body copy */
+         --ink-rose:#9E514F;     /* italic headline line + script "one" */
+         --ink-tagline:#A8685F;
+         --btn-rose:#BA6E6E;     /* GET STARTED fill, sampled #BA6E6E */
+         --btn-rose-line:#CC7572;}
+
+/* BACKDROP — one photograph, 853 x 1844, edge to edge. Light plaster/arch at
+   the top, dark table still-life at the bottom. */
+/* light placeholder ground (as on C13) so the dark-ink logo and copy stay
+   readable until the photograph lands — delete with the .slot treatment */
+.welcome__media{position:absolute; inset:0; width:853px; height:1844px;
+                object-fit:cover; border:0; background:#EFD6CC}
+
+/* iOS status bar + Skip both sit on the LIGHT part of the photo. */
+.welcome .statusbar{position:relative; z-index:2; color:#FBF9F9}
+.welcome__skip{position:absolute; z-index:3; top:120px; right:50px;
+               font-size:26px; font-weight:400; color:#EAD3C9}
+
+/* LOCKUP — centred, dark-ink version of the logo asset. Arc y 135–185,
+   wordmark y 191–261, tagline y 285–300: 319 x 161 overall. */
+.welcome__lockup{position:absolute; z-index:3; left:0; right:0; top:132px; text-align:center}
+
+/* HEADLINE — 3 lines, left edge x=64. "T" cap height measured 69px and the
+   baseline-to-baseline pitch is 94px, so ~96px / .98. Line 3 is italic rose. */
+.welcome__copy{position:absolute; z-index:3; left:64px; top:412px; width:640px}
+.welcome__title{font-family:var(--font-serif); font-size:96px; line-height:.98;
+                font-weight:400; color:var(--ink); margin:0}
+.welcome__title em{font-style:italic; color:var(--ink-rose)}
+/* BODY — 3 hard-broken lines, "S" cap 21px => ~28px, 40px line pitch. */
+.welcome__body{margin:34px 0 0; font-size:28px; line-height:40px;
+               font-weight:400; color:var(--ink-body)}
+
+/* CTA STACK — both buttons 652px wide at x=100 (so a 100px gutter, not the
+   36px page gutter used elsewhere). Primary 90px tall, outline 83px tall. */
+.welcome__cta{position:absolute; z-index:3; left:100px; top:1500px; width:652px}
+.welcome__btn{display:flex; align-items:center; justify-content:center; width:100%;
+              border-radius:8px; font-size:26px; letter-spacing:.20em;
+              text-transform:uppercase; font-weight:400}
+.welcome__btn--primary{height:90px; background:var(--btn-rose); color:#fff}
+.welcome__btn--guest{height:83px; margin-top:15px; background:transparent;
+                     border:1px solid var(--btn-rose-line); color:#CE7E7B}
+
+/* PAGER — 3 dots, 14px, 30px pitch, centred at y 1732. Slide 1 active. */
+.welcome__dots{position:absolute; z-index:3; left:0; right:0; top:1732px;
+               display:flex; justify-content:center; gap:17px}
+.welcome__dot{width:14px; height:14px; border-radius:var(--r-pill);
+              background:rgba(250,247,245,.42)}
+.welcome__dot--active{background:#BD7172}
+
+.welcome .home-indicator{position:absolute; z-index:3; left:0; right:0; bottom:0;
+                         height:44px; background:transparent}
+</style>
+</head>
+<body>
+
+<!-- ICON: approximated, swap for production icon set -->
+
+<div class="screen welcome">
+
+  <!-- ==================================================================
+       BACKDROP PHOTO — full-bleed, 853 x 1844. Top half: pale plaster arch
+       with cherry blossom. Bottom half: leather satchel, gift box, RSN one
+       candle and vase on a dark table. One image in the mock, so one slot.
+       ================================================================== -->
+  <img class="welcome__media" src="rsn-one-images/hero-welcome-01.jpg"
+       alt="hero-welcome-01" width="853" height="1844">
+
+  <!-- ==================================================================
+       STATUS BAR — iOS chrome drawn into the mock. Not app UI; delete this
+       block when building the real screen.
+       DEVIATION-RISK: the status bar and "Skip" are drawn in near-white
+       (#FBF9F9 / #EAD3C9) over the pale part of the photo (#BB9687).
+       That is roughly 2:1 contrast — both are hard to read in the mock and
+       will fail WCAG AA. Either darken this pair on light slides or put a
+       scrim behind the top 200px.
+       ================================================================== -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="statusbar__icons">
+      <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+      <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- SECTION: Skip — text button, top right (text box x 754–803, y 126–149).
+       ASSUMPTION: skips the 3-slide onboarding straight to C19 Store
+       Selection. Target destination is not shown in the mock. -->
+  <button class="welcome__skip" type="button">Skip</button>
+
+  <!-- ==================================================================
+       BRAND LOCKUP — centred, dark-ink variant of the logo used on C01/C03.
+       Arc y 135–185, "RSNone" y 191–261, tagline y 285–300.
+       ASSUMPTION (resolved): the whole lockup is one asset. This screen
+       takes logo-rsnone-dark-01.png — dark ink on the pale photograph.
+       PNG extracted from the mock; swap for the production vector.
+       ================================================================== -->
+  <div class="welcome__lockup">
+    <!-- LOGO: full lockup (arc + wordmark + tagline) as one asset. -->
+    <img class="logo" src="rsn-one-images/logo-rsnone-dark-01.png" alt="logo-rsnone-dark-01" width="319" height="161">
+  </div>
+
+  <!-- ==================================================================
+       HEADLINE + BODY — left aligned at x=64. Headline 3 lines, the third
+       italic in rose. Body 3 hard-broken lines.
+       Line breaks are hard in the mock, so they are hard here too.
+       ================================================================== -->
+  <div class="welcome__copy">
+    <h1 class="welcome__title">The world&rsquo;s<br>houses,<br><em>brought home.</em></h1>
+    <p class="welcome__body">The world&rsquo;s finest makers,<br>curated for your home.<br>Verified. Sealed. Open to all.</p>
+  </div>
+
+  <!-- ==================================================================
+       CTA STACK — GET STARTED (rose fill, 652 x 90) and EXPLORE AS GUEST
+       (rose 1px outline, 652 x 83), 15px apart, both at x=100.
+       ASSUMPTION: GET STARTED goes to C20 Login / Sign Up; EXPLORE AS GUEST
+       goes to C19 Store Selection. Neither destination is in the mock.
+       ================================================================== -->
+  <div class="welcome__cta">
+    <button class="welcome__btn welcome__btn--primary" type="button">Get Started</button>
+    <button class="welcome__btn welcome__btn--guest" type="button">Explore as Guest</button>
+  </div>
+
+  <!-- ==================================================================
+       PAGER — 3 dots, slide 1 active. Confirms this is slide 1 of a 3-slide
+       onboarding carousel.
+       DEVIATION-RISK: the dots are the only indication that slides 2 and 3
+       exist, and neither is in the 34-screen set. Either they need mocks or
+       the carousel needs to be cut to one slide.
+       ================================================================== -->
+  <div class="welcome__dots" role="tablist" aria-label="Onboarding slides">
+    <span class="welcome__dot welcome__dot--active"></span>
+    <span class="welcome__dot"></span>
+    <span class="welcome__dot"></span>
+  </div>
+
+  <!-- HOME INDICATOR — iOS chrome. -->
+  <div class="home-indicator"></div>
+
+</div>
+</body>
+</html>

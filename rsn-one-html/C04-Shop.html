@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RSN ONE — C04 Shop</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   RSN ONE — C04 Shop
+   Source mock: rsn-one-design/C04-Shop.png  (853 x 1844, 1x)
+   Authored 1:1 with the mock. Every value here is the pixel value measured
+   in the PNG — no scaling. To preview at phone size: .screen{zoom:.5}
+   Tokens + base components are IDENTICAL in every CXX file; see
+   RSN-HANDOFF-SPEC.md. Screen-specific CSS starts at "SCREEN: SHOP".
+   ========================================================================== */
+
+/* ---------- 1. TOKENS ---------------------------------------------------- */
+:root{
+  --bg:#291C19; --surface:#33241F; --surface-2:#3B2A24;
+  --line:rgba(250,247,245,.14); --line-strong:rgba(250,247,245,.28);
+  --scrim:rgba(41,28,25,.72);
+  --rose:#C97C79; --rose-light:#E4A49D; --rose-pale:#F0CFC9;
+  --chip-bg:rgba(219,146,138,.22);
+  --cream:#FAF7F5; --muted:#A99E99; --muted-dim:#7C716C;
+  --font-serif:'Playfair Display','Cormorant Garamond',Georgia,serif;
+  --font-sans:'Inter','Poppins',-apple-system,'Segoe UI',Roboto,sans-serif;
+  --gutter:36px; --r-card:16px; --r-input:14px; --r-btn:10px; --r-pill:999px;
+}
+
+/* ---------- 2. RESET + FRAME -------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:#171010; font-family:var(--font-sans);
+     display:flex; justify-content:center; padding:40px 0;
+     -webkit-font-smoothing:antialiased;}
+/* .screen = the artboard, 1:1 with the mock. Not responsive by design. */
+.screen{width:853px; min-height:1844px; background:var(--bg); color:var(--cream);
+        position:relative; overflow:hidden; display:flex; flex-direction:column;}
+img{display:block; max-width:100%}
+button{font:inherit; color:inherit; background:none; border:0; padding:0; cursor:pointer}
+a{color:inherit; text-decoration:none}
+ul,ol{margin:0; padding:0; list-style:none}
+
+/* placeholder styling for not-yet-supplied images — DELETE when images land */
+img{background:var(--surface-2); border:1px dashed var(--line);
+    font-family:var(--font-sans); font-size:11px; color:var(--muted-dim);
+    text-align:center; overflow:hidden}
+/* the real logo lockup ships as a PNG asset — opt it out of the
+   dashed placeholder treatment above */
+.logo{display:block; border:0; background:none}
+
+/* ---------- 3. TYPE SCALE ------------------------------------------------ */
+.t-display{font-family:var(--font-serif); font-size:52px; line-height:1.02; font-weight:400; margin:0}
+.t-h1     {font-family:var(--font-serif); font-size:64px; line-height:1.05; font-weight:400; margin:0}
+.t-title  {font-family:var(--font-serif); font-size:40px; line-height:1.15; font-weight:400; margin:0}
+.t-section{font-family:var(--font-serif); font-size:34px; line-height:1.2;  font-weight:400; margin:0}
+.t-h3     {font-family:var(--font-serif); font-size:24px; line-height:1.25; font-weight:400; margin:0}
+.t-card   {font-family:var(--font-serif); font-size:18px; line-height:1.3;  font-weight:400; margin:0}
+.t-body-lg{font-size:22px; line-height:1.45; font-weight:300; margin:0}
+.t-body   {font-size:16px; line-height:1.55; font-weight:300; margin:0}
+.t-row    {font-size:26px; line-height:1.3; font-weight:300; margin:0}
+.t-meta   {font-size:14px; line-height:1.4; color:var(--muted); margin:0}
+.t-eyebrow{font-size:13px; line-height:1; letter-spacing:.16em; text-transform:uppercase; font-weight:500}
+.t-price  {font-family:var(--font-serif); font-size:22px; line-height:1.2; color:var(--rose-light)}
+.t-voice  {font-family:var(--font-serif); font-style:italic; font-size:19px; line-height:1.4}
+.t-tab    {font-size:15px; line-height:1; letter-spacing:.12em; text-transform:uppercase}
+
+/* ---------- 4. STATUS BAR (iOS chrome, not app UI) ---------------------- */
+.statusbar{height:70px; flex:0 0 70px; display:flex; align-items:center;
+           justify-content:space-between; padding:0 var(--gutter);
+           font-size:26px; font-weight:600; letter-spacing:.01em}
+.statusbar__icons{display:flex; align-items:center; gap:9px}
+
+/* ---------- 5. APP BAR --------------------------------------------------- */
+.appbar{flex:0 0 103px; min-height:0; display:flex; align-items:center; justify-content:space-between;
+        padding:0 var(--gutter) 14px}
+/* min-height:0 keeps the bar at its measured 103px: the logo lockup is 94px
+   tall and overhangs the 89px content box slightly, exactly as in the mock */
+.appbar__logo{display:block; line-height:1}
+.appbar__actions{display:flex; align-items:center; gap:34px}
+.appbar__action{position:relative; display:block; color:var(--cream)}
+.appbar__badge{position:absolute; top:-10px; right:-14px; min-width:30px; height:30px;
+               padding:0 8px; border-radius:var(--r-pill); background:var(--rose);
+               color:var(--cream); font-size:16px; font-weight:600; display:grid; place-items:center}
+
+/* ---------- 6. SECTION HEADER ------------------------------------------- */
+.section{padding:38px 0 0}
+.section__head{display:flex; align-items:baseline; justify-content:space-between;
+               padding:0 var(--gutter); margin-bottom:22px}
+.section__link{display:inline-flex; align-items:center; gap:10px; font-size:19px; color:var(--rose-light)}
+
+/* ---------- 7. BUTTONS + CHIPS ------------------------------------------ */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:16px;
+     border-radius:var(--r-btn); padding:0 34px; height:64px}
+.btn--primary{background:var(--rose); color:#fff}
+.btn--outline{border:1px solid var(--line-strong); color:var(--cream)}
+.btn--text{padding:0; height:auto; color:var(--rose-light)}
+.btn--block{display:flex; width:100%}
+.chip{display:inline-flex; align-items:center; height:42px; padding:0 20px;
+      border-radius:var(--r-pill); font-size:16px}
+.chip--member{background:var(--chip-bg); color:var(--rose-pale)}
+
+/* ---------- 8. TAB BAR + HOME INDICATOR --------------------------------- */
+.tabbar{flex:0 0 88px; margin-top:auto; display:flex; align-items:center;
+        border-top:1px solid var(--line); background:var(--bg)}
+.tab{flex:1; display:flex; flex-direction:column; align-items:center; gap:9px; color:var(--cream)}
+.tab--active{color:var(--rose-light)}
+.home-indicator{flex:0 0 44px; display:grid; place-items:center; background:var(--bg)}
+.home-indicator::after{content:""; width:286px; height:10px; border-radius:5px; background:var(--cream)}
+
+/* ==========================================================================
+   SCREEN: SHOP
+   ========================================================================== */
+
+/* --- SCREEN HEAD: "Shop" 64px + Filter control + one-line subtitle ------- */
+.shop-head{padding:8px var(--gutter) 0}
+.shop-head__row{display:flex; align-items:flex-start; justify-content:space-between}
+.shop-head__filter{display:inline-flex; align-items:center; gap:14px;
+                   color:var(--rose-light); font-size:18px; margin-top:20px}
+.shop-head__sub{margin-top:6px; font-size:22px; line-height:1.35; font-weight:300; color:var(--cream)}
+
+/* --- CATEGORY ROW: reuses .worlds / .world from C03, but the discs are
+       83px here (118px on C03) and the row is scrolled 1px past its start,
+       so an 8th disc is clipped by the right frame edge. --------------- */
+.worlds{display:flex; gap:16px; overflow-x:auto; padding:0 var(--gutter); scrollbar-width:none}
+.worlds::-webkit-scrollbar{display:none}
+.world{flex:0 0 118px; text-align:center}
+.world__disc{width:118px; height:118px; border-radius:var(--r-pill); object-fit:cover}
+.world__label{margin-top:14px; font-size:18px; font-weight:300}
+/* C04 overrides — measured 83px discs, 24px gap, 26px page padding */
+.worlds--shop{padding:0 26px; gap:24px; margin-top:26px}
+.worlds--shop .world{flex:0 0 auto; min-width:83px}
+.worlds--shop .world__disc{width:83px; height:83px}
+.worlds--shop .world__label{margin-top:12px; font-size:17px}
+/* "All" is a filter pill, not a photo: empty disc with a rose selection ring */
+.world--all .world__disc{display:block; background:var(--surface); border:2px solid var(--rose)}
+.world--selected .world__disc{box-shadow:0 0 0 2px var(--rose)}
+
+/* --- SHOP BANNER: editorial strip, 807 x 206, photo bleeds under copy ---- */
+.shop-banner{position:relative; height:206px; margin:33px 23px 0;
+             border-radius:8px; overflow:hidden; display:block}
+.shop-banner__media{position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border:0}
+.shop-banner__scrim{position:absolute; inset:0;
+  background:linear-gradient(90deg, rgba(41,28,25,.88) 0%, rgba(41,28,25,.55) 34%, rgba(41,28,25,.05) 62%)}
+.shop-banner__copy{position:absolute; left:33px; top:18px; width:420px}
+.shop-banner__title{font-family:var(--font-serif); font-size:40px; line-height:1.05; font-weight:400; margin:0}
+.shop-banner__title em{font-style:italic; color:var(--rose-light)}
+.shop-banner__cta{position:absolute; left:33px; bottom:22px;
+                  display:inline-flex; align-items:center; gap:14px; font-size:14px;
+                  letter-spacing:.16em; text-transform:uppercase; color:var(--rose-pale)}
+.shop-banner__voice{position:absolute; right:43px; top:44px; width:130px;
+                    font-family:var(--font-serif); font-style:italic;
+                    font-size:19px; line-height:1.32; color:#f3e8e7; text-align:left}
+
+/* --- "All Products" head + sort control ---------------------------------- */
+.shop-grid-head{display:flex; align-items:baseline; justify-content:space-between;
+                padding:0 var(--gutter); margin-top:29px}
+.shop-sort{display:inline-flex; align-items:center; gap:12px; font-size:17px; color:var(--muted)}
+
+/* --- PRODUCT GRID: same .product-card block as C03, in a --tile variant
+       (card surface + hairline + rounded corners). 2 cols, 393px cards,
+       16px column gap, 13px row gap, 25px page padding.  ----------------- */
+.product-rail{display:flex; gap:16px; overflow-x:auto; padding:0 28px 4px; scrollbar-width:none}
+.product-rail::-webkit-scrollbar{display:none}
+.product-card{flex:0 0 194px; position:relative}
+.product-card__media{width:194px; height:160px; object-fit:cover; border-radius:8px}
+.product-card__wish{position:absolute; top:14px; right:14px; width:40px; height:40px;
+                    display:grid; place-items:center; color:var(--cream)}
+.product-card__title{margin-top:16px}
+.product-card__house{margin-top:4px}
+.product-card__price{margin-top:10px; display:block}
+.product-card__chip{margin-top:12px}
+/* C04 tile variant */
+.product-grid{display:grid; grid-template-columns:1fr 1fr; gap:13px 16px;
+              padding:0 25px; margin-top:20px}
+.product-card--tile{flex:none; background:var(--surface); border:1px solid var(--line);
+                    border-radius:8px; overflow:hidden; padding-bottom:16px}
+.product-card--tile .product-card__media{width:100%; height:186px; border-radius:0; border:0;
+                    border-bottom:1px dashed var(--line)}
+.product-card--tile .product-card__wish{top:16px; right:16px; width:30px; height:27px}
+.product-card--tile .product-card__title{font-size:23px; padding:0 18px; margin-top:13px}
+.product-card--tile .product-card__house{font-size:15px; padding:0 18px; margin-top:8px}
+/* foot row is tight: measured price 78px, chip 155px, stock 55px inside a
+   357px inner width — sizes below keep all three on one line, as in the mock */
+.product-card--tile .product-card__foot{display:flex; align-items:center; gap:15px;
+                    padding:0 18px; margin-top:16px; white-space:nowrap}
+.product-card--tile .product-card__price{font-size:26px; margin:0}
+.product-card--tile .product-card__chip{height:31px; font-size:18px; padding:0 17px; margin:0}
+.product-card--tile .product-card__stock{margin-left:auto; font-size:16px; color:var(--muted)}
+</style>
+</head>
+<body>
+
+<div class="screen">
+
+  <!-- ==================================================================
+       STATUS BAR — iOS chrome drawn into the mock. Not app UI; delete this
+       block when building the real screen.
+       ================================================================== -->
+  <div class="statusbar">
+    <span>9:41</span>
+    <span class="statusbar__icons">
+      <!-- ICON: approximated, swap for production icon set -->
+      <svg width="32" height="21" viewBox="0 0 17 11" fill="currentColor"><rect x="0" y="7" width="3" height="4" rx="1"/><rect x="4.6" y="5" width="3" height="6" rx="1"/><rect x="9.2" y="2.5" width="3" height="8.5" rx="1"/><rect x="13.8" y="0" width="3" height="11" rx="1"/></svg>
+      <svg width="30" height="21" viewBox="0 0 16 11" fill="currentColor"><path d="M8 10.5 5.9 8.3a3 3 0 0 1 4.2 0L8 10.5Zm0-4.6a5.4 5.4 0 0 0-3.8 1.6L2.8 6.1a7.4 7.4 0 0 1 10.4 0l-1.4 1.4A5.4 5.4 0 0 0 8 5.9Zm0-3.8a9.2 9.2 0 0 0-6.5 2.7L.1 3.4a11.2 11.2 0 0 1 15.8 0l-1.4 1.4A9.2 9.2 0 0 0 8 2.1Z"/></svg>
+      <svg width="46" height="22" viewBox="0 0 25 12" fill="none"><rect x=".5" y=".5" width="21" height="11" rx="3" stroke="currentColor" opacity=".5"/><rect x="2" y="2" width="18" height="8" rx="1.8" fill="currentColor"/><path d="M23 4v4a2 2 0 0 0 0-4Z" fill="currentColor" opacity=".5"/></svg>
+    </span>
+  </div>
+
+  <!-- ==================================================================
+       APP BAR — identical block to C03 Home: logo (left), search + bag with
+       count badge (right). Hairline under it measured at y=154.
+       ================================================================== -->
+  <header class="appbar">
+    <a class="appbar__logo" href="C03-Home.html" aria-label="RSN one — Global Family Club">
+      <!-- LOGO: full lockup (arc + wordmark + tagline) as one asset. -->
+      <img class="logo" src="rsn-one-images/logo-rsnone-01.png" alt="logo-rsnone-01" width="186" height="94">
+    </a>
+    <div class="appbar__actions">
+      <button class="appbar__action" aria-label="Search">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="11" cy="11" r="7"/><path d="m16.5 16.5 4 4"/></svg>
+      </button>
+      <button class="appbar__action" aria-label="Bag, 3 items">
+        <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+        <span class="appbar__badge">3</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- ==================================================================
+       SCREEN HEAD — screen title "Shop" (64px serif, glyph top y=180),
+       "Filter" control on the right (icon + 18px rose label, y=200-226),
+       and a one-line subtitle (22px, y=245-260).
+       ASSUMPTION: "Filter" opens a filter sheet — no sheet screen was
+       supplied in this set, so the control has no target.
+       ================================================================== -->
+  <section class="shop-head">
+    <div class="shop-head__row">
+      <h1 class="t-h1">Shop</h1>
+      <button class="shop-head__filter" aria-label="Filter products">
+        <svg width="34" height="27" viewBox="0 0 20 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 4h5M9 4h11M0 12h11M15 12h5"/><circle cx="7" cy="4" r="2"/><circle cx="13" cy="12" r="2"/></svg>
+        <span>Filter</span>
+      </button>
+    </div>
+    <p class="shop-head__sub">Extraordinary objects for a more thoughtful life.</p>
+  </section>
+
+  <!-- ==================================================================
+       CATEGORY ROW — same .worlds component as C03 "The Worlds of RSN",
+       but 83px discs and with an "All" filter chip prepended and selected.
+       Discs y=291-377, labels y=388-403. Scroller: an 8th disc is clipped
+       by the right frame edge (x=811-852).
+       ================================================================== -->
+  <ul class="worlds worlds--shop">
+    <li class="world world--all world--selected">
+      <a href="#" aria-current="true">
+        <span class="world__disc" aria-hidden="true"></span>
+        <div class="world__label">All</div>
+      </a>
+    </li>
+    <li class="world"><a href="#"><img class="world__disc" src="rsn-one-images/world-morning-01.jpg" alt="world-morning-01" width="83" height="83"><div class="world__label">Morning</div></a></li>
+    <li class="world"><a href="#"><img class="world__disc" src="rsn-one-images/world-skin-01.jpg" alt="world-skin-01" width="83" height="83"><div class="world__label">Skin</div></a></li>
+    <li class="world"><a href="#"><img class="world__disc" src="rsn-one-images/world-sleep-01.jpg" alt="world-sleep-01" width="83" height="83"><div class="world__label">Sleep</div></a></li>
+    <li class="world"><a href="#"><img class="world__disc" src="rsn-one-images/world-table-01.jpg" alt="world-table-01" width="83" height="83"><div class="world__label">Table</div></a></li>
+    <li class="world"><a href="#"><img class="world__disc" src="rsn-one-images/world-gifts-01.jpg" alt="world-gifts-01" width="83" height="83"><div class="world__label">Gifts</div></a></li>
+    <li class="world"><a href="#"><img class="world__disc" src="rsn-one-images/world-global-select-01.jpg" alt="world-global-select-01" width="83" height="83"><div class="world__label">Global Select</div></a></li>
+    <!-- ASSUMPTION: an 8th category disc is clipped by the right frame edge —
+         only ~42px of the photo is visible and no label is legible. Slot name
+         is positional (world-shop-cat-08-01); rename once the category is known. -->
+    <li class="world"><a href="#"><img class="world__disc" src="rsn-one-images/world-shop-cat-08-01.jpg" alt="world-shop-cat-08-01" width="83" height="83"><div class="world__label">&nbsp;</div></a></li>
+  </ul>
+
+  <!-- ==================================================================
+       SHOP BANNER — 807 x 206 editorial strip, y=436-641. Left: 3-line
+       serif headline with "meaningful" set italic in rose, and a SHOP ALL
+       link. Right: italic pull-quote sitting directly on the light part of
+       the photograph (dark ink, no scrim).
+       DEVIATION-RISK: the pull-quote has no scrim behind it — its legibility
+       depends entirely on that one photograph staying light in that corner.
+       ================================================================== -->
+  <a class="shop-banner" href="#">
+    <img class="shop-banner__media" src="rsn-one-images/promo-shop-banner-01.jpg" alt="promo-shop-banner-01" width="807" height="206">
+    <div class="shop-banner__scrim"></div>
+    <div class="shop-banner__copy">
+      <h2 class="shop-banner__title">Objects<br>for a more<br><em>meaningful</em> home.</h2>
+    </div>
+    <span class="shop-banner__cta">Shop all
+      <svg width="22" height="14" viewBox="0 0 16 10" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M0 5h14M10 1l4 4-4 4"/></svg>
+    </span>
+    <p class="shop-banner__voice">Curated<br>from the world's<br>finest makers.</p>
+  </a>
+
+  <!-- ==================================================================
+       "All Products" — section heading (34px serif) + sort control.
+       ASSUMPTION: "Sort by: Featured" is a select; the chevron is the only
+       affordance shown, no option list appears in this set.
+       ================================================================== -->
+  <div class="shop-grid-head">
+    <h2 class="t-section">All Products</h2>
+    <button class="shop-sort" aria-label="Sort by: Featured">
+      <span>Sort by: Featured</span>
+      <svg width="22" height="13" viewBox="0 0 14 8" fill="none" stroke="currentColor" stroke-width="1.2"><path d="m1 1 6 6 6-6"/></svg>
+    </button>
+  </div>
+
+  <!-- ==================================================================
+       PRODUCT GRID — 2 columns, card 393 x ~291 (image 186 + text block),
+       13px row gap / 16px column gap, page padding 25px. Each card: photo
+       with a heart button, product name, house, price, member-price chip,
+       stock label right-aligned.
+       DEVIATION-RISK: the grid uses a 25px page padding while every heading
+       above it uses the 36px gutter — the cards sit 11px wider than the
+       headings on both sides. Confirm which is intended.
+       ================================================================== -->
+  <div class="product-grid">
+
+    <article class="product-card product-card--tile">
+      <img class="product-card__media" src="rsn-one-images/prod-copper-vessel-01.jpg" alt="prod-copper-vessel-01" width="393" height="186">
+      <button class="product-card__wish" aria-label="Add Copper Vessel to wishlist">
+        <svg width="30" height="27" viewBox="0 0 18 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 15S1 10.4 1 5.6A4.3 4.3 0 0 1 9 3.4 4.3 4.3 0 0 1 17 5.6C17 10.4 9 15 9 15Z"/></svg>
+      </button>
+      <h3 class="t-card product-card__title">Copper Vessel</h3>
+      <p class="t-meta product-card__house">House of Lazimpat</p>
+      <div class="product-card__foot">
+        <span class="t-price product-card__price">₹25,199</span>
+        <span class="chip chip--member product-card__chip">Member ₹21,499</span>
+        <span class="product-card__stock">In stock</span>
+      </div>
+    </article>
+
+    <article class="product-card product-card--tile">
+      <img class="product-card__media" src="rsn-one-images/prod-brass-kettle-01.jpg" alt="prod-brass-kettle-01" width="393" height="186">
+      <button class="product-card__wish" aria-label="Add Brass Kettle to wishlist">
+        <svg width="30" height="27" viewBox="0 0 18 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 15S1 10.4 1 5.6A4.3 4.3 0 0 1 9 3.4 4.3 4.3 0 0 1 17 5.6C17 10.4 9 15 9 15Z"/></svg>
+      </button>
+      <h3 class="t-card product-card__title">Brass Kettle</h3>
+      <p class="t-meta product-card__house">House of Lahori</p>
+      <div class="product-card__foot">
+        <span class="t-price product-card__price">₹18,500</span>
+        <span class="chip chip--member product-card__chip">Member ₹15,750</span>
+        <span class="product-card__stock">In stock</span>
+      </div>
+    </article>
+
+    <article class="product-card product-card--tile">
+      <img class="product-card__media" src="rsn-one-images/prod-beeswax-candle-01.jpg" alt="prod-beeswax-candle-01" width="393" height="186">
+      <button class="product-card__wish" aria-label="Add Beeswax Candle to wishlist">
+        <svg width="30" height="27" viewBox="0 0 18 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 15S1 10.4 1 5.6A4.3 4.3 0 0 1 9 3.4 4.3 4.3 0 0 1 17 5.6C17 10.4 9 15 9 15Z"/></svg>
+      </button>
+      <h3 class="t-card product-card__title">Beeswax Candle</h3>
+      <p class="t-meta product-card__house">Atelier Sand</p>
+      <div class="product-card__foot">
+        <span class="t-price product-card__price">₹6,800</span>
+        <span class="chip chip--member product-card__chip">Member ₹5,780</span>
+        <span class="product-card__stock">In stock</span>
+      </div>
+    </article>
+
+    <article class="product-card product-card--tile">
+      <img class="product-card__media" src="rsn-one-images/prod-yak-blanket-01.jpg" alt="prod-yak-blanket-01" width="393" height="186">
+      <button class="product-card__wish" aria-label="Add Yak Blanket to wishlist">
+        <svg width="30" height="27" viewBox="0 0 18 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 15S1 10.4 1 5.6A4.3 4.3 0 0 1 9 3.4 4.3 4.3 0 0 1 17 5.6C17 10.4 9 15 9 15Z"/></svg>
+      </button>
+      <h3 class="t-card product-card__title">Yak Blanket</h3>
+      <p class="t-meta product-card__house">House of Chyangra</p>
+      <div class="product-card__foot">
+        <span class="t-price product-card__price">₹24,500</span>
+        <span class="chip chip--member product-card__chip">Member ₹20,999</span>
+        <span class="product-card__stock">Low stock</span>
+      </div>
+    </article>
+
+    <article class="product-card product-card--tile">
+      <img class="product-card__media" src="rsn-one-images/prod-ceramide-cream-01.jpg" alt="prod-ceramide-cream-01" width="393" height="186">
+      <button class="product-card__wish" aria-label="Add Ceramide Cream to wishlist">
+        <svg width="30" height="27" viewBox="0 0 18 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 15S1 10.4 1 5.6A4.3 4.3 0 0 1 9 3.4 4.3 4.3 0 0 1 17 5.6C17 10.4 9 15 9 15Z"/></svg>
+      </button>
+      <h3 class="t-card product-card__title">Ceramide Cream</h3>
+      <p class="t-meta product-card__house">Atelier Sand</p>
+      <div class="product-card__foot">
+        <span class="t-price product-card__price">₹8,900</span>
+        <span class="chip chip--member product-card__chip">Member ₹7,490</span>
+        <span class="product-card__stock">In stock</span>
+      </div>
+    </article>
+
+    <article class="product-card product-card--tile">
+      <img class="product-card__media" src="rsn-one-images/prod-linen-sheets-01.jpg" alt="prod-linen-sheets-01" width="393" height="186">
+      <button class="product-card__wish" aria-label="Add Linen Sheets to wishlist">
+        <svg width="30" height="27" viewBox="0 0 18 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 15S1 10.4 1 5.6A4.3 4.3 0 0 1 9 3.4 4.3 4.3 0 0 1 17 5.6C17 10.4 9 15 9 15Z"/></svg>
+      </button>
+      <h3 class="t-card product-card__title">Linen Sheets</h3>
+      <p class="t-meta product-card__house">House of Sujàn</p>
+      <div class="product-card__foot">
+        <span class="t-price product-card__price">₹27,800</span>
+        <span class="chip chip--member product-card__chip">Member ₹23,499</span>
+        <span class="product-card__stock">In stock</span>
+      </div>
+    </article>
+
+    <!-- ASSUMPTION: the 4th grid row is CUT OFF by the bottom of the frame —
+         only the top ~40px of each photo and its heart button are visible.
+         No name, house, price, chip or stock label can be read, so none is
+         written here. Slot names are positional and must be renamed once the
+         full row is shown. -->
+    <article class="product-card product-card--tile">
+      <img class="product-card__media" src="rsn-one-images/prod-shop-grid-07-01.jpg" alt="prod-shop-grid-07-01" width="393" height="186">
+      <button class="product-card__wish" aria-label="Add to wishlist">
+        <svg width="30" height="27" viewBox="0 0 18 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 15S1 10.4 1 5.6A4.3 4.3 0 0 1 9 3.4 4.3 4.3 0 0 1 17 5.6C17 10.4 9 15 9 15Z"/></svg>
+      </button>
+    </article>
+
+    <article class="product-card product-card--tile">
+      <img class="product-card__media" src="rsn-one-images/prod-shop-grid-08-01.jpg" alt="prod-shop-grid-08-01" width="393" height="186">
+      <button class="product-card__wish" aria-label="Add to wishlist">
+        <svg width="30" height="27" viewBox="0 0 18 16" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M9 15S1 10.4 1 5.6A4.3 4.3 0 0 1 9 3.4 4.3 4.3 0 0 1 17 5.6C17 10.4 9 15 9 15Z"/></svg>
+      </button>
+    </article>
+  </div>
+
+  <!-- ==================================================================
+       TAB BAR — SHOP active (rose, filled bag). Labels are UPPERCASE here.
+       DEVIATION-RISK: the Shop tab icon is a shopping bag on this screen but
+       a magnifying glass on C03 Home, and the Home icon is outlined here and
+       filled on C03. One icon set needs to win.
+       Measured band: hairline y=1673, icons y=1701-1735, labels y=1753-1766.
+       The base .tabbar (88px) puts it at y=1712 — 39px lower than the mock,
+       so the 4th product row is clipped slightly later here than in the PNG.
+       ================================================================== -->
+  <nav class="tabbar">
+    <a class="tab" href="C03-Home.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 3.5 3.5 10.5V21h17V10.5L12 3.5Z"/><path d="M10 21v-5h4v5"/></svg>
+      <span class="t-tab">Home</span>
+    </a>
+    <a class="tab tab--active" href="C04-Shop.html" aria-current="page">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor"><path d="M5 8h14l-1 12H6L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2" fill="none" stroke="currentColor" stroke-width="1.4"/></svg>
+      <span class="t-tab">Shop</span>
+    </a>
+    <a class="tab" href="C09-Wishlist.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 20.5S3 14.8 3 9.2A5 5 0 0 1 12 6.5 5 5 0 0 1 21 9.2c0 5.6-9 11.3-9 11.3Z"/></svg>
+      <span class="t-tab">Wishlist</span>
+    </a>
+    <a class="tab" href="C17-Me.html">
+      <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg>
+      <span class="t-tab">Me</span>
+    </a>
+  </nav>
+
+  <div class="home-indicator"></div>
+
+</div>
+</body>
+</html>
