@@ -95,11 +95,27 @@ ul,ol{margin:0; padding:0; list-style:none}
    ~0.8x instead of ~0.48x. Screens add `.frame--compact &` overrides for layouts that
    only fit at 853 (two-column checkout, 385px product tiles, fixed-width copy blocks). */
 .frame--compact{--canvas-w:520px; --gutter:24px}
-.frame--compact .statusbar{padding:0 24px}
-.frame--compact .appbar{padding:0 24px 14px}
-.frame--compact .appbar__actions{gap:22px}
+/* On real phones the OS already draws a status bar, so hide the fake iOS "9:41"
+   bar here to avoid a doubled bar. It stays on the desktop mockup, where it
+   completes the phone-frame illusion (it is chrome, not app UI). */
+.frame--compact .statusbar{display:none}
+/* the handoff app bar (186x94 logo, 42px icons, 103px tall) reads oversized on a real
+   phone — scale the whole top bar down here so it sits like a native header. */
+.frame--compact .appbar{flex-basis:84px; padding:0 24px 12px}
+.frame--compact .appbar__logo .logo{width:130px; height:auto}
+.frame--compact .appbar__actions{gap:20px}
+.frame--compact .appbar__action svg{width:32px; height:32px}
 .frame--compact .section__head{padding:0 24px}
-.frame--compact .home-indicator::after{width:200px}
+/* real phones draw their own gesture/home bar (and the native shell already insets
+   for it), so hide the fake iOS home indicator — the white pill — to avoid a doubled
+   bar, and shrink the oversized tab icons for a phone-appropriate bottom nav. */
+.frame--compact .home-indicator{display:none}
+.frame--compact .tabbar svg{width:30px; height:30px}
+/* shared empty state (Wishlist / Bag / Orders / Notifications) — scale for phones */
+.frame--compact .empty{padding:72px 24px}
+.frame--compact .empty__title{font-size:26px}
+.frame--compact .empty__body{font-size:15px; margin-top:12px}
+.frame--compact .empty .btn{margin-top:24px; height:52px}
 /* light-ground screens (C13, C14, C15 sheet, C31 switch) share these */
 .screen--light{--ink:#2B1A16; --rose-deep:#BC5C67; background:#F0D1C1; color:var(--ink)}
 .screen--light .statusbar{color:var(--ink); position:relative; z-index:2}

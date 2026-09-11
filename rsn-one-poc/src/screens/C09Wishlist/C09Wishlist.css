@@ -53,23 +53,27 @@
 
   /* ---- compact canvas (520px, phones) ---- */
   .frame--compact & {
-    .wish-head{padding:28px 24px 0}
-    .wish-head__title{font-size:64px}
-    .wish-head__share{gap:12px; font-size:20px; white-space:nowrap}
-    .wish-sub{padding:0 24px}
-    .wishlist{padding:0 24px 40px}
-    /* card: 260 tall, photo column shrinks 327 -> 140 */
-    .wish-card{height:260px}
-    .wish-card > a{flex:0 0 140px}
-    .wish-card__media{flex:none; width:140px; height:260px}
-    .wish-card__body{padding:22px 16px 16px 18px}
-    .wish-card__house{font-size:14px; padding-right:40px}
-    .wish-card__pricing{gap:8px 12px; flex-wrap:wrap}
-    .wish-card__chip{height:36px; font-size:16px; padding:0 14px}
-    .wish-card__unwish{top:18px; right:12px}
-    .wish-card__actions{gap:12px; margin-top:20px}
-    .wish-card__cta{width:auto; padding:0 12px; height:54px; font-size:18px; gap:10px; white-space:nowrap}
-    .wish-card__sep{height:32px}
-    .wish-card__remove{font-size:18px; gap:10px; white-space:nowrap}
+    /* phone type + image scale, matched to the bag / product pages */
+    .wish-head{padding:24px 24px 0}
+    .wish-head__title{font-size:40px}
+    .wish-head__share{gap:10px; font-size:14px; margin-top:8px; white-space:nowrap}
+    .wish-sub{padding:0 24px; font-size:15px; margin-top:8px}
+    .wishlist{margin-top:18px; padding:0 24px 40px}
+    /* card: 180 tall, photo column shrinks 327 -> 120 */
+    .wish-card{height:180px}
+    .wish-card > a{flex:0 0 120px}
+    .wish-card__media{flex:none; width:120px; height:180px}
+    .wish-card__body{padding:16px}
+    .wish-card__house{font-size:12px; padding-right:40px}
+    .wish-card__title{font-size:19px; margin-top:5px}
+    .wish-card__pricing{margin-top:8px; gap:8px 12px; flex-wrap:wrap}
+    .wish-card__price{font-size:18px}
+    .wish-card__chip{height:30px; font-size:12px; padding:0 14px}
+    .wish-card__unwish{top:14px; right:12px; width:30px; height:28px}
+    .wish-card__unwish svg{width:22px; height:auto}
+    .wish-card__actions{gap:12px; margin-top:16px}
+    .wish-card__cta{width:auto; padding:0 14px; height:44px; font-size:13px; gap:8px; white-space:nowrap}
+    .wish-card__sep{height:28px}
+    .wish-card__remove{font-size:13px; gap:8px; white-space:nowrap}
   }
 }

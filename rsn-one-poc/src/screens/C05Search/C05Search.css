@@ -44,16 +44,20 @@
 
   /* ---- compact canvas (520px, phones) ---- */
   .frame--compact & {
-    .search-nav{flex-basis:120px; padding:40px 24px 0}
-    .search-field{margin:0 24px; height:104px; padding:0 30px}
-    .search-field__input{margin-left:22px; font-size:28px}
-    .search-heading{padding-left:28px}
-    .search-heading--recent{margin-top:60px}
-    .search-heading--trending{margin-top:60px}
-    .search-list{padding:0 24px 0 28px; gap:26px}
-    .search-list--recent{margin-top:40px}
-    .search-list--trending{gap:28px; margin-top:40px}
-    .search-row{gap:24px}
-    .search-row__badge{flex-basis:68px; width:68px; height:68px}
+    .search-nav{flex-basis:80px; padding:34px 24px 0}
+    .search-nav__back svg{width:24px; height:auto}
+    .search-field{margin:0 24px; height:56px; padding:0 18px}
+    .search-field__icon svg{width:22px; height:22px}
+    .search-field__input{margin-left:14px; font-size:16px}
+    .search-heading{font-size:20px; padding-left:24px}
+    .search-heading--recent{margin-top:38px}
+    .search-heading--trending{margin-top:38px}
+    .search-list{padding:0 24px; gap:16px}
+    .search-list--recent{margin-top:22px}
+    .search-list--trending{gap:18px; margin-top:22px}
+    .search-row{gap:16px}
+    .search-row__badge{flex-basis:44px; width:44px; height:44px}
+    .search-row__badge svg{width:22px; height:22px}
+    .search-row__label{font-size:17px}
   }
 }

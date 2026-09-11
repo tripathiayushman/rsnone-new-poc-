@@ -1,91 +1,139 @@
 /* ==========================================================================
-   SCREEN: C07 PRODUCT DETAIL — lifted from rsn-one-html/C07-ProductDetail.html
-   ("SCREEN: PRODUCT DETAIL"), scoped under .c07. All values mock px.
-   Page gutter on this screen measures 42px (content column 42 -> 811).
+   SCREEN: C07 PRODUCT DETAIL — full commerce layout (header, gallery, price + heart,
+   origin, quantity, add-to-cart, description, reviews, questions, related) rendered in
+   RSN one's dark espresso / rose theme. Scoped under .c07. Values are mock px.
    ========================================================================== */
 .c07 {
-  --gutter-pdp:42px;
+  --pdp-gutter:42px;
+  background:var(--bg); color:var(--cream);
 
-  /* --- GALLERY: full-bleed 853 x 715 photo carousel. Status bar and the
-         back / logo / bag row are overlaid on the photograph. ------------- */
-  .pdp-gallery{position:relative; flex:0 0 715px; height:715px; overflow:hidden}
-  .pdp-gallery__track{display:flex; height:100%; overflow-x:auto; scroll-snap-type:x mandatory;
-                      scrollbar-width:none}
-  .pdp-gallery__track::-webkit-scrollbar{display:none}
-  .pdp-gallery__slide{flex:0 0 853px; height:715px; scroll-snap-align:start}
-  /* light placeholder ground (as on C13) so the dark-ink logo stays readable
-     until the photograph lands — delete with the .slot treatment */
-  .pdp-gallery__slide img,.pdp-gallery__slide .img-slot{width:853px; height:715px; object-fit:cover; border:0;
-                          background:#D9AFA0}
-  .pdp-gallery .statusbar{position:absolute; top:0; left:0; right:0; z-index:2; color:var(--cream)}
+  /* --- HEADER: solid bar, back left / bag right ------------------------- */
+  .pdp2-header{flex:0 0 96px; display:flex; align-items:center; justify-content:space-between; padding:0 30px}
+  .pdp2-header__btn{width:52px; height:52px; display:grid; place-items:center; color:var(--cream)}
+  .pdp2-header__bag{position:relative}
 
-  .pdp-topbar{position:absolute; top:88px; left:0; right:0; z-index:2;
-              display:flex; align-items:flex-start; justify-content:space-between;
-              padding:0 30px}
-  .pdp-topbar__back{color:var(--cream); display:block; margin-top:14px}
-  /* LOGO: dark-on-photo variant of the lockup (logo-rsnone-dark-01), 168 x 85 */
-  .pdp-topbar__logo{text-align:center; line-height:1; color:#33241F}
-  .pdp-topbar__bag{position:relative; color:var(--cream); display:block; margin-top:10px}
+  /* --- GALLERY: scroll-snap carousel ------------------------------------ */
+  .pdp2-gallery{position:relative; flex:0 0 auto}
+  .pdp2-gallery__track{display:flex; overflow-x:auto; scroll-snap-type:x mandatory; scrollbar-width:none}
+  .pdp2-gallery__track::-webkit-scrollbar{display:none}
+  .pdp2-gallery__slide{flex:0 0 853px; scroll-snap-align:start}
+  .pdp2-gallery__slide img,.pdp2-gallery__slide .img-slot{width:853px; height:760px; object-fit:cover; border:0; background:#3A2A24}
+  .pdp2-dots{position:absolute; left:0; right:0; bottom:26px; display:flex; justify-content:center; gap:20px}
+  .pdp2-dots button{width:12px; height:12px; border-radius:var(--r-pill); background:rgba(250,247,245,.35)}
+  .pdp2-dots .is-active{background:var(--cream)}
 
-  .pdp-wish{position:absolute; z-index:2; top:199px; right:39px;
-            width:76px; height:76px; border-radius:var(--r-pill);
-            background:rgba(250,247,245,.18); display:grid; place-items:center; color:var(--cream)}
-  .pdp-wish--on{color:var(--rose)}
+  /* --- INFO: eyebrow, title, price + heart, member saving --------------- */
+  .pdp2-info{padding:34px var(--pdp-gutter) 0}
+  .pdp2-eyebrow{display:flex; align-items:center; gap:16px; font-size:18px; line-height:1;
+                letter-spacing:.22em; text-transform:uppercase; font-weight:500; color:var(--rose-light)}
+  .pdp2-eyebrow__line{width:34px; height:1px; background:currentColor; opacity:.7}
+  .pdp2-title{font-family:var(--font-serif); font-size:56px; line-height:1.08; font-weight:400; margin:18px 0 0}
+  .pdp2-pricerow{margin-top:26px; display:flex; align-items:center; justify-content:space-between; gap:16px}
+  .pdp2-price{font-family:var(--font-serif); font-size:46px; line-height:1; color:var(--rose-light)}
+  .pdp2-heart{flex:0 0 auto; width:56px; height:56px; display:grid; place-items:center; color:var(--cream);
+              border:1px solid var(--line-strong); border-radius:var(--r-pill)}
+  .pdp2-heart.is-on{color:var(--rose); border-color:var(--rose)}
+  .pdp2-save{margin-top:14px; font-size:20px; color:#9DBF9A}
 
-  .pdp-dots{position:absolute; z-index:2; left:0; right:0; bottom:40px;
-            display:flex; justify-content:center; gap:23px}
-  .pdp-dots span,.pdp-dots button{width:14px; height:14px; border-radius:var(--r-pill);
-                 background:rgba(250,247,245,.35)}
-  .pdp-dots .is-active{background:var(--cream)}
+  .pdp2-rule{border:0; border-top:1px solid var(--line); margin:30px 0}
 
-  /* --- PRODUCT INFO -------------------------------------------------------- */
-  .pdp-info{padding:0 var(--gutter-pdp)}
-  .pdp-info__eyebrow{margin-top:30px; display:block; font-size:18px; line-height:1;
-                     letter-spacing:.16em; text-transform:uppercase; font-weight:400;
-                     color:var(--rose-light)}
-  .pdp-info__title{margin-top:9px}
-  .pdp-info__desc{margin-top:16px; font-size:24px; line-height:33px; font-weight:300}
-  .pdp-info__pricerow{margin-top:29px; display:flex; align-items:center; gap:32px}
-  .pdp-info__price{font-family:var(--font-serif); font-size:44px; line-height:1.2; color:var(--rose-light)}
-  .pdp-info__chip{height:47px; font-size:22px; padding:0 26px}
+  .pdp2-spec{margin-bottom:26px}
+  .pdp2-label{display:block; font-size:16px; line-height:1; letter-spacing:.18em; text-transform:uppercase; color:var(--muted); font-weight:500}
+  .pdp2-spec__val{margin-top:10px; font-size:26px; font-weight:300}
 
-  /* --- ACTIONS: full-width primary + outlined secondary -------------------- */
-  .pdp-actions{padding:0 var(--gutter-pdp); margin-top:29px}
-  .pdp-actions .btn{width:100%; border-radius:8px; letter-spacing:.16em;
-                    text-transform:uppercase; font-size:18px; font-weight:400}
-  .pdp-actions .btn--primary{height:70px}
-  .pdp-actions .btn--wish{height:71px; margin-top:13px; border:1px solid var(--rose);
-                          color:var(--rose-light); background:none}
+  /* quantity stepper (shares the shape used on the bag) */
+  .qty{margin-top:14px; width:200px; height:64px; border:1px solid var(--line-strong); border-radius:8px;
+       display:flex; align-items:center; justify-content:space-between; padding:0 8px}
+  .qty__btn{width:44px; height:44px; display:grid; place-items:center; color:var(--rose-pale)}
+  .qty__value{font-size:26px; font-weight:300; min-width:40px; text-align:center}
 
-  /* --- DETAIL ACCORDION: 6 disclosure rows, 73px each, hairline between ---- */
-  .pdp-accordion{margin-top:27px; padding:0 var(--gutter-pdp); border-top:1px solid var(--line)}
-  .pdp-accordion__row{display:flex; align-items:center; justify-content:space-between;
-                      width:100%; height:73px; border-bottom:1px solid var(--line);
-                      text-align:left}
-  .pdp-accordion__row .t-section{font-size:34px}
-  .pdp-accordion__row svg{color:var(--cream); flex:0 0 auto}
-  /* POC: rows expand; the chevron rotates and the hairline moves under the panel */
-  .pdp-accordion__row svg{transition:transform .2s ease}
-  .pdp-accordion__row[aria-expanded="true"]{border-bottom:0}
-  .pdp-accordion__row[aria-expanded="true"] svg{transform:rotate(180deg)}
-  .pdp-accordion__panel{padding:0 0 26px; font-size:22px; line-height:1.5; font-weight:300;
-                        color:var(--cream); border-bottom:1px solid var(--line)}
-  .pdp-accordion__panel p{margin:0}
-  .pdp-accordion__panel p + p{margin-top:12px}
-  .pdp-accordion__panel a{color:var(--rose-light)}
-  .pdp-accordion--last{margin-bottom:8px}
+  .pdp2-cart{margin-top:30px; width:100%; height:78px; border-radius:8px; letter-spacing:.2em;
+             text-transform:uppercase; font-size:20px; font-weight:500; color:#fff;
+             background:linear-gradient(90deg, var(--rose) 0%, var(--rose-deep, #A85F5C) 100%)}
+  .pdp2-cart:disabled{opacity:.5}
+
+  /* --- ACCORDION: Description open by default --------------------------- */
+  .pdp2-accordion{margin-top:36px; padding:0 var(--pdp-gutter); border-top:1px solid var(--line)}
+  .pdp2-accordion__row{display:flex; align-items:center; justify-content:space-between; width:100%;
+                       padding:26px 0; border-bottom:1px solid var(--line); text-align:left}
+  .pdp2-accordion__title{font-family:var(--font-serif); font-size:32px; font-weight:400}
+  .pdp2-accordion__ico{font-size:34px; line-height:1; font-weight:300; color:var(--rose-light)}
+  .pdp2-accordion__row[aria-expanded="true"]{border-bottom:0}
+  .pdp2-accordion__panel{padding:0 0 26px; font-size:22px; line-height:1.55; font-weight:300;
+                         color:var(--cream); border-bottom:1px solid var(--line)}
+  .pdp2-accordion__panel p{margin:0}
+  .pdp2-accordion__panel p + p{margin-top:14px}
+  .pdp2-accordion__panel a{color:var(--rose-light)}
+
+  /* --- REVIEWS / QUESTIONS / RELATED blocks ---------------------------- */
+  .pdp2-block{padding:40px var(--pdp-gutter) 0}
+  .pdp2-h2{font-family:var(--font-serif); font-size:44px; font-weight:400; margin:0}
+  .pdp2-rating{margin-top:22px; display:flex; align-items:center; gap:16px}
+  .pdp2-rating__line{width:44px; height:2px; background:var(--rose-light)}
+  .pdp2-stars{display:inline-flex; gap:4px; color:var(--rose-pale)}
+  .pdp2-rating__count{font-size:20px; color:var(--muted)}
+  .pdp2-bars{margin-top:24px; display:flex; flex-direction:column; gap:14px}
+  .pdp2-bar{display:flex; align-items:center; gap:16px; font-size:18px; color:var(--muted)}
+  .pdp2-bar__track{flex:1; height:6px; border-radius:3px; background:var(--line)}
+  .pdp2-bar__c{width:22px; text-align:right}
+  .pdp2-muted{margin-top:26px; font-family:var(--font-serif); font-style:italic; font-size:22px; color:var(--muted)}
+  .pdp2-note{margin-top:22px; font-family:var(--font-serif); font-style:italic; font-size:22px; line-height:1.5; color:var(--muted)}
+  .pdp2-ask{display:flex; align-items:center; justify-content:center; margin-top:26px; height:74px;
+            border:1px solid var(--rose); color:var(--rose-light); border-radius:6px;
+            letter-spacing:.2em; text-transform:uppercase; font-size:19px; font-weight:500}
+
+  /* related rail — self-contained card */
+  .pdp2-related{padding-bottom:20px}
+  .pdp2-related__rail{margin-top:24px; display:flex; gap:16px; overflow-x:auto; scrollbar-width:none; padding-bottom:6px}
+  .pdp2-related__rail::-webkit-scrollbar{display:none}
+  .pdp2-rel{flex:0 0 300px; cursor:pointer}
+  .pdp2-rel__media{position:relative; border-radius:8px; overflow:hidden}
+  .pdp2-rel__media img,.pdp2-rel__media .img-slot{width:300px; height:300px; object-fit:cover; border:0; background:#3A2A24}
+  .pdp2-rel__badge{position:absolute; top:14px; left:14px; background:rgba(24,16,14,.82); color:var(--cream);
+                   font-size:14px; letter-spacing:.14em; text-transform:uppercase; padding:6px 12px}
+  .pdp2-rel__title{font-family:var(--font-serif); font-size:26px; font-weight:400; margin:16px 0 0; line-height:1.2}
+  .pdp2-rel__price{display:block; margin-top:8px; font-family:var(--font-serif); font-size:24px; color:var(--rose-light)}
 
   /* ---- compact canvas (520px, phones) ---- */
   .frame--compact & {
-    --gutter-pdp:24px;
-    /* gallery: slides are canvas-wide (the TSX reads the track width for snapping) */
-    .pdp-gallery{flex-basis:560px; height:560px}
-    .pdp-gallery__slide{flex-basis:100%; width:100%; height:560px}
-    .pdp-gallery__slide img,.pdp-gallery__slide .img-slot{width:100%; height:560px}
-    .pdp-topbar{top:80px; padding:0 20px}
-    .pdp-wish{top:172px; right:24px; width:64px; height:64px}
-    .pdp-dots{bottom:28px}
-    .pdp-info__title{font-size:54px}
-    .pdp-info__pricerow{gap:20px; flex-wrap:wrap}
+    --pdp-gutter:24px;
+    .pdp2-header{flex-basis:64px; padding:0 20px}
+    .pdp2-header__btn{width:40px; height:40px}
+    .pdp2-header__btn svg{width:22px; height:auto}
+    .pdp2-gallery__slide{flex:0 0 100%; width:100%}
+    .pdp2-gallery__slide img,.pdp2-gallery__slide .img-slot{width:100%; height:470px}
+    .pdp2-info{padding-top:24px}
+    .pdp2-eyebrow{font-size:12px; letter-spacing:.2em; gap:12px}
+    .pdp2-eyebrow__line{width:24px}
+    .pdp2-title{font-size:34px; margin-top:12px}
+    .pdp2-pricerow{margin-top:18px}
+    .pdp2-price{font-size:32px}
+    .pdp2-heart{width:44px; height:44px}
+    .pdp2-heart svg{width:24px; height:22px}
+    .pdp2-save{font-size:15px; margin-top:10px}
+    .pdp2-rule{margin:22px 0}
+    .pdp2-spec{margin-bottom:20px}
+    .pdp2-label{font-size:12px}
+    .pdp2-spec__val{font-size:18px; margin-top:6px}
+    .qty{width:150px; height:50px; margin-top:10px}
+    .qty__btn{width:36px; height:36px}
+    .qty__value{font-size:19px; min-width:30px}
+    .pdp2-cart{height:58px; font-size:15px; margin-top:22px}
+    .pdp2-accordion{margin-top:26px}
+    .pdp2-accordion__row{padding:18px 0}
+    .pdp2-accordion__title{font-size:22px}
+    .pdp2-accordion__ico{font-size:26px}
+    .pdp2-accordion__panel{font-size:16px; padding-bottom:20px}
+    .pdp2-block{padding-top:30px}
+    .pdp2-h2{font-size:28px}
+    .pdp2-rating__count{font-size:14px}
+    .pdp2-stars svg{width:16px; height:16px}
+    .pdp2-bar{font-size:13px; gap:12px}
+    .pdp2-muted,.pdp2-note{font-size:16px}
+    .pdp2-ask{height:56px; font-size:14px}
+    .pdp2-rel{flex-basis:210px}
+    .pdp2-rel__media img,.pdp2-rel__media .img-slot{width:210px; height:210px}
+    .pdp2-rel__title{font-size:20px; margin-top:12px}
+    .pdp2-rel__price{font-size:19px}
   }
 }

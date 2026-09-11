@@ -53,7 +53,7 @@ export default function C21MembershipJoin() {
 
       {/* headline — 3 lines, 68px serif on 70px leading, line 2 italic rose. */}
       <div className="c21-copy">
-        <h1 className="c21-copy__title">A more<br /><em>meaningful</em><br />way to belong.</h1>
+        <h1 className="c21-copy__title">A more <em>meaningful</em> way to belong.</h1>
         <p className="c21-copy__body">Join RSN One and get closer<br />to extraordinary objects,<br />homes and experiences<br />from around the world.</p>
       </div>
 
@@ -67,7 +67,6 @@ export default function C21MembershipJoin() {
           <li className="benefit" key={b.title}>
             <span className="benefit__icon">{b.icon}</span>
             <h3 className="benefit__title">{b.title}</h3>
-            <p className="benefit__text">{b.text}</p>
           </li>
         ))}
       </ul>

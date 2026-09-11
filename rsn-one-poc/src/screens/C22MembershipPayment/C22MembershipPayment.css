@@ -101,19 +101,46 @@
   /* ---- compact canvas (520px, phones) ---- */
   .frame--compact & {
     --gutter:24px;
+    .c22-brand{margin-top:14px}
+    .c22-brand .logo{width:150px; height:auto}
     .c22-copy{margin-top:40px}
-    .c22-copy__title{font-size:56px; line-height:60px}
-    .c22-copy__body{margin-top:14px}
-    .c22-tier{flex-direction:column; align-items:stretch; height:auto; padding:26px; margin-top:40px}
-    .c22-tier .tier-card__name{font-size:36px; white-space:normal}
-    .c22-tier .tier-card__rule{flex:0 0 1px; margin:22px 0}
+    .c22-copy__title{font-size:36px; line-height:40px}
+    .c22-copy__body{font-size:15px; line-height:21px; margin-top:10px}
+    .c22-tier{flex-direction:column; align-items:stretch; height:auto; padding:20px 22px; margin-top:30px}
+    .c22-tier .tier-card__name{font-size:22px; white-space:normal}
+    .c22-tier .tier-card__desc{font-size:15px; margin-top:8px}
+    .c22-tier .tier-card__rule{flex:0 0 1px; margin:16px 0}
     .c22-tier .tier-card__aside{flex:0 0 auto}
-    .c22-grid{grid-template-columns:repeat(2,1fr); row-gap:36px; column-gap:12px}
-    .c22-h2row{flex-wrap:wrap; gap:6px 20px; margin-top:44px}
-    .c22-methods .data-row{gap:20px; padding:0 20px}
-    .c22-consent{align-items:flex-start}
-    .c22-consent__box{margin-top:2px}
-    .c22-note{padding:0 24px; gap:14px}
-    .c22-note svg{flex:0 0 auto}
+    .c22-tier .tier-card__price{font-size:30px}
+    .c22-tier .tier-card__period{font-size:15px}
+    .c22-tier .tier-card__note{font-size:13px; margin-top:8px}
+    .c22-h2{font-size:24px; margin-top:32px}
+    .c22-h2row{flex-wrap:wrap; gap:6px 20px; margin-top:34px}
+    .c22-h2row h2{font-size:24px}
+    .c22-secure{font-size:13px; gap:8px}
+    .c22-secure svg{width:18px; height:18px}
+    .c22-grid{grid-template-columns:repeat(2,1fr); row-gap:26px; column-gap:12px; margin-top:16px}
+    .benefit__icon{width:52px; height:52px}
+    .benefit__icon svg{width:26px; height:26px}
+    .benefit__title{font-size:16px; margin-top:12px}
+    .benefit__text{font-size:12px; max-width:160px; margin-top:8px}
+    .c22-methods{margin-top:14px}
+    .c22-methods .data-row{gap:16px; padding:0 18px; min-height:74px}
+    .c22-method__icon{flex:0 0 40px}
+    .c22-method__icon svg{width:34px; height:26px}
+    .c22-method__title{font-size:17px}
+    .c22-method__sub{font-size:13px; margin-top:4px}
+    .c22-radio{flex:0 0 26px; width:26px; height:26px}
+    .c22-radio--on::after{width:13px; height:13px}
+    .field__input{height:50px; font-size:15px; padding:0 18px}
+    .field__chev{right:18px; top:19px}
+    .c22-consent{align-items:flex-start; margin-top:24px}
+    .c22-consent__box{flex:0 0 26px; width:26px; height:26px; margin-top:2px}
+    .c22-consent__box svg{width:16px; height:16px}
+    .c22-consent__text{font-size:13px}
+    .c22-cta{height:56px; margin-top:26px}
+    .c22-cta .t-eyebrow{font-size:14px}
+    .c22-note{padding:0 24px; gap:12px; font-size:13px; margin-top:28px}
+    .c22-note svg{flex:0 0 auto; width:20px; height:20px}
   }
 }

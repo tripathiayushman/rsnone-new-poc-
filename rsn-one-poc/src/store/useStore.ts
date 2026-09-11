@@ -52,7 +52,7 @@ interface State {
   selectStore: (s: StoreId) => void;
   markWelcomeSeen: () => void;
 
-  addToBag: (productId: string, qty?: number) => void;
+  addToBag: (productId: string, qty?: number, opts?: { silent?: boolean }) => void;
   removeFromBag: (productId: string) => void;
   setQty: (productId: string, qty: number) => void;
   setGiftNote: (s: string) => void;
@@ -146,12 +146,13 @@ export const useStore = create<State>()(
       markWelcomeSeen: () => set({ hasSeenWelcome: true }),
 
       // ---- bag ----
-      addToBag: (productId, qty = 1) => {
+      addToBag: (productId, qty = 1, opts) => {
         const bag = [...get().bag];
         const i = bag.findIndex(b => b.productId === productId);
         if (i >= 0) bag[i] = { ...bag[i], qty: bag[i].qty + qty }; else bag.push({ productId, qty });
         set({ bag });
-        get().showToast(`${productById(productId)?.name ?? 'Item'} added to your bag`);
+        // PDP "Add to cart" redirects to the bag instead of toasting (opts.silent)
+        if (!opts?.silent) get().showToast('Added to bag');
       },
       removeFromBag: (productId) => set({ bag: get().bag.filter(b => b.productId !== productId) }),
       setQty: (productId, qty) => {
@@ -172,7 +173,7 @@ export const useStore = create<State>()(
         const w = get().wishlist;
         const on = w.includes(productId);
         set({ wishlist: on ? w.filter(x => x !== productId) : [...w, productId] });
-        get().showToast(on ? 'Removed from wishlist' : 'Saved to wishlist');
+        // no toast — the filled/outline heart is the only feedback
       },
       removeFromWishlist: (productId) => set({ wishlist: get().wishlist.filter(x => x !== productId) }),
       moveToBag: (productId) => { get().addToBag(productId); get().removeFromWishlist(productId); },

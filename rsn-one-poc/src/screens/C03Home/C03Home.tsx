@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { AppBar, SectionHead, StatusBar, TabBar } from '../../components/Chrome';
 import { Img } from '../../components/Img';
@@ -21,10 +21,22 @@ const SLIDES = [
 export default function C03Home() {
   const store = useStore(s => s.store);
   const [slide, setSlide] = useState(0);
+  const go = (dir: number) => setSlide(s => (s + dir + SLIDES.length) % SLIDES.length);
+  // auto-advance; the timer resets on every change so a manual swipe/tap isn't cut short
   useEffect(() => {
-    const t = setInterval(() => setSlide(s => (s + 1) % SLIDES.length), 5000);
-    return () => clearInterval(t);
-  }, []);
+    const t = setTimeout(() => setSlide(s => (s + 1) % SLIDES.length), 5000);
+    return () => clearTimeout(t);
+  }, [slide]);
+
+  // left / right swipe (pointer events cover touch, mouse and pen)
+  const swipeX = useRef<number | null>(null);
+  const onDown = (x: number) => { swipeX.current = x; };
+  const onUp = (x: number) => {
+    if (swipeX.current == null) return;
+    const dx = x - swipeX.current;
+    swipeX.current = null;
+    if (Math.abs(dx) > 40) go(dx < 0 ? 1 : -1); // left → next, right → previous
+  };
 
   const rail = newProducts();
   const drops = dropProducts();
@@ -35,7 +47,10 @@ export default function C03Home() {
       <AppBar />
 
       {/* HERO — 432px tall, full-bleed photo, headline, DISCOVER, pull-quote, 3 dots */}
-      <section className="hero" aria-roledescription="carousel">
+      <section className="hero" aria-roledescription="carousel"
+        onPointerDown={e => onDown(e.clientX)}
+        onPointerUp={e => onUp(e.clientX)}
+        onPointerCancel={() => { swipeX.current = null; }}>
         {SLIDES.map((s, i) => (
           <div key={s.image} className={`hero__slide ${i === slide ? 'hero__slide--on' : ''}`} aria-hidden={i !== slide}>
             <Img className="hero__media" slot={s.image} alt="" width={853} height={432} />

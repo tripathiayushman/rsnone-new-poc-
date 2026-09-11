@@ -98,18 +98,36 @@
   .field__error + .field{margin-top:18px; height:89px}
   .login__footer button{font-size:inherit; font-weight:inherit}
 
-  /* ---- compact canvas (520px, phones) ---- */
+  /* ---- compact canvas (520px, phones): the mock is drawn at 853/1844 with huge
+         type spread over the full height; on a phone shrink the type + icons and
+         pull the absolute positions together into a tight login. ---- */
   .frame--compact & {
     .login__media{width:100%}
-    .login__back{left:20px}
-    .login__skip{right:24px}
-    .login__lockup{left:40px}
-    .login__title{left:24px; font-size:88px; line-height:84px}
-    .login__body{left:24px; width:440px}
-    .login__tabs{left:24px; gap:72px}
-    .login__form{left:24px; width:472px}
-    .field{padding:0 24px}
-    .field__input{margin-left:22px; min-width:0}
+    .login__back{left:20px; top:52px}
+    .login__back svg{width:24px; height:auto}
+    .login__skip{right:24px; top:56px; font-size:17px}
+    .login__lockup{left:24px; top:100px; width:auto}
+    .login__lockup .logo{width:150px; height:auto}
+    .login__title{left:24px; top:290px; font-size:46px; line-height:48px}
+    .login__body{left:24px; top:420px; width:320px; font-size:15px; line-height:22px}
+    .login__tabs{left:24px; top:548px; gap:44px}
+    .login__tab{font-size:16px}
+    .login__tab--active::after{top:26px; width:70px}
+    .login__form{left:24px; top:620px; width:472px}
+    .field{height:54px; padding:0 20px}
+    .field + .field{margin-top:12px; height:54px}
+    .field__icon svg{width:22px; height:22px}
+    .field__input{margin-left:16px; min-width:0; font-size:15px}
+    .field__toggle svg{width:24px; height:auto}
+    .login__forgot{font-size:13px; margin-top:14px}
+    .login__submit{height:54px; font-size:14px; gap:14px; margin-top:22px}
+    .login__or{font-size:13px; gap:18px; margin-top:20px}
     .login__or::before,.login__or::after{width:auto; flex:1}
+    .login__sso{height:52px; font-size:14px; gap:18px; margin-top:14px}
+    .login__sso svg{width:22px; height:auto}
+    .login__sso + .login__sso{height:52px; margin-top:12px}
+    .login__footer{top:1055px; font-size:14px}
+    .field__error{font-size:13px}
+    .field__error + .field{height:54px}
   }
 }

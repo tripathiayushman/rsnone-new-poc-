@@ -85,6 +85,15 @@
     .addr-card__head{flex-wrap:wrap; gap:8px 14px; padding-right:40px}
     .addr-card__menu{top:26px; right:20px}
     .addr-card__edit{right:20px; bottom:18px}
-    .addr-card__popover{top:62px; right:20px}
+    .addr-card__popover{top:62px; right:20px; min-width:200px}
+    /* phone type scale */
+    .page-head .t-h1{font-size:40px}
+    .page-head__sub{font-size:15px; line-height:1.5; margin-top:8px}
+    .addr-card__name{font-size:19px}
+    .addr-card__default{height:28px; font-size:12px; padding:0 12px}
+    .addr-card__lines{font-size:15px; line-height:1.5; margin-top:8px}
+    .addr-card__edit{font-size:14px; line-height:1.5}
+    .btn--add{height:56px; font-size:14px; letter-spacing:.16em; gap:16px}
+    .addr-card__popover button{font-size:15px; padding:13px 22px}
   }
 }

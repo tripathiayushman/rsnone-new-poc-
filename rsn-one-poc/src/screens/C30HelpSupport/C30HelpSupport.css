@@ -134,20 +134,40 @@
   .frame--compact & {
     .help-hero{width:100%}
     .help-head{padding:16px 24px 0}
-    .help-head__title{font-size:56px}
+    .help-head__title{font-size:40px}
+    .help-head__voice{font-size:24px}
+    .help-head__body{font-size:15px; line-height:1.4}
     .help-head__body br{display:none}
-    .field--search{margin:36px 24px 0; padding:0 20px; gap:16px}
+    .t-section{font-size:24px}
+    .field--search{margin:36px 24px 0; height:56px; padding:0 20px; gap:16px}
+    .field__input{font-size:16px}
     .help-section{padding:24px 24px 0}
     /* topic grid: 3 columns -> 2; cards grow with their (now wrapping) titles */
     .topic-grid{grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px 10px}
-    .topic-card{height:auto; min-height:220px; padding:16px 18px 16px}
-    .topic-card__title{white-space:normal}
+    .topic-card{height:auto; min-height:180px; padding:16px 18px 16px}
+    .topic-card__disc{width:52px; height:52px}
+    .topic-card__title{white-space:normal; font-size:17px}
+    .topic-card__text{font-size:13px; line-height:1.35}
     .topic-panel{padding:18px 18px 22px}
-    .help-empty{margin:24px 24px 0}
-    .help-banner{margin:24px 24px 0}
+    .topic-panel__title{font-size:17px}
+    .topic-panel__close{font-size:13px}
+    .topic-panel__empty{font-size:14px}
+    .help-empty{margin:24px 24px 0; font-size:15px}
+    .help-banner{margin:24px 24px 0; height:170px}
     .help-banner__body{padding:22px 0 0 24px}
+    .help-banner__title{font-size:24px}
+    .help-banner__text{font-size:14px}
+    .help-banner__cta{width:auto; padding:0 20px; height:48px}
+    .help-banner__cta .t-eyebrow{font-size:13px}
     .list-row{padding:0 20px}
-    .article__answer{padding:12px 20px 6px 70px}
+    .list-row--contact{height:58px}
+    .list-row__label{font-size:16px}
+    .list-row--article{height:46px}
+    .list-row--article .list-row__label{font-size:14px}
+    .list-row__sub{font-size:13px}
+    .article__answer{padding:12px 20px 6px 62px; font-size:14px; line-height:1.5}
     .help-articles{padding:21px 24px 24px}
+    .help-articles__link{font-size:13px}
+    .tabbar{flex:0 0 88px}
   }
 }

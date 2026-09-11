@@ -87,17 +87,29 @@
   .store-card:hover .store-card__cta{filter:brightness(1.06)}
 
   /* ---- compact canvas (520px, phones) ---- */
+  /* ---- compact canvas (520px, phones): the mock stacks two 407px cards down a
+         1844px frame; on a phone shrink the type and pull both cards up so the
+         whole choice fits in one screen without scrolling. ---- */
   .frame--compact & {
     &.store{background:
       radial-gradient(520px 520px at 80px 260px, rgba(126,84,66,.30) 0%, rgba(41,28,25,0) 70%),
       linear-gradient(180deg,#33221D 0%, #2C1E1A 30%, #291C19 60%, #241610 100%);}
-    .store__footer-media{width:100%}
-    .store__title{font-size:66px; line-height:70px; top:296px}
+    .store__lockup{top:44px}
+    .store__lockup .logo{width:150px; height:auto}
+    .store__title{font-size:34px; line-height:38px; top:168px}
+    .store__sub{font-size:15px; line-height:21px; top:276px}
     .store-card{left:24px; width:472px}
-    .store-card__body{left:32px; top:40px; width:380px}
-    .store-card__name{font-size:54px; line-height:58px}
-    .store-card__cta{width:300px}
+    .store-card--nepal{top:350px; height:250px}
+    .store-card--global{top:620px; height:250px}
+    .store-card__body{left:28px; top:34px; width:400px}
+    .store-card__name{font-size:24px; line-height:27px}
+    .store-card__text{font-size:14px; line-height:20px; margin-top:14px}
+    .store-card__cta{width:250px; height:46px; font-size:13px; gap:12px; margin-top:20px}
     /* the eyebrow stack collides with the name once the card is 472 wide */
     .store-card__eyebrow{display:none}
+    .store__rule{top:896px}
+    .store__voice{font-size:14px; line-height:20px; top:916px}
+    .store__footer{top:980px; height:464px}
+    .store__footer-media{width:100%; height:464px}
   }
 }

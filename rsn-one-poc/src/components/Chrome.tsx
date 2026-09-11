@@ -67,6 +67,11 @@ export type TabId = 'home' | 'shop' | 'wishlist' | 'me';
  * Bottom tab bar + home indicator. Sticky to the viewport bottom when a screen is
  * taller than the artboard. `variant="roman"` = title-case labels (C06/C07/C09–C12/C17).
  */
+/** Short haptic tap on supported devices (Android/Chrome; iOS Safari has no Vibration API). */
+function buzz() {
+  if (typeof navigator !== 'undefined' && typeof navigator.vibrate === 'function') navigator.vibrate(15);
+}
+
 export function TabBar({ active, variant, meLabel = 'Me' }: { active?: TabId; variant?: 'roman'; meLabel?: string }) {
   const { pathname } = useLocation();
   const tabs: { id: TabId; to: string; label: string; icon: 'home' | 'bag' | 'heart-lg' | 'user' }[] = [
@@ -84,7 +89,7 @@ export function TabBar({ active, variant, meLabel = 'Me' }: { active?: TabId; va
         {tabs.map(t => {
           const on = t.id === current;
           return (
-            <Link key={t.id} to={t.to} className={`tab ${on ? 'tab--active' : ''}`} aria-current={on ? 'page' : undefined}>
+            <Link key={t.id} to={t.to} onClick={buzz} className={`tab ${on ? 'tab--active' : ''}`} aria-current={on ? 'page' : undefined}>
               <Icon name={on ? (`${t.icon}-fill` as never) : t.icon} size={40} />
               <span className="t-tab tab__label">{t.label}</span>
             </Link>

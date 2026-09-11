@@ -1,0 +1,188 @@
+/* ==========================================================================
+   TARA — RSN One house concierge. A floating pill + chat sheet, rendered at
+   viewport scale (outside the zoomed artboard) so it reads as native app UI.
+   Gold concierge accent over the espresso theme.
+   ========================================================================== */
+.tara-fab, .tara-sheet {
+  --t-ink:#241812;
+  --t-panel:#3A2C24;
+  --t-cream:#F4EFEB;
+  --t-gold:#C99F65;
+  --t-gold-soft:#B99566;
+  --t-line:rgba(201,159,101,.30);
+  --t-line-soft:rgba(244,239,235,.12);
+  font-family:var(--font-sans, 'Inter', sans-serif);
+}
+
+/* ---- circular RSN mark (fab + header) ---------------------------------- */
+.tara-mark {
+  flex:0 0 auto; width:44px; height:44px; border-radius:999px;
+  display:grid; place-items:center; overflow:hidden;
+  background:radial-gradient(circle at 50% 35%, #4A3529 0%, #26190F 100%);
+  border:1px solid var(--t-line);
+}
+.tara-mark .logo { width:34px; height:auto; opacity:.95 }
+.tara-mark--head { width:46px; height:46px }
+.tara-mark--head .logo { width:36px }
+
+/* the "AI is listening" breathing glow on the floating mark */
+.tara-fab-wrap .tara-mark { animation:tara-glow 2.6s ease-in-out infinite }
+@keyframes tara-glow {
+  0%,100% { box-shadow:0 0 0 0 rgba(201,159,101,0) }
+  50% { box-shadow:0 0 0 3px rgba(201,159,101,.16), 0 0 15px 2px rgba(201,159,101,.32) }
+}
+
+/* collapsed bubble (after ✕) — just the mark in a circle, with a pulsing ring */
+.tara-bubble { position:relative; display:inline-grid; place-items:center }
+.tara-bubble .tara-mark--bubble {
+  width:58px; height:58px;
+  box-shadow:0 12px 30px rgba(0,0,0,.5), inset 0 1px 0 rgba(244,239,235,.06);
+}
+.tara-bubble .tara-mark--bubble .logo { width:44px }
+.tara-bubble::before {
+  content:""; position:absolute; inset:-2px; border-radius:999px; pointer-events:none;
+  border:1.5px solid var(--t-gold); animation:tara-sonar 2.4s ease-out infinite;
+}
+@keyframes tara-sonar {
+  0% { transform:scale(1); opacity:.55 }
+  70% { opacity:0 }
+  100% { transform:scale(1.7); opacity:0 }
+}
+
+/* ---- floating "Ask Tara" pill (corner, draggable, dismissable) --------- */
+.tara-fab-wrap {
+  position:fixed; right:16px; bottom:104px; z-index:60;
+  touch-action:none; user-select:none; -webkit-user-select:none; cursor:grab;
+  animation:tara-fab-in .4s ease-out both;
+}
+.tara-fab-wrap.is-dragging { cursor:grabbing; animation:none; z-index:66 }
+.tara-fab-wrap.is-dragging .tara-fab { transform:scale(1.04); box-shadow:0 18px 46px rgba(0,0,0,.6) }
+.tara-fab {
+  display:inline-flex; align-items:center; gap:12px;
+  padding:7px 22px 7px 7px; border-radius:999px;
+  background:linear-gradient(100deg, #201510 0%, #33231A 55%, #241811 100%);
+  border:1px solid var(--t-line);
+  box-shadow:0 12px 34px rgba(0,0,0,.5), inset 0 1px 0 rgba(244,239,235,.05);
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.tara-fab-wrap:active .tara-fab { transform:scale(.98) }
+/* ✕ dismiss badge */
+.tara-fab__x {
+  position:absolute; top:-7px; right:-7px; width:24px; height:24px;
+  display:grid; place-items:center; border-radius:999px; cursor:pointer;
+  color:var(--t-cream); background:#2A1D15; border:1px solid var(--t-line);
+  box-shadow:0 4px 12px rgba(0,0,0,.45);
+}
+.tara-fab__x:hover { background:#3A2A1E }
+.tara-fab__text { display:flex; flex-direction:column; gap:3px; text-align:left; line-height:1 }
+.tara-fab__title {
+  font-size:14px; font-weight:500; letter-spacing:.18em; text-transform:uppercase; color:var(--t-cream);
+  white-space:nowrap;
+}
+.tara-fab__sub {
+  display:inline-flex; align-items:center; gap:7px; white-space:nowrap;
+  font-size:10px; font-weight:500; letter-spacing:.16em; text-transform:uppercase; color:var(--t-gold);
+}
+.tara-fab__dot { width:5px; height:5px; border-radius:999px; background:var(--t-gold) }
+@keyframes tara-fab-in { from { opacity:0; transform:translateY(12px) } to { opacity:1; transform:translateY(0) } }
+
+/* ---- drag-to-remove drop zone ------------------------------------------ */
+.tara-zone {
+  position:fixed; bottom:120px; left:50%; transform:translateX(-50%); z-index:65;
+  display:inline-flex; align-items:center; gap:10px; padding:13px 24px; border-radius:999px;
+  background:rgba(44,16,14,.94); border:1.5px dashed #E0574F; color:#F2938B;
+  font-family:var(--font-sans,'Inter',sans-serif); font-size:11px; letter-spacing:.16em; text-transform:uppercase;
+  box-shadow:0 10px 30px rgba(0,0,0,.5); pointer-events:none; white-space:nowrap; max-width:calc(100vw - 24px);
+  animation:tara-zone-in .18s ease-out both;
+}
+@keyframes tara-zone-in {
+  from { opacity:0; transform:translateX(-50%) translateY(10px) }
+  to { opacity:1; transform:translateX(-50%) translateY(0) }
+}
+.tara-zone.is-over {
+  border-style:solid; border-color:#F26359; color:#FFF; background:rgba(224,87,79,.88);
+  box-shadow:0 10px 34px rgba(224,87,79,.4);
+}
+
+/* ---- chat sheet -------------------------------------------------------- */
+.tara-sheet {
+  position:fixed; top:0; bottom:0; left:50%; transform:translateX(-50%);
+  width:100%; max-width:440px; z-index:70;
+  display:flex; flex-direction:column;
+  background:linear-gradient(180deg, #2A1D15 0%, #241812 42%, #1F150F 100%);
+  color:var(--t-cream);
+  box-shadow:0 0 60px rgba(0,0,0,.6);
+  animation:tara-sheet-in .28s ease-out both;
+}
+@keyframes tara-sheet-in { from { opacity:0; transform:translateX(-50%) translateY(16px) } to { opacity:1; transform:translateX(-50%) translateY(0) } }
+
+.tara-head {
+  flex:0 0 auto; display:flex; align-items:center; gap:14px;
+  padding:16px 18px; border-bottom:1px solid var(--t-line-soft);
+}
+.tara-head__id { display:flex; flex-direction:column; gap:3px; min-width:0 }
+.tara-head__name { font-family:var(--font-serif); font-size:22px; line-height:1; font-weight:400; color:var(--t-cream) }
+.tara-head__role { font-size:11px; letter-spacing:.20em; text-transform:uppercase; color:var(--t-gold) }
+.tara-head__close {
+  margin-left:auto; flex:0 0 auto; width:36px; height:36px; display:grid; place-items:center;
+  color:var(--t-cream); opacity:.75; background:none; border:0; cursor:pointer;
+}
+.tara-head__close:hover { opacity:1 }
+
+.tara-body {
+  flex:1 1 auto; min-height:0; overflow-y:auto; padding:18px;
+  display:flex; flex-direction:column; gap:12px;
+}
+.tara-msg {
+  max-width:86%; padding:15px 17px; border-radius:14px;
+  font-size:14px; line-height:1.5;
+}
+.tara-msg--tara { align-self:flex-start; background:var(--t-panel); color:var(--t-cream); border-bottom-left-radius:5px }
+.tara-msg--you {
+  align-self:flex-end; background:rgba(201,159,101,.16); border:1px solid var(--t-line);
+  color:var(--t-cream); border-bottom-right-radius:5px;
+}
+
+/* ---- suggestion chips -------------------------------------------------- */
+.tara-try { flex:0 0 auto; padding:2px 18px 12px }
+.tara-try__label {
+  display:block; margin-bottom:11px; font-size:11px; letter-spacing:.22em;
+  text-transform:uppercase; color:var(--t-gold);
+}
+.tara-try__grid { display:grid; grid-template-columns:1fr 1fr; gap:10px }
+.tara-chip {
+  padding:13px 14px; border:1px solid var(--t-line-soft); border-radius:9px;
+  background:rgba(244,239,235,.02); color:var(--t-cream); font-size:13px; line-height:1.25;
+  text-align:left; cursor:pointer;
+}
+.tara-chip:hover { border-color:var(--t-line); background:rgba(201,159,101,.08) }
+
+/* ---- input + speak ----------------------------------------------------- */
+.tara-input {
+  flex:0 0 auto; display:flex; align-items:center; gap:10px;
+  padding:14px 18px 8px; border-top:1px solid var(--t-line-soft);
+}
+.tara-input__field {
+  flex:1 1 auto; min-width:0; height:52px; padding:0 16px;
+  background:#2E211A; border:1px solid var(--t-line); border-radius:9px;
+  color:var(--t-cream); font-size:14px; font-family:inherit; outline:none;
+}
+.tara-input__field::placeholder { color:var(--t-gold-soft); opacity:.75 }
+.tara-input__field:focus { border-color:var(--t-gold) }
+.tara-input__send {
+  flex:0 0 auto; width:52px; height:52px; display:grid; place-items:center;
+  border:0; border-radius:9px; cursor:pointer; color:#2A1D15;
+  background:linear-gradient(150deg, #D8B074 0%, #B98F55 100%);
+}
+.tara-input__send:disabled { opacity:.45; cursor:default }
+
+.tara-speak {
+  flex:0 0 auto; display:block; width:100%; padding:10px 0 18px; background:none; border:0; cursor:pointer;
+  font-size:12px; letter-spacing:.20em; text-transform:uppercase; color:var(--t-gold);
+}
+.tara-speak:hover { color:var(--t-cream) }
+
+/* respect reduced motion */
+@media (prefers-reduced-motion:reduce) {
+  .tara-fab, .tara-sheet { animation:none }
+}

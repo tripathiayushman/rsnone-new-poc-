@@ -96,22 +96,37 @@
      photo narrowed so the body keeps room for the title/price/qty stack.
      ---------------------------------------------------------------------- */
   .frame--compact & {
-    .bag-head{padding:21px 24px 0}
-    .bag-list{padding:0 24px}
-    .bag-line{height:auto; min-height:260px}
-    .bag-line__media{flex:0 0 170px; width:170px; height:auto; align-self:stretch}
-    .bag-line__body{padding:24px 20px 20px}
-    .bag-line__house{padding-right:44px}
-    .bag-line__title{font-size:28px}
-    .bag-line__price{font-size:28px}
-    .bag-line__remove{top:20px; right:16px}
-    .qty{margin-top:22px}
-    .gift-note{margin:28px 24px 0; width:auto}
-    .gift-note__area{margin:14px 24px 0; width:auto}
-    .totals{margin:40px 24px 0; width:auto}
-    .bag-cta{margin:32px 24px 0; width:calc(100% - 48px)}
-    .member-teaser{margin:40px 24px 0; width:auto; height:auto; min-height:110px; padding:18px 20px 18px 0}
-    .member-teaser__icon{flex:0 0 90px}
-    .member-teaser__copy{padding-left:24px}
+    /* phone type + image scale, tuned to match the product page */
+    .bag-head{padding:20px 24px 0}
+    .bag-head__title{font-size:40px}
+    .bag-sub{font-size:15px; margin-top:8px}
+    .bag-list{margin-top:18px; padding:0 24px}
+    .bag-line{height:auto; min-height:150px}
+    .bag-line__media{flex:0 0 120px; width:120px; height:auto; align-self:stretch}
+    .bag-line__body{padding:16px 16px}
+    .bag-line__house{font-size:12px; padding-right:40px}
+    .bag-line__title{font-size:19px; margin-top:5px}
+    .bag-line__price{font-size:18px; margin-top:8px}
+    .bag-line__chip{height:30px; font-size:12px; padding:0 14px; margin-top:6px}
+    .bag-line__remove{top:16px; right:14px; width:28px; height:28px}
+    .bag-line__remove svg{width:20px; height:auto}
+    .qty{margin-top:16px; width:136px; height:44px; padding:0 12px}
+    .qty__btn{width:32px; height:32px}
+    .qty__value{font-size:17px}
+    .gift-note{margin:22px 24px 0; width:auto; height:54px; font-size:15px; gap:16px; padding:0 18px}
+    .gift-note__area{margin:12px 24px 0; width:auto; height:90px; font-size:15px; padding:14px 18px}
+    .totals{margin:30px 24px 0; width:auto}
+    .totals__row{font-size:15px}
+    .totals__rule{margin:9px 0 14px}
+    .totals__grand-label{font-size:24px}
+    .totals__grand-value{font-size:24px}
+    .totals__note{font-size:12px}
+    .bag-cta{margin:24px 24px 0; width:calc(100% - 48px); height:58px}
+    .bag-cta__label{font-size:15px}
+    .bag-continue{margin-top:20px; font-size:15px}
+    .member-teaser{margin:32px 24px 0; width:auto; height:auto; min-height:88px; padding:16px 18px 16px 0}
+    .member-teaser__icon{flex:0 0 64px}
+    .member-teaser__rule{height:44px}
+    .member-teaser__copy{padding-left:20px; font-size:14px}
   }
 }

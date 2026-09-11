@@ -41,11 +41,16 @@
 
   /* ---- compact canvas (520px, phones) ---- */
   .frame--compact & {
-    .profile{gap:28px; padding:80px 24px 48px}
-    .profile__avatar{width:150px; height:150px; flex-basis:150px}
+    .profile{gap:20px; padding:48px 24px 28px}
+    .profile__avatar{width:92px; height:92px; flex-basis:92px}
     .profile__text{min-width:0}
-    .profile__name{font-size:48px}
-    .profile__meta{font-size:30px}
-    .list-row{gap:32px; padding:0 24px}
+    .profile__name{font-size:28px}
+    .profile__meta{font-size:14px; margin-top:6px}
+    /* rows were 142px tall with 40px labels + 64px icons — bring to a phone list */
+    .list-row{gap:18px; height:62px; padding:0 24px}
+    .list-row__icon{flex:0 0 26px; width:26px; height:26px}
+    .list-row__label{font-size:17px}
+    .list-row__chevron{width:13px; height:22px}
+    .list-row__badge{min-width:26px; height:26px; font-size:13px; padding:0 9px}
   }
 }

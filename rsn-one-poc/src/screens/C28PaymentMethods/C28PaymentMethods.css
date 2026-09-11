@@ -173,7 +173,7 @@
     .pay-card--upi .pay-card__art{flex-basis:120px; width:120px; height:60px}
     .pay-card--upi .pay-card__arc{right:-40px; bottom:-60px; width:100px; height:100px}
     /* the marker moves off the name line to the card's bottom-right corner */
-    .pay-card__default{top:auto; bottom:12px; right:14px; height:34px; padding:0 16px; font-size:19px}
+    .pay-card__default{top:auto; bottom:12px; right:14px; height:26px; padding:0 12px; font-size:11px}
     .pay-card__menu{top:14px; right:14px; transform:none}
     .pay-card__popover{top:44px; right:14px; margin-top:0}
     .pay-option{gap:18px; padding:18px 20px; min-height:110px}
@@ -181,6 +181,27 @@
     .secure{gap:18px; padding:0 24px 0 28px; margin-top:36px}
     .page-action{margin-top:32px}
     .btn--add{gap:16px; letter-spacing:.14em; padding:0 24px}
-    .field{gap:16px; padding:18px 18px 18px 20px}
+    .field{gap:16px; padding:14px 18px; min-height:76px}
+    /* phone type scale */
+    .page-head .t-h1{font-size:40px}
+    .page-head__sub{font-size:15px; line-height:1.5}
+    .pay-section .t-section{font-size:24px}
+    .pay-section__add{font-size:14px; gap:10px}
+    .pay-card__name{font-size:19px}
+    .pay-card__number{font-size:15px; margin-top:6px}
+    .pay-card__expiry{font-size:13px; margin-top:6px}
+    .pay-card__handle{font-size:15px}
+    .pay-option__title{font-size:19px}
+    .pay-option__desc{font-size:14px; margin-top:6px}
+    .pay-option__icon svg{width:28px; height:28px}
+    .pay-option__chevron svg{width:14px; height:24px}
+    .secure__text{font-size:14px; line-height:1.5}
+    .btn--add{height:56px; font-size:14px}
+    .pay-list__empty{font-size:15px}
+    .field__label{font-size:13px}
+    .field__input{font-size:16px; margin-top:6px}
+    .field__brand{font-size:13px}
+    .pay-form__actions .btn{font-size:13px}
+    .pay-card__popover button{font-size:15px; padding:13px 22px}
   }
 }

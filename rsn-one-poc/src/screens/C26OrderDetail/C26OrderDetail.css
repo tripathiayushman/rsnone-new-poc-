@@ -129,32 +129,62 @@
                           border-top:1px solid var(--line); font-size:20px; color:var(--rose-light)}
   .detail-end{flex:0 0 40px}
 
-  /* ---- compact canvas (520px, phones) ---- */
+  /* ---- compact canvas (520px, phones): scale the whole page to a phone reading
+         size (the mock runs 50–60px titles and 20–27px body) ---- */
   .frame--compact & {
     .navbar{padding:0 24px}
+    .navbar__help{font-size:14px; gap:10px}
+    .navbar__help svg{width:20px; height:20px}
     .detail-head{padding:8px 24px 0}
-    .detail-head__title{font-size:50px}
-    .panel{margin:22px 24px 0}
-    .timeline--horizontal{padding:20px 12px 0}
-    .timeline__label{font-size:19px}
+    .detail-head__title{font-size:38px}
+    .detail-head__meta{font-size:14px; margin-top:8px}
+    .panel{margin:18px 24px 0}
+    /* horizontal tracker timeline: smaller dots + labels */
+    .timeline--horizontal{padding:18px 12px 0}
+    .timeline--horizontal .timeline__step::before{top:22px}
+    .timeline__marker{height:46px}
+    .timeline__dot{width:38px; height:38px}
+    .timeline__dot svg{width:20px; height:20px}
+    .timeline__step--current .timeline__dot{width:46px; height:46px}
+    .timeline__label{font-size:14px; margin-top:8px}
+    .timeline__time{font-size:12px; margin-top:6px}
     /* delivery note: text takes the row, the CTA drops to a full-width line below */
-    .tracker__note{flex-wrap:wrap; gap:16px 20px; padding:20px 24px}
-    .tracker__icon{flex-basis:44px}
+    .tracker__note{flex-wrap:wrap; gap:14px 18px; padding:18px 22px}
+    .tracker__icon{flex-basis:34px}
+    .tracker__icon svg{width:30px; height:auto}
     .tracker__text{flex:1 1 220px}
-    .tracker__cta{flex:0 0 100%; width:100%}
-    .detail-section{padding:28px 24px 0; gap:16px}
-    .address{gap:22px; padding:20px 24px 16px}
-    .address__pin{margin-top:6px}
-    /* item line: 160px photo leaves ~290px for the copy so the price chip no longer clips */
-    .order-item{gap:18px; padding:14px 24px 0}
-    .order-item__media{width:160px; height:140px; flex-basis:160px; border-radius:12px}
-    .order-item__body{padding-top:4px; min-width:0}
-    .order-item__title{font-size:27px}
-    .summary{padding:20px 24px}
+    .tracker__headline{font-size:16px}
+    .tracker__sub{font-size:13px; margin-top:8px}
+    .tracker__cta{flex:0 0 100%; width:100%; height:52px; font-size:14px; gap:12px}
+    .detail-section{padding:26px 24px 0; gap:16px}
+    .detail-section__title{font-size:24px}
+    .detail-section__link{font-size:13px}
+    .address{gap:18px; padding:18px 24px 16px}
+    .address__pin{margin-top:4px}
+    .address__pin svg{width:24px; height:auto}
+    .address__name{font-size:16px}
+    .address__line{font-size:14px; line-height:20px}
+    /* item line: 130px photo leaves room for the copy so the price chip no longer clips */
+    .order-item{gap:16px; padding:14px 24px 0}
+    .order-item__media{width:130px; height:114px; flex-basis:130px; border-radius:10px}
+    .order-item__body{padding-top:2px; min-width:0}
+    .order-item__title{font-size:19px}
+    .order-item__house{font-size:13px; margin-top:8px}
+    .order-item__price{font-size:18px; margin-top:12px}
+    .order-item__chip{font-size:12px; height:30px; padding:0 14px; margin-top:10px}
+    .order-item__qty{font-size:12px}
+    .summary{padding:18px 24px}
+    .summary__row{font-size:14px}
+    .summary__total-label{font-size:17px}
+    .summary__total-value{font-size:20px}
+    .summary__paid,.summary__invoice{font-size:13px}
     .help-cta,.return-note{width:auto; margin-left:24px; margin-right:24px; padding:0 16px}
-    .help-cta{gap:16px; text-align:center}
+    .help-cta{gap:14px; text-align:center; height:54px; font-size:14px}
+    .return-note{font-size:13px}
     .address-picker{margin:8px 24px 0}
-    .address-option{gap:16px; padding:18px 20px}
-    .address-option__label{flex-basis:110px}
+    .address-option{gap:16px; padding:16px 20px; font-size:14px}
+    .address-option__label{flex-basis:100px}
+    .address-picker__cancel{font-size:13px; padding:14px 20px}
+    .detail-end{flex-basis:24px}
   }
 }

@@ -57,13 +57,20 @@
   /* ---- compact canvas (520px, phones) ---- */
   .frame--compact & {
     --gutter:24px;
-    .poster__title{font-size:56px; line-height:64px; margin-top:84px}
-    .benefit-list__item{gap:28px; height:112px}
-    .benefit-list__icon{flex-basis:84px; width:84px; height:84px}
-    .c14-cta{margin:auto 24px 64px; height:112px}
-    .c14-cta .t-eyebrow{font-size:28px}
-    .c14-cta-row{flex-direction:column; gap:12px; margin:auto 24px 64px}
-    .c14-cta-row .c14-cta{flex:0 0 auto; margin:0; height:96px}
-    .c14-cta-row .t-eyebrow{font-size:24px}
+    /* fit the poster to the phone viewport so the "Become a Member" CTA (pinned
+       to the bottom via margin-top:auto) is visible without scrolling */
+    min-height:1080px;
+    .poster__title{font-size:40px; line-height:46px; margin-top:64px}
+    .poster__body{margin-top:14px; font-size:18px; line-height:1.4}
+    .poster__benefits{margin-top:24px}
+    .benefit-list__item{gap:16px; height:56px}
+    .benefit-list__icon{flex-basis:46px; width:46px; height:46px}
+    .benefit-list__icon svg{width:24px; height:24px}
+    .benefit-list__label{font-size:17px}
+    .c14-cta{margin:auto 24px 40px; height:58px}
+    .c14-cta .t-eyebrow{font-size:14px}
+    .c14-cta-row{flex-direction:column; gap:12px; margin:auto 24px 40px}
+    .c14-cta-row .c14-cta{flex:0 0 auto; margin:0; height:54px}
+    .c14-cta-row .t-eyebrow{font-size:14px}
   }
 }
